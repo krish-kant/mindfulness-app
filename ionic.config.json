@@ -1,0 +1,7 @@
+{
+  "name": "mindfulness-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue"
+}
