@@ -12,55 +12,77 @@
         </ion-toolbar>
       </ion-header>
 
-      <ion-grid class="ion-margin-top">
+      <ion-grid>
         <ion-row>
           <ion-col size="6" size-sm="4" v-for="n in items" :key="n.message">
-            <ion-card class="card-items">
-              <ion-card-header>
-                <ion-item lines="none">
-                  <ion-icon class="icon-item" :icon="time"></ion-icon>
-                  <ion-label>{{ n.message }}</ion-label>
-                </ion-item>
-              </ion-card-header>
-            </ion-card>
+            <!-- <ion-icon :icon="time"></ion-icon>
+                    <div>
+                      <ion-label>{{ n.message }}</ion-label>
+                    </div> -->
+            <ion-button color="secondary" shape="round" expand="full">
+              <ion-icon slot="start" :icon="time"></ion-icon>
+              <ion-label>{{ n.message }}</ion-label>
+            </ion-button>
           </ion-col>
         </ion-row>
       </ion-grid>
 
-      <ion-grid>
-        <ion-item lines="none">
-          <ion-text color="">
-            <h3>Recently played</h3>
-          </ion-text>
-        </ion-item>
-        <ion-row class="ion-justify-content-start">
+      <ion-grid class="ion-margin">
+        <ion-text color="">
+          <h3>Recently played</h3>
+        </ion-text>
+
+        <ion-row>
           <ion-col
             size="6"
             size-sm="3"
             v-for="n in recentlyPlayed"
             :key="n.message"
           >
-            <ion-card>
-              <img
-                alt="Silhouette of mountains"
-                src="https://ionicframework.com/docs/img/demos/card-media.png"
-              />
+            <img
+              alt="Silhouette of mountains"
+              src="https://ionicframework.com/docs/img/demos/card-media.png"
+            />
 
-              <ion-card-header class="recently-played-header">
-                <ion-item lines="none">
-                  <ion-text class="recently-played-text">{{
-                    n.message
-                  }}</ion-text>
-                </ion-item>
-              </ion-card-header>
-              <!-- 
-                    <ion-card-content>
-                      Here's a small text description for the card content. Nothing more, nothing less.
-                    </ion-card-content> -->
-            </ion-card>
+            <ion-label class="recently-played-text">
+              {{ n.message }}
+            </ion-label>
           </ion-col>
         </ion-row>
       </ion-grid>
+
+      <ion-grid class="ion-margin">
+        <ion-text color="">
+          <h3>Top rated</h3>
+        </ion-text>
+
+        <ion-row class="ion-justify-content-start">
+          <ion-col
+            size="12"
+            size-sm="6"
+            size-lg="4"
+            v-for="n in recentlyPlayed"
+            :key="n.message"
+          >
+            <div class="container">
+              <div class="tag">
+                <ion-icon :icon="lockClosed"></ion-icon>
+              </div>
+            </div>
+            <img
+              alt="Silhouette of mountains"
+              src="https://ionicframework.com/docs/img/demos/card-media.png"
+            />
+            <ion-item lines="none">
+              <ion-label>
+                {{ n.message }}
+              </ion-label>
+              <ion-icon :icon="bookmarkOutline"></ion-icon>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <!-- 
 
       <ion-grid>
         <ion-item lines="none">
@@ -88,18 +110,22 @@
               </div>
               <ion-card-header>
                 <ion-item lines="none">
-                  <ion-label>{{ n.message }}</ion-label>
+                  <ion-grid>
+                    <ion-row>
+                      <ion-col class="ion-text-start">
+                        <ion-card-content>5 min</ion-card-content>
+
+                        <ion-card-content>{{ n.message }}</ion-card-content>
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
                   <ion-icon :icon="bookmarkOutline" slot="end"></ion-icon>
                 </ion-item>
               </ion-card-header>
-              <!-- 
-              <ion-card-content>
-                Here's a small text description for the card content. Nothing more, nothing less.
-              </ion-card-content> -->
             </ion-card>
           </ion-col>
         </ion-row>
-      </ion-grid>
+      </ion-grid> -->
     </ion-content>
   </ion-page>
 </template>
@@ -143,13 +169,15 @@ ion-card-header.ios {
 
 .card-items {
   text-align: center;
-  margin: 6px;
-  padding-top: 8px;
-  padding-bottom: 8px;
+  margin: 8px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  padding-right: 10px;
 }
 
 ion-card-header {
-  padding: 2px !important;
+  /* padding-left: 0px !important; */
+  padding: 0px !important;
 }
 
 .container {
@@ -168,16 +196,47 @@ ion-card-header {
   font-weight: bold;
 }
 
-.icon-item {
-  padding-right: 5px;
-}
-
 .recently-played-text {
   font-size: 14px;
-  padding: 0px;
+  padding: 2px;
 }
 
 .recently-played-header {
   padding: 0px;
+}
+
+ion-grid {
+  --ion-grid-padding: 10px;
+
+  --ion-grid-padding-xs: 10px;
+  --ion-grid-padding-sm: 20px;
+  --ion-grid-padding-md: 20px;
+  --ion-grid-padding-lg: 20px;
+  --ion-grid-padding-xl: 20px;
+
+  --ion-grid-column-padding: 10px;
+
+  --ion-grid-column-padding-xs: 10px;
+  --ion-grid-column-padding-sm: 30px;
+  --ion-grid-column-padding-md: 30px;
+  --ion-grid-column-padding-lg: 30px;
+  --ion-grid-column-padding-xl: 30px;
+}
+
+/* ion-col {
+  background-color: #135d54;
+  border: solid 1px #fff;
+  color: #fff;
+} */
+
+img {
+  border-radius: 5px;
+}
+ion-button {
+  --border-radius: 5px;
+}
+ion-item {
+  --padding-start: 0px;
+  --padding-end: 0px;
 }
 </style>
