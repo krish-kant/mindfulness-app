@@ -16,15 +16,19 @@ const routes= [
       },
       {
         path: 'tab1',
-        component: () => import('@/views/Tab1Page.vue')
+        component: () => import('@/views/homePage.vue')
       },
       {
         path: 'tab2',
-        component: () => import('@/views/Tab2Page.vue')
+        component: () => import('@/views/libraryPage.vue')
       },
       {
         path: 'tab3',
-        component: () => import('@/views/Tab3Page.vue')
+        component: () => import('@/views/goalsPage.vue')
+      },
+      {
+        path: 'tab4',
+        component: () => import('@/views/profilePage.vue')
       }
     ]
   }
