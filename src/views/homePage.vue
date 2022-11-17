@@ -53,10 +53,6 @@
                   }}</ion-text>
                 </ion-item>
               </ion-card-header>
-              <!-- 
-                    <ion-card-content>
-                      Here's a small text description for the card content. Nothing more, nothing less.
-                    </ion-card-content> -->
             </ion-card>
           </ion-col>
         </ion-row>
@@ -92,10 +88,6 @@
                   <ion-icon :icon="bookmarkOutline" slot="end"></ion-icon>
                 </ion-item>
               </ion-card-header>
-              <!-- 
-              <ion-card-content>
-                Here's a small text description for the card content. Nothing more, nothing less.
-              </ion-card-content> -->
             </ion-card>
           </ion-col>
         </ion-row>
