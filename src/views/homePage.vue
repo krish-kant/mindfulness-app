@@ -20,14 +20,14 @@
 
       <ion-grid class="ion-margin-top">
         <ion-row>
-          <ion-col size="6" size-sm="4" size-lg="3" v-for="n in items" :key="n.message">
+          <ion-col size="6" size-sm="4" v-for="n in items" :key="n.message">
             <ion-card class="card-items">
 
               <ion-card-header>
 
                 <ion-item lines="none">
 
-                  <ion-icon :icon="time" class="ion-padding-end"></ion-icon>
+                  <ion-icon class="icon-item" :icon="time"></ion-icon>
                   <ion-label>{{ n.message }}</ion-label>
                 </ion-item>
               </ion-card-header>
@@ -36,14 +36,41 @@
         </ion-row>
       </ion-grid>
 
-      <ion-grid class="ion-margin-top">
+      <ion-grid>
         <ion-item lines="none">
           <ion-text color="">
-            <h3>Items</h3>
+            <h3>Recently played</h3>
           </ion-text>
         </ion-item>
-        <ion-row class="ion-justify-content-center">
-          <ion-col size="12" size-sm="6" size-lg="4" v-for="n in items" :key="n.message">
+        <ion-row class="ion-justify-content-start">
+          <ion-col size="6" size-sm="3" v-for="n in recentlyPlayed" :key="n.message">
+            <ion-card>
+              <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
+
+              <ion-card-header class="recently-played-header">
+
+                <ion-item lines="none">
+                  <ion-text class="recently-played-text">{{ n.message }}</ion-text>
+
+                </ion-item>
+              </ion-card-header>
+              <!-- 
+                    <ion-card-content>
+                      Here's a small text description for the card content. Nothing more, nothing less.
+                    </ion-card-content> -->
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-grid>
+        <ion-item lines="none">
+          <ion-text color="">
+            <h3>Top rated</h3>
+          </ion-text>
+        </ion-item>
+        <ion-row class="ion-justify-content-start">
+          <ion-col size="12" size-sm="6" size-lg="4" v-for="n in recentlyPlayed" :key="n.message">
             <ion-card>
               <div class="container">
                 <div class="tag">
@@ -83,6 +110,8 @@ import { ref } from "vue";
 
 const items = ref([{ message: 'Yoga' }, { message: 'Meditation' }, { message: 'Breethe' }, { message: 'Timer' }, { message: 'SOS' }, { message: 'Sleep' }])
 
+const recentlyPlayed = ref([{ message: 'Yoga and mindfulness' }, { message: 'Meditation and yoga' }, { message: 'Breethe' }, { message: 'Timer guided' }, { message: 'Yoga and mindfulness' }, { message: 'Meditation and yoga' }])
+
 
 </script>
 
@@ -99,13 +128,10 @@ ion-card-header.ios {
 
   text-align: center;
   margin: 6px;
-  padding: 8px;
+  padding-top: 8px;
+  padding-bottom: 8px;
 
 }
-
-
-
-
 
 ion-card-header {
   padding: 2px !important;
@@ -127,5 +153,18 @@ ion-card-header {
   padding: 5px;
   color: #ebad1c;
   font-weight: bold;
+}
+
+.icon-item {
+  padding-right: 5px;
+}
+
+.recently-played-text {
+  font-size: 14px;
+  padding: 0px;
+}
+
+.recently-played-header {
+  padding: 0px;
 }
 </style>
