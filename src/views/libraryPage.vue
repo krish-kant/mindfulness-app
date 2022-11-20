@@ -32,7 +32,7 @@
       <ion-grid class="ion-margin-start ion-margin-end">
         <ion-row class="ion-justify-content-center">
           <ion-col>
-            <ion-list v-show="recentlyPlayledLength">
+            <ion-list v-if="recentlyPlayledLength">
               <!-- The reorder gesture is disabled by default, enable it to drag and drop items -->
               <ion-reorder-group
                 :disabled="false"
@@ -41,7 +41,7 @@
                 <ion-item v-for="n in recentlyPlayed" :key="n.message">
                   <ion-icon
                     class="hidden"
-                    v-show="!deletePlaylistItem"
+                    v-if="!deletePlaylistItem"
                     :icon="removeCircleOutline"
                     @click="deleteItemfromPlaylist(n.message)"
                     slot="start"
@@ -79,16 +79,16 @@ let recentlyPlayed = ref([
   { message: "Meditation and yoga Meditation, mindfulness, yoga" },
   { message: "Breethe" },
   { message: "Timer guided" },
-  { message: "Meditation and yoga Meditation, mindfulness, yoga" },
+  { message: "Meditation and yoga Meditation, mindfulness, yoga1" },
   { message: "Yoga and mindfulness" },
-  { message: "Meditation and yoga Meditation, mindfulness, yoga" },
-  { message: "Timer guided" },
+  { message: "Meditation and yoga Meditation, mindfulness, yoga2" },
+  { message: "Timer guided1" },
   { message: "Yoga and mindfulness" },
-  { message: "Timer guided" },
-  { message: "Yoga and mindfulness" },
-  { message: "Yoga and mindfulness" },
-  { message: "Yoga and mindfulness" },
-  { message: "Yoga and mindfulness" },
+  { message: "Timer guided2" },
+  { message: "Yoga and mindfulness1" },
+  { message: "Yoga and mindfulness2" },
+  { message: "Yoga and mindfulness3" },
+  { message: "Yoga and mindfulness4" },
 ]);
 
 const handleReorder = (event) => {
