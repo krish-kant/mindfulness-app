@@ -1,6 +1,6 @@
 <template>
   <ion-page>
-    <ion-header>
+    <ion-header class="ion-no-border">
       <ion-toolbar>
         <ion-title>Profile</ion-title>
       </ion-toolbar>
@@ -11,15 +11,17 @@
           <ion-title size="large">Profile</ion-title>
         </ion-toolbar>
       </ion-header>
-      
-
     </ion-content>
   </ion-page>
 </template>
 
 <script setup>
-
-import { IonPage, IonContent } from '@ionic/vue';
-
-
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from "@ionic/vue";
 </script>
+
+<style scoped>
+ion-toolbar {
+  --background: #ffffff;
+  --border-color: #ffffff;
+}
+</style>
