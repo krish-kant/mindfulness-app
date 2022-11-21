@@ -95,6 +95,8 @@ import {
   IonList,
   IonReorderGroup,
   IonSearchbar,
+  IonSegment,
+  IonSegmentButton,
 } from "@ionic/vue";
 import { createOutline, removeCircleOutline } from "ionicons/icons";
 import { ref, onMounted, watch } from "vue";
