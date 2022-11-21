@@ -7,18 +7,25 @@
     </ion-header>
     <ion-content :fullscreen="true">
       <ion-searchbar
+        animated="true"
         @click="() => router.push('/search')"
-        placeholder="Custom Placeholder"
       ></ion-searchbar>
 
-      <ion-grid class="ion-margin-start ion-margin-end">
+      <ion-grid>
         <ion-row class="ion-justify-content-center">
           <ion-col>
             <ion-item lines="none">
-              <div class="list-header">
-                <ion-label class="playlist-text">Playlist</ion-label>
-                <ion-label class="bookmark-text">Bookmark</ion-label>
+              <div>
+                <ion-segment value="default">
+                  <ion-segment-button value="default">
+                    <ion-label>Playlist</ion-label>
+                  </ion-segment-button>
+                  <ion-segment-button value="segment">
+                    <ion-label>Bookmarks</ion-label>
+                  </ion-segment-button>
+                </ion-segment>
               </div>
+
               <ion-icon
                 @click="() => (deletePlaylistItem = !deletePlaylistItem)"
                 :icon="createOutline"
@@ -29,16 +36,21 @@
         </ion-row>
       </ion-grid>
 
-      <ion-grid class="ion-margin-start ion-margin-end">
+      <ion-grid>
         <ion-row class="ion-justify-content-center">
           <ion-col>
-            <ion-list v-if="recentlyPlayledLength">
+            <ion-list button v-if="recentlyPlayledLength">
               <!-- The reorder gesture is disabled by default, enable it to drag and drop items -->
               <ion-reorder-group
                 :disabled="false"
                 @ionItemReorder="handleReorder($event)"
               >
-                <ion-item v-for="n in recentlyPlayed" :key="n.message">
+                <ion-item
+                  button
+                  detail="false"
+                  v-for="n in recentlyPlayed"
+                  :key="n.message"
+                >
                   <ion-icon
                     class="hidden"
                     v-if="!deletePlaylistItem"
@@ -65,7 +77,24 @@
   </ion-page>
 </template>
 <script setup>
-import { IonPage, IonContent } from "@ionic/vue";
+import {
+  IonPage,
+  IonContent,
+  IonBackButton,
+  IonButtons,
+  IonHeader,
+  IonToolbar,
+  IonGrid,
+  IonItem,
+  IonButton,
+  IonRow,
+  IonCol,
+  IonLabel,
+  IonCheckbox,
+  IonText,
+  IonList,
+  IonReorderGroup,
+} from "@ionic/vue";
 import { createOutline, removeCircleOutline } from "ionicons/icons";
 import { ref, onMounted, watch } from "vue";
 import { useRouter } from "vue-router";

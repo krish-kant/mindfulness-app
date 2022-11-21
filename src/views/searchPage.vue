@@ -9,9 +9,9 @@
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
-      <ion-searchbar placeholder="Custom Placeholder"></ion-searchbar>
+      <ion-searchbar></ion-searchbar>
 
-      <ion-grid class="ion-margin-start ion-margin-end">
+      <ion-grid>
         <ion-row class="scroll-items">
           <ion-col>
             <ion-button>Yoga</ion-button>
@@ -29,13 +29,18 @@
         </ion-row>
       </ion-grid>
 
-      <ion-grid class="ion-margin-start ion-margin-end">
+      <ion-grid>
         <ion-row class="ion-justify-content-center">
           <ion-col>
             <ion-list>
               <!-- The reorder gesture is disabled by default, enable it to drag and drop items -->
 
-              <ion-item v-for="n in recentlyPlayed" :key="n.message">
+              <ion-item
+                button
+                detail="false"
+                v-for="n in recentlyPlayed"
+                :key="n.message"
+              >
                 <ion-thumbnail slot="start">
                   <img
                     alt="Silhouette of mountains"
@@ -52,14 +57,25 @@
     </ion-content>
   </ion-page>
 </template>
+
 <script setup>
 import {
   IonPage,
   IonContent,
   IonBackButton,
   IonButtons,
-  IonScroll,
+  IonHeader,
   IonToolbar,
+  IonGrid,
+  IonItem,
+  IonButton,
+  IonRow,
+  IonCol,
+  IonLabel,
+  IonCheckbox,
+  IonText,
+  IonList,
+  IonReorderGroup,
 } from "@ionic/vue";
 import { ref } from "vue";
 import { bookmarkOutline } from "ionicons/icons";

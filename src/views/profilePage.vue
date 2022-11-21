@@ -16,7 +16,24 @@
 </template>
 
 <script setup>
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from "@ionic/vue";
+import {
+  IonPage,
+  IonContent,
+  IonBackButton,
+  IonButtons,
+  IonHeader,
+  IonToolbar,
+  IonGrid,
+  IonItem,
+  IonButton,
+  IonRow,
+  IonCol,
+  IonLabel,
+  IonCheckbox,
+  IonText,
+  IonList,
+  IonReorderGroup,
+} from "@ionic/vue";
 </script>
 
 <style scoped>

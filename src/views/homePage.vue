@@ -4,7 +4,7 @@
       <ion-toolbar> </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
-      <ion-grid class="ion-margin">
+      <ion-grid class="ion-margin-start ion-margin-end">
         <ion-text color="">
           <h1>Hi Krishna</h1>
         </ion-text>
@@ -18,7 +18,6 @@
             :key="n.message"
           >
             <div class="navigation-items-background">
-              <!-- <ion-icon :icon="time"></ion-icon> -->
               <img
                 src="https://img.icons8.com/fluency-systems-regular/32/000000/yoga.png"
               />
@@ -28,7 +27,7 @@
         </ion-row>
       </ion-grid>
 
-      <ion-grid class="ion-margin">
+      <ion-grid class="ion-margin-start ion-margin-end">
         <ion-text color="">
           <h3>Recently played</h3>
         </ion-text>
@@ -37,24 +36,15 @@
           <ion-col size="6" size-sm="3" v-for="n in recentlyPlayed" :key="n.message">
             <div class="container">
               <img alt="Silhouette of mountains" src="https://picsum.photos/600/400" />
-              <div class="item-tag">
-                <!-- <ion-badge
-                  ><img
-                    src="https://img.icons8.com/material-rounded/18/null/sleeping-in-bed.png"
-                /></ion-badge> -->
-              </div>
+              <div class="item-tag"></div>
             </div>
 
-            <ion-label class="recently-played-text">{{ n.message }}</ion-label>
-
-            <!-- <ion-label class="recently-played-text">
-              {{ n.message }}
-            </ion-label> -->
+            <div class="recently-played-text">{{ n.message }}</div>
           </ion-col>
         </ion-row>
       </ion-grid>
 
-      <ion-grid class="ion-margin">
+      <ion-grid class="ion-margin-start ion-margin-end">
         <ion-text color="">
           <h3>Top rated</h3>
         </ion-text>
@@ -83,27 +73,16 @@
                     src="https://img.icons8.com/fluency-systems-regular/18/000000/yoga.png"
                 /></ion-badge>
               </div>
-              <!-- <div class="bookmark-icon">
-                <ion-icon size="large" :icon="bookmarkOutline"></ion-icon>
-              </div> -->
             </div>
-            <!-- <img
-              alt="Silhouette of mountains"
-              src="https://picsum.photos/400/300"
-            /> -->
-            <!-- <ion-label> 5 min</ion-label> -->
 
-            <!-- <ion-item lines="none"> -->
             <div class="bookmark-card-text">
-              <ion-label> {{ n.message }}</ion-label>
+              <ion-label class="recently-played-text"> {{ n.message }}</ion-label>
               <ion-icon
                 class="bookmark-icon"
                 size="large"
                 :icon="bookmarkOutline"
               ></ion-icon>
             </div>
-            <!-- </ion-item> -->
-            <!-- <ion-item> {{ n.message }}</ion-item> -->
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -112,7 +91,22 @@
 </template>
 
 <script setup>
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from "@ionic/vue";
+import {
+  IonPage,
+  IonContent,
+  IonBackButton,
+  IonButtons,
+  IonHeader,
+  IonToolbar,
+  IonGrid,
+  IonItem,
+  IonButton,
+  IonRow,
+  IonCol,
+  IonLabel,
+  IonCheckbox,
+  IonText,
+} from "@ionic/vue";
 import { lockClosed, bookmarkOutline } from "ionicons/icons";
 import { ref } from "vue";
 
@@ -126,8 +120,11 @@ const items = ref([
 ]);
 
 const recentlyPlayed = ref([
-  { message: "Yoga and mindfulness" },
-  { message: "Meditation and yoga Meditation, mindfulness, yoga" },
+  { message: "Yoga and mindfulness1" },
+  {
+    message:
+      "Meditation and yoga Meditation, mindfulness, yoga Meditation and yoga Meditation and yoga Meditation, mindfulness, yoga",
+  },
   { message: "Breethe" },
   { message: "Timer guided" },
 ]);
@@ -188,15 +185,6 @@ ion-card-header {
   padding: 5px;
   /* color: #ebad1c; */
   font-weight: bold;
-}
-
-.recently-played-text {
-  font-size: 14px;
-  padding: 2px;
-}
-
-.recently-played-header {
-  padding: 0px;
 }
 
 ion-grid {
@@ -274,9 +262,13 @@ ion-item {
 }
 
 .recently-played-text {
-  font-size: 14px;
-  display: block;
-  word-break: break-all;
+  font-size: medium;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* number of lines to show */
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 
 .bookmark-card-text {
