@@ -94,6 +94,10 @@ import {
   IonText,
   IonList,
   IonReorderGroup,
+  IonSearchbar,
+  IonSegment,
+  IonSegmentButton,
+  Ionreorder,
 } from "@ionic/vue";
 import { createOutline, removeCircleOutline } from "ionicons/icons";
 import { ref, onMounted, watch } from "vue";
@@ -180,10 +184,6 @@ ion-item {
   font-weight: 600;
   color: #707578;
   /* text-decoration: underline blue 5px; */
-}
-ion-toolbar {
-  --background: #ffffff;
-  --border-color: #ffffff;
 }
 
 .list-header {

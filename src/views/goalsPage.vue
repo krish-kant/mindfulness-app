@@ -261,11 +261,6 @@ ion-item {
   flex: 0 0 30px;
 }
 
-ion-toolbar {
-  --background: #ffffff;
-  --border-color: #ffffff;
-}
-
 .scroll-items {
   justify-content: flex-start;
   flex-wrap: nowrap;
