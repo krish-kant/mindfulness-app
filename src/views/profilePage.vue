@@ -2,14 +2,14 @@
   <ion-page>
     <ion-header class="ion-no-border">
       <ion-toolbar>
-        <ion-title>Profile</ion-title>
+        <!-- <ion-title>Profile</ion-title> -->
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
       <ion-header collapse="condense">
-        <ion-toolbar>
+        <!-- <ion-toolbar>
           <ion-title size="large">Profile</ion-title>
-        </ion-toolbar>
+        </ion-toolbar> -->
       </ion-header>
     </ion-content>
   </ion-page>
@@ -36,9 +36,4 @@ import {
 } from "@ionic/vue";
 </script>
 
-<style scoped>
-ion-toolbar {
-  --background: #ffffff;
-  --border-color: #ffffff;
-}
-</style>
+<style scoped></style>

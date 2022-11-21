@@ -106,6 +106,7 @@ import {
   IonLabel,
   IonCheckbox,
   IonText,
+  IonBadge,
 } from "@ionic/vue";
 import { lockClosed, bookmarkOutline } from "ionicons/icons";
 import { ref } from "vue";
@@ -280,10 +281,5 @@ ion-item {
 
 .bookmark-icon {
   flex: 0 0 30px;
-}
-
-ion-toolbar {
-  --background: #ffffff;
-  --border-color: #ffffff;
 }
 </style>

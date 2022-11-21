@@ -184,10 +184,6 @@ ion-item {
   color: #707578;
   /* text-decoration: underline blue 5px; */
 }
-ion-toolbar {
-  --background: #ffffff;
-  --border-color: #ffffff;
-}
 
 .list-header {
   display: flex;
