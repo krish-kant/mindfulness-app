@@ -8,7 +8,7 @@
     <ion-content :fullscreen="true">
       <ion-searchbar
         animated="true"
-        @click="() => router.push('/search')"
+        @click="() => router.push('/tabs/tab2/search')"
       ></ion-searchbar>
 
       <ion-grid>
@@ -50,6 +50,7 @@
                   detail="false"
                   v-for="n in recentlyPlayed"
                   :key="n.message"
+                  @click="() => router.push('/tabs/tab2/music-player')"
                 >
                   <ion-icon
                     class="hidden"
@@ -97,7 +98,7 @@ import {
   IonSearchbar,
   IonSegment,
   IonSegmentButton,
-  IonReorder
+  IonReorder,
 } from "@ionic/vue";
 import { createOutline, removeCircleOutline } from "ionicons/icons";
 import { ref, onMounted, watch } from "vue";
@@ -170,26 +171,6 @@ ion-item {
   --inner-padding-bottom: 0px;
   /* --background: blue; */
   --inner-padding-top: 0px;
-}
-
-.playlist-text {
-  font-size: 20px;
-  font-weight: 600;
-  color: #4b90be;
-  /* text-decoration: underline blue 5px; */
-}
-
-.bookmark-text {
-  /* font-size: 20px; */
-  font-weight: 600;
-  color: #707578;
-  /* text-decoration: underline blue 5px; */
-}
-
-.list-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  min-width: 180px;
+  --background: none !important;
 }
 </style>

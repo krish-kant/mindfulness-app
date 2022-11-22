@@ -8,7 +8,7 @@
         <ion-item lines="none"
           ><ion-icon
             class="add-goals-icon"
-            @click="() => router.push('/add-goals')"
+            @click="() => router.push('/tabs/tab3/add-goals')"
             slot="end"
             :icon="addCircleOutline"
           ></ion-icon
@@ -217,6 +217,7 @@ ion-item {
   --inner-padding-bottom: 0px;
   /* --background: blue; */
   --inner-padding-top: 0px;
+  --background: none !important;
 }
 
 .navigation-items {
