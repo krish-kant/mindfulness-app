@@ -5,7 +5,7 @@
     </ion-header>
     <ion-content :fullscreen="true">
       <ion-grid class="ion-margin-start ion-margin-end">
-        <ion-text color="">
+        <ion-text>
           <h1>Hi Krishna</h1>
         </ion-text>
 
@@ -28,7 +28,7 @@
       </ion-grid>
 
       <ion-grid class="ion-margin-start ion-margin-end">
-        <ion-text color="">
+        <ion-text>
           <h3>Recently played</h3>
         </ion-text>
 

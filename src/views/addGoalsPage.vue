@@ -11,7 +11,9 @@
     <ion-content :fullscreen="true">
       <ion-grid class="ion-margin">
         <ion-item class="heading" lines="none">
-          <h1>Add Goals</h1>
+          <ion-text>
+            <h1>Add Goals</h1>
+          </ion-text>
           <ion-button size="default" slot="end">Save</ion-button>
         </ion-item>
         <ion-row class="ion-justify-content-start">
@@ -61,10 +63,6 @@ const recentlyPlayed = ref([
 </script>
 
 <style scoped>
-.wide-item {
-  width: 1000px;
-}
-
 .scroll-items {
   justify-content: flex-start;
   flex-wrap: nowrap;
@@ -96,13 +94,12 @@ ion-item {
   /* background: transparent !important; */
   --background: url("https://picsum.photos/600/400") no-repeat center center / cover !important;
   --border-radius: 5px;
-  color: #ffffff;
   --padding-bottom: 10px;
   --padding-top: 10px;
 }
 .heading {
   --background: none !important;
-  color: black;
+
   --padding-bottom: 20px;
   --padding-top: 0px;
   --padding-end: 5px;

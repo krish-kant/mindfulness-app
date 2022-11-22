@@ -11,6 +11,15 @@
           <ion-title size="large">Profile</ion-title>
         </ion-toolbar> -->
       </ion-header>
+      <ion-grid class="ion-margin"
+        ><ion-row class="ion-justify-content-center"
+          ><ion-col>
+            <ion-datetime
+              presentation="date"
+              :multiple="true"
+              :value="['2022-06-03', '2022-06-13', '2022-06-29']"
+            ></ion-datetime> </ion-col></ion-row
+      ></ion-grid>
     </ion-content>
   </ion-page>
 </template>
@@ -33,6 +42,7 @@ import {
   IonText,
   IonList,
   IonReorderGroup,
+  IonDatetime,
 } from "@ionic/vue";
 </script>
 

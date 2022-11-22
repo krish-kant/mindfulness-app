@@ -31,12 +31,16 @@ const routes = [
         component: () => import("@/views/profilePage.vue"),
       },
       {
-        path: "/search",
+        path: "/tabs/tab2/search",
         component: () => import("@/views/searchPage.vue"),
       },
       {
-        path: "/add-goals",
+        path: "/tabs/tab3/add-goals",
         component: () => import("@/views/addGoalsPage.vue"),
+      },
+      {
+        path: "/tabs/tab2/music-player",
+        component: () => import("@/views/musicPlayerPage.vue"),
       },
     ],
   },
