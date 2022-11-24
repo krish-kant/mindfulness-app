@@ -93,7 +93,7 @@
             type="range"
             @change="mSet"
             min="0"
-            step="0.25"
+            step=".1"
             :max="trackDuration"
             ref="input"
             style="width: 100%"
@@ -195,9 +195,12 @@ export default defineComponent({
 
   methods: {
     mSet: function () {
-      this.audio.currentTime = this.value;
-      console.log(this.audio.currentTime);
-      console.log(this.value);
+      this.stopAudio();
+
+      setTimeout(() => {
+        this.audio.currentTime = this.value;
+        this.playAudio();
+      }, "250");
     },
     togglePlaylist: function () {
       this.isPlaylistActive = !this.isPlaylistActive;
