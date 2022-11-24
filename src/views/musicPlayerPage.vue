@@ -49,10 +49,12 @@
               v-on:click="prevSong()"
               title="Previous Song"
             >
-              <img
-                src="https://img.icons8.com/ios-filled/50/null/skip-to-start--v1.png"
-              />
-              <!-- <ion-icon name="playSkipBackSharp"></ion-icon> -->
+              <svg style="width: 50px; height: 50px" viewBox="0 0 24 24">
+                <path
+                  fill="currentColor"
+                  d="M6,18V6H8V18H6M9.5,12L18,6V18L9.5,12Z"
+                />
+              </svg>
             </a>
             <a
               class="button play"
@@ -61,18 +63,9 @@
             >
               <transition name="slide-fade" mode="out-in">
                 <div>
-                  <img
-                    v-show="!currentlyPlaying"
-                    src="https://img.icons8.com/ios-filled/70/null/play--v1.png"
-                  />
-                  <img
-                    v-show="currentlyPlaying"
-                    src="https://img.icons8.com/ios-filled/70/null/pause--v1.png"
-                  />
-                  <!-- <ion-icon v-show="!currentlyPlaying" name="playSharp"></ion-icon>
-                  <ion-icon v-show="currentlyPlaying" name="pauseSharp"></ion-icon> -->
-                  <!-- <ion-icon :icon="playSharp"></ion-icon> -->
-                  <!-- <ion-icon :name="playSharp"></ion-icon> -->
+                  <play-circle-icon :size="70" v-show="!currentlyPlaying" />
+
+                  <pause-circle-icon :size="70" v-show="currentlyPlaying" />
                 </div>
               </transition>
             </a>
@@ -82,10 +75,12 @@
               v-on:click="nextSong()"
               title="Next Song"
             >
-              <img
-                src="https://img.icons8.com/ios-filled/50/null/end--v1.png"
-              />
-              <!-- <ion-icon name="playSkipForwardSharp"></ion-icon> -->
+              <svg style="width: 50px; height: 50px" viewBox="0 0 24 24">
+                <path
+                  fill="currentColor"
+                  d="M16,18H18V6H16M6,18L14.5,12L6,6V18Z"
+                />
+              </svg>
             </a>
           </div>
 
@@ -99,7 +94,7 @@
             type="range"
             @input="mSet"
             min="0"
-            step="any"
+            step="1"
             :max="trackDuration"
             ref="input"
             style="width: 100%"
@@ -118,17 +113,12 @@ import {
   IonButtons,
   IonHeader,
   IonToolbar,
-  IonRange,
 } from "@ionic/vue";
 
 import { defineComponent } from "vue";
 
-import {
-  playSkipForwardSharp,
-  playSkipBackSharp,
-  playSharp,
-  pauseSharp,
-} from "ionicons/icons";
+import PlayCircleIcon from "vue-material-design-icons/PlayCircle.vue";
+import PauseCircleIcon from "vue-material-design-icons/PauseCircle.vue";
 
 export default defineComponent({
   name: "App",
@@ -139,7 +129,8 @@ export default defineComponent({
     IonButtons,
     IonHeader,
     IonToolbar,
-    // IonRange,
+    PlayCircleIcon,
+    PauseCircleIcon,
   },
   data: function () {
     return {
@@ -159,13 +150,13 @@ export default defineComponent({
         {
           title: "Service Bell",
           artist: "Daniel Simion",
-          url: "https://soundbible.com/mp3/service-bell_daniel_simion.mp3",
+          url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
           image: "https://source.unsplash.com/crs2vlkSe98/400x400",
         },
         {
           title: "Meadowlark",
           artist: "Daniel Simion",
-          url: "https://soundbible.com/mp3/meadowlark_daniel-simion.mp3",
+          url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
           image: "https://source.unsplash.com/35bE_njbG9E/400x400",
         },
         {
@@ -177,50 +168,40 @@ export default defineComponent({
         {
           title: "Creepy Background",
           artist: "Daniel Simion",
-          url: "http://soundbible.com/mp3/creepy-background-daniel_simon.mp3",
-          image: "https://source.unsplash.com/j0g8taxHZa0/400x400",
+          url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+          image: "https://source.unsplash.com/BjNXpLGnJI0/400x400",
         },
       ],
       audioFile: "",
-      // playSharp,
-      // playSkipForwardSharp,
-      // playSkipBackSharp,
-      // pauseSharp,
     };
   },
 
   mounted: function () {
     this.changeSong();
     this.audio.loop = false;
+    this.audio.preload = "metadata";
   },
-  //   filters: {
-  //     fancyTimeFormat: function (s) {
-  //       return (s - (s %= 60)) / 60 + (9 < s ? ":" : ":0") + s;
-  //     },
-  //   },
 
   methods: {
     mSet: function () {
-      this.stopAudio();
-
-      setTimeout(() => {
-        this.audio.currentTime = this.value;
-        this.playAudio();
-      }, "250");
+      this.audio.currentTime = this.value;
     },
     togglePlaylist: function () {
       this.isPlaylistActive = !this.isPlaylistActive;
     },
     nextSong: function () {
-      if (this.currentSong < this.musicPlaylist.length - 1)
+      if (this.currentSong < this.musicPlaylist.length - 1) {
         this.changeSong(this.currentSong + 1);
-      this.value = 0;
-      this.currentTime = 0;
+        this.value = 0;
+        this.currentTime = 0;
+      }
     },
     prevSong: function () {
-      if (this.currentSong > 0) this.changeSong(this.currentSong - 1);
-      this.value = 0;
-      this.currentTime = 0;
+      if (this.currentSong > 0) {
+        this.changeSong(this.currentSong - 1);
+        this.value = 0;
+        this.currentTime = 0;
+      }
     },
     changeSong: function (index) {
       var wasPlaying = this.currentlyPlaying;
@@ -337,16 +318,6 @@ export default defineComponent({
 </script>
 
 <style scoped>
-/* Debugging */
-/* .debug main * {
-  outline: solid 0.25rem rgba(255, 0, 0, 0.25);
-} */
-/* * {
-  box-sizing: border-box;
-} */
-.animated {
-  animation-duration: 0.5s;
-}
 .audioPlayer {
   position: relative;
   /* background-color: #eceff1; */
@@ -359,89 +330,19 @@ export default defineComponent({
   /* box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22); */
   /* user-select: none; */
 }
-.audioPlayer .nav-icon {
-  width: 15px;
-  height: 12px;
-  position: absolute;
-  top: 1.125rem;
-  left: 1.5rem;
-  transform: rotate(0deg);
-  transition: 0.25s ease-in-out;
-  cursor: pointer;
-}
-.audioPlayer .nav-icon span {
-  display: block;
-  position: absolute;
-  height: 2px;
-  width: 100%;
-  background: rgba(0, 0, 0, 0.75);
-  border-radius: 6px;
-  opacity: 1;
-  left: 0;
-  transform: rotate(0deg);
-  transition: 0.5s ease-in-out;
-}
-.audioPlayer .nav-icon span:nth-child(1) {
-  top: 0px;
-}
-.audioPlayer .nav-icon span:nth-child(2) {
-  top: 5px;
-}
-.audioPlayer .nav-icon span:nth-child(3) {
-  top: 10px;
-}
-.audioPlayer .nav-icon.isActive span:nth-child(1) {
-  top: 5px;
-  transform: rotate(135deg);
-}
-.audioPlayer .nav-icon.isActive span:nth-child(2) {
-  opacity: 0;
-  left: -60px;
-}
-.audioPlayer .nav-icon.isActive span:nth-child(3) {
-  top: 5px;
-  transform: rotate(-135deg);
-}
-.audioPlayer .audioPlayerList {
-  color: rgba(0, 0, 0, 0.75);
-  width: 17rem;
-  transition: 0.5s;
-  transform: translateX(-200%);
-  position: absolute;
-  margin-top: 1.5rem;
-  overflow: auto;
-  z-index: 10;
-  will-change: transform;
-}
-.audioPlayer .audioPlayerList.isActive {
-  transform: translateX(0);
-}
-.audioPlayer .audioPlayerList .item {
-  margin-bottom: 1.5rem;
-  border-left: 0.1rem solid transparent;
-  transition: 0.2s;
-}
-.audioPlayer .audioPlayerList .item:hover {
-  padding-left: 0.5rem;
-  cursor: pointer;
-}
-.audioPlayer .audioPlayerList .item .title {
-  color: rgba(0, 0, 0, 1);
+
+.audioPlayer .title {
+  /* color: rgba(0, 0, 0, 1); */
+  color: var(--ion-text-color);
   font-size: 1rem;
   margin-bottom: 0.75rem;
 }
-.audioPlayer .audioPlayerList .item .artist {
-  color: rgba(0, 0, 0, 0.5);
+.audioPlayer .artist {
+  /* color: rgba(0, 0, 0, 0.5); */
+  color: var(--ion-text-color);
   font-size: 0.8rem;
 }
-.audioPlayer .audioPlayerList .item.isActive {
-  border-left-color: black;
-  padding-left: 1rem;
-}
-.audioPlayer .audioPlayerList .debugToggle {
-  cursor: pointer;
-  color: red;
-}
+
 .audioPlayer .audioPlayerUI {
   margin-top: 1.5rem;
   will-change: transform, filter;
@@ -460,13 +361,15 @@ export default defineComponent({
 }
 .audioPlayer .audioPlayerUI .albumDetails p.title {
   font-size: 1rem;
-  color: rgba(0, 0, 0, 1);
+  /* color: rgba(0, 0, 0, 1); */
+  color: var(--ion-text-color);
 }
 .audioPlayer .audioPlayerUI .albumDetails p.artist {
   margin-top: 0.5rem;
   font-size: 0.75rem;
   font-weight: none;
-  color: rgba(0, 0, 0, 0.75);
+  /* color: rgba(0, 0, 0, 0.75); */
+  color: var(--ion-text-color);
   transition-delay: 100ms;
 }
 .audioPlayer .audioPlayerUI .albumImage {
@@ -494,7 +397,9 @@ export default defineComponent({
   vertical-align: middle;
   padding: 0.5rem;
   margin: 0 0.25rem;
-  color: rgba(0, 0, 0, 0.75);
+  /* color: rgba(0, 0, 0, 0.75); */
+  /* --color:--ion-text-color */
+  color: var(--ion-text-color);
   border-radius: 50%;
   outline: 0;
   text-decoration: none;
@@ -510,7 +415,8 @@ export default defineComponent({
   transform: scale(0.75);
 }
 .audioPlayer .audioPlayerUI .playerButtons .button.isDisabled {
-  color: rgba(0, 0, 0, 0.2);
+  /* color: rgba(0, 0, 0, 0.2); */
+  color: var(--ion-color-light-tint);
   cursor: initial;
 }
 .audioPlayer .audioPlayerUI .playerButtons .button.isDisabled:active {
@@ -521,72 +427,21 @@ export default defineComponent({
   height: 1rem;
   display: flex;
   justify-content: space-between;
+  margin-bottom: 5px;
 }
 .audioPlayer .audioPlayerUI .currentTimeContainer .currentTime,
 .audioPlayer .audioPlayerUI .currentTimeContainer .totalTime {
   /* font-size: 0.5rem;
   font-family: monospace; */
-  color: rgba(0, 0, 0, 0.75);
+  /* color: rgba(0, 0, 0, 0.75); */
+  color: var(--ion-text-color);
+  /* padding-bottom: 10px; */
 }
 .loader {
   margin: 60px auto;
   font-size: 10px;
   position: relative;
   text-indent: -9999em;
-}
-/* data change transitions */
-.slide-fade-enter-active {
-  transition: all 0.3s ease;
-}
-.slide-fade-leave-active {
-  transition: all 0.2s cubic-bezier(1, 0.5, 0.8, 1);
-}
-.slide-fade-enter,
-.slide-fade-leave-to {
-  transform: translateY(10px);
-  opacity: 0;
-}
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s;
-}
-.fade-enter,
-.fade-leave-to {
-  opacity: 0;
-}
-/* pen specific formatting */
-body {
-  background: #29b6f6;
-  color: rgba(255, 255, 255, 0.7);
-  font-family: Raleway, sans-serif;
-  padding: 3rem;
-}
-.heading {
-  text-align: center;
-  margin: 0;
-  margin: 2rem 0;
-  font-family: Inconsolata, monospace;
-}
-.heading h1 {
-  color: #eceff1;
-  margin: 0;
-  margin-bottom: 1rem;
-  font-size: 1.75rem;
-}
-.heading p {
-  margin: 0;
-  font-size: 0.85rem;
-}
-.heading a {
-  color: rgba(255, 255, 255, 0.8);
-  transition: 0.3s;
-  text-decoration-style: dotted;
-}
-.heading a:hover {
-  color: rgba(255, 255, 255, 1) !important;
-}
-.heading a:visited {
-  color: rgba(255, 255, 255, 0.5);
 }
 
 .audioPlayer {
