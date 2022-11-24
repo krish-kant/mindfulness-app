@@ -4,7 +4,7 @@
       <ion-toolbar> </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
-      <ion-grid class="ion-margin-start ion-margin-end">
+      <ion-grid>
         <ion-text>
           <h1>Hi Krishna</h1>
         </ion-text>
@@ -27,7 +27,7 @@
         </ion-row>
       </ion-grid>
 
-      <ion-grid class="ion-margin-start ion-margin-end">
+      <ion-grid>
         <ion-text>
           <h3>Recently played</h3>
         </ion-text>
@@ -44,7 +44,7 @@
         </ion-row>
       </ion-grid>
 
-      <ion-grid class="ion-margin-start ion-margin-end">
+      <ion-grid>
         <ion-text color="">
           <h3>Top rated</h3>
         </ion-text>
@@ -77,6 +77,7 @@
 
             <div class="bookmark-card-text">
               <ion-label class="recently-played-text"> {{ n.message }}</ion-label>
+
               <ion-icon
                 class="bookmark-icon"
                 size="large"

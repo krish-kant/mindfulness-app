@@ -6,12 +6,20 @@
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
-      <ion-searchbar
+      <!-- <ion-searchbar
         animated="true"
         @click="() => router.push('/tabs/tab2/search')"
-      ></ion-searchbar>
+      ></ion-searchbar> -->
 
       <ion-grid>
+        <ion-item lines="none" class="ion-padding-right"
+          ><ion-icon
+            @click="() => router.push('/tabs/tab2/search')"
+            slot="end"
+            :icon="searchOutline"
+          ></ion-icon
+        ></ion-item>
+
         <ion-row class="ion-justify-content-center">
           <ion-col>
             <ion-item lines="none">
@@ -77,6 +85,7 @@
     </ion-content>
   </ion-page>
 </template>
+
 <script setup>
 import {
   IonPage,
@@ -100,7 +109,7 @@ import {
   IonSegmentButton,
   IonReorder,
 } from "@ionic/vue";
-import { createOutline, removeCircleOutline } from "ionicons/icons";
+import { createOutline, removeCircleOutline, searchOutline } from "ionicons/icons";
 import { ref, onMounted, watch } from "vue";
 import { useRouter } from "vue-router";
 

@@ -44,6 +44,7 @@ import {
   IonCol,
   IonLabel,
   IonCheckbox,
+  IonText,
 } from "@ionic/vue";
 import { ref } from "vue";
 
