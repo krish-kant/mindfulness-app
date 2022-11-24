@@ -54,7 +54,11 @@
               />
               <!-- <ion-icon name="playSkipBackSharp"></ion-icon> -->
             </a>
-            <a class="button play" v-on:click="playAudio()" title="Play/Pause Song">
+            <a
+              class="button play"
+              v-on:click="playAudio()"
+              title="Play/Pause Song"
+            >
               <transition name="slide-fade" mode="out-in">
                 <div>
                   <img
@@ -78,7 +82,9 @@
               v-on:click="nextSong()"
               title="Next Song"
             >
-              <img src="https://img.icons8.com/ios-filled/50/null/end--v1.png" />
+              <img
+                src="https://img.icons8.com/ios-filled/50/null/end--v1.png"
+              />
               <!-- <ion-icon name="playSkipForwardSharp"></ion-icon> -->
             </a>
           </div>
@@ -91,9 +97,9 @@
           <input
             v-model="value"
             type="range"
-            @change="mSet"
+            @input="mSet"
             min="0"
-            step=".1"
+            step="any"
             :max="trackDuration"
             ref="input"
             style="width: 100%"
