@@ -49,22 +49,15 @@
               v-on:click="prevSong()"
               title="Previous Song"
             >
-              <img
-                src="https://img.icons8.com/ios-filled/50/null/skip-to-start--v1.png"
-              />
               <!-- <ion-icon name="playSkipBackSharp"></ion-icon> -->
             </a>
-            <a class="button play" v-on:click="playAudio()" title="Play/Pause Song">
+            <a
+              class="button play"
+              v-on:click="playAudio()"
+              title="Play/Pause Song"
+            >
               <transition name="slide-fade" mode="out-in">
                 <div>
-                  <img
-                    v-show="!currentlyPlaying"
-                    src="https://img.icons8.com/ios-filled/70/null/play--v1.png"
-                  />
-                  <img
-                    v-show="currentlyPlaying"
-                    src="https://img.icons8.com/ios-filled/70/null/pause--v1.png"
-                  />
                   <!-- <ion-icon v-show="!currentlyPlaying" name="playSharp"></ion-icon>
                   <ion-icon v-show="currentlyPlaying" name="pauseSharp"></ion-icon> -->
                   <!-- <ion-icon :icon="playSharp"></ion-icon> -->
@@ -78,7 +71,6 @@
               v-on:click="nextSong()"
               title="Next Song"
             >
-              <img src="https://img.icons8.com/ios-filled/50/null/end--v1.png" />
               <!-- <ion-icon name="playSkipForwardSharp"></ion-icon> -->
             </a>
           </div>
@@ -88,16 +80,12 @@
             <span class="totalTime"> {{ trackDurationFormated }}</span>
           </div>
 
-          <input
-            v-model="value"
-            type="range"
-            @change="mSet"
-            min="0"
-            step="0.25"
-            :max="trackDuration"
-            ref="input"
-            style="width: 100%"
-          />
+          <div class="currentProgressBar">
+            <div
+              class="currentProgress"
+              :style="{ width: currentProgressBar + '%' }"
+            ></div>
+          </div>
         </div>
       </div>
     </ion-content>
@@ -112,7 +100,6 @@ import {
   IonButtons,
   IonHeader,
   IonToolbar,
-  IonRange,
 } from "@ionic/vue";
 
 import { defineComponent } from "vue";
@@ -133,7 +120,6 @@ export default defineComponent({
     IonButtons,
     IonHeader,
     IonToolbar,
-    // IonRange,
   },
   data: function () {
     return {
@@ -148,7 +134,6 @@ export default defineComponent({
       isPlaylistActive: false,
       currentSong: 0,
       debug: false,
-      value: 0,
       musicPlaylist: [
         {
           title: "Service Bell",
@@ -182,7 +167,6 @@ export default defineComponent({
       // pauseSharp,
     };
   },
-
   mounted: function () {
     this.changeSong();
     this.audio.loop = false;
@@ -194,24 +178,15 @@ export default defineComponent({
   //   },
 
   methods: {
-    mSet: function () {
-      this.audio.currentTime = this.value;
-      console.log(this.audio.currentTime);
-      console.log(this.value);
-    },
     togglePlaylist: function () {
       this.isPlaylistActive = !this.isPlaylistActive;
     },
     nextSong: function () {
       if (this.currentSong < this.musicPlaylist.length - 1)
         this.changeSong(this.currentSong + 1);
-      this.value = 0;
-      this.currentTime = 0;
     },
     prevSong: function () {
       if (this.currentSong > 0) this.changeSong(this.currentSong - 1);
-      this.value = 0;
-      this.currentTime = 0;
     },
     changeSong: function (index) {
       var wasPlaying = this.currentlyPlaying;
@@ -311,13 +286,8 @@ export default defineComponent({
   watch: {
     currentTime: function () {
       this.currentTime = Math.round(this.currentTime);
-      this.value = this.currentTime;
-    },
-    value: function () {
-      this.currentTime = this.value;
     },
   },
-
   beforeUnmount: function () {
     this.audio.removeEventListener("ended", this.handleEnded);
     this.audio.removeEventListener("loadedmetadata", this.handleEnded);
@@ -515,9 +485,20 @@ export default defineComponent({
 }
 .audioPlayer .audioPlayerUI .currentTimeContainer .currentTime,
 .audioPlayer .audioPlayerUI .currentTimeContainer .totalTime {
-  /* font-size: 0.5rem;
-  font-family: monospace; */
+  font-size: 0.5rem;
+  font-family: monospace;
   color: rgba(0, 0, 0, 0.75);
+}
+.audioPlayer .audioPlayerUI .currentProgressBar {
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+  margin: 0.75rem 0;
+}
+.audioPlayer .audioPlayerUI .currentProgressBar .currentProgress {
+  background-color: rgba(0, 0, 0, 0.75);
+  width: 0px;
+  height: 1px;
+  transition: 100ms;
 }
 .loader {
   margin: 60px auto;
@@ -578,10 +559,5 @@ body {
 }
 .heading a:visited {
   color: rgba(255, 255, 255, 0.5);
-}
-
-.audioPlayer {
-  max-width: 600px;
-  margin: 0 auto;
 }
 </style>
