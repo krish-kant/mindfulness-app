@@ -40,7 +40,7 @@ const routes = [
       },
       {
         path: "/tabs/tab2/music-player",
-        component: () => import("@/views/musicPlayerPage.vue"),
+        component: () => import("@/views/musicPlayerPageV2.vue"),
       },
     ],
   },
