@@ -4,7 +4,7 @@
       <ion-toolbar> </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
-      <ion-grid>
+      <ion-grid class="ion-margin">
         <ion-text>
           <h1>Hi Krishna</h1>
         </ion-text>
@@ -33,9 +33,17 @@
         </ion-text>
 
         <ion-row>
-          <ion-col size="6" size-sm="3" v-for="n in recentlyPlayed" :key="n.message">
+          <ion-col
+            size="6"
+            size-sm="3"
+            v-for="n in recentlyPlayed"
+            :key="n.message"
+          >
             <div class="container">
-              <img alt="Silhouette of mountains" src="https://picsum.photos/600/400" />
+              <img
+                alt="Silhouette of mountains"
+                src="https://picsum.photos/600/400"
+              />
               <div class="item-tag"></div>
             </div>
 
@@ -58,7 +66,10 @@
             :key="n.message"
           >
             <div class="container">
-              <img alt="Silhouette of mountains" src="https://picsum.photos/600/400" />
+              <img
+                alt="Silhouette of mountains"
+                src="https://picsum.photos/600/400"
+              />
               <div class="lock-icon">
                 <ion-badge color="warning"
                   ><ion-icon :icon="lockClosed"></ion-icon
@@ -76,7 +87,9 @@
             </div>
 
             <div class="bookmark-card-text">
-              <ion-label class="recently-played-text"> {{ n.message }}</ion-label>
+              <ion-label class="recently-played-text">
+                {{ n.message }}</ion-label
+              >
 
               <ion-icon
                 class="bookmark-icon"
