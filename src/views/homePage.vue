@@ -5,97 +5,62 @@
     </ion-header>
     <ion-content :fullscreen="true">
       <ion-grid class="ion-margin">
-        <ion-text>
-          <h1>Hi Krishna</h1>
-        </ion-text>
-
-        <ion-row class="ion-justify-content-center">
-          <ion-col
-            class="navigation-items"
-            size="4"
-            size-sm="4"
-            v-for="n in items"
-            :key="n.message"
-          >
-            <div class="navigation-items-background">
-              <img
-                src="https://img.icons8.com/fluency-systems-regular/32/000000/yoga.png"
-              />
-              <div>{{ n.message }}</div>
-            </div>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-
-      <ion-grid>
-        <ion-text>
-          <h3>Recently played</h3>
-        </ion-text>
-
         <ion-row>
           <ion-col
-            size="6"
-            size-sm="3"
-            v-for="n in recentlyPlayed"
-            :key="n.message"
-          >
-            <div class="container">
-              <img
-                alt="Silhouette of mountains"
-                src="https://picsum.photos/600/400"
-              />
-              <div class="item-tag"></div>
-            </div>
-
-            <div class="recently-played-text">{{ n.message }}</div>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-
-      <ion-grid>
-        <ion-text color="">
-          <h3>Top rated</h3>
-        </ion-text>
-
-        <ion-row class="ion-justify-content-start">
-          <ion-col
             size="12"
-            size-sm="6"
-            size-lg="4"
-            v-for="n in recentlyPlayed"
-            :key="n.message"
+            size-sm="4"
+            v-for="(items, index) in musicPlaylist"
+            :key="items.title"
+            class="container"
           >
-            <div class="container">
-              <img
-                alt="Silhouette of mountains"
-                src="https://picsum.photos/600/400"
-              />
-              <div class="lock-icon">
-                <ion-badge color="warning"
-                  ><ion-icon :icon="lockClosed"></ion-icon
-                ></ion-badge>
-              </div>
-              <div class="track-time">
-                <ion-badge color="secondary">5 mins</ion-badge>
-              </div>
-              <div class="item-tag">
-                <ion-badge>
-                  <img
-                    src="https://img.icons8.com/fluency-systems-regular/18/000000/yoga.png"
-                /></ion-badge>
-              </div>
+            <ion-img
+              class="item-image"
+              :src="musicPlaylist[index].imageUrl"
+              :key="currentSong"
+              id=""
+            />
+            <div v-if="index == currentIndex && isPlaying" class="bar">
+              <div class="in"></div>
             </div>
-
-            <div class="bookmark-card-text">
-              <ion-label class="recently-played-text">
-                {{ n.message }}</ion-label
+            <ion-item lines="none">
+              <ion-label class="ion-text-wrap">
+                <p>{{ musicPlaylist[index].duration }}</p>
+                <h3>{{ musicPlaylist[index].title }}</h3>
+              </ion-label>
+              <ion-icon :icon="bookmarkOutline" />
+            </ion-item>
+            <div class="lock-icon">
+              <ion-badge color="warning"
+                ><ion-icon :icon="lockClosedOutline"></ion-icon
+              ></ion-badge>
+            </div>
+            <div class="item-type">
+              <ion-badge color="secondary">
+                {{ musicPlaylist[index].type }}</ion-badge
               >
+            </div>
+            <div class="play-item-bg"></div>
 
-              <ion-icon
-                class="bookmark-icon"
-                size="large"
-                :icon="bookmarkOutline"
-              ></ion-icon>
+            <div class="play-item">
+              <button
+                class="play-icon"
+                :style="[
+                  index == currentIndex && isPlaying
+                    ? {
+                        color: 'grey',
+                      }
+                    : {},
+                ]"
+                @click="playItem(index)"
+                :disabled="isPlaying"
+              >
+                <svg style="width: 40px; height: 40px" viewBox="0 0 24 24">
+                  <path
+                    fill="currentColor"
+                    d="M19 3H5C3.89 3 3 3.89 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.89 20.1 3 19 3M10 16V8L15 12"
+                  />
+                </svg>
+              </button>
             </div>
           </ion-col>
         </ion-row>
@@ -108,137 +73,83 @@
 import {
   IonPage,
   IonContent,
-  IonBackButton,
-  IonButtons,
   IonHeader,
   IonToolbar,
   IonGrid,
   IonItem,
-  IonButton,
   IonRow,
   IonCol,
   IonLabel,
-  IonCheckbox,
-  IonText,
   IonBadge,
 } from "@ionic/vue";
-import { lockClosed, bookmarkOutline } from "ionicons/icons";
+import { lockClosedOutline, bookmarkOutline } from "ionicons/icons";
 import { ref } from "vue";
 
-const items = ref([
-  { message: "Yoga" },
-  { message: "Meditation" },
-  { message: "Breethe" },
-  { message: "Timer" },
-  { message: "SOS" },
-  { message: "Sleep" },
+let isPlaying = ref(false);
+let currentIndex = ref(0);
+
+const musicPlaylist = ref([
+  {
+    title:
+      "Service Bell Service Bell Service Bell Service Bell Bell Service Bell",
+    type: "Yoga",
+    mediaUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+    imageUrl: "https://source.unsplash.com/crs2vlkSe98/900x1000",
+    duration: "1 hour",
+  },
+  {
+    title: "Meadowlark",
+    type: "Sleep",
+    mediaUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+    imageUrl: "https://source.unsplash.com/35bE_njbG9E/400x400",
+    duration: "30 min",
+  },
+  {
+    title: "Hyena Laughing",
+    type: "Meditation",
+    mediaUrl: "https://soundbible.com/mp3/hyena-laugh_daniel-simion.mp3",
+    imageUrl: "https://source.unsplash.com/Esax9RaEl2I/400x600",
+    duration: "4 min",
+  },
+  {
+    title: "Creepy Background",
+    type: "Breethe",
+    mediaUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+    imageUrl: "https://source.unsplash.com/BjNXpLGnJI0/500x400",
+    duration: "5 min",
+  },
 ]);
 
-const recentlyPlayed = ref([
-  { message: "Yoga and mindfulness1" },
-  {
-    message:
-      "Meditation and yoga Meditation, mindfulness, yoga Meditation and yoga Meditation and yoga Meditation, mindfulness, yoga",
-  },
-  { message: "Breethe" },
-  { message: "Timer guided" },
-]);
+const onImageLoaded = function () {
+  console.log("image loaded");
+};
+
+const playItem = function (index) {
+  this.isPlaying = true;
+  this.currentIndex = index;
+
+  const audio = new Audio(this.musicPlaylist[index].mediaUrl);
+  audio.play();
+
+  setTimeout(() => {
+    audio.pause();
+    this.isPlaying = false;
+    this.currentIndex = 0;
+  }, "10000");
+};
 </script>
 
 <style scoped>
-/* iOS places the subtitle above the title */
-ion-card-header.ios {
-  display: flex;
-  flex-flow: column-reverse;
+.item-image {
+  border-radius: 5px !important;
+  overflow: hidden;
+  z-index: 10;
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  object-position: 50% 50%;
 }
 
-.card-items {
-  text-align: center;
-  margin: 8px;
-  padding-top: 1px;
-  padding-bottom: 1px;
-  padding-right: 10px;
-}
-
-ion-card-header {
-  /* padding-left: 0px !important; */
-  padding: 0px !important;
-}
-
-.container {
-  position: relative;
-}
-
-.lock-icon {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  z-index: 1000;
-  /* background-color: #e3c346; */
-  padding: 5px;
-  color: #ebad1c;
-  font-weight: bold;
-}
-
-.track-time {
-  position: absolute;
-  left: 10px;
-  bottom: 10px;
-  z-index: 1000;
-  /* background-color: #e3c346; */
-  padding: 5px;
-  /* color: #ebad1c; */
-  font-weight: bold;
-}
-
-.item-tag {
-  position: absolute;
-  left: 10px;
-  top: 10px;
-  z-index: 1000;
-  /* background-color: #e3c346; */
-  padding: 5px;
-  /* color: #ebad1c; */
-  font-weight: bold;
-}
-
-ion-grid {
-  --ion-grid-padding: 10px;
-
-  --ion-grid-padding-xs: 2px;
-  /* --ion-grid-padding-sm: 20px; */
-  /* --ion-grid-padding-md: 20px;
-  --ion-grid-padding-lg: 20px;
-  --ion-grid-padding-xl: 20px; */
-
-  --ion-grid-column-padding: 10px;
-
-  --ion-grid-column-padding-xs: 5px;
-  /* --ion-grid-column-padding-sm: 30px; */
-  /* --ion-grid-column-padding-md: 30px;
-  --ion-grid-column-padding-lg: 30px;
-  --ion-grid-column-padding-xl: 30px; */
-}
-
-.grid-items {
-  --ion-grid-padding: 2px;
-
-  --ion-grid-column-padding: 2px;
-}
-
-/* ion-col {
-  background-color: #135d54;
-  border: solid 1px #fff;
-  color: #fff;
-} */
-
-img {
-  border-radius: 5px;
-}
-ion-button {
-  --border-radius: 5px;
-  height: 60px;
-}
 ion-item {
   --padding-bottom: 0px;
   --padding-top: 0px;
@@ -247,53 +158,89 @@ ion-item {
   --inner-padding-start: 0px;
   --inner-padding-end: 0px;
   --inner-padding-bottom: 0px;
-  /* --background: blue; */
+  --background: none;
   --inner-padding-top: 0px;
 }
 
-.navigation-items {
-  /* background-color: #edf9fb; */
-  text-align: center;
-  color: black;
-  border-radius: 5px;
-  margin-top: 10px;
+.container {
+  position: relative;
 }
 
-.navigation-items-background {
-  background-color: #2d8ece;
-  padding: 4px;
-  padding-top: 16px;
-  padding-bottom: 16px;
-  border-radius: 5px;
-  color: #ffffff;
-  background-image: linear-gradient(135deg, #008aff, #86d472);
-  font-weight: 600;
-  z-index: 2;
+.lock-icon {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  z-index: 10;
+}
+
+.item-type {
+  position: absolute;
+  left: -2px;
+  top: 20px;
+  z-index: 10;
+}
+
+.play-item {
+  position: absolute;
+  left: 10px;
+  top: 140px;
+}
+
+.play-item-bg {
+  position: absolute;
+  left: 18px;
+  top: 148px;
+
+  background-color: var(--ion-color-light);
+
+  width: 24px;
+  height: 24px;
+  padding: 0px;
+  margin: 0px;
+}
+
+ion-badge {
+  border-radius: 2px;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+  outline: none;
   cursor: pointer;
+  pointer-events: auto;
+  /* opacity: 0.5; */
+
+  color: var(--ion-color-primary);
+  margin: 0px;
+  padding: 0px;
+  z-index: 10;
 }
 
-.navigation-items-background:hover {
-  background-image: linear-gradient(135deg, #86d472, #008aff);
+button:disabled {
+  cursor: not-allowed;
+  pointer-events: none;
+  color: "grey";
 }
 
-.recently-played-text {
-  font-size: medium;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 2; /* number of lines to show */
-  line-clamp: 2;
-  -webkit-box-orient: vertical;
+.bar {
+  /* border: 1px solid #666; */
+  height: 10px;
+  width: 100%;
+}
+.in {
+  animation: fill 10s linear 1;
+  height: 100%;
+  background-color: var(--ion-color-primary);
+  border-radius: 2px;
 }
 
-.bookmark-card-text {
-  display: flex;
-  justify-content: space-between;
-  padding-top: 1px;
-  margin-bottom: 5px;
-}
-
-.bookmark-icon {
-  flex: 0 0 30px;
+@keyframes fill {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
 }
 </style>

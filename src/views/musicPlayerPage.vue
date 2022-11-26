@@ -9,7 +9,7 @@
       </ion-toolbar>
     </ion-header>
     <ion-content>
-      <ion-grid class="audioPlayerUI">
+      <ion-grid class="audioPlayerUI ion-margin">
         <ion-row
           class="ion-align-items-center ion-justify-content-center first-row-grid-1 ion-margin-bottom"
         >
@@ -407,12 +407,11 @@ export default defineComponent({
 
 .buttons-container {
   display: flex;
-  /* flex-direction: row; */
+
   justify-content: space-around;
   align-items: center;
-  /* margin: 10px; */
+
   margin-top: 10px;
-  /* margin-top: 1rem; */
 }
 
 ion-grid {
@@ -420,13 +419,7 @@ ion-grid {
 }
 .first-row-grid-1 {
   min-height: 52%;
-  /* margin-bottom: 10px; */
 }
-
-/* .album-image {
-  display: flex;
-  max-height: 30%;
-} */
 
 img {
   width: 100%;
