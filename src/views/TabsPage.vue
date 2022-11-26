@@ -9,7 +9,7 @@
         </ion-tab-button>
 
         <ion-tab-button tab="tab2" href="/tabs/tab2">
-          <ion-icon :icon="libraryOutline" />
+          <ion-icon :icon="playOutline" />
           <ion-label>library</ion-label>
         </ion-tab-button>
 
@@ -37,5 +37,11 @@ import {
   IonPage,
   IonRouterOutlet,
 } from "@ionic/vue";
-import { homeOutline, flagOutline, libraryOutline, personOutline } from "ionicons/icons";
+import {
+  homeOutline,
+  flagOutline,
+  playOutline,
+  personOutline,
+  bookmarksOutline,
+} from "ionicons/icons";
 </script>
