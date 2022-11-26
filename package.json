@@ -43,5 +43,8 @@
     "ts-jest": "^27.0.7",
     "vue-material-design-icons": "^5.1.2"
   },
+    "browser": {
+     "fs": false
+   },
   "description": "An Ionic project"
 }
