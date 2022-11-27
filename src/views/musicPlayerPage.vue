@@ -9,7 +9,7 @@
       </ion-toolbar>
     </ion-header>
     <ion-content>
-      <ion-grid class="audioPlayerUI ion-margin">
+      <ion-grid class="audioPlayerUI ion-margin-start ion-margin-end">
         <ion-row
           class="ion-align-items-center ion-justify-content-center first-row-grid-1 ion-margin-bottom"
         >

@@ -1,72 +1,66 @@
 <template>
-  <ion-page>
-    <ion-header class="ion-no-border">
-      <ion-toolbar> </ion-toolbar>
-    </ion-header>
-    <ion-content :fullscreen="true">
-      <ion-grid class="ion-margin">
-        <ion-row>
-          <ion-col
-            size="12"
-            size-sm="4"
-            v-for="(items, index) in musicPlaylist"
-            :key="items.title"
-            class="container"
+  <ion-grid class="ion-margin-start ion-margin-end">
+    <ion-row>
+      <ion-col
+        size="12"
+        size-sm="6"
+        size-lg="4"
+        v-for="(items, index) in musicPlaylist"
+        :key="items.title"
+        class="container"
+      >
+        <ion-img
+          class="item-image"
+          :src="musicPlaylist[index].imageUrl"
+          :key="currentSong"
+          id=""
+        />
+        <div v-if="index == currentIndex && isPlaying" class="bar">
+          <div class="in"></div>
+        </div>
+        <ion-item lines="none">
+          <ion-label class="ion-text-wrap">
+            <p>{{ musicPlaylist[index].duration }}</p>
+            <h3>{{ musicPlaylist[index].title }}</h3>
+          </ion-label>
+          <ion-icon :icon="bookmarkOutline" />
+        </ion-item>
+        <div class="lock-icon">
+          <ion-badge color="warning"
+            ><ion-icon :icon="lockClosedOutline"></ion-icon
+          ></ion-badge>
+        </div>
+        <div class="item-type">
+          <ion-badge color="secondary">
+            {{ musicPlaylist[index].type }}</ion-badge
           >
-            <ion-img
-              class="item-image"
-              :src="musicPlaylist[index].imageUrl"
-              :key="currentSong"
-              id=""
-            />
-            <div v-if="index == currentIndex && isPlaying" class="bar">
-              <div class="in"></div>
-            </div>
-            <ion-item lines="none">
-              <ion-label class="ion-text-wrap">
-                <p>{{ musicPlaylist[index].duration }}</p>
-                <h3>{{ musicPlaylist[index].title }}</h3>
-              </ion-label>
-              <ion-icon :icon="bookmarkOutline" />
-            </ion-item>
-            <div class="lock-icon">
-              <ion-badge color="warning"
-                ><ion-icon :icon="lockClosedOutline"></ion-icon
-              ></ion-badge>
-            </div>
-            <div class="item-type">
-              <ion-badge color="secondary">
-                {{ musicPlaylist[index].type }}</ion-badge
-              >
-            </div>
-            <div class="play-item-bg"></div>
+        </div>
+        <div class="play-item-bg"></div>
 
-            <div class="play-item">
-              <button
-                class="play-icon"
-                :style="[
-                  index == currentIndex && isPlaying
-                    ? {
-                        color: 'grey',
-                      }
-                    : {},
-                ]"
-                @click="playItem(index)"
-                :disabled="isPlaying"
-              >
-                <svg style="width: 40px; height: 40px" viewBox="0 0 24 24">
-                  <path
-                    fill="currentColor"
-                    d="M19 3H5C3.89 3 3 3.89 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.89 20.1 3 19 3M10 16V8L15 12"
-                  />
-                </svg>
-              </button>
-            </div>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-content>
-  </ion-page>
+        <div class="play-item">
+          <button
+            class="play-icon"
+            :style="[
+              index == currentIndex && isPlaying
+                ? {
+                    color: 'grey',
+                  }
+                : {},
+            ]"
+            @click="playItem(index)"
+            :disabled="isPlaying"
+          >
+            <svg style="width: 40px; height: 40px" viewBox="0 0 24 24">
+              <path
+                fill="currentColor"
+                d="M19 3H5C3.89 3 3 3.89 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.89 20.1 3 19 3M10 16V8L15 12"
+              />
+            </svg>
+          </button>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </template>
 
 <script setup>
@@ -120,6 +114,7 @@ const playItem = function (index) {
   height: 180px;
   object-fit: cover;
   object-position: 50% 50%;
+  margin-bottom: 2px;
 }
 
 ion-item {
@@ -134,34 +129,38 @@ ion-item {
   --inner-padding-top: 0px;
 }
 
+ion-grid {
+  --ion-grid-column-padding: 10px;
+}
+
 .container {
   position: relative;
 }
 
 .lock-icon {
   position: absolute;
-  right: 15px;
-  top: 15px;
+  right: 20px;
+  top: 20px;
   z-index: 10;
 }
 
 .item-type {
   position: absolute;
-  left: -2px;
+  left: 5px;
   top: 20px;
   z-index: 10;
 }
 
 .play-item {
   position: absolute;
-  left: 10px;
-  top: 140px;
+  left: 15px;
+  top: 145px;
 }
 
 .play-item-bg {
   position: absolute;
-  left: 18px;
-  top: 148px;
+  left: 23px;
+  top: 153px;
 
   background-color: var(--ion-color-light);
 
@@ -173,6 +172,9 @@ ion-item {
 
 ion-badge {
   border-radius: 2px;
+}
+ion-label {
+  margin: 0.5px;
 }
 
 button {
@@ -197,11 +199,12 @@ button:disabled {
 
 .bar {
   /* border: 1px solid #666; */
-  height: 5px;
-  width: 97%;
+  height: 2px;
+  width: 94%;
   position: absolute;
-  left: 5px;
-  top: 185px;
+  left: 10px;
+  top: 190px;
+  margin: 1px 2px;
 }
 .in {
   animation: fill 10s linear 1;
