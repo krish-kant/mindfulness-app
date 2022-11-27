@@ -112,6 +112,7 @@ const playItem = function (index) {
   object-fit: cover;
   object-position: 50% 50%;
   margin-bottom: 2px;
+  filter: brightness(70%);
 }
 
 ion-item {

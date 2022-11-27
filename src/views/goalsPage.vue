@@ -17,51 +17,17 @@
         <ion-row class="scroll-items">
           <ion-col>
             <ion-button>Yoga and mindfulness</ion-button>
-            <ion-button v-for="n in recentlyPlayed" :key="n.message" fill="outline">{{
-              n.message
-            }}</ion-button>
+            <ion-button
+              v-for="n in musicPlaylist"
+              :key="n.type"
+              fill="outline"
+              >{{ n.type }}</ion-button
+            >
           </ion-col>
         </ion-row>
       </ion-grid>
 
-      <ion-grid class="ion-margin-start ion-margin-end">
-        <ion-row class="ion-justify-content-start">
-          <ion-col
-            size="12"
-            size-sm="6"
-            size-lg="4"
-            v-for="n in recentlyPlayed"
-            :key="n.message"
-          >
-            <div class="container">
-              <img alt="Silhouette of mountains" src="https://picsum.photos/600/400" />
-              <div class="lock-icon">
-                <ion-badge color="warning"
-                  ><ion-icon :icon="lockClosed"></ion-icon
-                ></ion-badge>
-              </div>
-              <div class="track-time">
-                <ion-badge color="secondary">5 mins</ion-badge>
-              </div>
-              <div class="item-tag">
-                <ion-badge>
-                  <img
-                    src="https://img.icons8.com/fluency-systems-regular/18/000000/yoga.png"
-                /></ion-badge>
-              </div>
-            </div>
-
-            <div class="bookmark-card-text">
-              <ion-label> {{ n.message }}</ion-label>
-              <ion-icon
-                class="bookmark-icon"
-                size="large"
-                :icon="bookmarkOutline"
-              ></ion-icon>
-            </div>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+      <TilePlay :musicPlaylist="musicPlaylist" />
     </ion-content>
   </ion-page>
 </template>
@@ -87,181 +53,73 @@ import { lockClosed, bookmarkOutline, addCircleOutline } from "ionicons/icons";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 
+import TilePlay from "@/components/homePage/TilePlay.vue";
+
 const router = useRouter();
 
-const recentlyPlayed = ref([
-  { message: "Yoga and mindfulness" },
-  { message: "Meditation and yoga Meditation" },
-  { message: "Breethe" },
-  { message: "Timer guided" },
-  { message: "Meditation and yoga Meditation1" },
-  { message: "Yoga and mindfulness" },
-  { message: "Meditation and yoga Meditation2" },
-  { message: "Timer guided1" },
-  { message: "Yoga and mindfulness" },
-  { message: "Timer guided2" },
-  { message: "Yoga and mindfulness1" },
-  { message: "Yoga and mindfulness2" },
-  { message: "Yoga and mindfulness3" },
-  { message: "Yoga and mindfulness4" },
+const musicPlaylist = ref([
+  {
+    title:
+      "Service Bell Service Bell Service Bell Service Bell Bell Service Bell",
+    type: "Yoga",
+    mediaUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+    imageUrl: "https://picsum.photos/500/600",
+    duration: "1 hour",
+  },
+  {
+    title: "Meadowlark",
+    type: "Sleep",
+    mediaUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+    imageUrl: "https://picsum.photos/500/500",
+    duration: "30 min",
+  },
+  {
+    title: "Hyena Laughing",
+    type: "Meditation",
+    mediaUrl: "https://soundbible.com/mp3/hyena-laugh_daniel-simion.mp3",
+    imageUrl: "https://picsum.photos/700/500",
+    duration: "4 min",
+  },
+  {
+    title: "Creepy Background",
+    type: "Breethe",
+    mediaUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+    imageUrl: "https://picsum.photos/800/500",
+    duration: "5 min",
+  },
+  {
+    title:
+      "Service Bell Service Bell Service Bell Service Bell Bell Service Bell",
+    type: "Yoga",
+    mediaUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+    imageUrl: "https://picsum.photos/500/600",
+    duration: "1 hour",
+  },
+  {
+    title: "Meadowlark",
+    type: "Sleep",
+    mediaUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+    imageUrl: "https://picsum.photos/500/500",
+    duration: "30 min",
+  },
+  {
+    title: "Hyena Laughing",
+    type: "Meditation",
+    mediaUrl: "https://soundbible.com/mp3/hyena-laugh_daniel-simion.mp3",
+    imageUrl: "https://picsum.photos/700/500",
+    duration: "4 min",
+  },
+  {
+    title: "Creepy Background",
+    type: "Breethe",
+    mediaUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+    imageUrl: "https://picsum.photos/800/500",
+    duration: "5 min",
+  },
 ]);
 </script>
 
 <style scoped>
-/* iOS places the subtitle above the title */
-ion-card-header.ios {
-  display: flex;
-  flex-flow: column-reverse;
-}
-
-.card-items {
-  text-align: center;
-  margin: 8px;
-  padding-top: 1px;
-  padding-bottom: 1px;
-  padding-right: 10px;
-}
-
-ion-card-header {
-  /* padding-left: 0px !important; */
-  padding: 0px !important;
-}
-
-.container {
-  position: relative;
-}
-
-.lock-icon {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  z-index: 1000;
-  /* background-color: #e3c346; */
-  padding: 5px;
-  color: #ebad1c;
-  font-weight: bold;
-}
-
-.track-time {
-  position: absolute;
-  left: 10px;
-  bottom: 10px;
-  z-index: 1000;
-  /* background-color: #e3c346; */
-  padding: 5px;
-  /* color: #ebad1c; */
-  font-weight: bold;
-}
-
-.item-tag {
-  position: absolute;
-  left: 10px;
-  top: 10px;
-  z-index: 1000;
-  /* background-color: #e3c346; */
-  padding: 5px;
-  /* color: #ebad1c; */
-  font-weight: bold;
-}
-
-.recently-played-text {
-  font-size: 14px;
-  padding: 2px;
-}
-
-.recently-played-header {
-  padding: 0px;
-}
-
-ion-grid {
-  --ion-grid-padding: 10px;
-
-  --ion-grid-padding-xs: 2px;
-  /* --ion-grid-padding-sm: 20px; */
-  /* --ion-grid-padding-md: 20px;
-  --ion-grid-padding-lg: 20px;
-  --ion-grid-padding-xl: 20px; */
-
-  --ion-grid-column-padding: 10px;
-
-  --ion-grid-column-padding-xs: 5px;
-  /* --ion-grid-column-padding-sm: 30px; */
-  /* --ion-grid-column-padding-md: 30px;
-  --ion-grid-column-padding-lg: 30px;
-  --ion-grid-column-padding-xl: 30px; */
-}
-
-.grid-items {
-  --ion-grid-padding: 2px;
-
-  --ion-grid-column-padding: 2px;
-}
-
-/* ion-col {
-  background-color: #135d54;
-  border: solid 1px #fff;
-  color: #fff;
-} */
-
-img {
-  border-radius: 5px;
-}
-
-ion-item {
-  --padding-bottom: 0px;
-  --padding-top: 0px;
-  --padding-end: 0px;
-  --padding-start: 0px;
-  --inner-padding-start: 0px;
-  --inner-padding-end: 0px;
-  --inner-padding-bottom: 0px;
-  /* --background: blue; */
-  --inner-padding-top: 0px;
-  --background: none !important;
-}
-
-.navigation-items {
-  /* background-color: #edf9fb; */
-  text-align: center;
-  color: black;
-  border-radius: 5px;
-  margin-top: 10px;
-}
-
-.navigation-items-background {
-  background-color: #2d8ece;
-  padding: 4px;
-  padding-top: 16px;
-  padding-bottom: 16px;
-  border-radius: 5px;
-  color: #ffffff;
-  background-image: linear-gradient(135deg, #008aff, #86d472);
-  font-weight: 600;
-  z-index: 2;
-  cursor: pointer;
-}
-
-.navigation-items-background:hover {
-  background-image: linear-gradient(135deg, #86d472, #008aff);
-}
-
-.recently-played-text {
-  font-size: 14px;
-  display: block;
-  word-break: break-all;
-}
-
-.bookmark-card-text {
-  display: flex;
-  justify-content: space-between;
-  padding-top: 1px;
-  margin-bottom: 5px;
-}
-
-.bookmark-icon {
-  flex: 0 0 30px;
-}
-
 .scroll-items {
   justify-content: flex-start;
   flex-wrap: nowrap;
@@ -283,6 +141,19 @@ ion-item {
 
 .add-goals-icon {
   animation: rotation 1s 2s linear;
+}
+
+ion-item {
+  --padding-bottom: 0px;
+  --padding-top: 0px;
+  --padding-end: 0px;
+  --padding-start: 0px;
+  --inner-padding-start: 0px;
+  --inner-padding-end: 0px;
+  --inner-padding-bottom: 0px;
+  /* --background: blue; */
+  --inner-padding-top: 0px;
+  --background: none !important;
 }
 
 @keyframes rotation {

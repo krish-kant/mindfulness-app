@@ -2,7 +2,11 @@
   <ion-grid class="ion-margin-start ion-margin-end">
     <ion-row class="ion-justify-content-center">
       <ion-col size="4" size-lg="2" class="ion-align-self-center">
-        <ion-item lines="none" class="nav-items">
+        <ion-item
+          lines="none"
+          class="nav-items"
+          @click="() => router.push('/tabs/tab2/search')"
+        >
           <ion-label>
             <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
               <path
@@ -16,8 +20,12 @@
       </ion-col>
 
       <ion-col size="4" size-lg="2" class="ion-align-self-center">
-        <ion-item lines="none" class="nav-items">
-          <ion-label>
+        <ion-item
+          lines="none"
+          class="nav-items"
+          @click="() => router.push('/tabs/tab2/search')"
+        >
+          <ion-label class="flex-container">
             <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
               <path
                 fill="currentColor"
@@ -30,7 +38,11 @@
       </ion-col>
 
       <ion-col size="4" size-lg="2" class="ion-align-self-center">
-        <ion-item lines="none" class="nav-items">
+        <ion-item
+          lines="none"
+          class="nav-items"
+          @click="() => router.push('/tabs/tab2/search')"
+        >
           <ion-label>
             <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
               <path
@@ -44,7 +56,11 @@
       </ion-col>
 
       <ion-col size="4" size-lg="2" class="ion-align-self-center">
-        <ion-item lines="none" class="nav-items">
+        <ion-item
+          lines="none"
+          class="nav-items"
+          @click="() => router.push('/tabs/tab2/search')"
+        >
           <ion-label>
             <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
               <path
@@ -58,7 +74,11 @@
       </ion-col>
 
       <ion-col size="4" size-lg="2" class="ion-align-self-center">
-        <ion-item lines="none" class="nav-items">
+        <ion-item
+          lines="none"
+          class="nav-items"
+          @click="() => router.push('/tabs/tab2/search')"
+        >
           <ion-label>
             <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
               <path
@@ -72,7 +92,11 @@
       </ion-col>
 
       <ion-col size="4" size-lg="2" class="ion-align-self-center">
-        <ion-item lines="none" class="nav-items">
+        <ion-item
+          lines="none"
+          class="nav-items"
+          @click="() => router.push('/tabs/tab2/search')"
+        >
           <ion-label>
             <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
               <path
@@ -89,24 +113,12 @@
 </template>
 
 <script setup>
-import {
-  IonGrid,
-  IonItem,
-  IonRow,
-  IonCol,
-  IonLabel,
-  IonBadge,
-} from "@ionic/vue";
-
-import {
-  homeOutline,
-  flagOutline,
-  playOutline,
-  personOutline,
-  bookmarksOutline,
-} from "ionicons/icons";
+import { IonGrid, IonItem, IonRow, IonCol, IonLabel } from "@ionic/vue";
 
 import { ref } from "vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 const onImageLoaded = function () {
   console.log("image loaded");
@@ -126,20 +138,23 @@ ion-item {
   --margin: 0px;
   /* --background: none; */
   --background: var(--ion-color-light);
-  border-radius: 5px;
+  --border-radius: 5px;
   cursor: pointer;
+  /* box-shadow: 2px 2px 2px 1px var(--ion-color-medium); */
 }
 
 ion-label {
   /* padding: 2px; */
   text-align: center;
+  padding: 10px;
+  margin: 0px;
 }
 ion-grid {
   --ion-grid-column-padding: 10px;
 }
-ion-col {
-  /* background-color: aqua; */
-}
+/* ion-col {
+  background-color: aqua;
+} */
 
 ion-badge {
   border-radius: 2px;

@@ -74,7 +74,9 @@
                     />
                   </ion-thumbnail>
 
-                  <ion-label> {{ n.message }} </ion-label>
+                  <ion-label>
+                    <h3>{{ n.message }}</h3>
+                  </ion-label>
                   <ion-reorder slot="end"></ion-reorder>
                 </ion-item>
               </ion-reorder-group>
@@ -109,7 +111,11 @@ import {
   IonSegmentButton,
   IonReorder,
 } from "@ionic/vue";
-import { createOutline, removeCircleOutline, searchOutline } from "ionicons/icons";
+import {
+  createOutline,
+  removeCircleOutline,
+  searchOutline,
+} from "ionicons/icons";
 import { ref, onMounted, watch } from "vue";
 import { useRouter } from "vue-router";
 
@@ -178,8 +184,11 @@ ion-item {
   --inner-padding-start: 0px;
   --inner-padding-end: 0px;
   --inner-padding-bottom: 0px;
-  /* --background: blue; */
   --inner-padding-top: 0px;
   --background: none !important;
+}
+
+img {
+  border-radius: 5px;
 }
 </style>

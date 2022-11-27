@@ -63,6 +63,7 @@ const onImageLoaded = function () {
   height: 100px;
   object-fit: cover;
   object-position: 50% 50%;
+  filter: brightness(70%);
 }
 
 ion-item {
