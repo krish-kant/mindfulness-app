@@ -88,16 +88,16 @@ const onImageLoaded = function () {
 };
 
 const playItem = function (index) {
-  this.isPlaying = true;
-  this.currentIndex = index;
+  isPlaying.value = true;
+  currentIndex.value = index;
 
   const audio = new Audio(props.musicPlaylist[index].mediaUrl);
   audio.play();
 
   setTimeout(() => {
     audio.pause();
-    this.isPlaying = false;
-    this.currentIndex = 0;
+    isPlaying.value = false;
+    currentIndex.value = 0;
   }, "10000");
 };
 </script>
