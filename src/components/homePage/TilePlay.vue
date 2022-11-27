@@ -65,10 +65,6 @@
 
 <script setup>
 import {
-  IonPage,
-  IonContent,
-  IonHeader,
-  IonToolbar,
   IonGrid,
   IonItem,
   IonRow,

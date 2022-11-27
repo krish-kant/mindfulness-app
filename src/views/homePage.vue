@@ -5,13 +5,15 @@
     </ion-header>
     <ion-content :fullscreen="true">
       <ion-item lines="none"
+        ><ion-text><h1>Hi Krishna</h1></ion-text></ion-item
+      >
+      <NavItems />
+
+      <ion-item lines="none"
         ><ion-text><h3>Recently Played</h3></ion-text></ion-item
       >
       <TileRecent :musicPlaylist="musicPlaylist" />
-      <ion-item lines="none"
-        ><ion-text><h3>Featured</h3></ion-text></ion-item
-      >
-      <TileRecent :musicPlaylist="musicPlaylist" />
+
       <ion-item lines="none"
         ><ion-text><h3>Top Rated</h3></ion-text></ion-item
       >
@@ -37,6 +39,7 @@ import { ref } from "vue";
 
 import TilePlay from "@/components/homePage/TilePlay.vue";
 import TileRecent from "@/components/homePage/TileRecent.vue";
+import NavItems from "@/components/homePage/NavItems.vue";
 
 const musicPlaylist = ref([
   {

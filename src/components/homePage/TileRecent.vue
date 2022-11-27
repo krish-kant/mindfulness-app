@@ -42,9 +42,7 @@ import {
   IonBadge,
 } from "@ionic/vue";
 
-import { ref, defineProps } from "vue";
-
-import VueDragscroll from "vue-dragscroll";
+import { defineProps } from "vue";
 
 const props = defineProps({
   musicPlaylist: Array,
