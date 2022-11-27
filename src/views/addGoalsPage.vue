@@ -23,7 +23,7 @@
             v-for="(items, index) in musicPlaylist"
             :key="items.title"
           >
-            <ion-item detail="false" lines="none">
+            <!-- <ion-item detail="false" lines="none">
               <ion-thumbnail slot="start">
                 <ion-img
                   alt="Silhouette of mountains"
@@ -32,12 +32,28 @@
               </ion-thumbnail>
 
               <ion-label class="ion-text-wrap">
-                <!-- <p>{{ musicPlaylist[index].duration }}</p> -->
                 <h3>{{ musicPlaylist[index].title }}</h3>
               </ion-label>
 
               <ion-checkbox slot="end"></ion-checkbox>
-            </ion-item>
+            </ion-item> -->
+
+            <!-- The reorder gesture is disabled by default, enable it to drag and drop items -->
+            <ion-list>
+              <ion-item detail="false" lines="none">
+                <ion-thumbnail slot="start">
+                  <ion-img
+                    alt="Silhouette of mountains"
+                    src="https://picsum.photos/600/400"
+                  />
+                </ion-thumbnail>
+
+                <ion-label class="ion-text-wrap">
+                  <h3>{{ musicPlaylist[index].title }}</h3>
+                </ion-label>
+                <ion-checkbox slot="end"></ion-checkbox>
+              </ion-item>
+            </ion-list>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -62,6 +78,7 @@ import {
   IonText,
   IonThumbnail,
   IonImg,
+  IonList,
 } from "@ionic/vue";
 import { ref } from "vue";
 
@@ -150,7 +167,6 @@ ion-img {
   border-radius: 5px;
   object-fit: cover;
   object-position: 50% 50%;
-
   filter: brightness(70%);
 }
 </style>

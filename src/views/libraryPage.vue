@@ -68,7 +68,7 @@
                     slot="start"
                   ></ion-icon>
                   <ion-thumbnail slot="start">
-                    <img
+                    <ion-img
                       alt="Silhouette of mountains"
                       src="https://picsum.photos/600/400"
                     />
@@ -110,6 +110,7 @@ import {
   IonSegment,
   IonSegmentButton,
   IonReorder,
+  IonImg,
 } from "@ionic/vue";
 import {
   createOutline,
@@ -179,8 +180,8 @@ watch(recentlyPlayledLength, async () => {
 ion-item {
   --padding-bottom: 0px;
   --padding-top: 0px;
-  --padding-end: 0px;
-  --padding-start: 0px;
+  --padding-end: 5px;
+  --padding-start: 5px;
   --inner-padding-start: 0px;
   --inner-padding-end: 0px;
   --inner-padding-bottom: 0px;
@@ -188,7 +189,11 @@ ion-item {
   --background: none !important;
 }
 
-img {
+ion-img {
+  z-index: 10;
   border-radius: 5px;
+  object-fit: cover;
+  object-position: 50% 50%;
+  filter: brightness(70%);
 }
 </style>
