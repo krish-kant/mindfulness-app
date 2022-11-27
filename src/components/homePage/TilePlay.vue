@@ -71,6 +71,7 @@ import {
   IonCol,
   IonLabel,
   IonBadge,
+  IonImg,
 } from "@ionic/vue";
 import { lockClosedOutline, bookmarkOutline } from "ionicons/icons";
 import { ref, defineProps } from "vue";

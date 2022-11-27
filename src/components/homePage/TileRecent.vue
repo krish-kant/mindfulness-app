@@ -40,6 +40,7 @@ import {
   IonCol,
   IonLabel,
   IonBadge,
+  IonImg,
 } from "@ionic/vue";
 
 import { defineProps } from "vue";
