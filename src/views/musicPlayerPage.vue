@@ -13,7 +13,7 @@
         <ion-row
           class="ion-align-items-center ion-justify-content-center first-row-grid-1 ion-margin-bottom"
         >
-          <ion-col size-sm="8">
+          <ion-col size-lg="8">
             <ion-item lines="none"
               ><svg
                 slot="end"
@@ -66,7 +66,7 @@
           </ion-col>
         </ion-row>
         <ion-row class="ion-align-items-center ion-justify-content-center"
-          ><ion-col size-sm="8">
+          ><ion-col size-sm="8" size-lg="6">
             <ion-item lines="none">
               <ion-label slot="start">
                 <p>{{ currentTimeFormated }}</p>
@@ -423,7 +423,7 @@ ion-grid {
 
 img {
   width: 100%;
-  height: 300px;
+  height: 350px;
   object-fit: cover;
   object-position: bottom;
   border-radius: 5px;

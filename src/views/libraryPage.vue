@@ -3,6 +3,13 @@
     <ion-header class="ion-no-border">
       <ion-toolbar>
         <!-- <ion-title>Library</ion-title> -->
+        <ion-item lines="none" class="ion-padding-right"
+          ><ion-icon
+            @click="() => router.push('/tabs/tab2/search')"
+            slot="end"
+            :icon="searchOutline"
+          ></ion-icon
+        ></ion-item>
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
@@ -12,13 +19,13 @@
       ></ion-searchbar> -->
 
       <ion-grid>
-        <ion-item lines="none" class="ion-padding-right"
+        <!-- <ion-item lines="none" class="ion-padding-right"
           ><ion-icon
             @click="() => router.push('/tabs/tab2/search')"
             slot="end"
             :icon="searchOutline"
           ></ion-icon
-        ></ion-item>
+        ></ion-item> -->
 
         <ion-row class="ion-justify-content-center">
           <ion-col>

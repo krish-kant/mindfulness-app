@@ -1,11 +1,8 @@
 <template>
   <ion-page>
     <ion-header class="ion-no-border">
-      <ion-toolbar> </ion-toolbar>
-    </ion-header>
-    <ion-content :fullscreen="true">
-      <ion-grid class="ion-margin-start ion-margin-end">
-        <ion-item lines="none"
+      <ion-toolbar
+        ><ion-item lines="none" class="add-goal-icon"
           ><ion-icon
             class="add-goals-icon"
             @click="() => router.push('/tabs/tab3/add-goals')"
@@ -13,7 +10,18 @@
             :icon="addCircleOutline"
           ></ion-icon
         ></ion-item>
-
+      </ion-toolbar>
+    </ion-header>
+    <ion-content :fullscreen="true">
+      <!-- <ion-item lines="none" class="add-goal-icon"
+        ><ion-icon
+          class="add-goals-icon"
+          @click="() => router.push('/tabs/tab3/add-goals')"
+          slot="end"
+          :icon="addCircleOutline"
+        ></ion-icon
+      ></ion-item> -->
+      <ion-grid>
         <ion-row class="scroll-items">
           <ion-col>
             <ion-button>Yoga and mindfulness</ion-button>
@@ -156,12 +164,21 @@ ion-item {
   --background: none !important;
 }
 
-@keyframes rotation {
+ion-button {
+  --border-radius: 5px;
+}
+
+.add-goals-icon {
+  padding-right: 10px;
+  padding-top: 5px;
+}
+
+/* @keyframes rotation {
   from {
     transform: rotate(0deg);
   }
   to {
     transform: rotate(359deg);
   }
-}
+} */
 </style>

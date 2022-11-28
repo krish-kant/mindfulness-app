@@ -48,7 +48,10 @@
                   />
                 </ion-thumbnail>
                 <ion-label> {{ n.message }} </ion-label>
-                <ion-icon class="bookmark-icon" :icon="bookmarkOutline"></ion-icon>
+                <ion-icon
+                  class="bookmark-icon"
+                  :icon="bookmarkOutline"
+                ></ion-icon>
               </ion-item>
             </ion-list>
           </ion-col>
@@ -141,5 +144,9 @@ ion-item {
 
 .scroll-items::-webkit-scrollbar {
   display: none;
+}
+
+ion-button {
+  --border-radius: 5px;
 }
 </style>

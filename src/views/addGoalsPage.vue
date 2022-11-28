@@ -1,8 +1,12 @@
 <template>
   <ion-page>
-    <ion-header>
+    <ion-header class="ion-no-border">
       <ion-toolbar>
         <!-- <ion-title>Library</ion-title> -->
+
+        <ion-text> </ion-text>
+        <ion-button class="ion-margin-end" slot="end">Save</ion-button>
+
         <ion-buttons slot="start">
           <ion-back-button defaultHref="/tabs/tab2"></ion-back-button>
         </ion-buttons>
@@ -10,11 +14,11 @@
     </ion-header>
     <ion-content :fullscreen="true">
       <ion-grid>
-        <ion-item class="ion-margin-top heading-item" lines="none">
+        <ion-item class="heading-item" lines="none">
           <ion-text>
             <h1>Add Goals</h1>
           </ion-text>
-          <ion-button slot="end">Save</ion-button>
+          <!-- <ion-button slot="end">Save</ion-button> -->
         </ion-item>
         <ion-row class="ion-justify-content-start">
           <ion-col
@@ -158,6 +162,10 @@ ion-item {
   --border-radius: 5px;
 }
 
+ion-col {
+  background: none;
+}
+
 .heading-item {
   --background: none !important;
 }
@@ -167,6 +175,10 @@ ion-img {
   border-radius: 5px;
   object-fit: cover;
   object-position: 50% 50%;
-  filter: brightness(70%);
+  filter: brightness(80%);
+}
+
+ion-button {
+  --border-radius: 5px;
 }
 </style>
