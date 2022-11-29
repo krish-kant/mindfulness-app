@@ -8,21 +8,21 @@
         v-for="(items, index) in musicPlaylist"
         :key="items.title"
         class="container"
-        @click="
-          () =>
-            router.push({
-              path: '/tabs/tab2/item-details',
-              query: {
-                index: index,
-              },
-            })
-        "
       >
         <ion-img
           class="item-image"
           :src="musicPlaylist[index].imageUrl"
           :key="currentSong"
-          id=""
+          @click="
+            () => {
+              if (!isPlaying) {
+                router.push({
+                  path: '/tabs/tab2/item-details',
+                  query: { index: index },
+                });
+              }
+            }
+          "
         />
         <div v-if="index == currentIndex && isPlaying" class="bar">
           <div class="in"></div>
@@ -102,6 +102,9 @@ const onImageLoaded = function () {
 const playItem = function (index) {
   isPlaying.value = true;
   currentIndex.value = index;
+  router.push({
+    path: "",
+  });
 
   const audio = new Audio(props.musicPlaylist[index].mediaUrl);
   audio.play();

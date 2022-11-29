@@ -14,7 +14,7 @@
     <ion-content :fullscreen="true">
       <ion-grid>
         <ion-row class="ion-justify-content-center">
-          <ion-col size-lg="10" class="ion-align-self-center">
+          <ion-col size-sm="10" size-lg="8" class="ion-align-self-center">
             <ion-card v-if="dataLoaded">
               <img
                 alt="Silhouette of mountains"
@@ -24,19 +24,25 @@
                 <ion-card-title>Card Title</ion-card-title>
                 <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
               </ion-card-header>
-              <ion-button
-                @click="
-                  () =>
-                    router.push({
-                      path: '/tabs/tab2/simplified-audio-player',
-                      query: {
-                        index: index,
-                      },
-                    })
-                "
+              <ion-item lines="none">
+                <ion-button
+                  size="default"
+                  color="light"
+                  @click="
+                    () =>
+                      router.push({
+                        path: '/tabs/tab2/simplified-audio-player',
+                        query: {
+                          index: index,
+                        },
+                      })
+                  "
+                >
+                  <ion-icon color="dark" :icon="play" /><ion-text color="medium"
+                    ><p>Play</p></ion-text
+                  >
+                </ion-button></ion-item
               >
-                Click me
-              </ion-button>
 
               <ion-card-content
                 >{{ musicPlaylist[index].title }}
@@ -78,8 +84,12 @@ import {
   IonContent,
   IonButtons,
   IonBackButton,
+  IonCard,
+  IonCardHeader,
+  IonCardSubtitle,
+  IonCardTitle,
 } from "@ionic/vue";
-import { lockClosedOutline, bookmarkOutline } from "ionicons/icons";
+import { play, bookmarkOutline } from "ionicons/icons";
 import { ref, defineProps, onMounted, onBeforeMount } from "vue";
 import { useRouter, useRoute } from "vue-router";
 
@@ -198,6 +208,7 @@ ion-grid {
 ion-card {
   padding: 0;
   margin: 0;
+  box-shadow: none !important;
 }
 
 .container {
@@ -224,5 +235,10 @@ ion-badge {
 }
 ion-label {
   margin: 0.5px;
+}
+ion-button {
+  margin: 0 auto;
+  margin-bottom: 5px;
+  --box-shadow: none !important;
 }
 </style>
