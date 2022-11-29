@@ -24,8 +24,9 @@
       <ion-grid>
         <ion-row class="scroll-items">
           <ion-col>
-            <ion-button>Yoga and mindfulness</ion-button>
+            <ion-button color="primary">Yoga and mindfulness</ion-button>
             <ion-button
+              color="medium"
               v-for="n in musicPlaylist"
               :key="n.type"
               fill="outline"

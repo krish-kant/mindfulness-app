@@ -5,7 +5,9 @@
         <!-- <ion-title>Library</ion-title> -->
 
         <ion-text> </ion-text>
-        <ion-button class="ion-margin-end" slot="end">Save</ion-button>
+        <ion-button class="ion-margin-end" color="medium" slot="end"
+          >Save</ion-button
+        >
 
         <ion-buttons slot="start">
           <ion-back-button defaultHref="/tabs/tab2"></ion-back-button>
