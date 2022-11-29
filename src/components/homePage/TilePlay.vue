@@ -8,6 +8,15 @@
         v-for="(items, index) in musicPlaylist"
         :key="items.title"
         class="container"
+        @click="
+          () =>
+            router.push({
+              path: '/tabs/tab2/item-details',
+              query: {
+                index: index,
+              },
+            })
+        "
       >
         <ion-img
           class="item-image"
@@ -75,6 +84,9 @@ import {
 } from "@ionic/vue";
 import { lockClosedOutline, bookmarkOutline } from "ionicons/icons";
 import { ref, defineProps } from "vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 const props = defineProps({
   musicPlaylist: Array,
@@ -160,7 +172,8 @@ ion-grid {
   left: 23px;
   top: 153px;
 
-  background-color: var(--ion-color-light);
+  /* background-color: var(--ion-color-light); */
+  background-color: whitesmoke;
 
   width: 24px;
   height: 24px;
@@ -170,6 +183,7 @@ ion-grid {
 
 ion-badge {
   border-radius: 2px;
+  padding: 2px 3px;
 }
 ion-label {
   margin: 0.5px;
@@ -183,7 +197,7 @@ button {
   pointer-events: auto;
   /* opacity: 0.5; */
 
-  color: var(--ion-color-primary);
+  color: var(--ion-color-medium);
   margin: 0px;
   padding: 0px;
   z-index: 10;
@@ -198,7 +212,7 @@ button:disabled {
 .bar {
   /* border: 1px solid #666; */
   height: 2px;
-  width: 94%;
+  width: 93%;
   position: absolute;
   left: 10px;
   top: 190px;
@@ -207,7 +221,7 @@ button:disabled {
 .in {
   animation: fill 10s linear 1;
   height: 100%;
-  background-color: var(--ion-color-primary);
+  background-color: var(--ion-color-dark);
   border-radius: 2px;
 }
 @keyframes fill {
