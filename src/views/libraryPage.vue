@@ -65,15 +65,23 @@
                   detail="false"
                   v-for="n in recentlyPlayed"
                   :key="n.message"
-                  @click="() => router.push('/tabs/tab2/music-player')"
+                  @click="
+                    () => {
+                      if (deletePlaylistItem)
+                        router.push('/tabs/tab2/music-player');
+                    }
+                  "
                 >
-                  <ion-icon
-                    class="hidden"
-                    v-if="!deletePlaylistItem"
-                    :icon="removeCircleOutline"
-                    @click="deleteItemfromPlaylist(n.message)"
+                  <ion-button
+                    color="light"
                     slot="start"
-                  ></ion-icon>
+                    v-if="!deletePlaylistItem"
+                    size="default"
+                    @click="deleteItemfromPlaylist(n.message)"
+                  >
+                    <ion-icon :icon="removeCircleOutline"></ion-icon>
+                  </ion-button>
+
                   <ion-thumbnail slot="start">
                     <ion-img
                       alt="Silhouette of mountains"
