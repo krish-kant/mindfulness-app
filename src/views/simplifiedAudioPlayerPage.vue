@@ -85,10 +85,11 @@
               step="1"
               :max="trackDuration"
               ref="input"
-              style="width: 100%" />
+              style="width: 100%"
+            />
 
             <div class="buttons-container">
-              <a
+              <!-- <a
                 class="button"
                 :class="{ isDisabled: currentSong == 0 }"
                 v-on:click="prevSong()"
@@ -98,6 +99,14 @@
                   <path
                     fill="currentColor"
                     d="M6,18V6H8V18H6M9.5,12L18,6V18L9.5,12Z"
+                  />
+                </svg>
+              </a> -->
+              <a class="button" v-on:click="prevSkip()">
+                <svg style="width: 40px; height: 40px" viewBox="0 0 24 24">
+                  <path
+                    fill="currentColor"
+                    d="M19,14V20C19,21.11 18.11,22 17,22H15A2,2 0 0,1 13,20V14A2,2 0 0,1 15,12H17C18.11,12 19,12.9 19,14M15,14V20H17V14H15M11,20C11,21.11 10.1,22 9,22H5V20H9V18H7V16H9V14H5V12H9A2,2 0 0,1 11,14V15.5A1.5,1.5 0 0,1 9.5,17A1.5,1.5 0 0,1 11,18.5V20M12.5,3C17.15,3 21.08,6.03 22.47,10.22L20.1,11C19.05,7.81 16.04,5.5 12.5,5.5C10.54,5.5 8.77,6.22 7.38,7.38L10,10H3V3L5.6,5.6C7.45,4 9.85,3 12.5,3Z"
                   />
                 </svg>
               </a>
@@ -114,7 +123,15 @@
                   </div>
                 </transition>
               </a>
-              <a
+              <a class="button" v-on:click="nextSkip()">
+                <svg style="width: 40px; height: 40px" viewBox="0 0 24 24">
+                  <path
+                    fill="currentColor"
+                    d="M11.5,3C6.85,3 2.92,6.03 1.53,10.22L3.9,11C4.95,7.81 7.96,5.5 11.5,5.5C13.46,5.5 15.23,6.22 16.62,7.38L14,10H21V3L18.4,5.6C16.55,4 14.15,3 11.5,3M19,14V20C19,21.11 18.11,22 17,22H15A2,2 0 0,1 13,20V14A2,2 0 0,1 15,12H17C18.11,12 19,12.9 19,14M15,14V20H17V14H15M11,20C11,21.11 10.1,22 9,22H5V20H9V18H7V16H9V14H5V12H9A2,2 0 0,1 11,14V15.5A1.5,1.5 0 0,1 9.5,17A1.5,1.5 0 0,1 11,18.5V20Z"
+                  />
+                </svg>
+              </a>
+              <!-- <a
                 class="button"
                 :class="{ isDisabled: currentSong == musicPlaylist.length - 1 }"
                 v-on:click="nextSong()"
@@ -126,27 +143,10 @@
                     d="M16,18H18V6H16M6,18L14.5,12L6,6V18Z"
                   />
                 </svg>
-              </a>
+              </a> -->
             </div>
-            <div class="buttons-container">
-              <a class="button" v-on:click="prevSkip()">
-                <svg style="width: 40px; height: 40px" viewBox="0 0 24 24">
-                  <path
-                    fill="currentColor"
-                    d="M19,14V20C19,21.11 18.11,22 17,22H15A2,2 0 0,1 13,20V14A2,2 0 0,1 15,12H17C18.11,12 19,12.9 19,14M15,14V20H17V14H15M11,20C11,21.11 10.1,22 9,22H5V20H9V18H7V16H9V14H5V12H9A2,2 0 0,1 11,14V15.5A1.5,1.5 0 0,1 9.5,17A1.5,1.5 0 0,1 11,18.5V20M12.5,3C17.15,3 21.08,6.03 22.47,10.22L20.1,11C19.05,7.81 16.04,5.5 12.5,5.5C10.54,5.5 8.77,6.22 7.38,7.38L10,10H3V3L5.6,5.6C7.45,4 9.85,3 12.5,3Z"
-                  />
-                </svg>
-              </a>
-
-              <a class="button" v-on:click="nextSkip()">
-                <svg style="width: 40px; height: 40px" viewBox="0 0 24 24">
-                  <path
-                    fill="currentColor"
-                    d="M11.5,3C6.85,3 2.92,6.03 1.53,10.22L3.9,11C4.95,7.81 7.96,5.5 11.5,5.5C13.46,5.5 15.23,6.22 16.62,7.38L14,10H21V3L18.4,5.6C16.55,4 14.15,3 11.5,3M19,14V20C19,21.11 18.11,22 17,22H15A2,2 0 0,1 13,20V14A2,2 0 0,1 15,12H17C18.11,12 19,12.9 19,14M15,14V20H17V14H15M11,20C11,21.11 10.1,22 9,22H5V20H9V18H7V16H9V14H5V12H9A2,2 0 0,1 11,14V15.5A1.5,1.5 0 0,1 9.5,17A1.5,1.5 0 0,1 11,18.5V20Z"
-                  />
-                </svg>
-              </a></div></ion-col
-        ></ion-row>
+          </ion-col></ion-row
+        >
       </ion-grid>
     </ion-content>
   </ion-page>
@@ -172,6 +172,11 @@ import { defineComponent } from "vue";
 
 import PlayCircleIcon from "vue-material-design-icons/PlayCircle.vue";
 import PauseCircleIcon from "vue-material-design-icons/PauseCircle.vue";
+
+import { useRouter, useRoute } from "vue-router";
+
+const router = useRouter();
+const route = useRoute();
 
 export default defineComponent({
   name: "App",
@@ -233,62 +238,70 @@ export default defineComponent({
         },
       ],
       audioFile: "",
+      index: 0,
     };
   },
 
   mounted: function () {
+    this.getUrlQueryParams();
     this.changeSong();
     this.audio.loop = false;
   },
 
   methods: {
+    getUrlQueryParams: async function () {
+      await this.$router.isReady();
+      this.currentSong = this.$route.query.index;
+      this.index = this.$route.query.index;
+      this.dataLoaded = true;
+      // console.log(this.$route.query);
+      // console.log(this.currentSong);
+    },
+
     skipTrack: function () {
       this.audio.currentTime = this.value;
     },
     togglePlaylist: function () {
       this.isPlaylistActive = !this.isPlaylistActive;
     },
-    nextSong: function () {
-      if (this.currentSong < this.musicPlaylist.length - 1) {
-        this.changeSong(this.currentSong + 1);
-        this.value = 0;
-        this.currentTime = 0;
-      }
-    },
-
-    prevSong: function () {
-      if (this.currentSong > 0) {
-        this.changeSong(this.currentSong - 1);
-        this.value = 0;
-        this.currentTime = 0;
-      }
-    },
 
     prevSkip: function () {
       this.value -= 30;
       this.audio.currentTime = this.value;
+      if (this.audio.currentTime < 0) {
+        this.audio.currentTime = 0;
+        this.value = 0;
+      }
     },
 
     nextSkip: function () {
       this.value += 30;
       this.audio.currentTime = this.value;
+      if (this.audio.currentTime >= this.audio.duration) {
+        this.audio.currentTime = 0;
+        this.value = 0;
+        this.stopAudio();
+      }
     },
 
-    changeSong: function (index) {
+    changeSong: function () {
       var wasPlaying = this.currentlyPlaying;
       this.imageLoaded = false;
-      if (index !== undefined) {
-        this.stopAudio();
-        this.currentSong = index;
-      }
+
+      this.index = this.$route.query.index;
+      this.currentSong = this.index;
+
       this.audioFile = this.musicPlaylist[this.currentSong].url;
       this.audio = new Audio(this.audioFile);
+      console.log("this.audioFile", this.audioFile);
+      console.log("this.index", this.index);
+      console.log(" this.currentSong", this.currentSong);
       var localThis = this;
       this.audio.addEventListener("loadedmetadata", function () {
         localThis.trackDuration = Math.round(this.duration);
       });
       this.audio.addEventListener("ended", this.handleEnded);
-      if (wasPlaying) {
+      if (wasPlaying && this.currentlyStopped) {
         this.playAudio();
       }
     },
@@ -302,13 +315,6 @@ export default defineComponent({
       return this.musicPlaylist[currentSong].url;
     },
     playAudio: function () {
-      if (
-        this.currentlyStopped == true &&
-        this.currentSong + 1 == this.musicPlaylist.length
-      ) {
-        this.currentSong = 0;
-        this.changeSong();
-      }
       if (!this.currentlyPlaying) {
         this.getCurrentTimeEverySecond(true);
         this.currentlyPlaying = true;
@@ -324,16 +330,8 @@ export default defineComponent({
       this.pausedMusic();
     },
     handleEnded: function () {
-      if (this.currentSong + 1 == this.musicPlaylist.length) {
-        this.stopAudio();
-        this.currentlyPlaying = false;
-        this.currentlyStopped = true;
-      } else {
-        this.currentlyPlaying = false;
-        this.currentSong++;
-        this.changeSong();
-        this.playAudio();
-      }
+      this.stopAudio();
+      this.value = 0;
     },
     onImageLoaded: function () {
       this.imgLoaded = true;

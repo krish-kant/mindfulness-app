@@ -42,6 +42,14 @@ const routes = [
         path: "/tabs/tab2/music-player",
         component: () => import("@/views/musicPlayerPage.vue"),
       },
+      {
+        path: "/tabs/tab2/item-details",
+        component: () => import("@/views/itemDetailsPage.vue"),
+      },
+      {
+        path: "/tabs/tab2/simplified-audio-player",
+        component: () => import("@/views/simplifiedAudioPlayerPage.vue"),
+      },
     ],
   },
 ];

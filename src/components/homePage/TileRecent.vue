@@ -100,6 +100,7 @@ ion-grid {
 
 ion-badge {
   border-radius: 2px;
+  padding: 2px 3px;
 }
 
 .scroll-items {
