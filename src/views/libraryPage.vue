@@ -3,7 +3,7 @@
     <ion-header class="ion-no-border">
       <ion-toolbar>
         <!-- <ion-title>Library</ion-title> -->
-        <ion-item lines="none" class="ion-padding-right"
+        <ion-item lines="none"
           ><ion-icon
             @click="() => router.push('/tabs/tab2/search')"
             slot="end"
@@ -134,6 +134,7 @@ import {
 } from "ionicons/icons";
 import { ref, onMounted, watch } from "vue";
 import { useRouter } from "vue-router";
+import { Share } from "@capacitor/share";
 
 const router = useRouter();
 let deletePlaylistItem = ref(true);
@@ -171,6 +172,16 @@ onMounted(() => {
   // deletePlaylistItem.value == true;
   recentlyPlayledLength.value = recentlyPlayed.value.length;
 });
+
+const shareLink = async () => {
+  console.log("share link");
+  await Share.share({
+    title: "See cool stuff",
+    text: "Testing Share API",
+    url: "https://mindfulnessapp.netlify.app/tabs/tab2/simplified-audio-player?index=3",
+    dialogTitle: "Share with buddies",
+  });
+};
 
 const deleteItemfromPlaylist = (item) => {
   recentlyPlayed.value = recentlyPlayed.value.filter((e) => e.message !== item);
@@ -210,5 +221,10 @@ ion-img {
   object-fit: cover;
   object-position: 50% 50%;
   filter: brightness(70%);
+}
+
+ion-button {
+  margin-right: 20px;
+  --box-shadow: none !important;
 }
 </style>

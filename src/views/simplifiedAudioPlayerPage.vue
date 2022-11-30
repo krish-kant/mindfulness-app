@@ -16,6 +16,7 @@
           <ion-col size-lg="8">
             <ion-item lines="none"
               ><svg
+                @click="shareLink"
                 slot="end"
                 style="width: 24px; height: 24px"
                 viewBox="0 0 24 24"
@@ -175,6 +176,8 @@ import PauseCircleIcon from "vue-material-design-icons/PauseCircle.vue";
 
 import { useRouter, useRoute } from "vue-router";
 
+import { Share } from "@capacitor/share";
+
 const router = useRouter();
 const route = useRoute();
 
@@ -256,6 +259,14 @@ export default defineComponent({
       this.dataLoaded = true;
       // console.log(this.$route.query);
       // console.log(this.currentSong);
+    },
+    shareLink: async function () {
+      await Share.share({
+        title: "Hey! Check this out on Moby.",
+        text: this.musicPlaylist[this.currentSong].title,
+        url: window.location.href,
+        dialogTitle: "Share with buddies",
+      });
     },
 
     skipTrack: function () {
