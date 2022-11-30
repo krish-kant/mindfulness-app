@@ -7,24 +7,24 @@
         <ion-text> </ion-text>
 
         <ion-buttons slot="start">
-          <ion-back-button defaultHref="/tabs/tab2"></ion-back-button>
+          <ion-back-button defaultHref="/tabs/tab1"></ion-back-button>
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
       <ion-grid>
         <ion-row class="ion-justify-content-center">
-          <ion-col size-sm="10" size-lg="8" class="ion-align-self-center">
+          <ion-col size-lg="8" class="ion-align-self-center">
             <ion-card v-if="dataLoaded">
               <img
                 alt="Silhouette of mountains"
                 :src="musicPlaylist[index].imageUrl"
               />
-              <ion-card-header>
-                <ion-card-title>Card Title</ion-card-title>
-                <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
-              </ion-card-header>
-              <ion-item lines="none">
+
+              <ion-text>{{ musicPlaylist[index].duration }}</ion-text>
+              |<ion-text>{{ musicPlaylist[index].type }}</ion-text>
+
+              <ion-item lines="none" class="ion-margin">
                 <ion-button
                   size="default"
                   color="light"
@@ -41,12 +41,12 @@
                   <ion-icon color="dark" :icon="play" /><ion-text color="medium"
                     ><p>Play</p></ion-text
                   >
-                </ion-button></ion-item
-              >
+                </ion-button>
+              </ion-item>
 
-              <ion-card-content
-                >{{ musicPlaylist[index].title }}
-              </ion-card-content>
+              <ion-label
+                ><h3>{{ musicPlaylist[index].title }}</h3></ion-label
+              >
             </ion-card>
 
             <!-- <ion-item lines="none">
@@ -92,6 +92,8 @@ import {
 import { play, bookmarkOutline } from "ionicons/icons";
 import { ref, defineProps, onMounted, onBeforeMount } from "vue";
 import { useRouter, useRoute } from "vue-router";
+
+import { Share } from "@capacitor/share";
 
 const router = useRouter();
 const route = useRoute();
@@ -166,6 +168,16 @@ onMounted(() => {
   getUrlQueryParams();
 });
 
+const shareLink = async () => {
+  console.log("share link");
+  await Share.share({
+    title: "See cool stuff",
+    text: "Testing Share API",
+    url: "https://mindfulnessapp.netlify.app/tabs/tab2/simplified-audio-player?index=3",
+    dialogTitle: "Share with buddies",
+  });
+};
+
 const getUrlQueryParams = async () => {
   //router is async so we wait for it to be readyHi
   await router.isReady();
@@ -183,11 +195,25 @@ img {
   overflow: hidden;
   z-index: 10;
   width: 100%;
-  height: 250px;
+  height: 350px;
   object-fit: cover;
   object-position: 50% 50%;
   margin-bottom: 2px;
   filter: brightness(70%);
+}
+
+@media only screen and (max-width: 600px) {
+  img {
+    border-radius: 5px !important;
+    overflow: hidden;
+    z-index: 10;
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    object-position: 50% 50%;
+    margin-bottom: 2px;
+    filter: brightness(70%);
+  }
 }
 
 ion-item {
@@ -240,5 +266,12 @@ ion-button {
   margin: 0 auto;
   margin-bottom: 5px;
   --box-shadow: none !important;
+}
+ion-card-header {
+  padding: 2px !important;
+}
+
+ion-text {
+  margin: 5px;
 }
 </style>
