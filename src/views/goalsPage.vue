@@ -5,7 +5,7 @@
         ><ion-item lines="none" class="add-goal-icon"
           ><ion-icon
             class="add-goals-icon"
-            @click="() => router.push('/tabs/tab3/add-goals')"
+            @click="() => router.push('/tabs/add-goals')"
             slot="end"
             :icon="addCircleOutline"
           ></ion-icon

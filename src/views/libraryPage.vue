@@ -68,7 +68,7 @@
                   @click="
                     () => {
                       if (deletePlaylistItem)
-                        router.push('/tabs/tab2/music-player');
+                        router.push('/tabs/audios-player');
                     }
                   "
                 >

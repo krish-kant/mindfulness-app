@@ -10,7 +10,7 @@
         >
 
         <ion-buttons slot="start">
-          <ion-back-button defaultHref="/tabs/tab2"></ion-back-button>
+          <ion-back-button defaultHref="/tabs/goals"></ion-back-button>
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
