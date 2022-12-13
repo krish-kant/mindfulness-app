@@ -17,12 +17,12 @@
             () => {
               if (!isPlaying) {
                 router.push({
-                  path: '/tabs/tab2/item-details',
-                  query: { index: index },
+                  path: `/tabs/item-details/${musicPlaylist[index].title}`,
                 });
               }
             }
           "
+          @ionImgDidLoad="ionImgDidLoad"
         />
         <div v-if="index == currentIndex && isPlaying" class="bar">
           <div class="in"></div>
@@ -32,8 +32,18 @@
             <p>{{ musicPlaylist[index].duration }}</p>
             <h3>{{ musicPlaylist[index].title }}</h3>
           </ion-label>
-          <ion-icon :icon="bookmarkOutline" />
+          <!-- <ion-icon :icon="bookmarkOutline" /> -->
+          <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
+            <path
+              fill="currentColor"
+              d="M17,18L12,15.82L7,18V5H17M17,3H7A2,2 0 0,0 5,5V21L12,18L19,21V5C19,3.89 18.1,3 17,3Z"
+            />
+          </svg>
         </ion-item>
+        <div class="spinner" v-if="!imgLoaded">
+          <ion-spinner name="lines" />
+        </div>
+
         <div class="lock-icon">
           <ion-badge color="warning"
             ><ion-icon :icon="lockClosedOutline"></ion-icon
@@ -82,7 +92,7 @@ import {
   IonBadge,
   IonImg,
 } from "@ionic/vue";
-import { lockClosedOutline, bookmarkOutline } from "ionicons/icons";
+import { lockClosedOutline } from "ionicons/icons";
 import { ref, defineProps } from "vue";
 import { useRouter } from "vue-router";
 
@@ -94,9 +104,11 @@ const props = defineProps({
 
 let isPlaying = ref(false);
 let currentIndex = ref(0);
+let imgLoaded = ref(false);
 
-const onImageLoaded = function () {
+const ionImgDidLoad = function () {
   console.log("image loaded");
+  imgLoaded.value = true;
 };
 
 const playItem = function (index) {
@@ -154,6 +166,13 @@ ion-grid {
   position: absolute;
   right: 20px;
   top: 20px;
+  z-index: 10;
+}
+
+.spinner {
+  position: absolute;
+  right: 45%;
+  top: 35%;
   z-index: 10;
 }
 

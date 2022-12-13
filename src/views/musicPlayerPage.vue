@@ -436,8 +436,9 @@ img {
   width: 100%;
   height: 320px;
   object-fit: cover;
-  object-position: bottom;
+  object-position: 50% 50%;
   border-radius: 5px;
+  filter: brightness(70%);
 }
 ion-label {
   margin: 0;
@@ -463,6 +464,7 @@ ion-item {
     object-position: 50% 50%;
     border-radius: 5px;
     z-index: 10;
+    filter: brightness(70%);
   }
 
   .audioPlayerUI {

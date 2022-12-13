@@ -36,7 +36,7 @@
               <transition name="slide-fade" mode="out-in">
                 <img
                   @load="onImageLoaded()"
-                  :src="musicPlaylist[currentSong].image"
+                  :src="dataList[currentSong].imageUrl"
                   :key="currentSong"
                   ondragstart="return false;"
                   id="playerAlbumArt"
@@ -46,12 +46,12 @@
             </div>
             <ion-item lines="none">
               <ion-label class="ion-text-wrap">
-                <h3>{{ musicPlaylist[currentSong].title }}</h3>
-                <p>{{ musicPlaylist[currentSong].artist }}</p>
+                <h3>{{ dataList[currentSong].title }}</h3>
+                <p>{{ dataList[currentSong].type }}</p>
               </ion-label>
               <a
                 class="button"
-                :class="{ isDisabled: currentSong == musicPlaylist.length - 1 }"
+                :class="{ isDisabled: currentSong == dataList.length - 1 }"
                 v-on:click="nextSong()"
                 title="Next Song"
                 slot="end"
@@ -134,7 +134,7 @@
               </a>
               <!-- <a
                 class="button"
-                :class="{ isDisabled: currentSong == musicPlaylist.length - 1 }"
+                :class="{ isDisabled: currentSong == dataList.length - 1 }"
                 v-on:click="nextSong()"
                 title="Next Song"
               >
@@ -177,6 +177,9 @@ import PauseCircleIcon from "vue-material-design-icons/PauseCircle.vue";
 import { useRouter, useRoute } from "vue-router";
 
 import { Share } from "@capacitor/share";
+import { useDataStore } from "@/stores/data";
+
+const data = useDataStore();
 
 const router = useRouter();
 const route = useRoute();
@@ -213,35 +216,10 @@ export default defineComponent({
       currentSong: 0,
       debug: false,
       value: 0,
-      musicPlaylist: [
-        {
-          title:
-            "Service Bell Service Bell Service Bell Service Bell Bell Service Bell",
-          artist: "Daniel Simion",
-          url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-          image: "https://picsum.photos/550/600",
-        },
-        {
-          title: "Meadowlark",
-          artist: "Daniel Simion",
-          url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
-          image: "https://picsum.photos/700/600",
-        },
-        {
-          title: "Hyena Laughing",
-          artist: "Daniel Simion",
-          url: "https://soundbible.com/mp3/hyena-laugh_daniel-simion.mp3",
-          image: "https://picsum.photos/500/620",
-        },
-        {
-          title: "Creepy Background",
-          artist: "Daniel Simion",
-          url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
-          image: "https://picsum.photos/1000/600",
-        },
-      ],
       audioFile: "",
       index: 0,
+      dataList: data.dataList,
+      title: "",
     };
   },
 
@@ -254,16 +232,27 @@ export default defineComponent({
   methods: {
     getUrlQueryParams: async function () {
       await this.$router.isReady();
-      this.currentSong = this.$route.query.index;
-      this.index = this.$route.query.index;
+      // this.currentSong = this.$route.query.index;
+      // this.index = this.$route.query.index;
       this.dataLoaded = true;
+
       // console.log(this.$route.query);
       // console.log(this.currentSong);
+      this.title = this.dataList.filter(
+        (item) => item.title === this.$route.params.title
+      )[0].title;
+      console.log(this.title);
+      console.log(
+        this.dataList.filter((item) => item.title === this.title)[0].id
+      );
+      this.index = this.dataList.findIndex((item) => item.title === this.title);
+      this.currentSong = this.index;
+      console.log(this.dataList.findIndex((item) => item.title === this.title));
     },
     shareLink: async function () {
       await Share.share({
         title: "Hey! Check this out on Moby.",
-        text: this.musicPlaylist[this.currentSong].title,
+        text: this.dataList[this.currentSong].title,
         url: window.location.href,
         dialogTitle: "Share with buddies",
       });
@@ -298,11 +287,13 @@ export default defineComponent({
     changeSong: function () {
       var wasPlaying = this.currentlyPlaying;
       this.imageLoaded = false;
-
-      this.index = this.$route.query.index;
+      this.title = this.dataList.filter(
+        (item) => item.title === this.$route.params.title
+      )[0].title;
+      this.index = this.dataList.findIndex((item) => item.title === this.title);
       this.currentSong = this.index;
 
-      this.audioFile = this.musicPlaylist[this.currentSong].url;
+      this.audioFile = this.dataList[this.currentSong].mediaUrl;
       this.audio = new Audio(this.audioFile);
       console.log("this.audioFile", this.audioFile);
       console.log("this.index", this.index);
@@ -323,7 +314,7 @@ export default defineComponent({
       return false;
     },
     getCurrentSong: function (currentSong) {
-      return this.musicPlaylist[currentSong].url;
+      return this.dataList[currentSong].mediaUrl;
     },
     playAudio: function () {
       if (!this.currentlyPlaying) {
@@ -434,8 +425,9 @@ img {
   width: 100%;
   height: 320px;
   object-fit: cover;
-  object-position: bottom;
+  object-position: 50% 50%;
   border-radius: 5px;
+  filter: brightness(70%);
 }
 ion-label {
   margin: 0;
@@ -461,6 +453,7 @@ ion-item {
     object-position: 50% 50%;
     border-radius: 5px;
     z-index: 10;
+    filter: brightness(70%);
   }
 
   .audioPlayerUI {

@@ -4,7 +4,7 @@ import TabsPage from "../views/TabsPage.vue";
 const routes = [
   {
     path: "/",
-    redirect: "/tabs/tab1",
+    redirect: "/tabs/home",
   },
   {
     path: "/tabs/",
@@ -12,42 +12,42 @@ const routes = [
     children: [
       {
         path: "",
-        redirect: "/tabs/tab1",
+        redirect: "/tabs/home",
       },
       {
-        path: "tab1",
+        path: "home",
         component: () => import("@/views/homePage.vue"),
       },
       {
-        path: "tab2",
+        path: "library",
         component: () => import("@/views/libraryPage.vue"),
       },
       {
-        path: "tab3",
+        path: "goals",
         component: () => import("@/views/goalsPage.vue"),
       },
       {
-        path: "tab4",
+        path: "profile",
         component: () => import("@/views/profilePage.vue"),
       },
       {
-        path: "/tabs/tab2/search",
+        path: "search",
         component: () => import("@/views/searchPage.vue"),
       },
       {
-        path: "/tabs/tab3/add-goals",
+        path: "add-goals",
         component: () => import("@/views/addGoalsPage.vue"),
       },
       {
-        path: "/tabs/tab2/music-player",
+        path: "audios-player",
         component: () => import("@/views/musicPlayerPage.vue"),
       },
       {
-        path: "/tabs/tab2/item-details",
+        path: "item-details/:title",
         component: () => import("@/views/itemDetailsPage.vue"),
       },
       {
-        path: "/tabs/tab2/simplified-audio-player",
+        path: "audio-player/:title",
         component: () => import("@/views/simplifiedAudioPlayerPage.vue"),
       },
     ],

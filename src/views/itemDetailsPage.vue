@@ -7,7 +7,7 @@
         <ion-text> </ion-text>
 
         <ion-buttons slot="start">
-          <ion-back-button defaultHref="/tabs/tab1"></ion-back-button>
+          <ion-back-button defaultHref="/tabs/home"></ion-back-button>
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
@@ -18,11 +18,11 @@
             <ion-card v-if="dataLoaded">
               <img
                 alt="Silhouette of mountains"
-                :src="musicPlaylist[index].imageUrl"
+                :src="dataList[index].imageUrl"
               />
 
-              <ion-text>{{ musicPlaylist[index].duration }}</ion-text>
-              |<ion-text>{{ musicPlaylist[index].type }}</ion-text>
+              <ion-text>{{ dataList[index].duration }}</ion-text>
+              |<ion-text>{{ dataList[index].type }}</ion-text>
 
               <ion-item lines="none" class="ion-margin">
                 <ion-button
@@ -31,10 +31,7 @@
                   @click="
                     () =>
                       router.push({
-                        path: '/tabs/tab2/simplified-audio-player',
-                        query: {
-                          index: index,
-                        },
+                        path: `/tabs/audio-player/${dataList[index].title}`,
                       })
                   "
                 >
@@ -45,21 +42,21 @@
               </ion-item>
 
               <ion-label
-                ><h3>{{ musicPlaylist[index].title }}</h3></ion-label
+                ><h3>{{ dataList[index].title }}</h3></ion-label
               >
             </ion-card>
 
             <!-- <ion-item lines="none">
               <ion-label class="ion-text-wrap">
-                <p>{{ musicPlaylist[index].duration }}</p>
-                <h3>{{ musicPlaylist[index].title }}</h3>
+                <p>{{ dataList[index].duration }}</p>
+                <h3>{{ dataList[index].title }}</h3>
               </ion-label>
               <ion-icon :icon="bookmarkOutline" />
             </ion-item> -->
 
             <!-- <div class="item-type">
               <ion-badge color="secondary">
-                {{ musicPlaylist[index].type }}</ion-badge
+                {{ dataList[index].type }}</ion-badge
               >
             </div> -->
           </ion-col>
@@ -90,83 +87,31 @@ import {
   IonCardTitle,
 } from "@ionic/vue";
 import { play, bookmarkOutline } from "ionicons/icons";
-import { ref, defineProps, onMounted, onBeforeMount } from "vue";
+import { ref, defineProps, onMounted, onBeforeMount, onUnmounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
 
 import { Share } from "@capacitor/share";
+import { useDataStore } from "@/stores/data";
+
+const { dataList } = useDataStore();
 
 const router = useRouter();
 const route = useRoute();
 let dataLoaded = ref(false);
 
 let index = ref(0);
-
-const musicPlaylist = ref([
-  {
-    title:
-      "Service Bell Service Bell Service Bell Service Bell Bell Service Bell",
-    type: "Yoga",
-    mediaUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-    imageUrl: "https://picsum.photos/500/600",
-    duration: "1 hour",
-  },
-  {
-    title: "Meadowlark",
-    type: "Sleep",
-    mediaUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
-    imageUrl: "https://picsum.photos/500/500",
-    duration: "30 min",
-  },
-  {
-    title: "Hyena Laughing",
-    type: "Meditation",
-    mediaUrl: "https://soundbible.com/mp3/hyena-laugh_daniel-simion.mp3",
-    imageUrl: "https://picsum.photos/700/500",
-    duration: "4 min",
-  },
-  {
-    title: "Creepy Background",
-    type: "Breethe",
-    mediaUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
-    imageUrl: "https://picsum.photos/800/500",
-    duration: "5 min",
-  },
-  {
-    title:
-      "Service Bell Service Bell Service Bell Service Bell Bell Service Bell",
-    type: "Yoga",
-    mediaUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-    imageUrl: "https://picsum.photos/500/600",
-    duration: "1 hour",
-  },
-  {
-    title: "Meadowlark",
-    type: "Sleep",
-    mediaUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
-    imageUrl: "https://picsum.photos/500/500",
-    duration: "30 min",
-  },
-  {
-    title: "Hyena Laughing",
-    type: "Meditation",
-    mediaUrl: "https://soundbible.com/mp3/hyena-laugh_daniel-simion.mp3",
-    imageUrl: "https://picsum.photos/700/500",
-    duration: "4 min",
-  },
-  {
-    title: "Creepy Background",
-    type: "Breethe",
-    mediaUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
-    imageUrl: "https://picsum.photos/800/500",
-    duration: "5 min",
-  },
-]);
+let title = ref("");
 
 const onImageLoaded = function () {};
 
 onMounted(() => {
   getUrlQueryParams();
 });
+
+// onUnmounted(() => {
+//   console.log("unmounted");
+//   router.back();
+// });
 
 const shareLink = async () => {
   console.log("share link");
@@ -184,8 +129,16 @@ const getUrlQueryParams = async () => {
   //once its ready we can access the query params
   console.log(route.query);
 
-  index.value = route.query.index;
+  // index.value = route.query.index;
   dataLoaded.value = true;
+  // title.value = route.params.title;
+  title.value = dataList.filter(
+    (item) => item.title === route.params.title
+  )[0].title;
+  console.log(title.value);
+  console.log(dataList.filter((item) => item.title === title.value)[0].id);
+  index = dataList.findIndex((item) => item.title === title.value);
+  console.log(dataList.findIndex((item) => item.title === title.value));
 };
 </script>
 
