@@ -4,7 +4,7 @@
       <ion-toolbar>
         <!-- <ion-title>Library</ion-title> -->
         <ion-buttons slot="start">
-          <ion-back-button defaultHref="/tabs/tab2"></ion-back-button>
+          <ion-back-button defaultHref="/tabs/library"></ion-back-button>
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
@@ -14,18 +14,7 @@
           class="ion-align-items-center ion-justify-content-center first-row-grid-1 ion-margin-bottom"
         >
           <ion-col size-lg="8">
-            <ion-item lines="none"
-              ><svg
-                @click="shareLink"
-                slot="end"
-                style="width: 24px; height: 24px"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  fill="currentColor"
-                  d="M12,1L8,5H11V14H13V5H16M18,23H6C4.89,23 4,22.1 4,21V9A2,2 0 0,1 6,7H9V9H6V21H18V9H15V7H18A2,2 0 0,1 20,9V21A2,2 0 0,1 18,23Z"
-                /></svg
-            ></ion-item>
+            <ion-item lines="none"></ion-item>
             <div class="albumImage">
               <transition
                 name="ballmove"
@@ -49,20 +38,6 @@
                 <h3>{{ dataList[currentSong].title }}</h3>
                 <p>{{ dataList[currentSong].type }}</p>
               </ion-label>
-              <a
-                class="button"
-                :class="{ isDisabled: currentSong == dataList.length - 1 }"
-                v-on:click="nextSong()"
-                title="Next Song"
-                slot="end"
-              >
-                <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
-                  <path
-                    fill="currentColor"
-                    d="M12.1,18.55L12,18.65L11.89,18.55C7.14,14.24 4,11.39 4,8.5C4,6.5 5.5,5 7.5,5C9.04,5 10.54,6 11.07,7.36H12.93C13.46,6 14.96,5 16.5,5C18.5,5 20,6.5 20,8.5C20,11.39 16.86,14.24 12.1,18.55M16.5,3C14.76,3 13.09,3.81 12,5.08C10.91,3.81 9.24,3 7.5,3C4.42,3 2,5.41 2,8.5C2,12.27 5.4,15.36 10.55,20.03L12,21.35L13.45,20.03C18.6,15.36 22,12.27 22,8.5C22,5.41 19.58,3 16.5,3Z"
-                  />
-                </svg>
-              </a>
             </ion-item>
           </ion-col>
         </ion-row>
@@ -86,11 +61,10 @@
               step="1"
               :max="trackDuration"
               ref="input"
-              style="width: 100%"
-            />
+              style="width: 100%" />
 
             <div class="buttons-container">
-              <!-- <a
+              <a
                 class="button"
                 :class="{ isDisabled: currentSong == 0 }"
                 v-on:click="prevSong()"
@@ -100,14 +74,6 @@
                   <path
                     fill="currentColor"
                     d="M6,18V6H8V18H6M9.5,12L18,6V18L9.5,12Z"
-                  />
-                </svg>
-              </a> -->
-              <a class="button" v-on:click="prevSkip()">
-                <svg style="width: 40px; height: 40px" viewBox="0 0 24 24">
-                  <path
-                    fill="currentColor"
-                    d="M19,14V20C19,21.11 18.11,22 17,22H15A2,2 0 0,1 13,20V14A2,2 0 0,1 15,12H17C18.11,12 19,12.9 19,14M15,14V20H17V14H15M11,20C11,21.11 10.1,22 9,22H5V20H9V18H7V16H9V14H5V12H9A2,2 0 0,1 11,14V15.5A1.5,1.5 0 0,1 9.5,17A1.5,1.5 0 0,1 11,18.5V20M12.5,3C17.15,3 21.08,6.03 22.47,10.22L20.1,11C19.05,7.81 16.04,5.5 12.5,5.5C10.54,5.5 8.77,6.22 7.38,7.38L10,10H3V3L5.6,5.6C7.45,4 9.85,3 12.5,3Z"
                   />
                 </svg>
               </a>
@@ -124,15 +90,7 @@
                   </div>
                 </transition>
               </a>
-              <a class="button" v-on:click="nextSkip()">
-                <svg style="width: 40px; height: 40px" viewBox="0 0 24 24">
-                  <path
-                    fill="currentColor"
-                    d="M11.5,3C6.85,3 2.92,6.03 1.53,10.22L3.9,11C4.95,7.81 7.96,5.5 11.5,5.5C13.46,5.5 15.23,6.22 16.62,7.38L14,10H21V3L18.4,5.6C16.55,4 14.15,3 11.5,3M19,14V20C19,21.11 18.11,22 17,22H15A2,2 0 0,1 13,20V14A2,2 0 0,1 15,12H17C18.11,12 19,12.9 19,14M15,14V20H17V14H15M11,20C11,21.11 10.1,22 9,22H5V20H9V18H7V16H9V14H5V12H9A2,2 0 0,1 11,14V15.5A1.5,1.5 0 0,1 9.5,17A1.5,1.5 0 0,1 11,18.5V20Z"
-                  />
-                </svg>
-              </a>
-              <!-- <a
+              <a
                 class="button"
                 :class="{ isDisabled: currentSong == dataList.length - 1 }"
                 v-on:click="nextSong()"
@@ -144,10 +102,27 @@
                     d="M16,18H18V6H16M6,18L14.5,12L6,6V18Z"
                   />
                 </svg>
-              </a> -->
+              </a>
             </div>
-          </ion-col></ion-row
-        >
+            <div class="buttons-container">
+              <a class="button" v-on:click="prevSkip()">
+                <svg style="width: 40px; height: 40px" viewBox="0 0 24 24">
+                  <path
+                    fill="currentColor"
+                    d="M19,14V20C19,21.11 18.11,22 17,22H15A2,2 0 0,1 13,20V14A2,2 0 0,1 15,12H17C18.11,12 19,12.9 19,14M15,14V20H17V14H15M11,20C11,21.11 10.1,22 9,22H5V20H9V18H7V16H9V14H5V12H9A2,2 0 0,1 11,14V15.5A1.5,1.5 0 0,1 9.5,17A1.5,1.5 0 0,1 11,18.5V20M12.5,3C17.15,3 21.08,6.03 22.47,10.22L20.1,11C19.05,7.81 16.04,5.5 12.5,5.5C10.54,5.5 8.77,6.22 7.38,7.38L10,10H3V3L5.6,5.6C7.45,4 9.85,3 12.5,3Z"
+                  />
+                </svg>
+              </a>
+
+              <a class="button" v-on:click="nextSkip()">
+                <svg style="width: 40px; height: 40px" viewBox="0 0 24 24">
+                  <path
+                    fill="currentColor"
+                    d="M11.5,3C6.85,3 2.92,6.03 1.53,10.22L3.9,11C4.95,7.81 7.96,5.5 11.5,5.5C13.46,5.5 15.23,6.22 16.62,7.38L14,10H21V3L18.4,5.6C16.55,4 14.15,3 11.5,3M19,14V20C19,21.11 18.11,22 17,22H15A2,2 0 0,1 13,20V14A2,2 0 0,1 15,12H17C18.11,12 19,12.9 19,14M15,14V20H17V14H15M11,20C11,21.11 10.1,22 9,22H5V20H9V18H7V16H9V14H5V12H9A2,2 0 0,1 11,14V15.5A1.5,1.5 0 0,1 9.5,17A1.5,1.5 0 0,1 11,18.5V20Z"
+                  />
+                </svg>
+              </a></div></ion-col
+        ></ion-row>
       </ion-grid>
     </ion-content>
   </ion-page>
@@ -173,16 +148,13 @@ import { defineComponent } from "vue";
 
 import PlayCircleIcon from "vue-material-design-icons/PlayCircle.vue";
 import PauseCircleIcon from "vue-material-design-icons/PauseCircle.vue";
-
-import { useRouter, useRoute } from "vue-router";
-
 import { Share } from "@capacitor/share";
+import { useRouter, useRoute } from "vue-router";
 import { useDataStore } from "@/stores/data";
 
 const data = useDataStore();
 
-const router = useRouter();
-const route = useRoute();
+const url = new URL("https://w.com/#about");
 
 export default defineComponent({
   name: "App",
@@ -247,22 +219,38 @@ export default defineComponent({
       );
       this.index = this.dataList.findIndex((item) => item.title === this.title);
       this.currentSong = this.index;
-      console.log(this.dataList.findIndex((item) => item.title === this.title));
+      console.log(this.currentSong);
     },
-    shareLink: async function () {
-      await Share.share({
-        title: "Hey! Check this out on Moby.",
-        text: this.dataList[this.currentSong].title,
-        url: window.location.href,
-        dialogTitle: "Share with buddies",
-      });
-    },
+
+    // shareLink: async function () {
+    //   await Share.share({
+    //     title: "Hey! Check this out on Moby.",
+    //     text: this.dataList[this.currentSong].title,
+    //     url: window.location.href,
+    //     dialogTitle: "Share with buddies",
+    //   });
+    // },
 
     skipTrack: function () {
       this.audio.currentTime = this.value;
     },
     togglePlaylist: function () {
       this.isPlaylistActive = !this.isPlaylistActive;
+    },
+    nextSong: function () {
+      if (this.currentSong < this.dataList.length - 1) {
+        this.changeSong(this.currentSong + 1);
+        this.value = 0;
+        this.currentTime = 0;
+      }
+    },
+
+    prevSong: function () {
+      if (this.currentSong > 0) {
+        this.changeSong(this.currentSong - 1);
+        this.value = 0;
+        this.currentTime = 0;
+      }
     },
 
     prevSkip: function () {
@@ -284,26 +272,23 @@ export default defineComponent({
       }
     },
 
-    changeSong: function () {
+    changeSong: function (index) {
       var wasPlaying = this.currentlyPlaying;
       this.imageLoaded = false;
-      this.title = this.dataList.filter(
-        (item) => item.title === this.$route.params.title
-      )[0].title;
-      this.index = this.dataList.findIndex((item) => item.title === this.title);
-      this.currentSong = this.index;
+
+      if (index !== undefined) {
+        this.stopAudio();
+        this.currentSong = index;
+      }
 
       this.audioFile = this.dataList[this.currentSong].mediaUrl;
       this.audio = new Audio(this.audioFile);
-      console.log("this.audioFile", this.audioFile);
-      console.log("this.index", this.index);
-      console.log(" this.currentSong", this.currentSong);
       var localThis = this;
       this.audio.addEventListener("loadedmetadata", function () {
         localThis.trackDuration = Math.round(this.duration);
       });
       this.audio.addEventListener("ended", this.handleEnded);
-      if (wasPlaying && this.currentlyStopped) {
+      if (wasPlaying) {
         this.playAudio();
       }
     },
@@ -314,9 +299,16 @@ export default defineComponent({
       return false;
     },
     getCurrentSong: function (currentSong) {
-      return this.dataList[currentSong].mediaUrl;
+      return this.dataList[currentSong].url;
     },
     playAudio: function () {
+      if (
+        this.currentlyStopped == true &&
+        this.currentSong + 1 == this.dataList.length
+      ) {
+        this.currentSong = 0;
+        this.changeSong();
+      }
       if (!this.currentlyPlaying) {
         this.getCurrentTimeEverySecond(true);
         this.currentlyPlaying = true;
@@ -332,8 +324,16 @@ export default defineComponent({
       this.pausedMusic();
     },
     handleEnded: function () {
-      this.stopAudio();
-      this.value = 0;
+      if (this.currentSong + 1 == this.dataList.length) {
+        this.stopAudio();
+        this.currentlyPlaying = false;
+        this.currentlyStopped = true;
+      } else {
+        this.currentlyPlaying = false;
+        this.currentSong++;
+        this.changeSong();
+        this.playAudio();
+      }
     },
     onImageLoaded: function () {
       this.imgLoaded = true;

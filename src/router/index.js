@@ -39,8 +39,8 @@ const routes = [
         component: () => import("@/views/addGoalsPage.vue"),
       },
       {
-        path: "audios-player",
-        component: () => import("@/views/musicPlayerPage.vue"),
+        path: "audiolist-player/:title",
+        component: () => import("@/views/audioListPlayerPage.vue"),
       },
       {
         path: "item-details/:title",
@@ -48,7 +48,7 @@ const routes = [
       },
       {
         path: "audio-player/:title",
-        component: () => import("@/views/simplifiedAudioPlayerPage.vue"),
+        component: () => import("@/views/audioPlayerPage.vue"),
       },
     ],
   },

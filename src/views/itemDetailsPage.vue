@@ -102,8 +102,6 @@ let dataLoaded = ref(false);
 let index = ref(0);
 let title = ref("");
 
-const onImageLoaded = function () {};
-
 onMounted(() => {
   getUrlQueryParams();
 });
