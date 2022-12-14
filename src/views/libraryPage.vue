@@ -91,10 +91,7 @@
                   </ion-button>
 
                   <ion-thumbnail slot="start">
-                    <ion-img
-                      alt="Silhouette of mountains"
-                      :src="rec.imageUrl"
-                    />
+                    <img alt="Silhouette of mountains" :src="rec.imageUrl" />
                   </ion-thumbnail>
 
                   <ion-label>
@@ -139,7 +136,7 @@
                 </ion-button>
 
                 <ion-thumbnail slot="start">
-                  <ion-img alt="Silhouette of mountains" :src="rec.imageUrl" />
+                  <img alt="Silhouette of mountains" :src="rec.imageUrl" />
                 </ion-thumbnail>
 
                 <ion-label>
