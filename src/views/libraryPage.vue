@@ -33,13 +33,13 @@
               <div>
                 <ion-segment value="default">
                   <ion-segment-button
-                    value="default"
+                    :value="!switchBookmarks ? 'default' : ''"
                     @click="switchBookmarks = false"
                   >
                     <ion-label>Playlist</ion-label>
                   </ion-segment-button>
                   <ion-segment-button
-                    value="segment"
+                    :value="switchBookmarks ? 'default' : ''"
                     @click="switchBookmarks = true"
                   >
                     <ion-label>Bookmarks</ion-label>
@@ -120,7 +120,6 @@
                   () => {
                     if (deletePlaylistItem) {
                       router.push(`/tabs/item-details/${rec.title}`);
-                      switchBookmarks = false;
                     }
                   }
                 "
@@ -226,10 +225,6 @@ onMounted(() => {
   recentlyPlayledLength.value = recentlyPlayedList.length;
   switchBookmarks.value = false;
 });
-
-// onUnmounted(() => {
-//   switchBookmarks.value = true;
-// });
 
 const shareLink = async () => {
   console.log("share link");
