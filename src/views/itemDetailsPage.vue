@@ -2,10 +2,6 @@
   <ion-page>
     <ion-header class="ion-no-border">
       <ion-toolbar>
-        <!-- <ion-title>Library</ion-title> -->
-
-        <ion-text> </ion-text>
-
         <ion-buttons slot="start">
           <ion-back-button defaultHref="/tabs/home"></ion-back-button>
         </ion-buttons>
@@ -15,14 +11,35 @@
       <ion-grid>
         <ion-row class="ion-justify-content-center">
           <ion-col size-lg="8" class="ion-align-self-center">
-            <ion-card v-if="dataLoaded">
+            <div v-if="dataLoaded">
               <img
                 alt="Silhouette of mountains"
                 :src="dataList[index].imageUrl"
               />
-
-              <ion-text>{{ dataList[index].duration }}</ion-text>
-              |<ion-text>{{ dataList[index].type }}</ion-text>
+              <ion-badge color="light" class="share-item">
+                <svg
+                  @click="shareLink"
+                  style="width: 24px; height: 24px"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M12,1L8,5H11V14H13V5H16M18,23H6C4.89,23 4,22.1 4,21V9A2,2 0 0,1 6,7H9V9H6V21H18V9H15V7H18A2,2 0 0,1 20,9V21A2,2 0 0,1 18,23Z"
+                  />
+                </svg>
+              </ion-badge>
+              <ion-item lines="none">
+                <ion-label class="ion-text-wrap item-heading">
+                  <ion-text class="heading">{{
+                    dataList[index].title
+                  }}</ion-text>
+                  <p>
+                    {{ dataList[index].duration }}
+                    |
+                    {{ dataList[index].type }}
+                  </p>
+                </ion-label>
+              </ion-item>
 
               <ion-item lines="none" class="ion-margin">
                 <ion-button
@@ -41,17 +58,23 @@
                 </ion-button>
               </ion-item>
 
-              <h3>{{ dataList[index].title }}</h3>
-              <ion-text
-                >Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                Molestiae sapiente porro nostrum soluta consectetur alias
-                reiciendis ea, dolore debitis facilis quibusdam? Quibusdam
-                assumenda iusto iste aperiam rerum ad, mollitia a. Lorem ipsum
-                dolor, sit amet consectetur adipisicing elit. Impedit qui dolore
-                iure tempora excepturi aliquam commodi, provident a quo. Eaque
-                accusantium minima libero optio adipisci vel laudantium suscipit
-                inventore saepe!</ion-text
-              >
+              <div class="item-text">
+                <ion-item lines="none">
+                  <ion-label class="ion-text-wrap">
+                    <!-- <h1>{{ dataList[index].title }}</h1> -->
+                    <ion-text>
+                      Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                      Molestiae sapiente porro nostrum soluta consectetur alias
+                      reiciendis ea, dolore debitis facilis quibusdam? Quibusdam
+                      assumenda iusto iste aperiam rerum ad, mollitia a. Lorem
+                      ipsum dolor, sit amet consectetur adipisicing elit.
+                      Impedit qui dolore iure tempora excepturi aliquam commodi,
+                      provident a quo. Eaque accusantium minima libero optio
+                      adipisci vel laudantium suscipit inventore saepe!
+                    </ion-text>
+                  </ion-label>
+                </ion-item>
+              </div>
               <ion-item lines="none" class="ion-margin">
                 <ion-button
                   size="default"
@@ -71,7 +94,7 @@
                   ><ion-text color="medium"><p>Donate</p></ion-text>
                 </ion-button>
               </ion-item>
-            </ion-card>
+            </div>
 
             <!-- <ion-item lines="none">
               <ion-label class="ion-text-wrap">
@@ -101,20 +124,16 @@ import {
   IonCol,
   IonLabel,
   IonBadge,
-  IonImg,
   IonPage,
   IonHeader,
   IonToolbar,
   IonContent,
   IonButtons,
   IonBackButton,
-  IonCard,
-  IonCardHeader,
-  IonCardSubtitle,
-  IonCardTitle,
+  IonText,
 } from "@ionic/vue";
-import { play, bookmarkOutline } from "ionicons/icons";
-import { ref, defineProps, onMounted, onBeforeMount, onUnmounted } from "vue";
+import { play } from "ionicons/icons";
+import { ref, onMounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
 
 import { Share } from "@capacitor/share";
@@ -133,17 +152,11 @@ onMounted(() => {
   getUrlQueryParams();
 });
 
-// onUnmounted(() => {
-//   console.log("unmounted");
-//   router.back();
-// });
-
-const shareLink = async () => {
-  console.log("share link");
+const shareLink = async function () {
   await Share.share({
-    title: "See cool stuff",
-    text: "Testing Share API",
-    url: "https://mindfulnessapp.netlify.app/tabs/tab2/simplified-audio-player?index=3",
+    title: "Hey! Check this out on Moby.",
+    text: dataList[index].title,
+    url: window.location.href,
     dialogTitle: "Share with buddies",
   });
 };
@@ -169,27 +182,25 @@ const getUrlQueryParams = async () => {
 
 <style scoped>
 img {
-  border-radius: 5px !important;
   overflow: hidden;
   z-index: 10;
   width: 100%;
   height: 350px;
   object-fit: cover;
   object-position: 50% 50%;
-  margin-bottom: 2px;
+
   filter: brightness(70%);
 }
 
 @media only screen and (max-width: 600px) {
   img {
-    border-radius: 5px !important;
     overflow: hidden;
     z-index: 10;
     width: 100%;
-    height: 250px;
+    height: 300px;
     object-fit: cover;
     object-position: 50% 50%;
-    margin-bottom: 2px;
+
     filter: brightness(70%);
   }
 }
@@ -207,28 +218,24 @@ ion-item {
 }
 
 ion-grid {
-  --ion-grid-column-padding: 10px;
+  --ion-grid-column-padding: 0px;
+  --ion-grid-padding: 0px;
 }
-ion-card {
+/* ion-card {
   padding: 0;
   margin: 0;
   box-shadow: none !important;
-}
+  border-radius: 0px;
+  background-color: var(--ion-color-dark-contrast);
+} */
 
-.container {
+ion-col {
   position: relative;
 }
 
-.lock-icon {
+.share-item {
   position: absolute;
   right: 20px;
-  top: 20px;
-  z-index: 10;
-}
-
-.item-type {
-  position: absolute;
-  left: 5px;
   top: 20px;
   z-index: 10;
 }
@@ -245,11 +252,14 @@ ion-button {
   margin-bottom: 5px;
   --box-shadow: none !important;
 }
-ion-card-header {
-  padding: 2px !important;
-}
 
-ion-text {
-  margin: 5px;
+.item-text {
+  margin: 0px 20px;
+}
+.item-heading {
+  margin: 0px 10px;
+}
+.heading {
+  font-size: large;
 }
 </style>

@@ -4,7 +4,7 @@
       <ion-toolbar>
         <!-- <ion-title>Library</ion-title> -->
         <ion-buttons slot="start">
-          <ion-back-button defaultHref="/tabs/home"></ion-back-button>
+          <ion-back-button defaultHref="/tabs/library"></ion-back-button>
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
@@ -14,7 +14,7 @@
           class="ion-align-items-center ion-justify-content-center first-row-grid-1 ion-margin-bottom"
         >
           <ion-col size-lg="8">
-            <ion-item lines="none"
+            <!-- <ion-item lines="none"
               ><svg
                 @click="shareLink"
                 slot="end"
@@ -25,7 +25,7 @@
                   fill="currentColor"
                   d="M12,1L8,5H11V14H13V5H16M18,23H6C4.89,23 4,22.1 4,21V9A2,2 0 0,1 6,7H9V9H6V21H18V9H15V7H18A2,2 0 0,1 20,9V21A2,2 0 0,1 18,23Z"
                 /></svg
-            ></ion-item>
+            ></ion-item> -->
             <div class="albumImage">
               <transition
                 name="ballmove"
@@ -46,10 +46,12 @@
             </div>
             <ion-item lines="none">
               <ion-label class="ion-text-wrap">
-                <h3>{{ dataList[currentSong].title }}</h3>
+                <ion-text class="heading">{{
+                  dataList[currentSong].title
+                }}</ion-text>
                 <p>{{ dataList[currentSong].type }}</p>
               </ion-label>
-              <a
+              <!-- <a
                 class="button"
                 :class="{ isDisabled: currentSong == dataList.length - 1 }"
                 v-on:click="nextSong()"
@@ -62,7 +64,7 @@
                     d="M12.1,18.55L12,18.65L11.89,18.55C7.14,14.24 4,11.39 4,8.5C4,6.5 5.5,5 7.5,5C9.04,5 10.54,6 11.07,7.36H12.93C13.46,6 14.96,5 16.5,5C18.5,5 20,6.5 20,8.5C20,11.39 16.86,14.24 12.1,18.55M16.5,3C14.76,3 13.09,3.81 12,5.08C10.91,3.81 9.24,3 7.5,3C4.42,3 2,5.41 2,8.5C2,12.27 5.4,15.36 10.55,20.03L12,21.35L13.45,20.03C18.6,15.36 22,12.27 22,8.5C22,5.41 19.58,3 16.5,3Z"
                   />
                 </svg>
-              </a>
+              </a> -->
             </ion-item>
           </ion-col>
         </ion-row>
@@ -146,6 +148,56 @@
                 </svg>
               </a> -->
             </div>
+            <div class="buttons-container">
+              <!-- <a
+                class="button"
+                :class="{ isDisabled: currentSong == 0 }"
+                v-on:click="prevSong()"
+                title="Previous Song"
+              >
+                <svg style="width: 60px; height: 60px" viewBox="0 0 24 24">
+                  <path
+                    fill="currentColor"
+                    d="M6,18V6H8V18H6M9.5,12L18,6V18L9.5,12Z"
+                  />
+                </svg>
+              </a> -->
+              <a class="button" v-on:click="prevSkip()">
+                <svg style="width: 40px; height: 40px" viewBox="0 0 24 24">
+                  <path
+                    fill="currentColor"
+                    d="M9,5A4,4 0 0,1 13,9A4,4 0 0,1 9,13A4,4 0 0,1 5,9A4,4 0 0,1 9,5M9,15C11.67,15 17,16.34 17,19V21H1V19C1,16.34 6.33,15 9,15M16.76,5.36C18.78,7.56 18.78,10.61 16.76,12.63L15.08,10.94C15.92,9.76 15.92,8.23 15.08,7.05L16.76,5.36M20.07,2C24,6.05 23.97,12.11 20.07,16L18.44,14.37C21.21,11.19 21.21,6.65 18.44,3.63L20.07,2Z"
+                  />
+                </svg>
+              </a>
+
+              <a
+                class="button"
+                v-on:click="nextSong()"
+                title="Next Song"
+                slot="end"
+              >
+                <svg style="width: 40px; height: 40px" viewBox="0 0 24 24">
+                  <path
+                    fill="currentColor"
+                    d="M12.1,18.55L12,18.65L11.89,18.55C7.14,14.24 4,11.39 4,8.5C4,6.5 5.5,5 7.5,5C9.04,5 10.54,6 11.07,7.36H12.93C13.46,6 14.96,5 16.5,5C18.5,5 20,6.5 20,8.5C20,11.39 16.86,14.24 12.1,18.55M16.5,3C14.76,3 13.09,3.81 12,5.08C10.91,3.81 9.24,3 7.5,3C4.42,3 2,5.41 2,8.5C2,12.27 5.4,15.36 10.55,20.03L12,21.35L13.45,20.03C18.6,15.36 22,12.27 22,8.5C22,5.41 19.58,3 16.5,3Z"
+                  />
+                </svg>
+              </a>
+              <!-- <a
+                class="button"
+                :class="{ isDisabled: currentSong == dataList.length - 1 }"
+                v-on:click="nextSong()"
+                title="Next Song"
+              >
+                <svg style="width: 60px; height: 60px" viewBox="0 0 24 24">
+                  <path
+                    fill="currentColor"
+                    d="M16,18H18V6H16M6,18L14.5,12L6,6V18Z"
+                  />
+                </svg>
+              </a> -->
+            </div>
           </ion-col></ion-row
         >
       </ion-grid>
@@ -167,6 +219,7 @@ import {
   IonCol,
   IonRow,
   IonLabel,
+  IonText,
 } from "@ionic/vue";
 
 import { defineComponent } from "vue";
@@ -201,6 +254,7 @@ export default defineComponent({
     PlayCircleIcon,
     PauseCircleIcon,
     IonLabel,
+    IonText,
   },
   data: function () {
     return {
@@ -448,7 +502,7 @@ ion-item {
 @media only screen and (max-width: 600px) {
   img {
     width: 100%;
-    height: 200px;
+    height: 220px;
     object-fit: cover;
     object-position: 50% 50%;
     border-radius: 5px;
@@ -464,6 +518,9 @@ ion-item {
 
   input {
     z-index: 10;
+  }
+  .heading {
+    font-size: large;
   }
 }
 </style>
