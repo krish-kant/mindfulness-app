@@ -13,20 +13,7 @@
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
-      <!-- <ion-searchbar
-        animated="true"
-        @click="() => router.push('/tabs/tab2/search')"
-      ></ion-searchbar> -->
-
       <ion-grid>
-        <!-- <ion-item lines="none" class="ion-padding-right"
-          ><ion-icon
-            @click="() => router.push('/tabs/tab2/search')"
-            slot="end"
-            :icon="searchOutline"
-          ></ion-icon
-        ></ion-item> -->
-
         <ion-row class="ion-justify-content-center">
           <ion-col>
             <ion-item lines="none">
@@ -60,7 +47,7 @@
       <ion-grid v-if="!switchBookmarks">
         <ion-row class="ion-justify-content-center">
           <ion-col>
-            <ion-list button v-if="recentlyPlayledLength">
+            <ion-list button v-if="playlistLength">
               <!-- The reorder gesture is disabled by default, enable it to drag and drop items -->
               <ion-reorder-group
                 :disabled="false"
@@ -69,7 +56,7 @@
                 <ion-item
                   button
                   detail="false"
-                  v-for="rec in recentlyPlayedList"
+                  v-for="rec in playlist"
                   :key="rec.title"
                   @click="
                     () => {
@@ -108,13 +95,13 @@
       <ion-grid v-if="switchBookmarks">
         <ion-row class="ion-justify-content-center">
           <ion-col>
-            <ion-list button v-if="recentlyPlayledLength">
+            <ion-list button v-if="bookmarksLength">
               <!-- The reorder gesture is disabled by default, enable it to drag and drop items -->
 
               <ion-item
                 button
                 detail="true"
-                v-for="rec in recentlyPlayedList"
+                v-for="rec in bookmarks"
                 :key="rec.title"
                 @click="
                   () => {
@@ -129,7 +116,7 @@
                   slot="start"
                   v-if="!deletePlaylistItem"
                   size="default"
-                  @click="deleteItemfromPlaylist(rec.title)"
+                  @click="deleteItemfromBookmarks(rec.title)"
                 >
                   <ion-icon :icon="removeCircleOutline"></ion-icon>
                 </ion-button>
@@ -155,8 +142,6 @@
 import {
   IonPage,
   IonContent,
-  IonBackButton,
-  IonButtons,
   IonHeader,
   IonToolbar,
   IonGrid,
@@ -165,49 +150,30 @@ import {
   IonRow,
   IonCol,
   IonLabel,
-  IonCheckbox,
-  IonText,
   IonList,
   IonReorderGroup,
-  IonSearchbar,
   IonSegment,
   IonSegmentButton,
   IonReorder,
-  IonImg,
 } from "@ionic/vue";
 import {
   createOutline,
   removeCircleOutline,
   searchOutline,
 } from "ionicons/icons";
-import { ref, onMounted, watch, onUnmounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 import { useRouter } from "vue-router";
-import { Share } from "@capacitor/share";
-import { useRecentlyPlayedStore } from "@/stores/recentlyPlayed";
+import { usePlaylistStore } from "@/stores/playlist";
+import { useBookmarksStore } from "@/stores/bookmarks";
 
-let { recentlyPlayedList } = useRecentlyPlayedStore();
+let { playlist } = usePlaylistStore();
+let { bookmarks } = useBookmarksStore();
 
 const router = useRouter();
 let deletePlaylistItem = ref(true);
-let recentlyPlayledLength = ref(0);
+let playlistLength = ref(0);
+let bookmarksLength = ref(0);
 let switchBookmarks = ref(false);
-
-// let recentlyPlayed = ref([
-//   { message: "Yoga and mindfulness" },
-//   { message: "Meditation and yoga Meditation, mindfulness, yoga" },
-//   { message: "Breethe" },
-//   { message: "Timer guided" },
-//   { message: "Meditation and yoga Meditation, mindfulness, yoga1" },
-//   { message: "Yoga and mindfulness" },
-//   { message: "Meditation and yoga Meditation, mindfulness, yoga2" },
-//   { message: "Timer guided1" },
-//   { message: "Yoga and mindfulness" },
-//   { message: "Timer guided2" },
-//   { message: "Yoga and mindfulness1" },
-//   { message: "Yoga and mindfulness2" },
-//   { message: "Yoga and mindfulness3" },
-//   { message: "Yoga and mindfulness4" },
-// ]);
 
 const handleReorder = (event) => {
   // The `from` and `to` properties contain the index of the item
@@ -222,33 +188,34 @@ const handleReorder = (event) => {
 
 onMounted(() => {
   // deletePlaylistItem.value == true;
-  recentlyPlayledLength.value = recentlyPlayedList.length;
+  playlistLength.value = playlist.length;
+  bookmarksLength.value = bookmarks.length;
   switchBookmarks.value = false;
 });
 
-const shareLink = async () => {
-  console.log("share link");
-  await Share.share({
-    title: "See cool stuff",
-    text: "Testing Share API",
-    url: "https://mindfulnessapp.netlify.app/tabs/tab2/simplified-audio-player?index=3",
-    dialogTitle: "Share with buddies",
-  });
-};
-
 const deleteItemfromPlaylist = (item) => {
-  recentlyPlayedList = recentlyPlayedList.filter((e) => e.title !== item);
-  console.log(recentlyPlayedList.length);
-  recentlyPlayledLength.value = recentlyPlayedList.length;
+  playlist = playlist.filter((e) => e.title !== item);
+  console.log(playlist.length);
+  playlistLength.value = playlist.length;
 };
 
-watch(recentlyPlayedList, async () => {
-  console.log(recentlyPlayedList.length);
+const deleteItemfromBookmarks = (item) => {
+  bookmarks = bookmarks.filter((e) => e.title !== item);
+  console.log(bookmarks.length);
+  bookmarksLength.value = bookmarks.length;
+};
+
+watch(playlistLength, async () => {
+  try {
+    if (playlistLength.value == 0) alert("Please add some items! ");
+  } catch (error) {
+    console.log(error);
+  }
 });
 
-watch(recentlyPlayledLength, async () => {
+watch(bookmarksLength, async () => {
   try {
-    if (recentlyPlayledLength.value == 0) alert("Please add some items! ");
+    if (bookmarksLength.value == 0) alert("Please add some items! ");
   } catch (error) {
     console.log(error);
   }

@@ -33,7 +33,10 @@
             <h3>{{ musicPlaylist[index].title }}</h3>
           </ion-label>
           <!-- <ion-icon :icon="bookmarkOutline" /> -->
-          <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
+          <svg
+            style="width: 24px; height: 24px; cursor: pointer"
+            viewBox="0 0 24 24"
+          >
             <path
               fill="currentColor"
               d="M17,18L12,15.82L7,18V5H17M17,3H7A2,2 0 0,0 5,5V21L12,18L19,21V5C19,3.89 18.1,3 17,3Z"
@@ -140,6 +143,7 @@ const playItem = function (index) {
   object-position: 50% 50%;
   margin-bottom: 2px;
   filter: brightness(70%);
+  cursor: pointer;
 }
 
 ion-item {

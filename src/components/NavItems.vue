@@ -5,7 +5,7 @@
         <ion-item
           lines="none"
           class="nav-items"
-          @click="() => router.push('/tabs/tab2')"
+          @click="() => router.push('/tabs/library')"
         >
           <ion-label>
             <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
@@ -23,7 +23,7 @@
         <ion-item
           lines="none"
           class="nav-items"
-          @click="() => router.push('/tabs/tab2')"
+          @click="() => router.push('/tabs/library')"
         >
           <ion-label class="flex-container">
             <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
@@ -41,7 +41,7 @@
         <ion-item
           lines="none"
           class="nav-items"
-          @click="() => router.push('/tabs/tab2')"
+          @click="() => router.push('/tabs/library')"
         >
           <ion-label>
             <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
@@ -59,7 +59,7 @@
         <ion-item
           lines="none"
           class="nav-items"
-          @click="() => router.push('/tabs/tab2')"
+          @click="() => router.push('/tabs/library')"
         >
           <ion-label>
             <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
@@ -77,7 +77,7 @@
         <ion-item
           lines="none"
           class="nav-items"
-          @click="() => router.push('/tabs/tab2/search')"
+          @click="() => router.push('/tabs/search')"
         >
           <ion-label>
             <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
@@ -95,7 +95,7 @@
         <ion-item
           lines="none"
           class="nav-items"
-          @click="() => router.push('/tabs/tab2/search')"
+          @click="() => router.push('/tabs/search')"
         >
           <ion-label>
             <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
