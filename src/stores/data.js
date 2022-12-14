@@ -11,7 +11,7 @@ export const useDataStore = defineStore("data", {
           mediaUrl:
             "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
           imageUrl:
-            "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
+            "https://images.unsplash.com/photo-1520190282873-afe1285c9a2a?fit=crop&w=1000&q=5",
           duration: "1 hour",
         },
         {
@@ -21,7 +21,7 @@ export const useDataStore = defineStore("data", {
           mediaUrl:
             "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
           imageUrl:
-            "https://images.unsplash.com/photo-1497290756760-23ac55edf36f",
+            "https://images.unsplash.com/photo-1495627744014-5595face04d4?fit=crop&w=1000&q=5",
           duration: "30 min",
         },
         {
@@ -30,7 +30,7 @@ export const useDataStore = defineStore("data", {
           type: "Meditation",
           mediaUrl: "https://soundbible.com/mp3/hyena-laugh_daniel-simion.mp3",
           imageUrl:
-            "https://images.unsplash.com/photo-1499728603263-13726abce5fd",
+            "https://images.unsplash.com/photo-1519623132083-41cc1f9d6636?fit=crop&w=1000&q=5",
           duration: "4 min",
         },
         {
@@ -40,7 +40,7 @@ export const useDataStore = defineStore("data", {
           mediaUrl:
             "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
           imageUrl:
-            "https://images.unsplash.com/photo-1444312645910-ffa973656eba",
+            "https://images.unsplash.com/photo-1656382647555-5b05e7c7f768?fit=crop&w=1000&q=5",
           duration: "5 min",
         },
         {
@@ -50,7 +50,7 @@ export const useDataStore = defineStore("data", {
           mediaUrl:
             "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
           imageUrl:
-            "https://images.unsplash.com/photo-1520769945061-0a448c463865",
+            "https://images.unsplash.com/photo-1527702847878-05fc11667379?fit=crop&w=1000&q=5",
           duration: "1 hour",
         },
         {
@@ -60,7 +60,7 @@ export const useDataStore = defineStore("data", {
           mediaUrl:
             "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
           imageUrl:
-            "https://images.unsplash.com/photo-1524863479829-916d8e77f114",
+            "https://images.unsplash.com/photo-1494777329614-3ec4d8902608?fit=crop&w=1000&q=5",
           duration: "30 min",
         },
         {
@@ -68,7 +68,8 @@ export const useDataStore = defineStore("data", {
           title: "Hyena Laughing2",
           type: "Meditation",
           mediaUrl: "https://soundbible.com/mp3/hyena-laugh_daniel-simion.mp3",
-          imageUrl: "https://images.unsplash.com/photo-1545389336-cf090694435e",
+          imageUrl:
+            "https://images.unsplash.com/photo-1525449167632-e115f893bfd9?fit=crop&w=1000&q=5",
           duration: "4 min",
         },
         {
@@ -77,7 +78,8 @@ export const useDataStore = defineStore("data", {
           type: "Breethe",
           mediaUrl:
             "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
-          imageUrl: "https://images.unsplash.com/photo-1547852356-b20668106c51",
+          imageUrl:
+            "https://images.unsplash.com/photo-1514970599-595c9d97af1c?fit=crop&w=1000&q=5",
           duration: "5 min",
         },
       ],
