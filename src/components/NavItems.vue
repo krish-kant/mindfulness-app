@@ -41,7 +41,7 @@
         <ion-item
           lines="none"
           class="nav-items"
-          @click="() => router.push('/tabs/library')"
+          @click="() => router.push('/tabs/breethe-player')"
         >
           <ion-label>
             <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">

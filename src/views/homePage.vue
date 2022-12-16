@@ -4,23 +4,31 @@
       <ion-toolbar> </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
-      <ion-item lines="none"
-        ><ion-text><h1>Hi Krishna</h1></ion-text></ion-item
-      >
+      <ion-item lines="none" class="ion-margin-top">
+        <ion-text class="heading">
+          Hi Krishna
+        </ion-text>
+      </ion-item>
       <NavItems />
 
-      <ion-item lines="none"
-        ><ion-text><h3>Recently Played</h3></ion-text></ion-item
-      >
+      <ion-item lines="none">
+        <ion-text class="heading">
+          Recently Played
+        </ion-text>
+      </ion-item>
       <TileRecent :musicPlaylist="dataList" />
 
-      <ion-item lines="none"
-        ><ion-text><h3>Top Rated</h3></ion-text></ion-item
-      >
+      <ion-item lines="none">
+        <ion-text class="heading">
+          Top Rated
+        </ion-text>
+      </ion-item>
       <TilePlay :musicPlaylist="dataList" />
-      <ion-item lines="none"
-        ><ion-text><h3>Top Rated</h3></ion-text></ion-item
-      >
+      <ion-item lines="none">
+        <ion-text class="heading">
+          Top Rated
+        </ion-text>
+      </ion-item>
       <TilePlay :musicPlaylist="dataList" />
     </ion-content>
   </ion-page>
@@ -55,5 +63,10 @@ ion-item {
   --inner-padding-bottom: 0px;
   --background: none;
   --inner-padding-top: 0px;
+}
+
+.heading {
+  font-size: large;
+  font-weight: 500;
 }
 </style>

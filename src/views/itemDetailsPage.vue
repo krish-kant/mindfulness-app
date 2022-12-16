@@ -12,26 +12,17 @@
         <ion-row class="ion-justify-content-center">
           <ion-col size-lg="8" class="ion-align-self-center">
             <div v-if="dataLoaded">
-              <img
-                alt="Silhouette of mountains"
-                :src="dataList[index].imageUrl"
-              />
+              <img alt="Silhouette of mountains" :src="dataList[index].imageUrl" />
               <ion-badge color="light" class="share-item">
-                <svg
-                  @click="shareLink"
-                  style="width: 24px; height: 24px"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    fill="currentColor"
-                    d="M12,1L8,5H11V14H13V5H16M18,23H6C4.89,23 4,22.1 4,21V9A2,2 0 0,1 6,7H9V9H6V21H18V9H15V7H18A2,2 0 0,1 20,9V21A2,2 0 0,1 18,23Z"
-                  />
+                <svg @click="shareLink" style="width: 24px; height: 24px" viewBox="0 0 24 24">
+                  <path fill="currentColor"
+                    d="M12,1L8,5H11V14H13V5H16M18,23H6C4.89,23 4,22.1 4,21V9A2,2 0 0,1 6,7H9V9H6V21H18V9H15V7H18A2,2 0 0,1 20,9V21A2,2 0 0,1 18,23Z" />
                 </svg>
               </ion-badge>
               <ion-item lines="none">
                 <ion-label class="ion-text-wrap item-heading">
                   <ion-text class="heading">{{
-                    dataList[index].title
+                      dataList[index].title
                   }}</ion-text>
                   <p>
                     {{ dataList[index].duration }}
@@ -42,19 +33,16 @@
               </ion-item>
 
               <ion-item lines="none" class="ion-margin">
-                <ion-button
-                  size="default"
-                  color="light"
-                  @click="
-                    () =>
-                      router.push({
-                        path: `/tabs/audio-player/${dataList[index].title}`,
-                      })
-                  "
-                >
-                  <ion-icon color="dark" :icon="play" /><ion-text color="medium"
-                    ><p>Play</p></ion-text
-                  >
+                <ion-button size="default" color="secondary" @click="
+                  () =>
+                    router.push({
+                      path: `/tabs/audio-player/${dataList[index].title}`,
+                    })
+                " style="width: 50%">
+                  <ion-icon :icon="play" />
+                  <ion-text>
+                    <p>Play</p>
+                  </ion-text>
                 </ion-button>
               </ion-item>
 
@@ -62,7 +50,7 @@
                 <ion-item lines="none">
                   <ion-label class="ion-text-wrap">
                     <!-- <h1>{{ dataList[index].title }}</h1> -->
-                    <ion-text>
+                    <ion-text color="medium">
                       Lorem, ipsum dolor sit amet consectetur adipisicing elit.
                       Molestiae sapiente porro nostrum soluta consectetur alias
                       reiciendis ea, dolore debitis facilis quibusdam? Quibusdam
@@ -76,22 +64,19 @@
                 </ion-item>
               </div>
               <ion-item lines="none" class="ion-margin">
-                <ion-button
-                  size="default"
-                  color="light"
-                  @click="
-                    () =>
-                      router.push({
-                        path: `/tabs/audio-player/${dataList[index].title}`,
-                      })
-                  "
-                >
+                <ion-button size="default" color="light" @click="
+  () =>
+    router.push({
+      path: `/tabs/audio-player/${dataList[index].title}`,
+    })
+                ">
                   <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
-                    <path
-                      fill="currentColor"
-                      d="M16 12C18.76 12 21 9.76 21 7S18.76 2 16 2 11 4.24 11 7 13.24 12 16 12M21.45 17.6C21.06 17.2 20.57 17 20 17H13L10.92 16.27L11.25 15.33L13 16H15.8C16.15 16 16.43 15.86 16.66 15.63S17 15.12 17 14.81C17 14.27 16.74 13.9 16.22 13.69L8.95 11H7V20L14 22L22.03 19C22.04 18.47 21.84 18 21.45 17.6M5 11H.984V22H5V11Z"
-                    /></svg
-                  ><ion-text color="medium"><p>Donate</p></ion-text>
+                    <path fill="currentColor"
+                      d="M16 12C18.76 12 21 9.76 21 7S18.76 2 16 2 11 4.24 11 7 13.24 12 16 12M21.45 17.6C21.06 17.2 20.57 17 20 17H13L10.92 16.27L11.25 15.33L13 16H15.8C16.15 16 16.43 15.86 16.66 15.63S17 15.12 17 14.81C17 14.27 16.74 13.9 16.22 13.69L8.95 11H7V20L14 22L22.03 19C22.04 18.47 21.84 18 21.45 17.6M5 11H.984V22H5V11Z" />
+                  </svg>
+                  <ion-text color="medium">
+                    <p>Donate</p>
+                  </ion-text>
                 </ion-button>
               </ion-item>
             </div>
@@ -221,6 +206,7 @@ ion-grid {
   --ion-grid-column-padding: 0px;
   --ion-grid-padding: 0px;
 }
+
 /* ion-card {
   padding: 0;
   margin: 0;
@@ -241,12 +227,14 @@ ion-col {
 }
 
 ion-badge {
-  border-radius: 2px;
+  border-radius: 5px;
   padding: 2px 3px;
 }
+
 ion-label {
   margin: 0.5px;
 }
+
 ion-button {
   margin: 0 auto;
   margin-bottom: 5px;
@@ -256,10 +244,12 @@ ion-button {
 .item-text {
   margin: 0px 20px;
 }
+
 .item-heading {
   margin: 0px 10px;
 }
+
 .heading {
-  font-size: large;
+  font-size: medium;
 }
 </style>
