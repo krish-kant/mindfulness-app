@@ -133,6 +133,7 @@ const animationDurationBreathe = `${((totalTime / 1000) / 5) * 2}s`;
 
 const audioBreatheSrc = require("@/assets/audio/bowl.mp3");
 const audioClockSrc = require("@/assets/audio/clock.mp3");
+const audioBgSrc = require("@/assets/audio/rain-and-thunder.mp3");
 
 
 
@@ -189,8 +190,10 @@ export default defineComponent({
             animationDurationTotal: animationDurationTotal,
             animationDurationBreathe: animationDurationBreathe,
             audioBreathe: "",
+            audioBg: "",
             audioBreatheSrc: audioBreatheSrc,
             audioClockSrc: audioClockSrc,
+            audioBgSrc: audioBgSrc,
             setIntervalRef: ""
         };
     },
@@ -202,7 +205,7 @@ export default defineComponent({
         this.audio.addEventListener("waiting", this.handleWaiting);
         this.audio.addEventListener("playing", this.handlePlaying);
         this.breathAnimation()
-        this.longForLoop(5);
+        this.longForLoop(60);
         // setInterval(this.breathAnimation, this.totalTime);
         // var counter = 0;
         // var i = setInterval(function k() {
@@ -213,6 +216,10 @@ export default defineComponent({
         //     //     clearInterval(i);
         //     // }
         // }, this.totalTime);
+        this.audioBg = new Audio(this.audioBgSrc);
+        this.audioBg.play();
+        this.audioBg.loop = true;
+
     },
 
     methods: {
@@ -395,8 +402,12 @@ export default defineComponent({
 
             alert("Do you want to stop the current song?");
             this.stopAudio();
+            this.audioBg.pause();
+            this.audioBreathe.pause();
             this.audioBreatheSrc = ''
             this.audioClockSrc = ''
+            this.audioBgSrc = ''
+
             clearInterval(this.setIntervalRef)
 
         }
