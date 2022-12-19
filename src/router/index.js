@@ -50,6 +50,14 @@ const routes = [
         path: "audio-player/:title",
         component: () => import("@/views/audioPlayerPage.vue"),
       },
+      {
+        path: "breethe-player",
+        component: () => import("@/views/breethePlayer.vue"),
+      },
+      {
+        path: "timer-player",
+        component: () => import("@/views/timerPlayer.vue"),
+      },
     ],
   },
 ];

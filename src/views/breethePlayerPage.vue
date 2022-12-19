@@ -1,5 +1,7 @@
 <template>
+
   <ion-page>
+
     <ion-header class="ion-no-border">
       <ion-toolbar>
         <!-- <ion-title>Library</ion-title> -->
@@ -12,40 +14,58 @@
       <ion-grid class="audioPlayerUI ion-margin-start ion-margin-end">
         <ion-row class="ion-align-items-center ion-justify-content-center first-row-grid-1 ion-margin-bottom">
           <ion-col size-lg="8">
-            <div class="albumImage">
-              <img @load="onImageLoaded()" :src="dataList[currentAudio].imageUrl" :key="currentAudio"
-                ondragstart="return false;" id="playerAlbumArt" />
-            </div>
-            <ion-item lines="none">
-              <ion-label class="ion-text-wrap">
-                <ion-text class="heading">{{
-                    dataList[currentAudio].title
-                }}</ion-text>
-                <p>{{ dataList[currentAudio].type }}</p>
-              </ion-label>
 
-            </ion-item>
-            <ion-badge color="medium">
-              <ion-spinner v-if="audioBuffering"></ion-spinner>
-            </ion-badge>
+
+
+            <!-- <Lottie :options="defaultOptions" :height="400" :width="400" class="lottie-animation" /> -->
+            <!-- <div class="loader" :key="currentSong">Loading...</div> -->
+
+
+            <div>
+              <div id="container" class="container" :class="currentlyPlaying ? container : ''">
+                <div class="circle"></div>
+
+                <ion-label>
+                  <ion-text class="text" v-if="currentlyPlaying">
+                    <p id="text" style="font: 12px ">{{ text }}</p>
+                  </ion-text>
+                </ion-label>
+
+                <div class="pointer-container">
+                  <span class="pointer" v-if="currentlyPlaying"></span>
+                </div>
+
+                <div class="gradient-circle"></div>
+              </div>
+
+            </div>
+
+
 
           </ion-col>
         </ion-row>
         <ion-row class="ion-align-items-center ion-justify-content-center">
           <ion-col size-sm="8" size-lg="6">
+
             <ion-item lines="none">
               <ion-label slot="start">
                 <p>{{ currentTimeFormated }}</p>
               </ion-label>
+
               <ion-label slot="end">
                 <p>{{ trackDurationFormated }}</p>
               </ion-label>
             </ion-item>
+
             <input v-model="value" type="range" @input="skipTrack" min="0" step="1" :max="trackDuration" ref="input"
               style="width: 100%" />
+
             <div class="buttons-container">
               <a class="button" v-on:click="prevSkip()">
-                <rewind30-icon :size="40" />
+                <svg style="width: 40px; height: 40px" viewBox="0 0 24 24">
+                  <path fill="currentColor"
+                    d="M19,14V20C19,21.11 18.11,22 17,22H15A2,2 0 0,1 13,20V14A2,2 0 0,1 15,12H17C18.11,12 19,12.9 19,14M15,14V20H17V14H15M11,20C11,21.11 10.1,22 9,22H5V20H9V18H7V16H9V14H5V12H9A2,2 0 0,1 11,14V15.5A1.5,1.5 0 0,1 9.5,17A1.5,1.5 0 0,1 11,18.5V20M12.5,3C17.15,3 21.08,6.03 22.47,10.22L20.1,11C19.05,7.81 16.04,5.5 12.5,5.5C10.54,5.5 8.77,6.22 7.38,7.38L10,10H3V3L5.6,5.6C7.45,4 9.85,3 12.5,3Z" />
+                </svg>
               </a>
               <a class="button play" v-on:click="playAudio()" title="Play/Pause Song">
                 <transition name="slide-fade" mode="out-in">
@@ -57,15 +77,25 @@
                 </transition>
               </a>
               <a class="button" v-on:click="nextSkip()">
-                <fast-forward30-icon :size="40" />
+                <svg style="width: 40px; height: 40px" viewBox="0 0 24 24">
+                  <path fill="currentColor"
+                    d="M11.5,3C6.85,3 2.92,6.03 1.53,10.22L3.9,11C4.95,7.81 7.96,5.5 11.5,5.5C13.46,5.5 15.23,6.22 16.62,7.38L14,10H21V3L18.4,5.6C16.55,4 14.15,3 11.5,3M19,14V20C19,21.11 18.11,22 17,22H15A2,2 0 0,1 13,20V14A2,2 0 0,1 15,12H17C18.11,12 19,12.9 19,14M15,14V20H17V14H15M11,20C11,21.11 10.1,22 9,22H5V20H9V18H7V16H9V14H5V12H9A2,2 0 0,1 11,14V15.5A1.5,1.5 0 0,1 9.5,17A1.5,1.5 0 0,1 11,18.5V20Z" />
+                </svg>
               </a>
             </div>
             <div class="buttons-container">
-              <a class="button">
-                <account-voice-icon :size="40" />
+              <a class="button" v-on:click="prevSkip()">
+                <svg style="width: 40px; height: 40px" viewBox="0 0 24 24">
+                  <path fill="currentColor"
+                    d="M9,5A4,4 0 0,1 13,9A4,4 0 0,1 9,13A4,4 0 0,1 5,9A4,4 0 0,1 9,5M9,15C11.67,15 17,16.34 17,19V21H1V19C1,16.34 6.33,15 9,15M16.76,5.36C18.78,7.56 18.78,10.61 16.76,12.63L15.08,10.94C15.92,9.76 15.92,8.23 15.08,7.05L16.76,5.36M20.07,2C24,6.05 23.97,12.11 20.07,16L18.44,14.37C21.21,11.19 21.21,6.65 18.44,3.63L20.07,2Z" />
+                </svg>
               </a>
-              <a class="button" title="Next Song" slot="end">
-                <cards-heart-outline-icon :size="40" />
+
+              <a class="button" v-on:click="nextSong()" title="Next Song" slot="end">
+                <svg style="width: 40px; height: 40px" viewBox="0 0 24 24">
+                  <path fill="currentColor"
+                    d="M12.1,18.55L12,18.65L11.89,18.55C7.14,14.24 4,11.39 4,8.5C4,6.5 5.5,5 7.5,5C9.04,5 10.54,6 11.07,7.36H12.93C13.46,6 14.96,5 16.5,5C18.5,5 20,6.5 20,8.5C20,11.39 16.86,14.24 12.1,18.55M16.5,3C14.76,3 13.09,3.81 12,5.08C10.91,3.81 9.24,3 7.5,3C4.42,3 2,5.41 2,8.5C2,12.27 5.4,15.36 10.55,20.03L12,21.35L13.45,20.03C18.6,15.36 22,12.27 22,8.5C22,5.41 19.58,3 16.5,3Z" />
+                </svg>
               </a>
             </div>
           </ion-col>
@@ -83,25 +113,23 @@ import {
   IonButtons,
   IonHeader,
   IonToolbar,
-  IonSpinner,
+  // IonSpinner,
   IonItem,
   IonGrid,
   IonCol,
   IonRow,
   IonLabel,
   IonText,
-  IonBadge,
+
 } from "@ionic/vue";
 
 import { defineComponent } from "vue";
 
 import PlayCircleIcon from "vue-material-design-icons/PlayCircle.vue";
 import PauseCircleIcon from "vue-material-design-icons/PauseCircle.vue";
+import Lottie from "vue-lottie";
+import * as animationData from "@/assets/pinjump.json";
 
-import CardsHeartOutlineIcon from "vue-material-design-icons/CardsHeartOutline.vue";
-import AccountVoiceIcon from "vue-material-design-icons/AccountVoice.vue";
-import FastForward30Icon from "vue-material-design-icons/FastForward30.vue";
-import Rewind30Icon from "vue-material-design-icons/Rewind30.vue";
 
 
 import { Share } from "@capacitor/share";
@@ -109,6 +137,29 @@ import { useDataStore } from "@/stores/data";
 
 const data = useDataStore();
 
+
+
+const totalTime = 7500;
+const breatheTime = (totalTime / 5) * 2;
+const holdTime = totalTime / 5;
+
+// breathAnimation();
+
+// function breathAnimation() {
+//   text.innerText = "Breathe In!";
+//   container.className = "container grow";
+
+//   setTimeout(() => {
+//     text.innerText = "Hold";
+
+//     setTimeout(() => {
+//       text.innerText = "Breathe Out!";
+//       container.className = "container shrink";
+//     }, holdTime);
+//   }, breatheTime);
+// }
+
+// setInterval(breathAnimation, totalTime);
 
 export default defineComponent({
   name: "App",
@@ -119,20 +170,16 @@ export default defineComponent({
     IonButtons,
     IonHeader,
     IonToolbar,
-    IonSpinner,
+    // IonSpinner,
     IonItem,
     IonGrid,
     IonCol,
     IonRow,
-    IonLabel,
-    IonText,
-    IonBadge,
     PlayCircleIcon,
     PauseCircleIcon,
-    FastForward30Icon,
-    Rewind30Icon,
-    CardsHeartOutlineIcon,
-    AccountVoiceIcon
+    IonLabel,
+    IonText,
+    // Lottie,
   },
   data: function () {
     return {
@@ -145,57 +192,57 @@ export default defineComponent({
       trackDuration: 0,
       currentProgressBar: 0,
       isPlaylistActive: false,
-      currentAudio: 0,
+      currentSong: 0,
       debug: false,
       value: 0,
       audioFile: "",
       index: 0,
       dataList: data.dataList,
       title: "",
-      audioBuffering: false,
-      params: "",
+      defaultOptions: { animationData: animationData },
+      animationSpeed: 1,
+      totalTime: totalTime,
+      breatheTime: breatheTime,
+      holdTime: holdTime,
+      text: "",
+      container: "",
     };
   },
 
   mounted: function () {
-    this.getUrlQueryParams();
+    // this.getUrlQueryParams();
     this.changeSong();
     this.audio.loop = false;
-    this.audio.addEventListener("waiting", this.handleWaiting);
-    this.audio.addEventListener("playing", this.handlePlaying);
+    this.breathAnimation
+    setInterval(this.breathAnimation, this.totalTime);
   },
 
   methods: {
-    getUrlQueryParams: async function () {
-      await this.$router.isReady();
-      this.params = this.$route
-      this.dataLoaded = true;
-      this.title = this.dataList.filter(
-        (item) => item.title === this.$route.params.title
-      )[0].title;
-      console.log(this.title);
-      console.log(
-        this.dataList.filter((item) => item.title === this.title)[0].id
-      );
-      this.index = this.dataList.findIndex((item) => item.title === this.title);
-      this.currentAudio = this.index;
-      console.log(this.dataList.findIndex((item) => item.title === this.title));
+    getUrlQueryParams: function () {
+      this.currentSong = 0;
     },
+
+    breathAnimation: function () {
+      this.text = "Breathe In!";
+      this.container = "container grow";
+
+      setTimeout(() => {
+        this.text = "Hold";
+
+        setTimeout(() => {
+          this.text = "Breathe Out!";
+          this.container = "container shrink";
+        }, this.holdTime);
+      }, this.breatheTime);
+    },
+
     shareLink: async function () {
       await Share.share({
         title: "Hey! Check this out on Moby.",
-        text: this.dataList[this.currentAudio].title,
+        text: this.dataList[this.currentSong].title,
         url: window.location.href,
         dialogTitle: "Share with buddies",
       });
-    },
-
-    handleWaiting: function () {
-      this.audioBuffering = true;
-    },
-
-    handlePlaying: function () {
-      this.audioBuffering = false;
     },
 
     skipTrack: function () {
@@ -220,31 +267,21 @@ export default defineComponent({
       if (this.audio.currentTime >= this.audio.duration) {
         this.audio.currentTime = 0;
         this.value = 0;
-        this.audio.play();
-        setTimeout(() => {
-          this.stopAudio();
-        }, 100);
-
-
-
-
+        this.stopAudio();
       }
     },
 
     changeSong: function () {
       var wasPlaying = this.currentlyPlaying;
       this.imageLoaded = false;
-      this.title = this.dataList.filter(
-        (item) => item.title === this.$route.params.title
-      )[0].title;
-      this.index = this.dataList.findIndex((item) => item.title === this.title);
-      this.currentAudio = this.index;
 
-      this.audioFile = this.dataList[this.currentAudio].mediaUrl;
+      this.currentSong = 0;
+
+      this.audioFile = this.dataList[this.currentSong].mediaUrl;
       this.audio = new Audio(this.audioFile);
       console.log("this.audioFile", this.audioFile);
       console.log("this.index", this.index);
-      console.log(" this.currentAudio", this.currentAudio);
+      console.log(" this.currentSong", this.currentSong);
       var localThis = this;
       this.audio.addEventListener("loadedmetadata", function () {
         localThis.trackDuration = Math.round(this.duration);
@@ -254,22 +291,26 @@ export default defineComponent({
         this.playAudio();
       }
     },
-    iscurrentAudio: function (index) {
-      if (this.currentAudio == index) {
+    isCurrentSong: function (index) {
+      if (this.currentSong == index) {
         return true;
       }
       return false;
     },
-    getcurrentAudio: function (currentAudio) {
-      return this.dataList[currentAudio].mediaUrl;
+    getCurrentSong: function (currentSong) {
+      return this.dataList[currentSong].mediaUrl;
     },
     playAudio: function () {
+
+      // setInterval(this.breathAnimation, this.totalTime);
+      // this.breatheTime = 0
       if (!this.currentlyPlaying) {
         this.getCurrentTimeEverySecond(true);
         this.currentlyPlaying = true;
         this.audio.play();
       } else {
         this.stopAudio();
+
       }
       this.currentlyStopped = false;
     },
@@ -281,7 +322,6 @@ export default defineComponent({
     handleEnded: function () {
       this.stopAudio();
       this.value = 0;
-      this.audioBuffering = false;
     },
     onImageLoaded: function () {
       this.imgLoaded = true;
@@ -314,7 +354,16 @@ export default defineComponent({
     trackDurationFormated() {
       return this.fancyTimeFormat(this.trackDuration);
     },
+    // animationPointer() {
+    //   return 'animation: rotate 7.5s linear forwards infinite;';
+    // },
+
+
   },
+
+
+
+
   watch: {
     currentTime: function () {
       this.currentTime = Math.round(this.currentTime);
@@ -323,13 +372,6 @@ export default defineComponent({
     value: function () {
       this.currentTime = this.value;
     },
-
-    $route() {
-      if (this.currentlyPlaying) {
-        alert("Do you want to stop the current song?");
-        this.stopAudio();
-      }
-    }
   },
 
   beforeUnmount: function () {
@@ -342,6 +384,10 @@ export default defineComponent({
 </script>
 
 <style scoped>
+body {
+  position: absolute;
+}
+
 .button {
   color: var(--ion-color-dark);
   display: flex;
@@ -379,14 +425,10 @@ ion-grid {
   min-height: 52%;
 }
 
-img {
+/* iframe {
   width: 100%;
   height: 320px;
-  object-fit: cover;
-  object-position: 50% 50%;
-  border-radius: 5px;
-  filter: brightness(70%);
-}
+} */
 
 ion-label {
   margin: 0;
@@ -405,36 +447,126 @@ ion-item {
 }
 
 @media only screen and (max-width: 600px) {
-  img {
+  /* iframe {
     width: 100%;
-    height: 220px;
-    object-fit: cover;
-    object-position: 50% 50%;
-    border-radius: 5px;
+    height: 250px;
+  } */
+
+  /* .audioPlayerUI {
+
+    will-change: transform, filter;
+    transition: 0.5s;
+  } */
+
+  input {
     z-index: 10;
-    filter: brightness(70%);
   }
-}
 
+  /* .heading {
+    font-size: large;
+  } */
 
-.albumImage {
+  .lottie-animation {
+    padding-right: 80px;
+    max-height: 250px;
+  }
 
-  position: relative;
-}
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    height: 130px;
+    width: 130px;
+    position: relative;
+    transform: scale(1);
+  }
 
-ion-badge {
-  position: absolute;
-  top: 35%;
-  left: 44%;
-  z-index: 10;
+  .circle {
+    background-color: #0997bb;
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+  }
 
-}
+  .gradient-circle {
+    background: conic-gradient(var(--ion-color-secondary) 0%,
+        var(--ion-color-secondary) 40%,
+        var(--ion-color-medium) 40%,
+        var(--ion-color-medium)60%,
+        var(--ion-color-secondary-shade) 60%,
+        var(--ion-color-secondary-shade) 100%);
+    height: 150px;
+    width: 150px;
+    z-index: -2;
+    border-radius: 50%;
+    position: absolute;
+    top: -10px;
+    left: -10px;
+  }
 
-input {
-  z-index: 10;
-}
+  .pointer {
+    background-color: var(--ion-color-warning-shade);
+    border-radius: 50%;
+    height: 10px;
+    width: 10px;
+    display: block;
+  }
 
-.heading {
-  font-size: medium;
+  .pointer-container {
+    position: absolute;
+    top: -10px;
+    /* left: 140px; */
+    width: 20px;
+    height: 75px;
+    animation: rotate 7.5s linear forwards infinite;
+    transform-origin: bottom center;
+  }
+
+  .text {
+    color: #ffffff;
+  }
+
+  @keyframes rotate {
+    from {
+      transform: rotate(0deg);
+    }
+
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .container.grow {
+    animation: grow 3s linear forwards;
+  }
+
+  @keyframes grow {
+    from {
+      transform: scale(1);
+    }
+
+    to {
+      transform: scale(2);
+    }
+  }
+
+  .container.shrink {
+    animation: shrink 3s linear forwards;
+  }
+
+  @keyframes shrink {
+    from {
+      transform: scale(2);
+    }
+
+    to {
+      transform: scale(1);
+    }
+  }
 }
 </style>
