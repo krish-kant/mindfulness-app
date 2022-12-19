@@ -1,7 +1,7 @@
 
 {
 
-  "appId": "io.ionic.starter",
+  "appId": "mindfulness-app",
   "appName": "mindfulness-app",
   "webDir": "dist",
   "bundledWebRuntime": false
