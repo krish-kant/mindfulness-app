@@ -13,33 +13,33 @@
                 <ion-row class="ion-align-items-center ion-justify-content-center first-row-grid-1 ion-margin-bottom">
                     <ion-col size-lg="8">
                         <div class="albumImage">
-                            <transition name="ballmove" enter-active-class="animated zoomIn"
-                                leave-active-class="animated fadeOutDown" mode="out-in" />
+                            <!-- <img @load="onImageLoaded()" :src="dataList[currentAudio].imageUrl" :key="currentAudio"
+                                ondragstart="return false;" id="playerAlbumArt" /> -->
 
-                            <!-- <img
-                  @load="onImageLoaded()"
-                  src="https://lottiefiles.com/11353-breathe"
-                  :key="currentSong"
-                  ondragstart="return false;"
-                  id="playerAlbumArt"
-                /> -->
+                            <div>
+                                <div id="container" class="container" :class="currentlyPlaying ? container : container"
+                                    :style="{ 'animation-duration': animationDurationBreathe }">
+                                    <div class=" circle"></div>
 
-                            <!-- <iframe
-                class="iframe"
-                src="https://embed.lottiefiles.com/animation/11353"
-                frameborder="0"
-              ></iframe> -->
-                            <Lottie :options="defaultOptions" :height="400" :width="400" class="lottie-animation" />
-                            <!-- <div class="loader" :key="currentSong">Loading...</div> -->
+                                    <ion-label>
+                                        <ion-text class="text">
+                                            <p id="text" style="font: 12px ">{{ text }}</p>
+                                        </ion-text>
+                                    </ion-label>
+
+                                    <div class="pointer-container"
+                                        :style="{ 'animation-duration': animationDurationTotal }">
+                                        <span class="pointer"></span>
+                                    </div>
+
+                                    <div class="gradient-circle"></div>
+                                </div>
+
+                            </div>
                         </div>
-                        <!-- <ion-item lines="none">
-              <ion-label class="ion-text-wrap">
-                <ion-text class="heading">{{
-                  dataList[currentSong].title
-                }}</ion-text>
-                <p>{{ dataList[currentSong].type }}</p>
-              </ion-label>
-            </ion-item> -->
+
+
+
                     </ion-col>
                 </ion-row>
                 <ion-row class="ion-align-items-center ion-justify-content-center">
@@ -48,51 +48,39 @@
                             <ion-label slot="start">
                                 <p>{{ currentTimeFormated }}</p>
                             </ion-label>
-
                             <ion-label slot="end">
                                 <p>{{ trackDurationFormated }}</p>
                             </ion-label>
                         </ion-item>
-
                         <input v-model="value" type="range" @input="skipTrack" min="0" step="1" :max="trackDuration"
                             ref="input" style="width: 100%" />
-
                         <div class="buttons-container">
                             <a class="button" v-on:click="prevSkip()">
-                                <svg style="width: 40px; height: 40px" viewBox="0 0 24 24">
-                                    <path fill="currentColor"
-                                        d="M19,14V20C19,21.11 18.11,22 17,22H15A2,2 0 0,1 13,20V14A2,2 0 0,1 15,12H17C18.11,12 19,12.9 19,14M15,14V20H17V14H15M11,20C11,21.11 10.1,22 9,22H5V20H9V18H7V16H9V14H5V12H9A2,2 0 0,1 11,14V15.5A1.5,1.5 0 0,1 9.5,17A1.5,1.5 0 0,1 11,18.5V20M12.5,3C17.15,3 21.08,6.03 22.47,10.22L20.1,11C19.05,7.81 16.04,5.5 12.5,5.5C10.54,5.5 8.77,6.22 7.38,7.38L10,10H3V3L5.6,5.6C7.45,4 9.85,3 12.5,3Z" />
-                                </svg>
+                                <rewind30-icon :size="40" />
                             </a>
                             <a class="button play" v-on:click="playAudio()" title="Play/Pause Song">
-                                <transition name="slide-fade" mode="out-in">
-                                    <div>
-                                        <play-circle-icon :size="90" v-show="!currentlyPlaying" />
 
-                                        <pause-circle-icon :size="90" v-show="currentlyPlaying" />
-                                    </div>
-                                </transition>
+                                <div>
+                                    <play-circle-icon :size="90" v-show="!currentlyPlaying" />
+
+                                    <pause-circle-icon :size="90" v-show="currentlyPlaying" />
+                                </div>
+
                             </a>
+
                             <a class="button" v-on:click="nextSkip()">
-                                <svg style="width: 40px; height: 40px" viewBox="0 0 24 24">
-                                    <path fill="currentColor"
-                                        d="M11.5,3C6.85,3 2.92,6.03 1.53,10.22L3.9,11C4.95,7.81 7.96,5.5 11.5,5.5C13.46,5.5 15.23,6.22 16.62,7.38L14,10H21V3L18.4,5.6C16.55,4 14.15,3 11.5,3M19,14V20C19,21.11 18.11,22 17,22H15A2,2 0 0,1 13,20V14A2,2 0 0,1 15,12H17C18.11,12 19,12.9 19,14M15,14V20H17V14H15M11,20C11,21.11 10.1,22 9,22H5V20H9V18H7V16H9V14H5V12H9A2,2 0 0,1 11,14V15.5A1.5,1.5 0 0,1 9.5,17A1.5,1.5 0 0,1 11,18.5V20Z" />
-                                </svg>
+                                <fast-forward30-icon :size="40" />
                             </a>
                         </div>
-                        <div class="buttons-container">
-                            <a class="button" v-on:click="prevSkip()">
-                                <svg style="width: 40px; height: 40px" viewBox="0 0 24 24">
-                                    <path fill="currentColor"
-                                        d="M9,5A4,4 0 0,1 13,9A4,4 0 0,1 9,13A4,4 0 0,1 5,9A4,4 0 0,1 9,5M9,15C11.67,15 17,16.34 17,19V21H1V19C1,16.34 6.33,15 9,15M16.76,5.36C18.78,7.56 18.78,10.61 16.76,12.63L15.08,10.94C15.92,9.76 15.92,8.23 15.08,7.05L16.76,5.36M20.07,2C24,6.05 23.97,12.11 20.07,16L18.44,14.37C21.21,11.19 21.21,6.65 18.44,3.63L20.07,2Z" />
-                                </svg>
+                        <div class="buttons-container loading-container">
+                            <a class="button">
+                                <account-voice-icon :size="40" />
                             </a>
-
-                            <a class="button" v-on:click="nextSong()" title="Next Song" slot="end">
-                                <svg style="width: 40px; height: 40px" viewBox="0 0 24 24">
-                                    <path fill="currentColor"
-                                        d="M12.1,18.55L12,18.65L11.89,18.55C7.14,14.24 4,11.39 4,8.5C4,6.5 5.5,5 7.5,5C9.04,5 10.54,6 11.07,7.36H12.93C13.46,6 14.96,5 16.5,5C18.5,5 20,6.5 20,8.5C20,11.39 16.86,14.24 12.1,18.55M16.5,3C14.76,3 13.09,3.81 12,5.08C10.91,3.81 9.24,3 7.5,3C4.42,3 2,5.41 2,8.5C2,12.27 5.4,15.36 10.55,20.03L12,21.35L13.45,20.03C18.6,15.36 22,12.27 22,8.5C22,5.41 19.58,3 16.5,3Z" />
-                                </svg>
+                            <ion-badge color="medium">
+                                <ion-spinner v-if="audioBuffering"></ion-spinner>
+                            </ion-badge>
+                            <a class="button" title="Next Song" slot="end">
+                                <cards-heart-outline-icon :size="40" />
                             </a>
                         </div>
                     </ion-col>
@@ -102,7 +90,7 @@
     </ion-page>
 </template>
 
-<script setup>
+<script>
 import {
     IonPage,
     IonContent,
@@ -110,169 +98,317 @@ import {
     IonButtons,
     IonHeader,
     IonToolbar,
-    // IonSpinner,
+    IonSpinner,
     IonItem,
     IonGrid,
     IonCol,
     IonRow,
     IonLabel,
-    // IonText,
+    IonText,
+    IonBadge,
 } from "@ionic/vue";
 
-import { ref, onMounted, computed, watch, onBeforeUnmount } from "vue";
+import { defineComponent } from "vue";
 
 import PlayCircleIcon from "vue-material-design-icons/PlayCircle.vue";
 import PauseCircleIcon from "vue-material-design-icons/PauseCircle.vue";
-import Lottie from "vue-lottie";
-import * as animationData from "@/assets/pinjump.json";
 
+import CardsHeartOutlineIcon from "vue-material-design-icons/CardsHeartOutline.vue";
+import AccountVoiceIcon from "vue-material-design-icons/AccountVoice.vue";
+import FastForward30Icon from "vue-material-design-icons/FastForward30.vue";
+import Rewind30Icon from "vue-material-design-icons/Rewind30.vue";
 
 
 import { Share } from "@capacitor/share";
 import { useDataStore } from "@/stores/data";
 
-
 const data = useDataStore();
-const defaultOptions = { animationData: animationData };
+
+const totalTime = 12000;
+const breatheTime = (totalTime / 5) * 2;
+const holdTime = totalTime / 5;
+const animationDurationTotal = `${totalTime / 1000}s`;
+const animationDurationBreathe = `${((totalTime / 1000) / 5) * 2}s`;
+
+
+const audioBreatheSrc = require("@/assets/audio/bowl.mp3");
+const audioClockSrc = require("@/assets/audio/clock.mp3");
+
+
+
+export default defineComponent({
+    name: "App",
+    components: {
+        IonPage,
+        IonContent,
+        IonBackButton,
+        IonButtons,
+        IonHeader,
+        IonToolbar,
+        IonSpinner,
+        IonItem,
+        IonGrid,
+        IonCol,
+        IonRow,
+        IonLabel,
+        IonText,
+        IonBadge,
+        PlayCircleIcon,
+        PauseCircleIcon,
+        FastForward30Icon,
+        Rewind30Icon,
+        CardsHeartOutlineIcon,
+        AccountVoiceIcon
+    },
+    data: function () {
+        return {
+            audio: "",
+            imgLoaded: false,
+            currentlyPlaying: false,
+            currentlyStopped: false,
+            currentTime: 0,
+            checkingCurrentPositionInTrack: "",
+            trackDuration: 0,
+            currentProgressBar: 0,
+            isPlaylistActive: false,
+            currentAudio: 0,
+            debug: false,
+            value: 0,
+            audioFile: "",
+            index: 0,
+            dataList: data.dataList,
+            title: "",
+            audioBuffering: false,
+            params: "",
+            totalTime: totalTime,
+            breatheTime: breatheTime,
+            holdTime: holdTime,
+            text: "",
+            container: "",
+            breatheInterval: "",
+            animationDurationTotal: animationDurationTotal,
+            animationDurationBreathe: animationDurationBreathe,
+            audioBreathe: "",
+            audioBreatheSrc: audioBreatheSrc,
+            audioClockSrc: audioClockSrc,
+            setIntervalRef: ""
+        };
+    },
+
+    mounted: function () {
+
+        this.changeSong();
+        this.audio.loop = false;
+        this.audio.addEventListener("waiting", this.handleWaiting);
+        this.audio.addEventListener("playing", this.handlePlaying);
+        this.breathAnimation()
+        this.longForLoop(5);
+        // setInterval(this.breathAnimation, this.totalTime);
+        // var counter = 0;
+        // var i = setInterval(function k() {
+        //     this.breathAnimation
+        //     // console.log(counter);
+        //     // counter++;
+        //     // if (counter == 5) {
+        //     //     clearInterval(i);
+        //     // }
+        // }, this.totalTime);
+    },
+
+    methods: {
+
+        shareLink: async function () {
+            await Share.share({
+                title: "Hey! Check this out on Moby.",
+                text: this.dataList[this.currentAudio].title,
+                url: window.location.href,
+                dialogTitle: "Share with buddies",
+            });
+        },
+        breathAnimation: function () {
+            this.text = "Breathe In!";
+            this.container = "container grow";
+            this.audioBreathe = new Audio(this.audioBreatheSrc);
+            this.audioBreathe.play();
+
+            setTimeout(() => {
+                this.text = "Hold";
+                this.audioBreathe = new Audio(this.audioClockSrc);
+                this.audioBreathe.play();
+
+                setTimeout(() => {
+                    this.text = "Breathe Out!";
+                    this.container = "container shrink";
+                    this.audioBreathe = new Audio(this.audioBreatheSrc);
+                    this.audioBreathe.play();
+                }, this.holdTime);
+            }, this.breatheTime);
+        },
+
+        longForLoop: function (limit) {
+            var i = 0;
+            this.setIntervalRef = setInterval(() => {
+                this.breathAnimation();
+                console.log("This is a long for loop. We are at " + ++i);
+                if (i == limit) clearInterval(this.setIntervalRef);
+            }, this.totalTime);
+        },
+
+
+
+        handleWaiting: function () {
+            this.audioBuffering = true;
+        },
+
+        handlePlaying: function () {
+            this.audioBuffering = false;
+        },
+
+        skipTrack: function () {
+            this.audio.currentTime = this.value;
+        },
+        togglePlaylist: function () {
+            this.isPlaylistActive = !this.isPlaylistActive;
+        },
+
+        prevSkip: function () {
+            this.value -= 30;
+            this.audio.currentTime = this.value;
+            if (this.audio.currentTime < 0) {
+                this.audio.currentTime = 0;
+                this.value = 0;
+            }
+        },
+
+        nextSkip: function () {
+            this.value += 30;
+            this.audio.currentTime = this.value;
+            if (this.audio.currentTime >= this.audio.duration) {
+                this.audio.currentTime = 0;
+                this.value = 0;
+                this.audio.play();
+                setTimeout(() => {
+                    this.stopAudio();
+                }, 100);
 
 
 
 
-let currentlyPlaying = ref(false);
-let currentlyStopped = ref(false);
-let currentTimeRef = ref(0);
-let checkingCurrentPositionInTrack = ref("");
-let trackDuration = ref(0);
-let currentProgressBar = ref(0);
+            }
+        },
 
-let currentSong = ref(0);
+        changeSong: function () {
+            var wasPlaying = this.currentlyPlaying;
+            this.imageLoaded = false;
+            this.currentAudio = 0;
 
-let value = ref(0);
-let audioFile = data.dataList[1].mediaUrl;
+            this.audioFile = this.dataList[this.currentAudio].mediaUrl;
+            this.audio = new Audio(this.audioFile);
+            console.log("this.audioFile", this.audioFile);
+            console.log("this.index", this.index);
+            console.log(" this.currentAudio", this.currentAudio);
+            var localThis = this;
+            this.audio.addEventListener("loadedmetadata", function () {
+                localThis.trackDuration = Math.round(this.duration);
+            });
+            this.audio.addEventListener("ended", this.handleEnded);
+            if (wasPlaying && this.currentlyStopped) {
+                this.playAudio();
+            }
+        },
+        iscurrentAudio: function (index) {
+            if (this.currentAudio == index) {
+                return true;
+            }
+            return false;
+        },
+        getcurrentAudio: function (currentAudio) {
+            return this.dataList[currentAudio].mediaUrl;
+        },
+        playAudio: function () {
+            // if (this.breatheInterval) { clearInterval(this.breatheInterval); }
+            // if (this.currentlyPlaying) {
+            //     this.breathAnimation
+            //     this.breatheInterval = setInterval(this.breathAnimation, this.totalTime);
+            // }
+            if (!this.currentlyPlaying) {
+                this.getCurrentTimeEverySecond(true);
+                this.currentlyPlaying = true;
+                this.audio.play();
+            } else {
+                this.stopAudio();
+            }
+            this.currentlyStopped = false;
+        },
+        stopAudio: function () {
+            this.audio.pause();
+            this.currentlyPlaying = false;
+            this.pausedMusic();
+        },
+        handleEnded: function () {
+            this.stopAudio();
+            this.value = 0;
+            this.audioBuffering = false;
+        },
+        onImageLoaded: function () {
+            this.imgLoaded = true;
+        },
+        getCurrentTimeEverySecond: function (startStop) {
+            var localThis = this;
+            this.checkingCurrentPositionInTrack = setTimeout(
+                function () {
+                    localThis.currentTime = localThis.audio.currentTime;
+                    localThis.currentProgressBar =
+                        (localThis.audio.currentTime / localThis.trackDuration) * 100;
+                    localThis.getCurrentTimeEverySecond(true);
+                }.bind(this),
+                1000
+            );
+        },
+        pausedMusic: function () {
+            clearTimeout(this.checkingCurrentPositionInTrack);
+        },
 
-let audio = new Audio(audioFile);
+        fancyTimeFormat: function (s) {
+            if (s < 0) s = 0;
+            return (s - (s %= 60)) / 60 + (9 < s ? ":" : ":0") + s;
+        },
+    },
+    computed: {
+        currentTimeFormated() {
+            return this.fancyTimeFormat(this.currentTime);
+        },
+        trackDurationFormated() {
+            return this.fancyTimeFormat(this.trackDuration);
+        },
+    },
+    watch: {
+        currentTime: function () {
+            this.currentTime = Math.round(this.currentTime);
+            this.value = this.currentTime;
+        },
+        value: function () {
+            this.currentTime = this.value;
+        },
 
+        $route() {
 
+            alert("Do you want to stop the current song?");
+            this.stopAudio();
+            this.audioBreatheSrc = ''
+            this.audioClockSrc = ''
+            clearInterval(this.setIntervalRef)
 
+        }
+    },
 
-onMounted(() => {
-    trackDuration.value = audio.duration;
-    currentTimeRef.value = audio.currentTime;
-    // audio.addEventListener("timeupdate", () => {
-    //     currentTime.value = audio.currentTime;
-    //     currentProgressBar.value = (currentTime.value / trackDuration.value) * 100;
-    // });
-    value.value = currentTimeRef.value;
-    console.log("audio", audio);
-    console.log("audioFile", audioFile);
-    console.log("trackDuration", trackDuration.value);
-    console.log("currentTime", currentTimeRef.value);
+    beforeUnmount: function () {
+        this.audio.removeEventListener("ended", this.handleEnded);
+        this.audio.removeEventListener("loadedmetadata", this.handleEnded);
 
-
-})
-
-onBeforeUnmount(() => {
-    audio.removeEventListener("ended", handleEnded);
-    audio.removeEventListener("loadedmetadata", handleEnded);
-
-    clearTimeout(checkingCurrentPositionInTrack);
+        clearTimeout(this.checkingCurrentPositionInTrack);
+    },
 });
-
-
-
-
-const shareLink = async function () {
-    await Share.share({
-        title: "Hey! Check this out on Moby.",
-        text: data.dataList[currentSong].title,
-        url: window.location.href,
-        dialogTitle: "Share with buddies",
-    });
-};
-
-const skipTrack = function () {
-    console.log(value.value)
-    audio.currentTime = value.value;
-
-};
-
-
-const prevSkip = function () {
-    value.value -= 30;
-    audio.currentTime = value.value;
-    if (audio.currentTime < 0) {
-        audio.currentTime = 0;
-        value.value = 0;
-    }
-};
-
-const nextSkip = function () {
-    value.value += 30;
-    audio.currentTime = value.value;
-    if (audio.currentTime >= audio.duration) {
-        audio.currentTime = 0;
-        value.value = 0;
-        stopAudio();
-    }
-};
-
-
-
-const playAudio = function () {
-    if (!currentlyPlaying.value) {
-
-        currentlyPlaying.value = true;
-        audio.play();
-    } else {
-        stopAudio();
-    }
-    currentlyStopped.value = false;
-};
-
-const stopAudio = function () {
-    audio.pause();
-    currentlyPlaying.value = false;
-    pausedMusic();
-};
-
-const handleEnded = function () {
-    stopAudio();
-    value.value = 0;
-};
-
-
-const pausedMusic = function () {
-    clearTimeout(checkingCurrentPositionInTrack.value);
-};
-
-const fancyTimeFormat = function (s) {
-    if (s < 0) s = 0;
-    return (s - (s %= 60)) / 60 + (9 < s ? ":" : ":0") + s;
-};
-
-
-const trackDurationFormated = computed({
-    get() {
-        return fancyTimeFormat(trackDuration.value)
-    },
-})
-
-const currentTimeFormated = computed({
-    get() {
-        return fancyTimeFormat(currentTimeRef.value)
-    },
-})
-
-watch(currentTimeRef => {
-
-    // audio.currentTime = currentTimeRef.value;
-})
-
-watch(value => {
-    // currentTime.value = value.value;
-    // audio.currentTime = Math.round(value.value);
-    console.log("value", value.value);
-})
 </script>
 
 <style scoped>
@@ -313,9 +449,13 @@ ion-grid {
     min-height: 52%;
 }
 
-iframe {
+img {
     width: 100%;
     height: 320px;
+    object-fit: cover;
+    object-position: 50% 50%;
+    border-radius: 5px;
+    filter: brightness(70%);
 }
 
 ion-label {
@@ -335,28 +475,127 @@ ion-item {
 }
 
 @media only screen and (max-width: 600px) {
-    iframe {
+    img {
         width: 100%;
-        height: 250px;
-    }
-
-    .audioPlayerUI {
-        /* margin-top: 1.5rem; */
-        will-change: transform, filter;
-        transition: 0.5s;
-    }
-
-    input {
+        height: 220px;
+        object-fit: cover;
+        object-position: 50% 50%;
+        border-radius: 5px;
         z-index: 10;
+        filter: brightness(70%);
+    }
+}
+
+
+
+
+input {
+    z-index: 10;
+}
+
+.heading {
+    font-size: medium;
+}
+
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    height: 130px;
+    width: 130px;
+    position: relative;
+    transform: scale(1);
+}
+
+.circle {
+    background-color: #1177b6;
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.gradient-circle {
+    background: conic-gradient(var(--ion-color-secondary) 0%,
+            var(--ion-color-secondary-shade) 40%,
+            var(--ion-color-medium) 40%,
+            var(--ion-color-medium)60%,
+            var(--ion-color-secondary) 60%,
+            var(--ion-color-secondary-shade) 100%);
+    height: 150px;
+    width: 150px;
+    z-index: -2;
+    border-radius: 50%;
+    position: absolute;
+    top: -10px;
+    left: -10px;
+}
+
+.pointer {
+    background-color: var(--ion-color-warning-shade);
+    border-radius: 50%;
+    height: 10px;
+    width: 10px;
+    display: block;
+}
+
+.pointer-container {
+    position: absolute;
+    top: -10px;
+    /* left: 140px; */
+    width: 20px;
+    height: 75px;
+    /* animation: rotate 7.5s linear forwards infinite; */
+    animation: rotate linear forwards infinite;
+    transform-origin: bottom center;
+}
+
+.text {
+    color: #ffffff;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
     }
 
-    .heading {
-        font-size: large;
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.container.grow {
+    /* animation: grow 3s linear forwards; */
+    animation: grow linear forwards;
+}
+
+@keyframes grow {
+    from {
+        transform: scale(1);
     }
 
-    .lottie-animation {
-        padding-right: 80px;
-        max-height: 250px;
+    to {
+        transform: scale(2);
+    }
+}
+
+.container.shrink {
+    /* animation: shrink 3s linear forwards; */
+    animation: shrink linear forwards;
+}
+
+@keyframes shrink {
+    from {
+        transform: scale(2);
+    }
+
+    to {
+        transform: scale(1);
     }
 }
 </style>

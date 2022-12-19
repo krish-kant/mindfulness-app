@@ -54,6 +54,10 @@ const routes = [
         path: "breethe-player",
         component: () => import("@/views/breethePlayer.vue"),
       },
+      {
+        path: "timer-player",
+        component: () => import("@/views/timerPlayer.vue"),
+      },
     ],
   },
 ];

@@ -12,49 +12,23 @@
       <ion-grid class="audioPlayerUI ion-margin-start ion-margin-end">
         <ion-row class="ion-align-items-center ion-justify-content-center first-row-grid-1 ion-margin-bottom">
           <ion-col size-lg="8">
-            <!-- <ion-item lines="none"
-              ><svg
-                @click="shareLink"
-                slot="end"
-                style="width: 24px; height: 24px"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  fill="currentColor"
-                  d="M12,1L8,5H11V14H13V5H16M18,23H6C4.89,23 4,22.1 4,21V9A2,2 0 0,1 6,7H9V9H6V21H18V9H15V7H18A2,2 0 0,1 20,9V21A2,2 0 0,1 18,23Z"
-                /></svg
-            ></ion-item> -->
             <div class="albumImage">
-              <transition name="ballmove" enter-active-class="animated zoomIn" leave-active-class="animated fadeOutDown"
-                mode="out-in" />
-              <transition name="slide-fade" mode="out-in">
-                <img @load="onImageLoaded()" :src="dataList[currentSong].imageUrl" :key="currentSong"
-                  ondragstart="return false;" id="playerAlbumArt" />
-              </transition>
-              <!-- <div class="loader" :key="currentSong">Loading...</div> -->
+              <img @load="onImageLoaded()" :src="dataList[currentAudio].imageUrl" :key="currentAudio"
+                ondragstart="return false;" id="playerAlbumArt" />
             </div>
             <ion-item lines="none">
               <ion-label class="ion-text-wrap">
                 <ion-text class="heading">{{
-                    dataList[currentSong].title
+                    dataList[currentAudio].title
                 }}</ion-text>
-                <p>{{ dataList[currentSong].type }}</p>
+                <p>{{ dataList[currentAudio].type }}</p>
               </ion-label>
-              <!-- <a
-                class="button"
-                :class="{ isDisabled: currentSong == dataList.length - 1 }"
-                v-on:click="nextSong()"
-                title="Next Song"
-                slot="end"
-              >
-                <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
-                  <path
-                    fill="currentColor"
-                    d="M12.1,18.55L12,18.65L11.89,18.55C7.14,14.24 4,11.39 4,8.5C4,6.5 5.5,5 7.5,5C9.04,5 10.54,6 11.07,7.36H12.93C13.46,6 14.96,5 16.5,5C18.5,5 20,6.5 20,8.5C20,11.39 16.86,14.24 12.1,18.55M16.5,3C14.76,3 13.09,3.81 12,5.08C10.91,3.81 9.24,3 7.5,3C4.42,3 2,5.41 2,8.5C2,12.27 5.4,15.36 10.55,20.03L12,21.35L13.45,20.03C18.6,15.36 22,12.27 22,8.5C22,5.41 19.58,3 16.5,3Z"
-                  />
-                </svg>
-              </a> -->
+
             </ion-item>
+            <ion-badge color="medium">
+              <ion-spinner v-if="audioBuffering"></ion-spinner>
+            </ion-badge>
+
           </ion-col>
         </ion-row>
         <ion-row class="ion-align-items-center ion-justify-content-center">
@@ -63,34 +37,15 @@
               <ion-label slot="start">
                 <p>{{ currentTimeFormated }}</p>
               </ion-label>
-
               <ion-label slot="end">
                 <p>{{ trackDurationFormated }}</p>
               </ion-label>
             </ion-item>
-
             <input v-model="value" type="range" @input="skipTrack" min="0" step="1" :max="trackDuration" ref="input"
               style="width: 100%" />
-
             <div class="buttons-container">
-              <!-- <a
-                class="button"
-                :class="{ isDisabled: currentSong == 0 }"
-                v-on:click="prevSong()"
-                title="Previous Song"
-              >
-                <svg style="width: 60px; height: 60px" viewBox="0 0 24 24">
-                  <path
-                    fill="currentColor"
-                    d="M6,18V6H8V18H6M9.5,12L18,6V18L9.5,12Z"
-                  />
-                </svg>
-              </a> -->
               <a class="button" v-on:click="prevSkip()">
-                <svg style="width: 40px; height: 40px" viewBox="0 0 24 24">
-                  <path fill="currentColor"
-                    d="M19,14V20C19,21.11 18.11,22 17,22H15A2,2 0 0,1 13,20V14A2,2 0 0,1 15,12H17C18.11,12 19,12.9 19,14M15,14V20H17V14H15M11,20C11,21.11 10.1,22 9,22H5V20H9V18H7V16H9V14H5V12H9A2,2 0 0,1 11,14V15.5A1.5,1.5 0 0,1 9.5,17A1.5,1.5 0 0,1 11,18.5V20M12.5,3C17.15,3 21.08,6.03 22.47,10.22L20.1,11C19.05,7.81 16.04,5.5 12.5,5.5C10.54,5.5 8.77,6.22 7.38,7.38L10,10H3V3L5.6,5.6C7.45,4 9.85,3 12.5,3Z" />
-                </svg>
+                <rewind30-icon :size="40" />
               </a>
               <a class="button play" v-on:click="playAudio()" title="Play/Pause Song">
                 <transition name="slide-fade" mode="out-in">
@@ -102,65 +57,16 @@
                 </transition>
               </a>
               <a class="button" v-on:click="nextSkip()">
-                <svg style="width: 40px; height: 40px" viewBox="0 0 24 24">
-                  <path fill="currentColor"
-                    d="M11.5,3C6.85,3 2.92,6.03 1.53,10.22L3.9,11C4.95,7.81 7.96,5.5 11.5,5.5C13.46,5.5 15.23,6.22 16.62,7.38L14,10H21V3L18.4,5.6C16.55,4 14.15,3 11.5,3M19,14V20C19,21.11 18.11,22 17,22H15A2,2 0 0,1 13,20V14A2,2 0 0,1 15,12H17C18.11,12 19,12.9 19,14M15,14V20H17V14H15M11,20C11,21.11 10.1,22 9,22H5V20H9V18H7V16H9V14H5V12H9A2,2 0 0,1 11,14V15.5A1.5,1.5 0 0,1 9.5,17A1.5,1.5 0 0,1 11,18.5V20Z" />
-                </svg>
+                <fast-forward30-icon :size="40" />
               </a>
-              <!-- <a
-                class="button"
-                :class="{ isDisabled: currentSong == dataList.length - 1 }"
-                v-on:click="nextSong()"
-                title="Next Song"
-              >
-                <svg style="width: 60px; height: 60px" viewBox="0 0 24 24">
-                  <path
-                    fill="currentColor"
-                    d="M16,18H18V6H16M6,18L14.5,12L6,6V18Z"
-                  />
-                </svg>
-              </a> -->
             </div>
             <div class="buttons-container">
-              <!-- <a
-                class="button"
-                :class="{ isDisabled: currentSong == 0 }"
-                v-on:click="prevSong()"
-                title="Previous Song"
-              >
-                <svg style="width: 60px; height: 60px" viewBox="0 0 24 24">
-                  <path
-                    fill="currentColor"
-                    d="M6,18V6H8V18H6M9.5,12L18,6V18L9.5,12Z"
-                  />
-                </svg>
-              </a> -->
-              <a class="button" v-on:click="prevSkip()">
-                <svg style="width: 40px; height: 40px" viewBox="0 0 24 24">
-                  <path fill="currentColor"
-                    d="M9,5A4,4 0 0,1 13,9A4,4 0 0,1 9,13A4,4 0 0,1 5,9A4,4 0 0,1 9,5M9,15C11.67,15 17,16.34 17,19V21H1V19C1,16.34 6.33,15 9,15M16.76,5.36C18.78,7.56 18.78,10.61 16.76,12.63L15.08,10.94C15.92,9.76 15.92,8.23 15.08,7.05L16.76,5.36M20.07,2C24,6.05 23.97,12.11 20.07,16L18.44,14.37C21.21,11.19 21.21,6.65 18.44,3.63L20.07,2Z" />
-                </svg>
+              <a class="button">
+                <account-voice-icon :size="40" />
               </a>
-
-              <a class="button" v-on:click="nextSong()" title="Next Song" slot="end">
-                <svg style="width: 40px; height: 40px" viewBox="0 0 24 24">
-                  <path fill="currentColor"
-                    d="M12.1,18.55L12,18.65L11.89,18.55C7.14,14.24 4,11.39 4,8.5C4,6.5 5.5,5 7.5,5C9.04,5 10.54,6 11.07,7.36H12.93C13.46,6 14.96,5 16.5,5C18.5,5 20,6.5 20,8.5C20,11.39 16.86,14.24 12.1,18.55M16.5,3C14.76,3 13.09,3.81 12,5.08C10.91,3.81 9.24,3 7.5,3C4.42,3 2,5.41 2,8.5C2,12.27 5.4,15.36 10.55,20.03L12,21.35L13.45,20.03C18.6,15.36 22,12.27 22,8.5C22,5.41 19.58,3 16.5,3Z" />
-                </svg>
+              <a class="button" title="Next Song" slot="end">
+                <cards-heart-outline-icon :size="40" />
               </a>
-              <!-- <a
-                class="button"
-                :class="{ isDisabled: currentSong == dataList.length - 1 }"
-                v-on:click="nextSong()"
-                title="Next Song"
-              >
-                <svg style="width: 60px; height: 60px" viewBox="0 0 24 24">
-                  <path
-                    fill="currentColor"
-                    d="M16,18H18V6H16M6,18L14.5,12L6,6V18Z"
-                  />
-                </svg>
-              </a> -->
             </div>
           </ion-col>
         </ion-row>
@@ -177,13 +83,14 @@ import {
   IonButtons,
   IonHeader,
   IonToolbar,
-  // IonSpinner,
+  IonSpinner,
   IonItem,
   IonGrid,
   IonCol,
   IonRow,
   IonLabel,
   IonText,
+  IonBadge,
 } from "@ionic/vue";
 
 import { defineComponent } from "vue";
@@ -191,15 +98,17 @@ import { defineComponent } from "vue";
 import PlayCircleIcon from "vue-material-design-icons/PlayCircle.vue";
 import PauseCircleIcon from "vue-material-design-icons/PauseCircle.vue";
 
-import { useRouter, useRoute } from "vue-router";
+import CardsHeartOutlineIcon from "vue-material-design-icons/CardsHeartOutline.vue";
+import AccountVoiceIcon from "vue-material-design-icons/AccountVoice.vue";
+import FastForward30Icon from "vue-material-design-icons/FastForward30.vue";
+import Rewind30Icon from "vue-material-design-icons/Rewind30.vue";
+
 
 import { Share } from "@capacitor/share";
 import { useDataStore } from "@/stores/data";
 
 const data = useDataStore();
 
-const router = useRouter();
-const route = useRoute();
 
 export default defineComponent({
   name: "App",
@@ -210,15 +119,20 @@ export default defineComponent({
     IonButtons,
     IonHeader,
     IonToolbar,
-    // IonSpinner,
+    IonSpinner,
     IonItem,
     IonGrid,
     IonCol,
     IonRow,
-    PlayCircleIcon,
-    PauseCircleIcon,
     IonLabel,
     IonText,
+    IonBadge,
+    PlayCircleIcon,
+    PauseCircleIcon,
+    FastForward30Icon,
+    Rewind30Icon,
+    CardsHeartOutlineIcon,
+    AccountVoiceIcon
   },
   data: function () {
     return {
@@ -231,13 +145,15 @@ export default defineComponent({
       trackDuration: 0,
       currentProgressBar: 0,
       isPlaylistActive: false,
-      currentSong: 0,
+      currentAudio: 0,
       debug: false,
       value: 0,
       audioFile: "",
       index: 0,
       dataList: data.dataList,
       title: "",
+      audioBuffering: false,
+      params: "",
     };
   },
 
@@ -245,17 +161,15 @@ export default defineComponent({
     this.getUrlQueryParams();
     this.changeSong();
     this.audio.loop = false;
+    this.audio.addEventListener("waiting", this.handleWaiting);
+    this.audio.addEventListener("playing", this.handlePlaying);
   },
 
   methods: {
     getUrlQueryParams: async function () {
       await this.$router.isReady();
-      // this.currentSong = this.$route.query.index;
-      // this.index = this.$route.query.index;
+      this.params = this.$route
       this.dataLoaded = true;
-
-      // console.log(this.$route.query);
-      // console.log(this.currentSong);
       this.title = this.dataList.filter(
         (item) => item.title === this.$route.params.title
       )[0].title;
@@ -264,16 +178,24 @@ export default defineComponent({
         this.dataList.filter((item) => item.title === this.title)[0].id
       );
       this.index = this.dataList.findIndex((item) => item.title === this.title);
-      this.currentSong = this.index;
+      this.currentAudio = this.index;
       console.log(this.dataList.findIndex((item) => item.title === this.title));
     },
     shareLink: async function () {
       await Share.share({
         title: "Hey! Check this out on Moby.",
-        text: this.dataList[this.currentSong].title,
+        text: this.dataList[this.currentAudio].title,
         url: window.location.href,
         dialogTitle: "Share with buddies",
       });
+    },
+
+    handleWaiting: function () {
+      this.audioBuffering = true;
+    },
+
+    handlePlaying: function () {
+      this.audioBuffering = false;
     },
 
     skipTrack: function () {
@@ -298,7 +220,14 @@ export default defineComponent({
       if (this.audio.currentTime >= this.audio.duration) {
         this.audio.currentTime = 0;
         this.value = 0;
-        this.stopAudio();
+        this.audio.play();
+        setTimeout(() => {
+          this.stopAudio();
+        }, 100);
+
+
+
+
       }
     },
 
@@ -309,13 +238,13 @@ export default defineComponent({
         (item) => item.title === this.$route.params.title
       )[0].title;
       this.index = this.dataList.findIndex((item) => item.title === this.title);
-      this.currentSong = this.index;
+      this.currentAudio = this.index;
 
-      this.audioFile = this.dataList[this.currentSong].mediaUrl;
+      this.audioFile = this.dataList[this.currentAudio].mediaUrl;
       this.audio = new Audio(this.audioFile);
       console.log("this.audioFile", this.audioFile);
       console.log("this.index", this.index);
-      console.log(" this.currentSong", this.currentSong);
+      console.log(" this.currentAudio", this.currentAudio);
       var localThis = this;
       this.audio.addEventListener("loadedmetadata", function () {
         localThis.trackDuration = Math.round(this.duration);
@@ -325,14 +254,14 @@ export default defineComponent({
         this.playAudio();
       }
     },
-    isCurrentSong: function (index) {
-      if (this.currentSong == index) {
+    iscurrentAudio: function (index) {
+      if (this.currentAudio == index) {
         return true;
       }
       return false;
     },
-    getCurrentSong: function (currentSong) {
-      return this.dataList[currentSong].mediaUrl;
+    getcurrentAudio: function (currentAudio) {
+      return this.dataList[currentAudio].mediaUrl;
     },
     playAudio: function () {
       if (!this.currentlyPlaying) {
@@ -352,6 +281,7 @@ export default defineComponent({
     handleEnded: function () {
       this.stopAudio();
       this.value = 0;
+      this.audioBuffering = false;
     },
     onImageLoaded: function () {
       this.imgLoaded = true;
@@ -393,6 +323,13 @@ export default defineComponent({
     value: function () {
       this.currentTime = this.value;
     },
+
+    $route() {
+      if (this.currentlyPlaying) {
+        alert("Do you want to stop the current song?");
+        this.stopAudio();
+      }
+    }
   },
 
   beforeUnmount: function () {
@@ -477,19 +414,27 @@ ion-item {
     z-index: 10;
     filter: brightness(70%);
   }
+}
 
-  .audioPlayerUI {
-    /* margin-top: 1.5rem; */
-    will-change: transform, filter;
-    transition: 0.5s;
-  }
 
-  input {
-    z-index: 10;
-  }
+.albumImage {
 
-  .heading {
-    font-size: medium;
-  }
+  position: relative;
+}
+
+ion-badge {
+  position: absolute;
+  top: 35%;
+  left: 44%;
+  z-index: 10;
+
+}
+
+input {
+  z-index: 10;
+}
+
+.heading {
+  font-size: medium;
 }
 </style>
