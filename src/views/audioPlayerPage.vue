@@ -1,5 +1,5 @@
 <template>
-  <ion-page>
+  <ion-page ref="page">
     <ion-header class="ion-no-border">
       <ion-toolbar>
         <!-- <ion-title>Library</ion-title> -->
@@ -9,69 +9,83 @@
       </ion-toolbar>
     </ion-header>
     <ion-content>
-      <ion-grid class="audioPlayerUI ion-margin-start ion-margin-end">
-        <ion-row class="ion-align-items-center ion-justify-content-center first-row-grid-1 ion-margin-bottom">
-          <ion-col size-lg="8">
-            <div class="albumImage">
-              <img @load="onImageLoaded()" :src="dataList[currentAudio].imageUrl" :key="currentAudio"
-                ondragstart="return false;" id="playerAlbumArt" />
-            </div>
-            <ion-item lines="none">
-              <ion-label class="ion-text-wrap">
-                <ion-text class="heading">{{
-                    dataList[currentAudio].title
-                }}</ion-text>
-                <p>{{ dataList[currentAudio].type }}</p>
-              </ion-label>
+      <ion-button id="open-modal" color="light" />
 
-            </ion-item>
-            <ion-badge color="medium">
-              <ion-spinner v-if="audioBuffering"></ion-spinner>
-            </ion-badge>
 
-          </ion-col>
-        </ion-row>
-        <ion-row class="ion-align-items-center ion-justify-content-center">
-          <ion-col size-sm="8" size-lg="6">
-            <ion-item lines="none">
-              <ion-label slot="start">
-                <p>{{ currentTimeFormated }}</p>
-              </ion-label>
-              <ion-label slot="end">
-                <p>{{ trackDurationFormated }}</p>
-              </ion-label>
-            </ion-item>
-            <input v-model="value" type="range" @input="skipTrack" min="0" step="1" :max="trackDuration" ref="input"
-              style="width: 100%" />
-            <div class="buttons-container">
-              <a class="button" v-on:click="prevSkip()">
-                <rewind30-icon :size="40" />
-              </a>
-              <a class="button play" v-on:click="playAudio()" title="Play/Pause Song">
-                <transition name="slide-fade" mode="out-in">
-                  <div>
-                    <play-circle-icon :size="90" v-show="!currentlyPlaying" />
+      <ion-modal ref="modal" trigger="open-modal" :presenting-element="presentingElement">
+        <ion-header>
+          <ion-toolbar>
+            <!-- <ion-title>Modal</ion-title> -->
+            <ion-buttons>
+              <ion-button @click="dismiss()">Close</ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+        <ion-grid class="audioPlayerUI ion-margin-start ion-margin-end">
+          <ion-row class="ion-align-items-center ion-justify-content-center first-row-grid-1 ion-margin-bottom">
+            <ion-col>
+              <div class="albumImage">
+                <img @load="onImageLoaded()" :src="dataList[currentAudio].imageUrl" :key="currentAudio"
+                  ondragstart="return false;" id="playerAlbumArt" />
+              </div>
+              <ion-item lines="none">
+                <ion-label class="ion-text-wrap">
+                  <ion-text class="heading">{{
+                      dataList[currentAudio].title
+                  }}</ion-text>
+                  <p>{{ dataList[currentAudio].type }}</p>
+                </ion-label>
 
-                    <pause-circle-icon :size="90" v-show="currentlyPlaying" />
-                  </div>
-                </transition>
-              </a>
-              <a class="button" v-on:click="nextSkip()">
-                <fast-forward30-icon :size="40" />
-              </a>
-            </div>
-            <div class="buttons-container">
-              <a class="button">
-                <account-voice-icon :size="40" />
-              </a>
-              <a class="button" title="Next Song" slot="end">
-                <cards-heart-outline-icon :size="40" />
-              </a>
-            </div>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+              </ion-item>
+              <ion-badge color="medium">
+                <ion-spinner v-if="audioBuffering"></ion-spinner>
+              </ion-badge>
+
+            </ion-col>
+          </ion-row>
+          <ion-row class="ion-align-items-center ion-justify-content-center">
+            <ion-col size-sm="8">
+              <ion-item lines="none">
+                <ion-label slot="start">
+                  <p>{{ currentTimeFormated }}</p>
+                </ion-label>
+                <ion-label slot="end">
+                  <p>{{ trackDurationFormated }}</p>
+                </ion-label>
+              </ion-item>
+              <input v-model="value" type="range" @input="skipTrack" min="0" step="1" :max="trackDuration" ref="input"
+                style="width: 100%" />
+              <div class="buttons-container">
+                <a class="button" v-on:click="prevSkip()">
+                  <rewind30-icon :size="40" />
+                </a>
+                <a class="button play" v-on:click="playAudio()" title="Play/Pause Song">
+                  <transition name="slide-fade" mode="out-in">
+                    <div>
+                      <play-circle-icon :size="90" v-show="!currentlyPlaying" />
+
+                      <pause-circle-icon :size="90" v-show="currentlyPlaying" />
+                    </div>
+                  </transition>
+                </a>
+                <a class="button" v-on:click="nextSkip()">
+                  <fast-forward30-icon :size="40" />
+                </a>
+              </div>
+              <div class="buttons-container">
+                <a class="button">
+                  <account-voice-icon :size="40" />
+                </a>
+                <a class="button" title="Next Song" slot="end">
+                  <cards-heart-outline-icon :size="40" />
+                </a>
+              </div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-modal>
     </ion-content>
+
   </ion-page>
 </template>
 
@@ -91,6 +105,8 @@ import {
   IonLabel,
   IonText,
   IonBadge,
+  IonModal,
+  IonButton
 } from "@ionic/vue";
 
 import { defineComponent } from "vue";
@@ -127,6 +143,8 @@ export default defineComponent({
     IonLabel,
     IonText,
     IonBadge,
+    IonModal,
+    IonButton,
     PlayCircleIcon,
     PauseCircleIcon,
     FastForward30Icon,
@@ -154,10 +172,14 @@ export default defineComponent({
       title: "",
       audioBuffering: false,
       params: "",
+      presentingElement: null,
+
     };
   },
 
   mounted: function () {
+    this.presentingElement = this.$refs.page.$el;
+    document.getElementById("open-modal").click();
     this.getUrlQueryParams();
     this.changeSong();
     this.audio.loop = false;
@@ -166,6 +188,12 @@ export default defineComponent({
   },
 
   methods: {
+
+    dismiss() {
+      this.$router.go(-1)
+      this.$refs.modal.$el.dismiss();
+
+    },
     getUrlQueryParams: async function () {
       await this.$router.isReady();
       this.params = this.$route
@@ -376,7 +404,7 @@ ion-grid {
 }
 
 .first-row-grid-1 {
-  min-height: 52%;
+  min-height: 40%;
 }
 
 img {
@@ -386,6 +414,7 @@ img {
   object-position: 50% 50%;
   border-radius: 5px;
   filter: brightness(70%);
+  margin-top: 20px;
 }
 
 ion-label {
@@ -424,7 +453,7 @@ ion-item {
 
 ion-badge {
   position: absolute;
-  top: 35%;
+  top: 40%;
   left: 44%;
   z-index: 10;
 
@@ -436,5 +465,11 @@ input {
 
 .heading {
   font-size: medium;
+}
+
+@media only screen and (min-width: 600px) {
+  ion-modal {
+    --height: 80%;
+  }
 }
 </style>

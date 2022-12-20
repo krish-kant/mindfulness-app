@@ -2,25 +2,21 @@
     <ion-page ref="page">
         <ion-header class="ion-no-border">
             <ion-toolbar>
-                <!-- <ion-item lines="none"> -->
                 <ion-buttons>
                     <ion-back-button defaultHref="/tabs/home"></ion-back-button>
                 </ion-buttons>
                 <ion-item lines="none">
                     <ion-segment value="default" mode="ios">
-                        <ion-segment-button :value="!switchGuided ? 'default' : ''"
+                        <ion-segment-button :value="!dataObj.switchGuided ? 'default' : ''"
                             @click="dataObj.switchGuided = false">
                             <ion-label>Player</ion-label>
                         </ion-segment-button>
-                        <ion-segment-button :value="switchGuided ? 'default' : ''" @click="dataObj.switchGuided = true">
+                        <ion-segment-button :value="dataObj.switchGuided ? 'default' : ''"
+                            @click="dataObj.switchGuided = true">
                             <ion-label>Guided</ion-label>
                         </ion-segment-button>
                     </ion-segment>
                 </ion-item>
-
-
-                <!-- </ion-item> -->
-
             </ion-toolbar>
         </ion-header>
         <ion-content>
@@ -28,30 +24,20 @@
                 style="width:30%; margin:auto">
                 Open
             </ion-button>
-
             <ion-modal ref="modal" trigger="open-modal" :presenting-element="presentingElement">
                 <ion-header>
                     <ion-toolbar>
-
                         <ion-buttons slot="end">
-                            <ion-button @click="dismiss()">Close</ion-button>
+                            <ion-button @click="presentActionSheet">Close</ion-button>
                         </ion-buttons>
                     </ion-toolbar>
                 </ion-header>
                 <ion-content class="ion-padding">
-
-
                     <ion-grid class="audioPlayerUI ion-margin-start ion-margin-end" v-show="!dataObj.switchGuided">
-
-
                         <ion-row
                             class="ion-align-items-center ion-justify-content-center first-row-grid-1 ion-margin-bottom">
                             <ion-col size-lg="8">
-
                                 <div class="albumImage">
-                                    <!-- <img @load="onImageLoaded()" :src="dataList[currentAudio].imageUrl" :key="currentAudio"
-                                                ondragstart="return false;" id="playerAlbumArt" /> -->
-
                                     <div>
                                         <div id="container" :class="dataObj.container"
                                             :style="{ 'animation-duration': dataObj.animationDurationBreathe }">
@@ -61,73 +47,28 @@
                                             </div>
                                             <ion-label>
                                                 <ion-text class="text">
-
                                                     <p id="text" style="font: 12px ">{{ dataObj.text }}</p>
                                                 </ion-text>
                                             </ion-label>
-
                                             <div class="pointer-container"
                                                 :style="{ 'animation-duration': dataObj.animationDurationTotal }">
                                                 <span class="pointer"></span>
                                             </div>
-
                                             <div class="gradient-circle"></div>
                                         </div>
-
                                     </div>
                                 </div>
-
-
-
                             </ion-col>
                         </ion-row>
-
-
-
-                        <div class="close-buttons" v-if="dataObj.closeClicked"
-                            style="display:flex; flex-direction:column; justify-content: center;">
-                            <ion-button color="success" size="Default" @click="markComplete">
-                                <ion-text class="text">Mark Complete</ion-text>
-                            </ion-button>
-                            <ion-button color="secondary" size="Default" @click="dontMarkComplete">
-                                <ion-text class="text">No</ion-text>
-                            </ion-button>
-                            <ion-button color="medium" sixe="Default" @click="ignoreCancel" style="margin-top:20px">
-                                <ion-text class="text">Dismiss</ion-text>
-                            </ion-button>
-
-                        </div>
-
                     </ion-grid>
-
                 </ion-content>
             </ion-modal>
-
-
-            <!-- <ion-item button detail="true" v-for="rec in bookmarks" :key="rec.title" @click="
-                () => {
-            
-                    router.push(`/tabs/item-details/${rec.title}`);
-            
-                }
-            " v-show="switchGuided">
-
-
-                <ion-thumbnail slot="start"
-                    style="height:80px; width:80px; margin-left:5px; margin-right:5px;margin-top:10px; ">
-                    <img alt="Silhouette of mountains" :src="rec.imageUrl" />
-                </ion-thumbnail>
-
-                <ion-label>
-                    <h3>{{ rec.title }}</h3>
-                    <p>{{ rec.title }}</p>
-                </ion-label>
-
-            </ion-item> -->
             <TilePlay :musicPlaylist="dataList" v-if=dataObj.switchGuided />
         </ion-content>
     </ion-page>
 </template>
+
+/********************************** JS ***********************************/
 
 <script setup>
 import {
@@ -147,32 +88,25 @@ import {
     IonBadge,
     IonSegment,
     IonSegmentButton,
-    // IonThumbnail,
     IonModal,
     IonButton,
+    actionSheetController,
 } from "@ionic/vue";
-
 import { reactive, ref, onMounted } from "vue";
 import TilePlay from "@/components/TilePlay.vue";
-import { Share } from "@capacitor/share";
 import { useDataStore } from "@/stores/data";
 
 const { dataList } = useDataStore();
-
 const totalTime = 12000;
 const breatheTime = (totalTime / 5) * 2;
 const holdTime = totalTime / 5;
 const animationDurationTotal = `${totalTime / 1000}s`;
 const animationDurationBreathe = `${((totalTime / 1000) / 5) * 2}s`;
-
-
 let audioBreatheSrc = require("@/assets/audio/bowl.mp3");
 let audioClockSrc = require("@/assets/audio/clock.mp3");
 let audioBgSrc = require("@/assets/audio/rain-and-thunder.mp3");
-
 const modal = ref(null);
 const page = ref(null);
-
 const dataObj = reactive({
     audio: "",
     container: "",
@@ -186,7 +120,6 @@ const dataObj = reactive({
     closeClicked: false,
     animationDurationBreathe: animationDurationBreathe,
     animationDurationTotal: animationDurationTotal,
-
 });
 
 onMounted(() => {
@@ -200,50 +133,11 @@ const openBreathPlayer = function () {
     audioBgSrc = require("@/assets/audio/rain-and-thunder.mp3");
     audioClockSrc = require("@/assets/audio/clock.mp3");
     breathAnimation()
-    longForLoop(600);
+    breathCycles(100);
     dataObj.audioBg = new Audio(audioBgSrc);
     dataObj.audioBg.play();
     dataObj.audioBg.loop = true;
     dataObj.presentingElement = page.value.$el;
-};
-
-const dismiss = function () {
-    dataObj.closeClicked = true;
-};
-
-const markComplete = function () {
-    dataObj.audioBg.pause();
-    dataObj.audioBreathe.pause();
-    audioBreatheSrc = ''
-    audioClockSrc = ''
-    audioBgSrc = ''
-    clearInterval(dataObj.setIntervalRef)
-    dataObj.closeClicked = false;
-    modal.value.$el.dismiss();
-};
-
-const dontMarkComplete = function () {
-    dataObj.audioBg.pause();
-    dataObj.audioBreathe.pause();
-    audioBreatheSrc = ''
-    audioClockSrc = ''
-    audioBgSrc = ''
-    clearInterval(dataObj.setIntervalRef)
-    dataObj.closeClicked = false;
-    modal.value.$el.dismiss();
-};
-
-const ignoreCancel = function () {
-    dataObj.closeClicked = false;
-};
-
-const shareLink = async function () {
-    await Share.share({
-        title: "Hey! Check this out on Moby.",
-        text: this.dataList[this.currentAudio].title,
-        url: window.location.href,
-        dialogTitle: "Share with buddies",
-    });
 };
 
 const breathAnimation = function () {
@@ -266,19 +160,66 @@ const breathAnimation = function () {
     }, breatheTime);
 }
 
-const longForLoop = function (limit) {
+const breathCycles = function (limit) {
     dataObj.breathCounter = 0;
     dataObj.setIntervalRef = setInterval(() => {
         breathAnimation();
-        console.log("This is a long for loop. We are at " + ++dataObj.breathCounter);
+        console.log("Breath cycle" + ++dataObj.breathCounter + 1);
         if (dataObj.breathCounter == limit) clearInterval(dataObj.setIntervalRef);
     }, totalTime);
 };
 
+const presentActionSheet = async () => {
+    const actionSheet = await actionSheetController.create({
+        header: 'Mark as complete for progress?',
+        // subHeader: 'Example subheader',
+        buttons: [
+            {
+                text: 'Yes',
+                // role: 'destructive',
+                handler: () => {
+                    dataObj.audioBg.pause();
+                    dataObj.audioBreathe.pause();
+                    audioBreatheSrc = ''
+                    audioClockSrc = ''
+                    audioBgSrc = ''
+                    clearInterval(dataObj.setIntervalRef)
+                    dataObj.closeClicked = false;
+                    modal.value.$el.dismiss();
 
+                },
+            },
+            {
+                text: 'No',
+                handler: () => {
+                    dataObj.audioBg.pause();
+                    dataObj.audioBreathe.pause();
+                    audioBreatheSrc = ''
+                    audioClockSrc = ''
+                    audioBgSrc = ''
+                    clearInterval(dataObj.setIntervalRef)
+                    dataObj.closeClicked = false;
+                    modal.value.$el.dismiss();
 
+                },
+            },
+            {
+                text: 'Cancel',
+                role: 'cancel',
+                handler: () => {
+                    dataObj.closeClicked = false;
+                },
+            },
+        ],
+    });
+
+    await actionSheet.present();
+    const res = await actionSheet.onDidDismiss();
+};
 
 </script>
+
+/********************************** CSS ***********************************/
 
 <style scoped>
 .button {
@@ -330,18 +271,6 @@ ion-label {
     margin: 0;
 }
 
-/* ion-item {
-    --padding-bottom: 0px;
-    --padding-top: 0px;
-    --padding-end: 0px;
-    --padding-start: 0px;
-    --inner-padding-start: 0px;
-    --inner-padding-end: 0px;
-    --inner-padding-bottom: 0px;
-    --background: none;
-    --inner-padding-top: 0px;
-} */
-
 @media only screen and (max-width: 600px) {
     img {
 
@@ -351,17 +280,6 @@ ion-label {
         z-index: 10;
         filter: brightness(70%);
     }
-}
-
-
-
-
-input {
-    z-index: 10;
-}
-
-.heading {
-    font-size: medium;
 }
 
 
@@ -429,20 +347,7 @@ input {
 }
 
 .counter {
-
     font-weight: 700;
-
-
-}
-
-@keyframes rotate {
-    from {
-        transform: rotate(0deg);
-    }
-
-    to {
-        transform: rotate(360deg);
-    }
 }
 
 .container.grow {
@@ -450,23 +355,10 @@ input {
     animation: grow linear forwards;
 }
 
-
-
-
 ion-buttons {
     position: absolute;
     top: 0%;
     left: 0%;
-}
-
-@keyframes grow {
-    from {
-        transform: scale(1);
-    }
-
-    to {
-        transform: scale(2);
-    }
 }
 
 .container.shrink {
@@ -487,6 +379,10 @@ ion-item {
 }
 
 
+code {
+    white-space: pre-wrap;
+}
+
 img {
     z-index: 10;
     object-fit: cover;
@@ -495,19 +391,30 @@ img {
 }
 
 @media only screen and (min-width: 600px) {
-
     ion-modal {
         --height: 80%;
     }
-
-    .close-buttons {
-        margin-left: 50px;
-        margin-right: 50px;
-
-    }
-
 }
 
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes grow {
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(2);
+    }
+}
 
 @keyframes shrink {
     from {
