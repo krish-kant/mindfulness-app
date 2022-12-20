@@ -3,13 +3,9 @@
     <ion-header class="ion-no-border">
       <ion-toolbar>
         <!-- <ion-title>Library</ion-title> -->
-        <ion-item lines="none"
-          ><ion-icon
-            @click="() => router.push('/tabs/search')"
-            slot="end"
-            :icon="searchOutline"
-          ></ion-icon
-        ></ion-item>
+        <ion-item lines="none">
+          <ion-icon @click="() => router.push('/tabs/search')" slot="end" :icon="searchOutline"></ion-icon>
+        </ion-item>
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
@@ -18,27 +14,18 @@
           <ion-col>
             <ion-item lines="none">
               <div>
-                <ion-segment value="default">
-                  <ion-segment-button
-                    :value="!switchBookmarks ? 'default' : ''"
-                    @click="switchBookmarks = false"
-                  >
+                <ion-segment value="default" mode="ios">
+                  <ion-segment-button :value="!switchBookmarks ? 'default' : ''" @click="switchBookmarks = false">
                     <ion-label>Playlist</ion-label>
                   </ion-segment-button>
-                  <ion-segment-button
-                    :value="switchBookmarks ? 'default' : ''"
-                    @click="switchBookmarks = true"
-                  >
+                  <ion-segment-button :value="switchBookmarks ? 'default' : ''" @click="switchBookmarks = true">
                     <ion-label>Bookmarks</ion-label>
                   </ion-segment-button>
                 </ion-segment>
               </div>
 
-              <ion-icon
-                @click="() => (deletePlaylistItem = !deletePlaylistItem)"
-                :icon="createOutline"
-                slot="end"
-              ></ion-icon>
+              <ion-icon @click="() => (deletePlaylistItem = !deletePlaylistItem)" :icon="createOutline" slot="end">
+              </ion-icon>
             </ion-item>
           </ion-col>
         </ion-row>
@@ -49,31 +36,17 @@
           <ion-col>
             <ion-list button v-if="playlistLength">
               <!-- The reorder gesture is disabled by default, enable it to drag and drop items -->
-              <ion-reorder-group
-                :disabled="false"
-                @ionItemReorder="handleReorder($event)"
-              >
-                <ion-item
-                  button
-                  detail="false"
-                  v-for="rec in playlist"
-                  :key="rec.title"
-                  @click="
-                    () => {
-                      if (deletePlaylistItem)
-                        router.push({
-                          path: `/tabs/audiolist-player/${rec.title}`,
-                        });
-                    }
-                  "
-                >
-                  <ion-button
-                    color="light"
-                    slot="start"
-                    v-if="!deletePlaylistItem"
-                    size="default"
-                    @click="deleteItemfromPlaylist(rec.title)"
-                  >
+              <ion-reorder-group :disabled="false" @ionItemReorder="handleReorder($event)">
+                <ion-item button detail="false" v-for="rec in playlist" :key="rec.title" @click="
+                  () => {
+                    if (deletePlaylistItem)
+                      router.push({
+                        path: `/tabs/audiolist-player/${rec.title}`,
+                      });
+                  }
+                ">
+                  <ion-button color="light" slot="start" v-if="!deletePlaylistItem" size="default"
+                    @click="deleteItemfromPlaylist(rec.title)">
                     <ion-icon :icon="removeCircleOutline"></ion-icon>
                   </ion-button>
 
@@ -98,26 +71,15 @@
             <ion-list button v-if="bookmarksLength">
               <!-- The reorder gesture is disabled by default, enable it to drag and drop items -->
 
-              <ion-item
-                button
-                detail="true"
-                v-for="rec in bookmarks"
-                :key="rec.title"
-                @click="
-                  () => {
-                    if (deletePlaylistItem) {
-                      router.push(`/tabs/item-details/${rec.title}`);
-                    }
+              <ion-item button detail="true" v-for="rec in bookmarks" :key="rec.title" @click="
+                () => {
+                  if (deletePlaylistItem) {
+                    router.push(`/tabs/item-details/${rec.title}`);
                   }
-                "
-              >
-                <ion-button
-                  color="light"
-                  slot="start"
-                  v-if="!deletePlaylistItem"
-                  size="default"
-                  @click="deleteItemfromBookmarks(rec.title)"
-                >
+                }
+              ">
+                <ion-button color="light" slot="start" v-if="!deletePlaylistItem" size="default"
+                  @click="deleteItemfromBookmarks(rec.title)">
                   <ion-icon :icon="removeCircleOutline"></ion-icon>
                 </ion-button>
 
