@@ -2,21 +2,18 @@
   <ion-page ref="page">
     <ion-header class="ion-no-border">
       <ion-toolbar>
-        <!-- <ion-title>Library</ion-title> -->
-        <ion-buttons slot="start">
-          <ion-back-button defaultHref="/tabs/library"></ion-back-button>
+        <ion-buttons>
+          <ion-back-button defaultHref="/tabs/home"></ion-back-button>
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
     <ion-content>
-      <ion-button id="open-modal" color="light" />
-
-
-      <ion-modal ref="modal" trigger="open-modal" :presenting-element="presentingElement">
+      <div id="open-modal" style="width:1px" />
+      <ion-modal ref="modal" backdropDismiss="false" trigger="open-modal" :presenting-element="presentingElement">
         <ion-header>
           <ion-toolbar>
-            <!-- <ion-title>Modal</ion-title> -->
-            <ion-buttons>
+            <ion-title>Player</ion-title>
+            <ion-buttons slot="end">
               <ion-button @click="dismiss()">Close</ion-button>
             </ion-buttons>
           </ion-toolbar>
@@ -85,7 +82,6 @@
         </ion-grid>
       </ion-modal>
     </ion-content>
-
   </ion-page>
 </template>
 
@@ -106,7 +102,8 @@ import {
   IonText,
   IonBadge,
   IonModal,
-  IonButton
+  IonButton,
+  IonTitle
 } from "@ionic/vue";
 
 import { defineComponent } from "vue";
@@ -145,6 +142,7 @@ export default defineComponent({
     IonBadge,
     IonModal,
     IonButton,
+    IonTitle,
     PlayCircleIcon,
     PauseCircleIcon,
     FastForward30Icon,
