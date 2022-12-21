@@ -51,7 +51,7 @@ const routes = [
         component: () => import("@/views/audioPlayerPage.vue"),
       },
       {
-        path: "breethe",
+        path: "breathe",
         component: () => import("@/views/breathePage.vue"),
       },
       {

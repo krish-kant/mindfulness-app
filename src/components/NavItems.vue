@@ -26,7 +26,7 @@
       </ion-col>
 
       <ion-col size="4" size-lg="2" class="ion-align-self-center">
-        <ion-item lines="none" class="nav-items" @click="() => router.push('/tabs/breethe')">
+        <ion-item lines="none" class="nav-items" @click="() => router.push('/tabs/breathe')">
           <ion-label>
             <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
               <path fill="currentColor"

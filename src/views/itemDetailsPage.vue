@@ -38,7 +38,7 @@
                     router.push({
                       path: `/tabs/audio-player/${dataList[index].title}`,
                     })
-                " style="width: 50%">
+                " style="width: 50%" router-direction="none">
                   <ion-icon :icon="play" />
                   <ion-text>
                     <p>Play</p>

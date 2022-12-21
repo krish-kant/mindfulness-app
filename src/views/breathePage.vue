@@ -22,8 +22,10 @@
         <ion-content>
 
             <ion-item lines="none" class="ion-margin" v-if=!dataObj.switchGuided>
-                <ion-button size="default" color="secondary" @click="() => router.push('/tabs/breathe-player')"
-                    style="width: 50%;margin:auto">
+                <ion-button size="default" color="secondary" @click="() => {
+                    router.push('/tabs/breathe-player')
+                
+                }" style="margin:auto">
                     <ion-text>
                         <p>Open Breathe Player</p>
                     </ion-text>
@@ -77,7 +79,6 @@ ion-buttons {
     top: 5px;
     left: 5px;
 }
-
 
 ion-item {
     --padding-bottom: 0px;
