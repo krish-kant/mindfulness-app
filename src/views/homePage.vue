@@ -2,7 +2,7 @@
   <ion-page>
 
     <div class="card">
-      <div class="blue-ocean ">
+      <div id="blue-ocean-bg" class="blue-ocean">
         <div class="blue-ray"></div>
         <div class="blue-ray2"></div>
         <div class="blue-ray3"></div>
@@ -23,7 +23,7 @@
         <div class="blue-ray18"></div>
         <div class="blue-ray19"></div>
         <div class="blue-ray20"></div>
-        <div class="blue-whale">
+        <div id="blue-whale-bg" class="blue-whale">
           <div class="blue-whale-main">
             <div class="blue-whale-eye"></div>
             <div class="gill-container">
@@ -99,6 +99,19 @@ const { dataList } = useDataStore();
 </script>
 
 <style scoped>
+@media (prefers-color-scheme: dark) {
+
+  #blue-ocean-bg {
+    --ion-color-whale: #0a1629;
+    --ion-color-whale-light: #2e405d;
+    --ion-color-whale-body: #141d31;
+    --ion-color-whale-gill: #111d2e;
+    --ion-color-whale-gill-1: #192435;
+    --ion-color-whale-eye: #091220;
+  }
+
+}
+
 ion-item {
   --padding-bottom: 0px;
   --padding-top: 0px;
@@ -124,7 +137,7 @@ ion-item {
 .card {
 
   position: relative;
-  height: 15vmin;
+  height: 20vmin;
   z-index: 1000;
 }
 
@@ -137,13 +150,17 @@ ion-item {
   background-color: #F3F3F3;
 }
 
+
+
+
+
 @media only screen and (max-width: 600px) {
-  .card {
+  .ios .card {
     height: 30vmin;
   }
 
-  .blue-whale {
-    margin-top: 30px;
+  .ios .blue-whale {
+    margin-top: 20px;
   }
 }
 
@@ -151,7 +168,7 @@ ion-item {
 
 .blue-ocean {
   position: relative;
-  background-color: #607AA0;
+  background-color: var(--ion-color-whale);
   width: 100%;
   height: 100%;
   overflow: hidden;
@@ -164,21 +181,21 @@ ion-item {
   right: 2%;
   transform: rotate(10deg);
   top: -8%;
-  background: #f7e6d3;
+  background: var(--ion-color-whale-light);
   /* Old browsers */
-  background: -moz-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -moz-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f7e6d3), color-stop(80%, #607aa0), color-stop(82%, #607aa0), color-stop(84%, #607aa0), color-stop(100%, #607aa0), color-stop(100%, #607aa0));
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, var(--ion-color-whale-light)), color-stop(80%, var(--ion-color-whale)), color-stop(82%, var(--ion-color-whale)), color-stop(84%, var(--ion-color-whale)), color-stop(100%, var(--ion-color-whale)), color-stop(100%, var(--ion-color-whale)));
   /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -webkit-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -o-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -ms-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* IE10+ */
-  background: linear-gradient(to bottom, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: linear-gradient(to bottom, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7e6d3', endColorstr='#607aa0', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='var(--ion-color-whale-light)', endColorstr='var(--ion-color-whale)', GradientType=0);
   /* IE6-9 */
   opacity: .2;
   animation: raymove 4s linear infinite;
@@ -191,21 +208,21 @@ ion-item {
   right: 20%;
   transform: rotate(10deg);
   top: -8%;
-  background: #f7e6d3;
+  background: var(--ion-color-whale-light);
   /* Old browsers */
-  background: -moz-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -moz-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f7e6d3), color-stop(80%, #607aa0), color-stop(82%, #607aa0), color-stop(84%, #607aa0), color-stop(100%, #607aa0), color-stop(100%, #607aa0));
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, var(--ion-color-whale-light)), color-stop(80%, var(--ion-color-whale)), color-stop(82%, var(--ion-color-whale)), color-stop(84%, var(--ion-color-whale)), color-stop(100%, var(--ion-color-whale)), color-stop(100%, var(--ion-color-whale)));
   /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -webkit-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -o-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -ms-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* IE10+ */
-  background: linear-gradient(to bottom, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: linear-gradient(to bottom, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7e6d3', endColorstr='#607aa0', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='var(--ion-color-whale-light)', endColorstr='var(--ion-color-whale)', GradientType=0);
   /* IE6-9 */
   opacity: .2;
   animation: raymove 4s linear infinite;
@@ -218,21 +235,21 @@ ion-item {
   right: 12%;
   transform: rotate(10deg);
   top: -8%;
-  background: #f7e6d3;
+  background: var(--ion-color-whale-light);
   /* Old browsers */
-  background: -moz-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -moz-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f7e6d3), color-stop(80%, #607aa0), color-stop(82%, #607aa0), color-stop(84%, #607aa0), color-stop(100%, #607aa0), color-stop(100%, #607aa0));
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, var(--ion-color-whale-light)), color-stop(80%, var(--ion-color-whale)), color-stop(82%, var(--ion-color-whale)), color-stop(84%, var(--ion-color-whale)), color-stop(100%, var(--ion-color-whale)), color-stop(100%, var(--ion-color-whale)));
   /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -webkit-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -o-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -ms-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* IE10+ */
-  background: linear-gradient(to bottom, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: linear-gradient(to bottom, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7e6d3', endColorstr='#607aa0', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='var(--ion-color-whale-light)', endColorstr='var(--ion-color-whale)', GradientType=0);
   /* IE6-9 */
   opacity: .2;
   animation: raymove 6s linear infinite;
@@ -245,21 +262,21 @@ ion-item {
   right: 12%;
   transform: rotate(10deg);
   top: -8%;
-  background: #f7e6d3;
+  background: var(--ion-color-whale-light);
   /* Old browsers */
-  background: -moz-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -moz-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f7e6d3), color-stop(80%, #607aa0), color-stop(82%, #607aa0), color-stop(84%, #607aa0), color-stop(100%, #607aa0), color-stop(100%, #607aa0));
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, var(--ion-color-whale-light)), color-stop(80%, var(--ion-color-whale)), color-stop(82%, var(--ion-color-whale)), color-stop(84%, var(--ion-color-whale)), color-stop(100%, var(--ion-color-whale)), color-stop(100%, var(--ion-color-whale)));
   /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -webkit-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -o-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -ms-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* IE10+ */
-  background: linear-gradient(to bottom, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: linear-gradient(to bottom, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7e6d3', endColorstr='#607aa0', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='var(--ion-color-whale-light)', endColorstr='var(--ion-color-whale)', GradientType=0);
   /* IE6-9 */
   opacity: .2;
   animation: raymove 5s linear infinite;
@@ -273,21 +290,21 @@ ion-item {
   right: 29%;
   transform: rotate(10deg);
   top: -8%;
-  background: #f7e6d3;
+  background: var(--ion-color-whale-light);
   /* Old browsers */
-  background: -moz-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -moz-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f7e6d3), color-stop(80%, #607aa0), color-stop(82%, #607aa0), color-stop(84%, #607aa0), color-stop(100%, #607aa0), color-stop(100%, #607aa0));
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, var(--ion-color-whale-light)), color-stop(80%, var(--ion-color-whale)), color-stop(82%, var(--ion-color-whale)), color-stop(84%, var(--ion-color-whale)), color-stop(100%, var(--ion-color-whale)), color-stop(100%, var(--ion-color-whale)));
   /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -webkit-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -o-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -ms-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* IE10+ */
-  background: linear-gradient(to bottom, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: linear-gradient(to bottom, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7e6d3', endColorstr='#607aa0', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='var(--ion-color-whale-light)', endColorstr='var(--ion-color-whale)', GradientType=0);
   /* IE6-9 */
   opacity: .2;
   animation: raymove 4s linear infinite;
@@ -300,21 +317,21 @@ ion-item {
   right: 34%;
   transform: rotate(10deg);
   top: -8%;
-  background: #f7e6d3;
+  background: var(--ion-color-whale-light);
   /* Old browsers */
-  background: -moz-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -moz-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f7e6d3), color-stop(80%, #607aa0), color-stop(82%, #607aa0), color-stop(84%, #607aa0), color-stop(100%, #607aa0), color-stop(100%, #607aa0));
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, var(--ion-color-whale-light)), color-stop(80%, var(--ion-color-whale)), color-stop(82%, var(--ion-color-whale)), color-stop(84%, var(--ion-color-whale)), color-stop(100%, var(--ion-color-whale)), color-stop(100%, var(--ion-color-whale)));
   /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -webkit-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -o-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -ms-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* IE10+ */
-  background: linear-gradient(to bottom, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: linear-gradient(to bottom, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7e6d3', endColorstr='#607aa0', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='var(--ion-color-whale-light)', endColorstr='var(--ion-color-whale)', GradientType=0);
   /* IE6-9 */
   opacity: .2;
   animation: raymove 4s linear infinite;
@@ -327,21 +344,21 @@ ion-item {
   right: 37%;
   transform: rotate(10deg);
   top: -8%;
-  background: #f7e6d3;
+  background: var(--ion-color-whale-light);
   /* Old browsers */
-  background: -moz-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -moz-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f7e6d3), color-stop(80%, #607aa0), color-stop(82%, #607aa0), color-stop(84%, #607aa0), color-stop(100%, #607aa0), color-stop(100%, #607aa0));
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, var(--ion-color-whale-light)), color-stop(80%, var(--ion-color-whale)), color-stop(82%, var(--ion-color-whale)), color-stop(84%, var(--ion-color-whale)), color-stop(100%, var(--ion-color-whale)), color-stop(100%, var(--ion-color-whale)));
   /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -webkit-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -o-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -ms-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* IE10+ */
-  background: linear-gradient(to bottom, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: linear-gradient(to bottom, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7e6d3', endColorstr='#607aa0', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='var(--ion-color-whale-light)', endColorstr='var(--ion-color-whale)', GradientType=0);
   /* IE6-9 */
   opacity: .2;
   animation: raymove 4.3s linear infinite;
@@ -354,21 +371,21 @@ ion-item {
   right: 42%;
   transform: rotate(10deg);
   top: -8%;
-  background: #f7e6d3;
+  background: var(--ion-color-whale-light);
   /* Old browsers */
-  background: -moz-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -moz-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f7e6d3), color-stop(80%, #607aa0), color-stop(82%, #607aa0), color-stop(84%, #607aa0), color-stop(100%, #607aa0), color-stop(100%, #607aa0));
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, var(--ion-color-whale-light)), color-stop(80%, var(--ion-color-whale)), color-stop(82%, var(--ion-color-whale)), color-stop(84%, var(--ion-color-whale)), color-stop(100%, var(--ion-color-whale)), color-stop(100%, var(--ion-color-whale)));
   /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -webkit-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -o-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -ms-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* IE10+ */
-  background: linear-gradient(to bottom, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: linear-gradient(to bottom, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7e6d3', endColorstr='#607aa0', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='var(--ion-color-whale-light)', endColorstr='var(--ion-color-whale)', GradientType=0);
   /* IE6-9 */
   opacity: .2;
   animation: raymove 4s linear infinite;
@@ -381,21 +398,21 @@ ion-item {
   right: 48%;
   transform: rotate(10deg);
   top: -8%;
-  background: #f7e6d3;
+  background: var(--ion-color-whale-light);
   /* Old browsers */
-  background: -moz-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -moz-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f7e6d3), color-stop(80%, #607aa0), color-stop(82%, #607aa0), color-stop(84%, #607aa0), color-stop(100%, #607aa0), color-stop(100%, #607aa0));
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, var(--ion-color-whale-light)), color-stop(80%, var(--ion-color-whale)), color-stop(82%, var(--ion-color-whale)), color-stop(84%, var(--ion-color-whale)), color-stop(100%, var(--ion-color-whale)), color-stop(100%, var(--ion-color-whale)));
   /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -webkit-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -o-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -ms-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* IE10+ */
-  background: linear-gradient(to bottom, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: linear-gradient(to bottom, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7e6d3', endColorstr='#607aa0', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='var(--ion-color-whale-light)', endColorstr='var(--ion-color-whale)', GradientType=0);
   /* IE6-9 */
   opacity: .2;
   animation: raymove 4s linear infinite;
@@ -408,21 +425,21 @@ ion-item {
   right: 55%;
   transform: rotate(10deg);
   top: -8%;
-  background: #f7e6d3;
+  background: var(--ion-color-whale-light);
   /* Old browsers */
-  background: -moz-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -moz-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f7e6d3), color-stop(80%, #607aa0), color-stop(82%, #607aa0), color-stop(84%, #607aa0), color-stop(100%, #607aa0), color-stop(100%, #607aa0));
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, var(--ion-color-whale-light)), color-stop(80%, var(--ion-color-whale)), color-stop(82%, var(--ion-color-whale)), color-stop(84%, var(--ion-color-whale)), color-stop(100%, var(--ion-color-whale)), color-stop(100%, var(--ion-color-whale)));
   /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -webkit-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -o-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -ms-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* IE10+ */
-  background: linear-gradient(to bottom, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: linear-gradient(to bottom, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7e6d3', endColorstr='#607aa0', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='var(--ion-color-whale-light)', endColorstr='var(--ion-color-whale)', GradientType=0);
   /* IE6-9 */
   opacity: .2;
   animation: raymove 4.7s linear infinite;
@@ -435,21 +452,21 @@ ion-item {
   right: 48%;
   transform: rotate(10deg);
   top: -8%;
-  background: #f7e6d3;
+  background: var(--ion-color-whale-light);
   /* Old browsers */
-  background: -moz-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -moz-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f7e6d3), color-stop(80%, #607aa0), color-stop(82%, #607aa0), color-stop(84%, #607aa0), color-stop(100%, #607aa0), color-stop(100%, #607aa0));
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, var(--ion-color-whale-light)), color-stop(80%, var(--ion-color-whale)), color-stop(82%, var(--ion-color-whale)), color-stop(84%, var(--ion-color-whale)), color-stop(100%, var(--ion-color-whale)), color-stop(100%, var(--ion-color-whale)));
   /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -webkit-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -o-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -ms-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* IE10+ */
-  background: linear-gradient(to bottom, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: linear-gradient(to bottom, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7e6d3', endColorstr='#607aa0', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='var(--ion-color-whale-light)', endColorstr='var(--ion-color-whale)', GradientType=0);
   /* IE6-9 */
   opacity: .2;
   animation: raymove 4s linear infinite;
@@ -462,21 +479,21 @@ ion-item {
   right: 60%;
   transform: rotate(10deg);
   top: -8%;
-  background: #f7e6d3;
+  background: var(--ion-color-whale-light);
   /* Old browsers */
-  background: -moz-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -moz-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f7e6d3), color-stop(80%, #607aa0), color-stop(82%, #607aa0), color-stop(84%, #607aa0), color-stop(100%, #607aa0), color-stop(100%, #607aa0));
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, var(--ion-color-whale-light)), color-stop(80%, var(--ion-color-whale)), color-stop(82%, var(--ion-color-whale)), color-stop(84%, var(--ion-color-whale)), color-stop(100%, var(--ion-color-whale)), color-stop(100%, var(--ion-color-whale)));
   /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -webkit-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -o-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -ms-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* IE10+ */
-  background: linear-gradient(to bottom, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: linear-gradient(to bottom, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7e6d3', endColorstr='#607aa0', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='var(--ion-color-whale-light)', endColorstr='var(--ion-color-whale)', GradientType=0);
   /* IE6-9 */
   opacity: .2;
   animation: raymove 4.5s linear infinite;
@@ -489,21 +506,21 @@ ion-item {
   right: 70%;
   transform: rotate(10deg);
   top: -8%;
-  background: #f7e6d3;
+  background: var(--ion-color-whale-light);
   /* Old browsers */
-  background: -moz-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -moz-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f7e6d3), color-stop(80%, #607aa0), color-stop(82%, #607aa0), color-stop(84%, #607aa0), color-stop(100%, #607aa0), color-stop(100%, #607aa0));
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, var(--ion-color-whale-light)), color-stop(80%, var(--ion-color-whale)), color-stop(82%, var(--ion-color-whale)), color-stop(84%, var(--ion-color-whale)), color-stop(100%, var(--ion-color-whale)), color-stop(100%, var(--ion-color-whale)));
   /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -webkit-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -o-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -ms-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* IE10+ */
-  background: linear-gradient(to bottom, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: linear-gradient(to bottom, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7e6d3', endColorstr='#607aa0', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='var(--ion-color-whale-light)', endColorstr='var(--ion-color-whale)', GradientType=0);
   /* IE6-9 */
   opacity: .2;
   animation: raymove 4s linear infinite;
@@ -516,21 +533,21 @@ ion-item {
   right: 74%;
   transform: rotate(10deg);
   top: -8%;
-  background: #f7e6d3;
+  background: var(--ion-color-whale-light);
   /* Old browsers */
-  background: -moz-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -moz-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f7e6d3), color-stop(80%, #607aa0), color-stop(82%, #607aa0), color-stop(84%, #607aa0), color-stop(100%, #607aa0), color-stop(100%, #607aa0));
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, var(--ion-color-whale-light)), color-stop(80%, var(--ion-color-whale)), color-stop(82%, var(--ion-color-whale)), color-stop(84%, var(--ion-color-whale)), color-stop(100%, var(--ion-color-whale)), color-stop(100%, var(--ion-color-whale)));
   /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -webkit-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -o-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -ms-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* IE10+ */
-  background: linear-gradient(to bottom, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: linear-gradient(to bottom, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7e6d3', endColorstr='#607aa0', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='var(--ion-color-whale-light)', endColorstr='var(--ion-color-whale)', GradientType=0);
   /* IE6-9 */
   opacity: .2;
   animation: raymove 4s linear infinite;
@@ -543,21 +560,21 @@ ion-item {
   right: 80%;
   transform: rotate(10deg);
   top: -8%;
-  background: #f7e6d3;
+  background: var(--ion-color-whale-light);
   /* Old browsers */
-  background: -moz-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -moz-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f7e6d3), color-stop(80%, #607aa0), color-stop(82%, #607aa0), color-stop(84%, #607aa0), color-stop(100%, #607aa0), color-stop(100%, #607aa0));
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, var(--ion-color-whale-light)), color-stop(80%, var(--ion-color-whale)), color-stop(82%, var(--ion-color-whale)), color-stop(84%, var(--ion-color-whale)), color-stop(100%, var(--ion-color-whale)), color-stop(100%, var(--ion-color-whale)));
   /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -webkit-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -o-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -ms-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* IE10+ */
-  background: linear-gradient(to bottom, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: linear-gradient(to bottom, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7e6d3', endColorstr='#607aa0', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='var(--ion-color-whale-light)', endColorstr='var(--ion-color-whale)', GradientType=0);
   /* IE6-9 */
   opacity: .2;
   animation: raymove 5s linear infinite;
@@ -570,21 +587,21 @@ ion-item {
   right: 90%;
   transform: rotate(10deg);
   top: -8%;
-  background: #f7e6d3;
+  background: var(--ion-color-whale-light);
   /* Old browsers */
-  background: -moz-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -moz-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f7e6d3), color-stop(80%, #607aa0), color-stop(82%, #607aa0), color-stop(84%, #607aa0), color-stop(100%, #607aa0), color-stop(100%, #607aa0));
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, var(--ion-color-whale-light)), color-stop(80%, var(--ion-color-whale)), color-stop(82%, var(--ion-color-whale)), color-stop(84%, var(--ion-color-whale)), color-stop(100%, var(--ion-color-whale)), color-stop(100%, var(--ion-color-whale)));
   /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -webkit-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -o-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -ms-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* IE10+ */
-  background: linear-gradient(to bottom, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: linear-gradient(to bottom, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7e6d3', endColorstr='#607aa0', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='var(--ion-color-whale-light)', endColorstr='var(--ion-color-whale)', GradientType=0);
   /* IE6-9 */
   opacity: .2;
   animation: raymove 4s linear infinite;
@@ -597,21 +614,21 @@ ion-item {
   right: 100%;
   transform: rotate(10deg);
   top: -8%;
-  background: #f7e6d3;
+  background: var(--ion-color-whale-light);
   /* Old browsers */
-  background: -moz-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -moz-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* FF3.6+ */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f7e6d3), color-stop(80%, #607aa0), color-stop(82%, #607aa0), color-stop(84%, #607aa0), color-stop(100%, #607aa0), color-stop(100%, #607aa0));
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, var(--ion-color-whale-light)), color-stop(80%, var(--ion-color-whale)), color-stop(82%, var(--ion-color-whale)), color-stop(84%, var(--ion-color-whale)), color-stop(100%, var(--ion-color-whale)), color-stop(100%, var(--ion-color-whale)));
   /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -webkit-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -o-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* Opera 11.10+ */
-  background: -ms-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: -ms-linear-gradient(top, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* IE10+ */
-  background: linear-gradient(to bottom, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
+  background: linear-gradient(to bottom, var(--ion-color-whale-light) 0%, var(--ion-color-whale) 80%, var(--ion-color-whale) 82%, var(--ion-color-whale) 84%, var(--ion-color-whale) 100%, var(--ion-color-whale) 100%);
   /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7e6d3', endColorstr='#607aa0', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='var(--ion-color-whale-light)', endColorstr='var(--ion-color-whale)', GradientType=0);
   /* IE6-9 */
   opacity: .2;
   animation: raymove 4.5s linear infinite;
@@ -659,7 +676,7 @@ ion-item {
   left: 0%;
   transform: translateX(-50%) rotate(0deg);
   border-radius: 0% 30% 5% 0%;
-  top: 25%;
+  top: 30%;
 }
 
 .blue-whale:after {
@@ -669,16 +686,9 @@ ion-item {
   height: 6vmin;
   position: absolute;
   transform: rotate(10deg);
-  top: 40%;
+  top: 30%;
   right: -6%;
-  background: #f7e6d3;
-  background: -moz-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f7e6d3), color-stop(80%, #607aa0), color-stop(82%, #607aa0), color-stop(84%, #607aa0), color-stop(100%, #607aa0), color-stop(100%, #607aa0));
-  background: -webkit-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
-  background: -o-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
-  background: -ms-linear-gradient(top, #f7e6d3 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
-  background: linear-gradient(to bottom, #4C6180 0%, #607aa0 80%, #607aa0 82%, #607aa0 84%, #607aa0 100%, #607aa0 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7e6d3', endColorstr='#607aa0', GradientType=0);
+  /* filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='var(--ion-color-whale-light)', endColorstr='var(--ion-color-whale)', GradientType=0); */
   opacity: .1;
 
 }
@@ -690,7 +700,7 @@ ion-item {
   position: absolute;
   top: 4vmin;
   left: 1vmin;
-  box-shadow: 2vmin -6vmin 6vmin #fff;
+  box-shadow: 2vmin -6vmin 6vmin var(--ion-color-whale-light);
   z-index: 1;
 
 }
@@ -702,7 +712,7 @@ ion-item {
   position: absolute;
   top: 2.5vmin;
   left: 1vmin;
-  box-shadow: -1vmin 4vmin 4vmin #090E15;
+  box-shadow: -1vmin 4vmin 4vmin var(--ion-color-whale-body);
   z-index: 1;
 
 }
@@ -732,14 +742,7 @@ ion-item {
 .blue-whale-main {
   height: 7vmin;
   width: 20vmin;
-  background: #758AA7;
-  /*background: -moz-linear-gradient(top, #ffffff 0%, #f4f0eb 19%, #f7e6d3 56%, #607aa0 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(19%,#f4f0eb), color-stop(56%,#f7e6d3), color-stop(100%,#607aa0));
-    background: -webkit-linear-gradient(top, #ffffff 0%,#f4f0eb 19%,#f7e6d3 56%,#607aa0 100%);
-    background: -o-linear-gradient(top, #ffffff 0%,#f4f0eb 19%,#f7e6d3 56%,#607aa0 100%);
-    background: -ms-linear-gradient(top, #ffffff 0%,#f4f0eb 19%,#f7e6d3 56%,#607aa0 100%);
-    background: linear-gradient(to bottom, #ffffff 0%,#f4f0eb 19%,#f7e6d3 56%,#607aa0 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#607aa0',GradientType=0 );*/
+  background: var(--ion-color-whale-body);
   position: absolute;
   left: 30%;
   transform: translateX(-50%) rotate(0deg);
@@ -791,26 +794,19 @@ ion-item {
 .blue-whale-backside {
   height: 7vmin;
   width: 12vmin;
-  background: #758AA7;
+  background: var(--ion-color-whale-body);
   position: absolute;
   left: -124%;
   border-radius: 0% 0% 0% 100%;
   overflow: hidden;
-  box-shadow: inset 0vmin -2vmin 3vmin #71819A;
-  /*background: -moz-linear-gradient(top, #ffffff 0%, #f4f0eb 19%, #f7e6d3 56%, #607aa0 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(19%,#f4f0eb), color-stop(56%,#f7e6d3), color-stop(100%,#607aa0));
-    background: -webkit-linear-gradient(top, #ffffff 0%,#f4f0eb 19%,#f7e6d3 56%,#607aa0 100%);
-    background: -o-linear-gradient(top, #ffffff 0%,#f4f0eb 19%,#f7e6d3 56%,#607aa0 100%);
-    background: -ms-linear-gradient(top, #ffffff 0%,#f4f0eb 19%,#f7e6d3 56%,#607aa0 100%);
-    background: linear-gradient(to bottom, #ffffff 0%,#f4f0eb 19%,#f7e6d3 56%,#607aa0 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#607aa0',GradientType=0 );*/
+  /* box-shadow: inset 0vmin -2vmin 3vmin #71819A; */
 
 }
 
 .blue-whale-eye {
   height: .3vmin;
   width: 1vmin;
-  background-color: #6E798A;
+  background-color: var(--ion-color-whale-eye);
   position: absolute;
   right: 30%;
   top: 70%;
@@ -833,7 +829,7 @@ ion-item {
 }
 
 .blue-whale-gill {
-  background-color: #9DA6B5;
+  background-color: var(--ion-color-whale);
   height: 3vmin;
   width: 5vmin;
   -moz-border-radius: 150px 0 0 0;
@@ -848,7 +844,7 @@ ion-item {
 @keyframes whale-gill {
   0% {
     height: 2vmin;
-    box-shadow: 2px 2px 2px #62728A;
+    box-shadow: 2px 2px 2px var(--ion-color-whale-gill);
   }
 
   10% {
@@ -863,19 +859,19 @@ ion-item {
 
   80% {
     height: 2vmin;
-    box-shadow: 2px 2px 2px #62728A;
+    box-shadow: 2px 2px 2px var(--ion-color-whale-gill);
   }
 
   100% {
     height: 2vmin;
-    box-shadow: 2px 2px 2px #62728A;
+    box-shadow: 2px 2px 2px var(--ion-color-whale-gill);
   }
 }
 
 @-webkit-keyframes whale-gill {
   0% {
     height: 2vmin;
-    box-shadow: 2px 2px 2px #62728A;
+    box-shadow: 2px 2px 2px var(--ion-color-whale-gill);
   }
 
   10% {
@@ -890,12 +886,12 @@ ion-item {
 
   80% {
     height: 2vmin;
-    box-shadow: 2px 2px 2px #62728A;
+    box-shadow: 2px 2px 2px var(--ion-color-whale-gill);
   }
 
   100% {
     height: 2vmin;
-    box-shadow: 2px 2px 2px #62728A;
+    box-shadow: 2px 2px 2px var(--ion-color-whale-gill);
   }
 }
 
@@ -906,7 +902,7 @@ ion-item {
 @keyframes whale-gill1 {
   0% {
     height: 2vmin;
-    box-shadow: 2px 2px 2px #62728A;
+    box-shadow: 2px 2px 2px var(--ion-color-whale-gill);
   }
 
   10% {
@@ -921,19 +917,19 @@ ion-item {
 
   80% {
     height: 2vmin;
-    box-shadow: 2px 2px 2px #62728A;
+    box-shadow: 2px 2px 2px var(--ion-color-whale-gill);
   }
 
   100% {
     height: 2vmin;
-    box-shadow: 2px 2px 2px #62728A;
+    box-shadow: 2px 2px 2px var(--ion-color-whale-gill);
   }
 }
 
 @-webkit-keyframes whale-gill1 {
   0% {
     height: 2vmin;
-    box-shadow: 2px 2px 2px #62728A;
+    box-shadow: 2px 2px 2px var(--ion-color-whale-gill);
   }
 
   10% {
@@ -948,12 +944,12 @@ ion-item {
 
   80% {
     height: 2vmin;
-    box-shadow: 2px 2px 2px #62728A;
+    box-shadow: 2px 2px 2px var(--ion-color-whale-gill);
   }
 
   100% {
     height: 2vmin;
-    box-shadow: 2px 2px 2px #62728A;
+    box-shadow: 2px 2px 2px var(--ion-color-whale-gill);
   }
 }
 
@@ -963,7 +959,7 @@ ion-item {
   position: absolute;
   width: 6vmin;
   height: 2.5vmin;
-  background-color: #687B96;
+  background-color: var(--ion-color-whale-body);
   -moz-border-radius: 0px 20vmin 0px 20vmin;
   -webkit-border-radius: 0px 20vmin 0px 20vmin;
   border-radius: 0px 20vmin 0px 20vmin;
@@ -987,7 +983,7 @@ ion-item {
   position: absolute;
   width: 6vmin;
   height: 2.5vmin;
-  background-color: #758AA7;
+  background-color: var(--ion-color-whale-body);
   -moz-border-radius: 0px 20vmin 0px 20vmin;
   -webkit-border-radius: 0px 20vmin 0px 20vmin;
   border-radius: 0px 20vmin 0px 20vmin;

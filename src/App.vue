@@ -21,6 +21,7 @@ ion-app {
     margin: 0 auto;
     background-color: black;
   }
+
 }
 
 

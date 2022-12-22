@@ -1,11 +1,25 @@
 <template>
   <ion-page>
-    <ion-header class="ion-no-border">
-      <ion-toolbar>
-        <ion-item lines="none" class="add-goal-icon">
+    <ion-header>
+      <ion-toolbar mode="ios">
+        <!-- <ion-item lines="none" class="add-goal-icon">
           <ion-icon class="add-goals-icon" @click="() => router.push('/tabs/add-goals')" slot="end"
             :icon="addCircleOutline"></ion-icon>
-        </ion-item>
+        </ion-item> -->
+        <ion-grid>
+          <ion-row class="scroll-items">
+            <ion-col>
+
+
+              <ion-button size="small" color="primary" @click="() => router.push('/tabs/add-goals')">
+                <ion-icon class="add-goals-icon" :icon="addCircleOutline">
+                </ion-icon>
+              </ion-button>
+              <ion-button size="small" color="light" v-for="n in dataList" :key="n.type" fill="outline">{{ n.type }}
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
       </ion-toolbar>
     </ion-header>
     <ion-content>
@@ -17,14 +31,7 @@
           :icon="addCircleOutline"
         ></ion-icon
       ></ion-item> -->
-      <ion-grid>
-        <ion-row class="scroll-items">
-          <ion-col>
-            <ion-button color="primary">Yoga and mindfulness</ion-button>
-            <ion-button color="medium" v-for="n in dataList" :key="n.type" fill="outline">{{ n.type }}</ion-button>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+
 
       <TilePlay :musicPlaylist="dataList" />
     </ion-content>
@@ -69,7 +76,7 @@ const { dataList } = useDataStore();
   /* IE and Edge */
   scrollbar-width: none;
   /* Firefox */
-  margin-top: 10px;
+  /* margin-top: 10px; */
 }
 
 .scroll-items ion-col {
@@ -106,6 +113,10 @@ ion-button {
 .add-goals-icon {
   padding-right: 10px;
   padding-top: 5px;
+}
+
+ion-toolbar {
+  --background: #607AA0
 }
 
 /* @keyframes rotation {

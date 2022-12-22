@@ -74,6 +74,17 @@ http://ionicframework.com/docs/theming/ */
   --ion-color-light-contrast-rgb: 0, 0, 0;
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
+
+  /** Colors whale**/
+
+  --ion-color-whale: #607aa0;
+    --ion-color-whale-light: #f7e6d3;
+    --ion-color-whale-gill: #62728A;
+    --ion-color-whale-gill-1: #0b0d11;
+    --ion-color-whale-body: #758AA7;
+    --ion-color-whale-eye:#4f6381;
+  
+
 }
 
 @media (prefers-color-scheme: dark) {

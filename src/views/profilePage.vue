@@ -1,25 +1,24 @@
 <template>
   <ion-page>
-    <ion-header class="ion-no-border">
-      <ion-toolbar>
+    <ion-header>
+      <ion-toolbar mode="ios">
         <!-- <ion-title>Profile</ion-title> -->
       </ion-toolbar>
     </ion-header>
-    <ion-content :fullscreen="true">
-      <ion-header collapse="condense">
+    <ion-content>
+      <ion-header>
         <!-- <ion-toolbar>
           <ion-title size="large">Profile</ion-title>
         </ion-toolbar> -->
       </ion-header>
-      <ion-grid class="ion-margin"
-        ><ion-row class="ion-justify-content-center"
-          ><ion-col>
-            <ion-datetime
-              presentation="date"
-              :multiple="true"
-              :value="['2022-06-03', '2022-06-13', '2022-06-29']"
-            ></ion-datetime> </ion-col></ion-row
-      ></ion-grid>
+      <ion-grid class="ion-margin">
+        <ion-row class="ion-justify-content-center">
+          <ion-col>
+            <ion-datetime presentation="date" :multiple="true" :value="['2022-06-03', '2022-06-13', '2022-06-29']">
+            </ion-datetime>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-content>
   </ion-page>
 </template>
@@ -46,4 +45,8 @@ import {
 } from "@ionic/vue";
 </script>
 
-<style scoped></style>
+<style scoped>
+ion-toolbar {
+  --background: #607AA0
+}
+</style>

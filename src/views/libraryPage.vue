@@ -1,13 +1,14 @@
 <template>
   <ion-page>
-    <ion-header class="ion-no-border">
-      <ion-toolbar>
-        <!-- <ion-title>Library</ion-title> -->
 
-        <ion-searchbar @click="() => router.push('/tabs/search')"></ion-searchbar>
-      </ion-toolbar>
-    </ion-header>
-    <ion-content :fullscreen="true">
+    <div id="toolbar" class="tool-bar-custom">
+      <!-- <ion-title>Library</ion-title> -->
+      <ion-item lines="none" class="search-bar">
+        <ion-searchbar color="light" @click="() => router.push('/tabs/search')"></ion-searchbar>
+      </ion-item>
+    </div>
+
+    <ion-content>
       <ion-grid>
         <ion-row class="ion-justify-content-center">
           <ion-col>
@@ -208,5 +209,34 @@ ion-img {
 ion-button {
   margin-right: 20px;
   --box-shadow: none !important;
+}
+
+.tool-bar-custom {
+  background-color: var(--ion-color-whale);
+  /* position: relative; */
+  height: 20vmin;
+  /* z-index: 1000; */
+  display: flex;
+  flex-direction: column-reverse;
+  /* justify-content: center; */
+}
+
+@media (prefers-color-scheme: dark) {
+
+  #toolbar {
+    --ion-color-whale: #0a1629;
+
+  }
+
+}
+
+@media only screen and (max-width: 600px) {
+  .ios .tool-bar-custom {
+    height: 30vmin;
+  }
+
+  .ios .blue-whale {
+    margin-top: 20px;
+  }
 }
 </style>
