@@ -3,9 +3,8 @@
     <ion-header class="ion-no-border">
       <ion-toolbar>
         <!-- <ion-title>Library</ion-title> -->
-        <ion-item lines="none">
-          <ion-icon @click="() => router.push('/tabs/search')" slot="end" :icon="searchOutline"></ion-icon>
-        </ion-item>
+
+        <ion-searchbar @click="() => router.push('/tabs/search')"></ion-searchbar>
       </ion-toolbar>
     </ion-header>
     <ion-content :fullscreen="true">
@@ -117,6 +116,7 @@ import {
   IonSegment,
   IonSegmentButton,
   IonReorder,
+  IonSearchbar
 } from "@ionic/vue";
 import {
   createOutline,

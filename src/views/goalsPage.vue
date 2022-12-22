@@ -1,18 +1,14 @@
 <template>
   <ion-page>
     <ion-header class="ion-no-border">
-      <ion-toolbar
-        ><ion-item lines="none" class="add-goal-icon"
-          ><ion-icon
-            class="add-goals-icon"
-            @click="() => router.push('/tabs/add-goals')"
-            slot="end"
-            :icon="addCircleOutline"
-          ></ion-icon
-        ></ion-item>
+      <ion-toolbar>
+        <ion-item lines="none" class="add-goal-icon">
+          <ion-icon class="add-goals-icon" @click="() => router.push('/tabs/add-goals')" slot="end"
+            :icon="addCircleOutline"></ion-icon>
+        </ion-item>
       </ion-toolbar>
     </ion-header>
-    <ion-content :fullscreen="true">
+    <ion-content>
       <!-- <ion-item lines="none" class="add-goal-icon"
         ><ion-icon
           class="add-goals-icon"
@@ -25,13 +21,7 @@
         <ion-row class="scroll-items">
           <ion-col>
             <ion-button color="primary">Yoga and mindfulness</ion-button>
-            <ion-button
-              color="medium"
-              v-for="n in dataList"
-              :key="n.type"
-              fill="outline"
-              >{{ n.type }}</ion-button
-            >
+            <ion-button color="medium" v-for="n in dataList" :key="n.type" fill="outline">{{ n.type }}</ion-button>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -75,10 +65,13 @@ const { dataList } = useDataStore();
   flex-wrap: nowrap;
   overflow-x: scroll !important;
   overflow-y: hidden;
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
   margin-top: 10px;
 }
+
 .scroll-items ion-col {
   display: flex;
   flex-wrap: nowrap;

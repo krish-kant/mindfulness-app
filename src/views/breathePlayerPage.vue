@@ -147,7 +147,7 @@ const breathCycles = function (limit) {
   dataObj.breathCounter = 0;
   dataObj.setIntervalRef = setInterval(() => {
     breathAnimation();
-    console.log("Breath cycle" + ++dataObj.breathCounter + 1);
+    console.log("Breath cycle-" + ++dataObj.breathCounter);
     if (dataObj.breathCounter == limit) clearInterval(dataObj.setIntervalRef);
   }, totalTime);
 };
@@ -236,12 +236,12 @@ const presentActionSheet = async () => {
   margin-top: 10px;
 }
 
-/* ion-grid {
+ion-grid {
   height: 100%;
-} */
+}
 
 .first-row-grid-1 {
-  min-height: 52%;
+  min-height: 40%;
 }
 
 img {

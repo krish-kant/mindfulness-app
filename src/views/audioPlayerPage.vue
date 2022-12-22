@@ -14,7 +14,7 @@
           <ion-toolbar>
             <ion-title>Player</ion-title>
             <ion-buttons slot="end">
-              <ion-button @click="dismiss()">Close</ion-button>
+              <ion-button @click="presentActionSheet">Close</ion-button>
             </ion-buttons>
           </ion-toolbar>
         </ion-header>
@@ -32,12 +32,10 @@
                   }}</ion-text>
                   <p>{{ dataList[currentAudio].type }}</p>
                 </ion-label>
-
               </ion-item>
               <ion-badge color="medium">
                 <ion-spinner v-if="audioBuffering"></ion-spinner>
               </ion-badge>
-
             </ion-col>
           </ion-row>
           <ion-row class="ion-align-items-center ion-justify-content-center">
@@ -60,7 +58,6 @@
                   <transition name="slide-fade" mode="out-in">
                     <div>
                       <play-circle-icon :size="90" v-show="!currentlyPlaying" />
-
                       <pause-circle-icon :size="90" v-show="currentlyPlaying" />
                     </div>
                   </transition>
@@ -103,25 +100,21 @@ import {
   IonBadge,
   IonModal,
   IonButton,
-  IonTitle
+  IonTitle,
+  actionSheetController,
 } from "@ionic/vue";
-
 import { defineComponent } from "vue";
-
 import PlayCircleIcon from "vue-material-design-icons/PlayCircle.vue";
 import PauseCircleIcon from "vue-material-design-icons/PauseCircle.vue";
-
 import CardsHeartOutlineIcon from "vue-material-design-icons/CardsHeartOutline.vue";
 import AccountVoiceIcon from "vue-material-design-icons/AccountVoice.vue";
 import FastForward30Icon from "vue-material-design-icons/FastForward30.vue";
 import Rewind30Icon from "vue-material-design-icons/Rewind30.vue";
-
-
-import { Share } from "@capacitor/share";
 import { useDataStore } from "@/stores/data";
+import { useRouter } from "vue-router";
 
 const data = useDataStore();
-
+const router = useRouter();
 
 export default defineComponent({
   name: "App",
@@ -187,11 +180,44 @@ export default defineComponent({
 
   methods: {
 
-    dismiss() {
-      this.$router.go(-1)
-      this.$refs.modal.$el.dismiss();
+    presentActionSheet: async function () {
+      const actionSheet = await actionSheetController.create({
+        header: 'Mark as complete for progress?',
+        // subHeader: 'Example subheader',
+        buttons: [
+          {
+            text: 'Yes',
+            // role: 'destructive',
+            handler: () => {
+              // console.log(this.$route)
+              this.$router.go(-1)
+              this.$refs.modal.$el.dismiss();
+              this.stopAudio();
 
+            },
+          },
+          {
+            text: 'No',
+            handler: () => {
+              this.$router.go(-1)
+              this.$refs.modal.$el.dismiss();
+              this.stopAudio();
+
+            },
+          },
+          {
+            text: 'Cancel',
+            role: 'cancel',
+            handler: () => {
+            },
+          },
+        ],
+      });
+
+      await actionSheet.present();
+      const res = await actionSheet.onDidDismiss();
     },
+
     getUrlQueryParams: async function () {
       await this.$router.isReady();
       this.params = this.$route
@@ -207,14 +233,7 @@ export default defineComponent({
       this.currentAudio = this.index;
       console.log(this.dataList.findIndex((item) => item.title === this.title));
     },
-    shareLink: async function () {
-      await Share.share({
-        title: "Hey! Check this out on Moby.",
-        text: this.dataList[this.currentAudio].title,
-        url: window.location.href,
-        dialogTitle: "Share with buddies",
-      });
-    },
+
 
     handleWaiting: function () {
       this.audioBuffering = true;
@@ -227,6 +246,7 @@ export default defineComponent({
     skipTrack: function () {
       this.audio.currentTime = this.value;
     },
+
     togglePlaylist: function () {
       this.isPlaylistActive = !this.isPlaylistActive;
     },
@@ -250,10 +270,6 @@ export default defineComponent({
         setTimeout(() => {
           this.stopAudio();
         }, 100);
-
-
-
-
       }
     },
 
@@ -350,18 +366,11 @@ export default defineComponent({
       this.currentTime = this.value;
     },
 
-    $route() {
-      if (this.currentlyPlaying) {
-        alert("Do you want to stop the current song?");
-        this.stopAudio();
-      }
-    }
   },
 
   beforeUnmount: function () {
     this.audio.removeEventListener("ended", this.handleEnded);
     this.audio.removeEventListener("loadedmetadata", this.handleEnded);
-
     clearTimeout(this.checkingCurrentPositionInTrack);
   },
 });
@@ -443,18 +452,15 @@ ion-item {
   }
 }
 
-
 .albumImage {
-
   position: relative;
 }
 
 ion-badge {
   position: absolute;
-  top: 40%;
-  left: 44%;
+  top: 42%;
+  left: 45%;
   z-index: 10;
-
 }
 
 input {
@@ -463,6 +469,10 @@ input {
 
 .heading {
   font-size: medium;
+}
+
+code {
+  white-space: pre-wrap;
 }
 
 @media only screen and (min-width: 600px) {
