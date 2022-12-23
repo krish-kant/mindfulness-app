@@ -1,38 +1,28 @@
 <template>
   <ion-page>
-    <ion-header>
-      <ion-toolbar mode="ios">
-        <!-- <ion-item lines="none" class="add-goal-icon">
-          <ion-icon class="add-goals-icon" @click="() => router.push('/tabs/add-goals')" slot="end"
-            :icon="addCircleOutline"></ion-icon>
-        </ion-item> -->
-        <ion-grid>
-          <ion-row class="scroll-items">
-            <ion-col>
+    <div id="toolbar" class="tool-bar-custom">
 
-
-              <ion-button size="small" color="primary" @click="() => router.push('/tabs/add-goals')">
-                <ion-icon class="add-goals-icon" :icon="addCircleOutline">
-                </ion-icon>
-              </ion-button>
-              <ion-button size="small" color="light" v-for="n in dataList" :key="n.type" fill="outline">{{ n.type }}
-              </ion-button>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
-      </ion-toolbar>
-    </ion-header>
+      <div class="scroll-items">
+        <ion-button size="small" color="light">
+          <ion-label>
+            <h3 style="font-weight:600;padding:5px">Yoga and anxity</h3>
+          </ion-label>
+        </ion-button>
+        <ion-button size="small" color="dark" v-for="n in dataList" :key="n.title" fill="clear">
+          <ion-label>
+            <h3 style="fontWeight:600;">{{ n.title }}</h3>
+          </ion-label>
+        </ion-button>
+      </div>
+      <ion-item lines="none">
+        <div slot="end" class="add-goals-icon" @click="() => router.push('/tabs/add-goals')">
+          <ion-tab-button>
+            <ion-icon size="large" :icon="addCircle" />
+          </ion-tab-button>
+        </div>
+      </ion-item>
+    </div>
     <ion-content>
-      <!-- <ion-item lines="none" class="add-goal-icon"
-        ><ion-icon
-          class="add-goals-icon"
-          @click="() => router.push('/tabs/tab3/add-goals')"
-          slot="end"
-          :icon="addCircleOutline"
-        ></ion-icon
-      ></ion-item> -->
-
-
       <TilePlay :musicPlaylist="dataList" />
     </ion-content>
   </ion-page>
@@ -54,8 +44,9 @@ import {
   IonLabel,
   IonCheckbox,
   IonText,
+  IonFabButton
 } from "@ionic/vue";
-import { lockClosed, bookmarkOutline, addCircleOutline } from "ionicons/icons";
+import { lockClosed, bookmarkOutline, addCircle } from "ionicons/icons";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { useDataStore } from "@/stores/data";
@@ -67,22 +58,45 @@ const { dataList } = useDataStore();
 </script>
 
 <style scoped>
+.tool-bar-custom {
+  background-color: var(--ion-color-whale);
+  height: 15%;
+  display: flex;
+  flex-direction: column-reverse;
+
+
+}
+
+@media (prefers-color-scheme: dark) {
+  #toolbar {
+    --ion-color-whale: #0a1629;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  .tool-bar-custom {
+    flex-direction: column-reverse;
+    justify-content: center;
+  }
+
+}
+
 .scroll-items {
   justify-content: flex-start;
   flex-wrap: nowrap;
   overflow-x: scroll !important;
   overflow-y: hidden;
   -ms-overflow-style: none;
-  /* IE and Edge */
   scrollbar-width: none;
-  /* Firefox */
-  /* margin-top: 10px; */
 }
 
-.scroll-items ion-col {
+.scroll-items {
   display: flex;
   flex-wrap: nowrap;
   white-space: nowrap;
+  margin-bottom: 2px;
+  margin-left: 10px;
+
 }
 
 .scroll-items::-webkit-scrollbar {
@@ -91,7 +105,14 @@ const { dataList } = useDataStore();
 
 .add-goals-icon {
   animation: rotation 1s 2s linear;
+  margin-top: 5px;
 }
+
+ion-icon {
+  color: antiquewhite;
+}
+
+
 
 ion-item {
   --padding-bottom: 0px;
@@ -108,23 +129,20 @@ ion-item {
 
 ion-button {
   --border-radius: 5px;
+
 }
 
-.add-goals-icon {
-  padding-right: 10px;
-  padding-top: 5px;
-}
 
-ion-toolbar {
-  --background: #607AA0
-}
 
-/* @keyframes rotation {
+
+
+@keyframes rotation {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(359deg);
   }
-} */
+}
 </style>

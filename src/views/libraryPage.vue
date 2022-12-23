@@ -1,6 +1,5 @@
 <template>
   <ion-page>
-
     <div id="toolbar" class="tool-bar-custom">
       <!-- <ion-title>Library</ion-title> -->
       <ion-item lines="none" class="search-bar">
@@ -117,13 +116,9 @@ import {
   IonSegment,
   IonSegmentButton,
   IonReorder,
-  IonSearchbar
+  IonSearchbar,
 } from "@ionic/vue";
-import {
-  createOutline,
-  removeCircleOutline,
-  searchOutline,
-} from "ionicons/icons";
+import { createOutline, removeCircleOutline, searchOutline } from "ionicons/icons";
 import { ref, onMounted, watch } from "vue";
 import { useRouter } from "vue-router";
 import { usePlaylistStore } from "@/stores/playlist";
@@ -203,7 +198,7 @@ ion-img {
   border-radius: 5px;
   object-fit: cover;
   object-position: 50% 50%;
-  filter: brightness(70%);
+  /* filter: brightness(70%); */
 }
 
 ion-button {
@@ -213,30 +208,21 @@ ion-button {
 
 .tool-bar-custom {
   background-color: var(--ion-color-whale);
-  /* position: relative; */
-  height: 20vmin;
-  /* z-index: 1000; */
+  height: 15%;
   display: flex;
   flex-direction: column-reverse;
-  /* justify-content: center; */
 }
 
 @media (prefers-color-scheme: dark) {
-
   #toolbar {
     --ion-color-whale: #0a1629;
-
   }
-
 }
 
-@media only screen and (max-width: 600px) {
-  .ios .tool-bar-custom {
-    height: 30vmin;
+@media only screen and (min-width: 600px) {
+.tool-bar-custom {
+    justify-content: center;
   }
 
-  .ios .blue-whale {
-    margin-top: 20px;
-  }
 }
 </style>

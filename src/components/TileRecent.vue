@@ -1,19 +1,9 @@
 <template>
   <ion-grid class="ion-margin-start ion-margin-end">
     <ion-row class="scroll-items">
-      <ion-col
-        size="6"
-        size-sm="3"
-        size-lg="2"
-        v-for="(items, index) in musicPlaylist"
-        :key="items.title"
-        class="container"
-      >
-        <ion-img
-          class="item-image"
-          :src="musicPlaylist[index].imageUrl"
-          :key="currentSong"
-        />
+      <ion-col size="6" size-sm="3" size-lg="2" v-for="(items, index) in musicPlaylist" :key="items.title"
+        class="container">
+        <ion-img class="item-image" :src="musicPlaylist[index].imageUrl" :key="currentSong" />
 
         <ion-item lines="none">
           <ion-label>
@@ -24,8 +14,7 @@
 
         <div class="item-type">
           <ion-badge color="secondary">
-            {{ musicPlaylist[index].type }}</ion-badge
-          >
+            {{ musicPlaylist[index].type }}</ion-badge>
         </div>
       </ion-col>
     </ion-row>
@@ -63,7 +52,7 @@ const onImageLoaded = function () {
   height: 100px;
   object-fit: cover;
   object-position: 50% 50%;
-  filter: brightness(70%);
+  /* filter: brightness(70%); */
 }
 
 ion-item {
@@ -108,10 +97,13 @@ ion-badge {
   flex-wrap: nowrap;
   overflow-x: scroll !important;
   overflow-y: hidden;
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
   /* margin-top: 10px; */
 }
+
 .scroll-items ion-col {
   display: flex;
   flex-direction: column;

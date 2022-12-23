@@ -420,7 +420,7 @@ img {
   object-fit: cover;
   object-position: 50% 50%;
   border-radius: 5px;
-  filter: brightness(70%);
+  /* filter: brightness(70%); */
   margin-top: 20px;
 }
 
@@ -448,7 +448,7 @@ ion-item {
     object-position: 50% 50%;
     border-radius: 5px;
     z-index: 10;
-    filter: brightness(70%);
+    /* filter: brightness(70%); */
   }
 }
 

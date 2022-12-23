@@ -38,8 +38,55 @@
           <div class="blue-whale-flipper">
           </div>
         </div>
+        <div id="blue-whale-bg" class="blue-whale-small" style="scale:0.5">
+          <div class="blue-whale-main">
+            <div class="blue-whale-eye"></div>
+            <div class="gill-container">
+              <div class="blue-whale-gill"></div>
+            </div>
+            <div class="blue-whale-color"></div>
+            <div class="blue-whale-color-bottom"></div>
+          </div>
+          <div class="blue-whale-backside">
+            <div></div>
+          </div>
+          <div class="blue-whale-flipper">
+          </div>
+        </div>
+        <div id="blue-whale-bg" class="blue-whale-small-2" style="scale:0.7">
+          <div class="blue-whale-main">
+            <div class="blue-whale-eye"></div>
+            <div class="gill-container">
+              <div class="blue-whale-gill"></div>
+            </div>
+            <div class="blue-whale-color"></div>
+            <div class="blue-whale-color-bottom"></div>
+          </div>
+          <div class="blue-whale-backside">
+            <div></div>
+          </div>
+          <div class="blue-whale-flipper">
+          </div>
+        </div>
+      </div>
+      <div class="profile-icon" @click="() => router.push('/tabs/profile')">
+        <ion-tab-button>
+          <ion-icon :icon="person" />
+          <!-- <ion-label>profile</ion-label> -->
+        </ion-tab-button>
+      </div>
+
+      <div class="settings-icon" @click="() => router.push('/tabs/profile')">
+        <ion-tab-button>
+          <ion-icon :icon="settings" />
+          <!-- <ion-label>profile</ion-label> -->
+        </ion-tab-button>
       </div>
     </div>
+
+
+
+
 
     <ion-content>
       <ion-item lines="none" class="ion-margin-top">
@@ -84,32 +131,35 @@
 import {
   IonPage,
   IonContent,
-  IonHeader,
-  IonToolbar,
   IonText,
+  IonLabel,
+  IonIcon,
+  IonTabButton
 } from "@ionic/vue";
-
+import {
+  settings,
+  person
+} from "ionicons/icons";
 import { useDataStore } from "@/stores/data";
-
 import TilePlay from "@/components/TilePlay.vue";
 import TileRecent from "@/components/TileRecent.vue";
 import NavItems from "@/components/NavItems.vue";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
 const { dataList } = useDataStore();
 </script>
 
 <style scoped>
 @media (prefers-color-scheme: dark) {
-
   #blue-ocean-bg {
-    --ion-color-whale: #0a1629;
-    --ion-color-whale-light: #2e405d;
-    --ion-color-whale-body: #141d31;
-    --ion-color-whale-gill: #111d2e;
-    --ion-color-whale-gill-1: #192435;
-    --ion-color-whale-eye: #091220;
+    --ion-color-whale: #081327;
+    --ion-color-whale-light: #5f7494;
+    --ion-color-whale-body: #16243f;
+    --ion-color-whale-gill: #1f324c;
+    --ion-color-whale-gill-1: #18253c;
+    --ion-color-whale-eye: #040c17;
   }
-
 }
 
 ion-item {
@@ -137,7 +187,7 @@ ion-item {
 .card {
 
   position: relative;
-  height: 20vmin;
+  height: 15%;
   z-index: 1000;
 }
 
@@ -152,12 +202,24 @@ ion-item {
 
 
 
+.profile-icon {
+  position: absolute;
+  left: 3%;
+  top: 50%;
+  color: antiquewhite
+}
 
+.settings-icon {
+  position: absolute;
+  right: 3%;
+  top: 50%;
+  color: antiquewhite
+}
 
 @media only screen and (max-width: 600px) {
-  .ios .card {
+  /* .ios .card {
     height: 30vmin;
-  }
+  } */
 
   .ios .blue-whale {
     margin-top: 20px;
@@ -676,10 +738,60 @@ ion-item {
   left: 0%;
   transform: translateX(-50%) rotate(0deg);
   border-radius: 0% 30% 5% 0%;
-  top: 30%;
+  top: 25%;
+}
+
+.blue-whale-small {
+  height: 7vmin;
+  width: 13vmin;
+  background-color: transparent;
+  position: absolute;
+  left: -20%;
+  transform: translateX(-50%) rotate(0deg);
+  border-radius: 0% 30% 5% 0%;
+  top: 15%;
+}
+
+.blue-whale-small-2 {
+  height: 7vmin;
+  width: 13vmin;
+  background-color: transparent;
+  position: absolute;
+  left: -70%;
+  transform: translateX(-50%) rotate(0deg);
+  border-radius: 0% 30% 5% 0%;
+  top: 60%;
 }
 
 .blue-whale:after {
+  content: "";
+  z-index: -1;
+  width: 20vmin;
+  height: 6vmin;
+  position: absolute;
+  transform: rotate(10deg);
+  top: 30%;
+  right: -6%;
+  /* filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='var(--ion-color-whale-light)', endColorstr='var(--ion-color-whale)', GradientType=0); */
+  opacity: .1;
+
+}
+
+.blue-whale-small:after {
+  content: "";
+  z-index: -1;
+  width: 20vmin;
+  height: 6vmin;
+  position: absolute;
+  transform: rotate(10deg);
+  top: 30%;
+  right: -6%;
+  /* filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='var(--ion-color-whale-light)', endColorstr='var(--ion-color-whale)', GradientType=0); */
+  opacity: .1;
+
+}
+
+.blue-whale-small-2:after {
   content: "";
   z-index: -1;
   width: 20vmin;
@@ -723,7 +835,7 @@ ion-item {
   }
 
   100% {
-    transform: translateX(900%);
+    transform: translateX(2000%);
   }
 }
 
@@ -733,7 +845,7 @@ ion-item {
   }
 
   100% {
-    transform: translateX(900%);
+    transform: translateX(2000%);
   }
 }
 
@@ -829,7 +941,7 @@ ion-item {
 }
 
 .blue-whale-gill {
-  background-color: var(--ion-color-whale);
+  background-color: var(--ion-color-whale-gill);
   height: 3vmin;
   width: 5vmin;
   -moz-border-radius: 150px 0 0 0;
@@ -1122,7 +1234,15 @@ ion-item {
 }
 
 .blue-ocean .blue-whale {
-  animation: whale-move 20s linear infinite;
+  animation: whale-move 60s linear infinite;
+}
+
+.blue-ocean .blue-whale-small {
+  animation: whale-move 45s linear infinite;
+}
+
+.blue-ocean .blue-whale-small-2 {
+  animation: whale-move 40s linear infinite;
 }
 
 .blue-ocean .blue-whale-main {

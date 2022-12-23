@@ -173,8 +173,7 @@ img {
   height: 350px;
   object-fit: cover;
   object-position: 50% 50%;
-
-  filter: brightness(70%);
+  /* filter: brightness(70%); */
 }
 
 @media only screen and (max-width: 600px) {
@@ -185,8 +184,7 @@ img {
     height: 300px;
     object-fit: cover;
     object-position: 50% 50%;
-
-    filter: brightness(70%);
+    /* filter: brightness(70%); */
   }
 }
 
