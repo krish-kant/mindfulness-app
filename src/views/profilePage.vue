@@ -1,18 +1,24 @@
 <template>
   <ion-page>
-    <div id="toolbar" class="tool-bar-custom">
-
-    </div>
+    <ion-header>
+      <ion-toolbar>
+        <ion-item lines="none">
+          <ion-searchbar
+            color="light"
+            @click="() => router.push('/tabs/search')"
+          ></ion-searchbar>
+        </ion-item>
+      </ion-toolbar>
+    </ion-header>
     <ion-content>
-      <ion-header>
-        <!-- <ion-toolbar>
-          <ion-title size="large">Profile</ion-title>
-        </ion-toolbar> -->
-      </ion-header>
       <ion-grid class="ion-margin">
         <ion-row class="ion-justify-content-center">
           <ion-col>
-            <ion-datetime presentation="date" :multiple="true" :value="['2022-06-03', '2022-06-13', '2022-06-29']">
+            <ion-datetime
+              presentation="date"
+              :multiple="true"
+              :value="['2022-06-03', '2022-06-13', '2022-06-29']"
+            >
             </ion-datetime>
           </ion-col>
         </ion-row>
@@ -40,27 +46,35 @@ import {
   IonList,
   IonReorderGroup,
   IonDatetime,
+  IonSearchbar,
 } from "@ionic/vue";
 </script>
 
 <style scoped>
-.tool-bar-custom {
-  background-color: var(--ion-color-whale);
-  height: 15%;
-  display: flex;
-  flex-direction: column-reverse;
+ion-toolbar {
+  --background: var(--ion-color-whale);
+}
+
+.ios ion-toolbar {
+  --padding-top: 10px !important;
+  --padding-bottom: 0px !important;
 }
 
 @media (prefers-color-scheme: dark) {
-  #toolbar {
+  ion-toolbar {
     --ion-color-whale: #0a1629;
   }
 }
 
-@media only screen and (min-width: 600px) {
-  .tool-bar-custom {
-    justify-content: center;
-  }
-
+ion-item {
+  --padding-bottom: 0px;
+  --padding-top: 0px;
+  --padding-end: 0px;
+  --padding-start: 0px;
+  --inner-padding-start: 0px;
+  --inner-padding-end: 0px;
+  --inner-padding-bottom: 0px;
+  --background: none;
+  --inner-padding-top: 0px;
 }
 </style>

@@ -3,33 +3,55 @@
     <ion-header class="ion-no-border">
       <ion-toolbar>
         <ion-buttons>
-          <ion-back-button defaultHref="/tabs/home"></ion-back-button>
+          <ion-back-button mode="md" defaultHref="/tabs/home"></ion-back-button>
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
 
     <ion-content>
-      <div id="open-modal" style="width:1px" />
-      <ion-modal ref="modal" backdropDismiss="false" trigger="open-modal" :presenting-element="presentingElement">
+      <div id="open-modal" style="width: 1px" />
+      <ion-modal
+        ref="modal"
+        backdropDismiss="false"
+        trigger="open-modal"
+        :presenting-element="presentingElement"
+      >
         <ion-header>
           <ion-toolbar>
-            <ion-title>Player</ion-title>
+            <ion-title
+              ><ion-text style="color: antiquewhite"
+                >Player</ion-text
+              ></ion-title
+            >
             <ion-buttons slot="end">
-              <ion-button @click="presentActionSheet">Close</ion-button>
+              <ion-button @click="presentActionSheet"
+                ><svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
+                  <path
+                    fill="antiquewhite"
+                    d="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2C6.47,2 2,6.47 2,12C2,17.53 6.47,22 12,22C17.53,22 22,17.53 22,12C22,6.47 17.53,2 12,2M14.59,8L12,10.59L9.41,8L8,9.41L10.59,12L8,14.59L9.41,16L12,13.41L14.59,16L16,14.59L13.41,12L16,9.41L14.59,8Z"
+                  /></svg
+              ></ion-button>
             </ion-buttons>
           </ion-toolbar>
         </ion-header>
         <ion-grid class="audioPlayerUI ion-margin-start ion-margin-end">
-          <ion-row class="ion-align-items-center ion-justify-content-center first-row-grid-1 ion-margin-bottom">
+          <ion-row
+            class="ion-align-items-center ion-justify-content-center first-row-grid-1 ion-margin-bottom"
+          >
             <ion-col>
               <div class="albumImage">
-                <img @load="onImageLoaded()" :src="dataList[currentSong].imageUrl" :key="currentSong"
-                  ondragstart="return false;" id="playerAlbumArt" />
+                <img
+                  @load="onImageLoaded()"
+                  :src="dataList[currentSong].imageUrl"
+                  :key="currentSong"
+                  ondragstart="return false;"
+                  id="playerAlbumArt"
+                />
               </div>
               <ion-item lines="none">
                 <ion-label class="ion-text-wrap">
                   <ion-text class="heading">{{
-                      dataList[currentSong].title
+                    dataList[currentSong].title
                   }}</ion-text>
                   <p>{{ dataList[currentSong].type }}</p>
                 </ion-label>
@@ -49,16 +71,35 @@
                   <p>{{ trackDurationFormated }}</p>
                 </ion-label>
               </ion-item>
-              <input v-model="value" type="range" @input="skipTrack" min="0" step="1" :max="trackDuration" ref="input"
-                style="width: 100%" />
+              <input
+                v-model="value"
+                type="range"
+                @input="skipTrack"
+                min="0"
+                step="1"
+                :max="trackDuration"
+                ref="input"
+                style="width: 100%"
+              />
               <div class="buttons-container">
-                <a class="button" :class="{ isDisabled: currentSong == 0 }" v-on:click="prevSong()"
-                  title="Previous Song">
+                <a
+                  class="button"
+                  :class="{ isDisabled: currentSong == 0 }"
+                  v-on:click="prevSong()"
+                  title="Previous Song"
+                >
                   <svg style="width: 60px; height: 60px" viewBox="0 0 24 24">
-                    <path fill="currentColor" d="M6,18V6H8V18H6M9.5,12L18,6V18L9.5,12Z" />
+                    <path
+                      fill="currentColor"
+                      d="M6,18V6H8V18H6M9.5,12L18,6V18L9.5,12Z"
+                    />
                   </svg>
                 </a>
-                <a class="button play" v-on:click="playAudio()" title="Play/Pause Song">
+                <a
+                  class="button play"
+                  v-on:click="playAudio()"
+                  title="Play/Pause Song"
+                >
                   <transition name="slide-fade" mode="out-in">
                     <div>
                       <play-circle-icon :size="90" v-show="!currentlyPlaying" />
@@ -66,31 +107,44 @@
                     </div>
                   </transition>
                 </a>
-                <a class="button" :class="{ isDisabled: currentSong == dataList.length - 1 }" v-on:click="nextSong()"
-                  title="Next Song">
+                <a
+                  class="button"
+                  :class="{ isDisabled: currentSong == dataList.length - 1 }"
+                  v-on:click="nextSong()"
+                  title="Next Song"
+                >
                   <svg style="width: 60px; height: 60px" viewBox="0 0 24 24">
-                    <path fill="currentColor" d="M16,18H18V6H16M6,18L14.5,12L6,6V18Z" />
+                    <path
+                      fill="currentColor"
+                      d="M16,18H18V6H16M6,18L14.5,12L6,6V18Z"
+                    />
                   </svg>
                 </a>
               </div>
               <div class="buttons-container">
                 <a class="button" v-on:click="prevSkip()">
                   <svg style="width: 40px; height: 40px" viewBox="0 0 24 24">
-                    <path fill="currentColor"
-                      d="M19,14V20C19,21.11 18.11,22 17,22H15A2,2 0 0,1 13,20V14A2,2 0 0,1 15,12H17C18.11,12 19,12.9 19,14M15,14V20H17V14H15M11,20C11,21.11 10.1,22 9,22H5V20H9V18H7V16H9V14H5V12H9A2,2 0 0,1 11,14V15.5A1.5,1.5 0 0,1 9.5,17A1.5,1.5 0 0,1 11,18.5V20M12.5,3C17.15,3 21.08,6.03 22.47,10.22L20.1,11C19.05,7.81 16.04,5.5 12.5,5.5C10.54,5.5 8.77,6.22 7.38,7.38L10,10H3V3L5.6,5.6C7.45,4 9.85,3 12.5,3Z" />
+                    <path
+                      fill="currentColor"
+                      d="M19,14V20C19,21.11 18.11,22 17,22H15A2,2 0 0,1 13,20V14A2,2 0 0,1 15,12H17C18.11,12 19,12.9 19,14M15,14V20H17V14H15M11,20C11,21.11 10.1,22 9,22H5V20H9V18H7V16H9V14H5V12H9A2,2 0 0,1 11,14V15.5A1.5,1.5 0 0,1 9.5,17A1.5,1.5 0 0,1 11,18.5V20M12.5,3C17.15,3 21.08,6.03 22.47,10.22L20.1,11C19.05,7.81 16.04,5.5 12.5,5.5C10.54,5.5 8.77,6.22 7.38,7.38L10,10H3V3L5.6,5.6C7.45,4 9.85,3 12.5,3Z"
+                    />
                   </svg>
                 </a>
                 <a class="button" v-on:click="prevSkip()">
                   <svg style="width: 40px; height: 40px" viewBox="0 0 24 24">
-                    <path fill="currentColor"
-                      d="M9,5A4,4 0 0,1 13,9A4,4 0 0,1 9,13A4,4 0 0,1 5,9A4,4 0 0,1 9,5M9,15C11.67,15 17,16.34 17,19V21H1V19C1,16.34 6.33,15 9,15M16.76,5.36C18.78,7.56 18.78,10.61 16.76,12.63L15.08,10.94C15.92,9.76 15.92,8.23 15.08,7.05L16.76,5.36M20.07,2C24,6.05 23.97,12.11 20.07,16L18.44,14.37C21.21,11.19 21.21,6.65 18.44,3.63L20.07,2Z" />
+                    <path
+                      fill="currentColor"
+                      d="M9,5A4,4 0 0,1 13,9A4,4 0 0,1 9,13A4,4 0 0,1 5,9A4,4 0 0,1 9,5M9,15C11.67,15 17,16.34 17,19V21H1V19C1,16.34 6.33,15 9,15M16.76,5.36C18.78,7.56 18.78,10.61 16.76,12.63L15.08,10.94C15.92,9.76 15.92,8.23 15.08,7.05L16.76,5.36M20.07,2C24,6.05 23.97,12.11 20.07,16L18.44,14.37C21.21,11.19 21.21,6.65 18.44,3.63L20.07,2Z"
+                    />
                   </svg>
                 </a>
 
                 <a class="button" v-on:click="nextSkip()">
                   <svg style="width: 40px; height: 40px" viewBox="0 0 24 24">
-                    <path fill="currentColor"
-                      d="M11.5,3C6.85,3 2.92,6.03 1.53,10.22L3.9,11C4.95,7.81 7.96,5.5 11.5,5.5C13.46,5.5 15.23,6.22 16.62,7.38L14,10H21V3L18.4,5.6C16.55,4 14.15,3 11.5,3M19,14V20C19,21.11 18.11,22 17,22H15A2,2 0 0,1 13,20V14A2,2 0 0,1 15,12H17C18.11,12 19,12.9 19,14M15,14V20H17V14H15M11,20C11,21.11 10.1,22 9,22H5V20H9V18H7V16H9V14H5V12H9A2,2 0 0,1 11,14V15.5A1.5,1.5 0 0,1 9.5,17A1.5,1.5 0 0,1 11,18.5V20Z" />
+                    <path
+                      fill="currentColor"
+                      d="M11.5,3C6.85,3 2.92,6.03 1.53,10.22L3.9,11C4.95,7.81 7.96,5.5 11.5,5.5C13.46,5.5 15.23,6.22 16.62,7.38L14,10H21V3L18.4,5.6C16.55,4 14.15,3 11.5,3M19,14V20C19,21.11 18.11,22 17,22H15A2,2 0 0,1 13,20V14A2,2 0 0,1 15,12H17C18.11,12 19,12.9 19,14M15,14V20H17V14H15M11,20C11,21.11 10.1,22 9,22H5V20H9V18H7V16H9V14H5V12H9A2,2 0 0,1 11,14V15.5A1.5,1.5 0 0,1 9.5,17A1.5,1.5 0 0,1 11,18.5V20Z"
+                    />
                   </svg>
                 </a>
               </div>
@@ -202,34 +256,31 @@ export default defineComponent({
   methods: {
     presentActionSheet: async function () {
       const actionSheet = await actionSheetController.create({
-        header: 'Mark as complete for progress?',
+        header: "Mark as complete for progress?",
         // subHeader: 'Example subheader',
         buttons: [
           {
-            text: 'Yes',
+            text: "Yes",
             // role: 'destructive',
             handler: () => {
               // console.log(this.$route)
-              this.$router.go(-1)
-              this.$refs.modal.$el.dismiss();
-              this.stopAudio();
-
-            },
-          },
-          {
-            text: 'No',
-            handler: () => {
-              this.$router.go(-1)
+              this.$router.go(-1);
               this.$refs.modal.$el.dismiss();
               this.stopAudio();
             },
           },
           {
-            text: 'Cancel',
-            role: 'cancel',
+            text: "No",
             handler: () => {
-
+              this.$router.go(-1);
+              this.$refs.modal.$el.dismiss();
+              this.stopAudio();
             },
+          },
+          {
+            text: "Cancel",
+            role: "cancel",
+            handler: () => {},
           },
         ],
       });
@@ -240,7 +291,7 @@ export default defineComponent({
 
     getUrlQueryParams: async function () {
       await this.$router.isReady();
-      this.params = this.$route
+      this.params = this.$route;
       this.dataLoaded = true;
       this.title = this.dataList.filter(
         (item) => item.title === this.$route.params.title

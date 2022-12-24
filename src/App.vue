@@ -15,15 +15,23 @@ ion-app {
   background-color: #414141;
 }
 
+ion-toolbar {
+  --background: var(--ion-color-whale);
+}
+
+@media (prefers-color-scheme: dark) {
+  ion-toolbar {
+    --ion-color-whale: #0a1629;
+  }
+}
+
 @media (prefers-color-scheme: dark) {
   ion-app {
     max-width: 1200px;
     margin: 0 auto;
     background-color: black;
   }
-
 }
-
 
 @media only screen and (max-width: 1000px) {
   ion-content {

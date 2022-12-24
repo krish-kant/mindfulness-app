@@ -1,28 +1,41 @@
 <template>
   <ion-page>
-    <div id="toolbar" class="tool-bar-custom">
+    <ion-header>
+      <ion-toolbar>
+        <ion-item lines="none">
+          <div
+            slot="end"
+            class="add-goals-icon"
+            @click="() => router.push('/tabs/add-goals')"
+          >
+            <ion-tab-button>
+              <ion-icon size="large" :icon="addCircle" />
+            </ion-tab-button>
+          </div>
+        </ion-item>
+      </ion-toolbar>
+    </ion-header>
 
+    <ion-content>
       <div class="scroll-items">
-        <ion-button size="small" color="light">
+        <ion-button size="small" color="light" mode="ios">
           <ion-label>
-            <h3 style="font-weight:600;padding:5px">Yoga and anxity</h3>
+            <h3 style="font-weight: 600; padding: 5px">Yoga and anxity</h3>
           </ion-label>
         </ion-button>
-        <ion-button size="small" color="dark" v-for="n in dataList" :key="n.title" fill="clear">
+        <ion-button
+          mode="ios"
+          size="small"
+          color="dark"
+          v-for="n in dataList"
+          :key="n.title"
+          fill="clear"
+        >
           <ion-label>
-            <h3 style="fontWeight:600;">{{ n.title }}</h3>
+            <h3 style="fontweight: 600">{{ n.title }}</h3>
           </ion-label>
         </ion-button>
       </div>
-      <ion-item lines="none">
-        <div slot="end" class="add-goals-icon" @click="() => router.push('/tabs/add-goals')">
-          <ion-tab-button>
-            <ion-icon size="large" :icon="addCircle" />
-          </ion-tab-button>
-        </div>
-      </ion-item>
-    </div>
-    <ion-content>
       <TilePlay :musicPlaylist="dataList" />
     </ion-content>
   </ion-page>
@@ -44,7 +57,7 @@ import {
   IonLabel,
   IonCheckbox,
   IonText,
-  IonFabButton
+  IonFabButton,
 } from "@ionic/vue";
 import { lockClosed, bookmarkOutline, addCircle } from "ionicons/icons";
 import { ref } from "vue";
@@ -63,8 +76,6 @@ const { dataList } = useDataStore();
   height: 15%;
   display: flex;
   flex-direction: column-reverse;
-
-
 }
 
 @media (prefers-color-scheme: dark) {
@@ -78,7 +89,6 @@ const { dataList } = useDataStore();
     flex-direction: column-reverse;
     justify-content: center;
   }
-
 }
 
 .scroll-items {
@@ -96,7 +106,7 @@ const { dataList } = useDataStore();
   white-space: nowrap;
   margin-bottom: 2px;
   margin-left: 10px;
-
+  margin-top: 20px;
 }
 
 .scroll-items::-webkit-scrollbar {
@@ -112,8 +122,6 @@ ion-icon {
   color: antiquewhite;
 }
 
-
-
 ion-item {
   --padding-bottom: 0px;
   --padding-top: 0px;
@@ -126,15 +134,19 @@ ion-item {
   --inner-padding-top: 0px;
   --background: none !important;
 }
+ion-toolbar {
+  --background: var(--ion-color-whale);
+}
+
+@media (prefers-color-scheme: dark) {
+  ion-toolbar {
+    --ion-color-whale: #0a1629;
+  }
+}
 
 ion-button {
   --border-radius: 5px;
-
 }
-
-
-
-
 
 @keyframes rotation {
   from {

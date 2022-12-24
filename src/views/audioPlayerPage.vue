@@ -3,32 +3,54 @@
     <ion-header class="ion-no-border">
       <ion-toolbar>
         <ion-buttons>
-          <ion-back-button defaultHref="/tabs/home"></ion-back-button>
+          <ion-back-button mode="md" defaultHref="/tabs/home"></ion-back-button>
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
     <ion-content>
-      <div id="open-modal" style="width:1px" />
-      <ion-modal ref="modal" backdropDismiss="false" trigger="open-modal" :presenting-element="presentingElement">
+      <div id="open-modal" style="width: 1px" />
+      <ion-modal
+        ref="modal"
+        backdropDismiss="false"
+        trigger="open-modal"
+        :presenting-element="presentingElement"
+      >
         <ion-header>
           <ion-toolbar>
-            <ion-title>Player</ion-title>
+            <ion-title
+              ><ion-text style="color: antiquewhite"
+                >Player</ion-text
+              ></ion-title
+            >
             <ion-buttons slot="end">
-              <ion-button @click="presentActionSheet">Close</ion-button>
+              <ion-button @click="presentActionSheet"
+                ><svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
+                  <path
+                    fill="antiquewhite"
+                    d="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2C6.47,2 2,6.47 2,12C2,17.53 6.47,22 12,22C17.53,22 22,17.53 22,12C22,6.47 17.53,2 12,2M14.59,8L12,10.59L9.41,8L8,9.41L10.59,12L8,14.59L9.41,16L12,13.41L14.59,16L16,14.59L13.41,12L16,9.41L14.59,8Z"
+                  /></svg
+              ></ion-button>
             </ion-buttons>
           </ion-toolbar>
         </ion-header>
         <ion-grid class="audioPlayerUI ion-margin-start ion-margin-end">
-          <ion-row class="ion-align-items-center ion-justify-content-center first-row-grid-1 ion-margin-bottom">
+          <ion-row
+            class="ion-align-items-center ion-justify-content-center first-row-grid-1 ion-margin-bottom"
+          >
             <ion-col>
               <div class="albumImage">
-                <img @load="onImageLoaded()" :src="dataList[currentAudio].imageUrl" :key="currentAudio"
-                  ondragstart="return false;" id="playerAlbumArt" />
+                <img
+                  @load="onImageLoaded()"
+                  :src="dataList[currentAudio].imageUrl"
+                  :key="currentAudio"
+                  ondragstart="return false;"
+                  id="playerAlbumArt"
+                />
               </div>
               <ion-item lines="none">
                 <ion-label class="ion-text-wrap">
                   <ion-text class="heading">{{
-                      dataList[currentAudio].title
+                    dataList[currentAudio].title
                   }}</ion-text>
                   <p>{{ dataList[currentAudio].type }}</p>
                 </ion-label>
@@ -48,13 +70,25 @@
                   <p>{{ trackDurationFormated }}</p>
                 </ion-label>
               </ion-item>
-              <input v-model="value" type="range" @input="skipTrack" min="0" step="1" :max="trackDuration" ref="input"
-                style="width: 100%" />
+              <input
+                v-model="value"
+                type="range"
+                @input="skipTrack"
+                min="0"
+                step="1"
+                :max="trackDuration"
+                ref="input"
+                style="width: 100%"
+              />
               <div class="buttons-container">
                 <a class="button" v-on:click="prevSkip()">
                   <rewind30-icon :size="40" />
                 </a>
-                <a class="button play" v-on:click="playAudio()" title="Play/Pause Song">
+                <a
+                  class="button play"
+                  v-on:click="playAudio()"
+                  title="Play/Pause Song"
+                >
                   <transition name="slide-fade" mode="out-in">
                     <div>
                       <play-circle-icon :size="90" v-show="!currentlyPlaying" />
@@ -141,7 +175,7 @@ export default defineComponent({
     FastForward30Icon,
     Rewind30Icon,
     CardsHeartOutlineIcon,
-    AccountVoiceIcon
+    AccountVoiceIcon,
   },
   data: function () {
     return {
@@ -164,7 +198,6 @@ export default defineComponent({
       audioBuffering: false,
       params: "",
       presentingElement: null,
-
     };
   },
 
@@ -179,37 +212,33 @@ export default defineComponent({
   },
 
   methods: {
-
     presentActionSheet: async function () {
       const actionSheet = await actionSheetController.create({
-        header: 'Mark as complete for progress?',
+        header: "Mark as complete for progress?",
         // subHeader: 'Example subheader',
         buttons: [
           {
-            text: 'Yes',
+            text: "Yes",
             // role: 'destructive',
             handler: () => {
               // console.log(this.$route)
-              this.$router.go(-1)
+              this.$router.go(-1);
               this.$refs.modal.$el.dismiss();
               this.stopAudio();
-
             },
           },
           {
-            text: 'No',
+            text: "No",
             handler: () => {
-              this.$router.go(-1)
+              this.$router.go(-1);
               this.$refs.modal.$el.dismiss();
               this.stopAudio();
-
             },
           },
           {
-            text: 'Cancel',
-            role: 'cancel',
-            handler: () => {
-            },
+            text: "Cancel",
+            role: "cancel",
+            handler: () => {},
           },
         ],
       });
@@ -220,7 +249,7 @@ export default defineComponent({
 
     getUrlQueryParams: async function () {
       await this.$router.isReady();
-      this.params = this.$route
+      this.params = this.$route;
       this.dataLoaded = true;
       this.title = this.dataList.filter(
         (item) => item.title === this.$route.params.title
@@ -233,7 +262,6 @@ export default defineComponent({
       this.currentAudio = this.index;
       console.log(this.dataList.findIndex((item) => item.title === this.title));
     },
-
 
     handleWaiting: function () {
       this.audioBuffering = true;
@@ -365,7 +393,6 @@ export default defineComponent({
     value: function () {
       this.currentTime = this.value;
     },
-
   },
 
   beforeUnmount: function () {

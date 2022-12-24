@@ -8,39 +8,66 @@
     <ion-content class="ion-padding">
       <div id="open-modal" />
 
-      <ion-modal backdropDismiss="false" ref="modal" trigger="open-modal" :presenting-element="presentingElement">
+      <ion-modal
+        backdropDismiss="false"
+        ref="modal"
+        trigger="open-modal"
+        :presenting-element="presentingElement"
+      >
         <ion-header>
           <ion-toolbar>
-            <ion-title>Breathe</ion-title>
+            <ion-title
+              ><ion-text style="color: antiquewhite"
+                >Player</ion-text
+              ></ion-title
+            >
             <ion-buttons slot="end">
-              <ion-button @click="presentActionSheet">Close</ion-button>
+              <ion-button @click="presentActionSheet"
+                ><svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
+                  <path
+                    fill="antiquewhite"
+                    d="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2C6.47,2 2,6.47 2,12C2,17.53 6.47,22 12,22C17.53,22 22,17.53 22,12C22,6.47 17.53,2 12,2M14.59,8L12,10.59L9.41,8L8,9.41L10.59,12L8,14.59L9.41,16L12,13.41L14.59,16L16,14.59L13.41,12L16,9.41L14.59,8Z"
+                  /></svg
+              ></ion-button>
             </ion-buttons>
           </ion-toolbar>
         </ion-header>
         <ion-content class="ion-padding">
           <ion-grid class="audioPlayerUI ion-margin-start ion-margin-end">
-            <ion-row class="ion-align-items-center ion-justify-content-center first-row-grid-1 ion-margin-bottom">
+            <ion-row
+              class="ion-align-items-center ion-justify-content-center first-row-grid-1 ion-margin-bottom"
+            >
               <ion-col class="ion-align-self-center">
                 <div class="albumImage">
-
-                  <div id="container" :class="dataObj.container"
-                    :style="{ 'animation-duration': dataObj.animationDurationBreathe }">
-                    <div class=" circle"></div>
+                  <div
+                    id="container"
+                    :class="dataObj.container"
+                    :style="{
+                      'animation-duration': dataObj.animationDurationBreathe,
+                    }"
+                  >
+                    <div class="circle"></div>
                     <div>
-                      <h1 class="counter text">{{ dataObj.breathCounter + 1 }}</h1>
+                      <h1 class="counter text">
+                        {{ dataObj.breathCounter + 1 }}
+                      </h1>
                     </div>
                     <ion-label>
                       <ion-text class="text">
-                        <p id="text" style="font: 12px ">{{ dataObj.text }}</p>
+                        <p id="text" style="font: 12px">{{ dataObj.text }}</p>
                       </ion-text>
                     </ion-label>
-                    <div class="pointer-container" :style="{ 'animation-duration': dataObj.animationDurationTotal }">
+                    <div
+                      class="pointer-container"
+                      :style="{
+                        'animation-duration': dataObj.animationDurationTotal,
+                      }"
+                    >
                       <span class="pointer"></span>
                     </div>
                     <div class="gradient-circle"></div>
                   </div>
                 </div>
-
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -50,7 +77,7 @@
   </ion-page>
 </template>
 
-<script setup >
+<script setup>
 import {
   IonPage,
   IonContent,
@@ -83,7 +110,7 @@ const totalTime = 12000;
 const breatheTime = (totalTime / 5) * 2;
 const holdTime = totalTime / 5;
 const animationDurationTotal = `${totalTime / 1000}s`;
-const animationDurationBreathe = `${((totalTime / 1000) / 5) * 2}s`;
+const animationDurationBreathe = `${(totalTime / 1000 / 5) * 2}s`;
 let audioBreatheSrc = require("@/assets/audio/bowl.mp3");
 let audioClockSrc = require("@/assets/audio/clock.mp3");
 let audioBgSrc = require("@/assets/audio/rain-and-thunder.mp3");
@@ -108,14 +135,13 @@ onMounted(() => {
   presentingElement.value = page.value.$el;
   document.getElementById("open-modal").click();
   openBreathPlayer();
-
 });
 
 const openBreathPlayer = function () {
   audioBreatheSrc = require("@/assets/audio/bowl.mp3");
   audioBgSrc = require("@/assets/audio/rain-and-thunder.mp3");
   audioClockSrc = require("@/assets/audio/clock.mp3");
-  breathAnimation()
+  breathAnimation();
   breathCycles(100);
   dataObj.audioBg = new Audio(audioBgSrc);
   dataObj.audioBg.play();
@@ -141,7 +167,7 @@ const breathAnimation = function () {
       dataObj.audioBreathe.play();
     }, holdTime);
   }, breatheTime);
-}
+};
 
 const breathCycles = function (limit) {
   dataObj.breathCounter = 0;
@@ -154,43 +180,41 @@ const breathCycles = function (limit) {
 
 const presentActionSheet = async () => {
   const actionSheet = await actionSheetController.create({
-    header: 'Mark as complete for progress?',
+    header: "Mark as complete for progress?",
     // subHeader: 'Example subheader',
     buttons: [
       {
-        text: 'Yes',
+        text: "Yes",
         // role: 'destructive',
         handler: () => {
           dataObj.audioBg.pause();
           dataObj.audioBreathe.pause();
-          audioBreatheSrc = ''
-          audioClockSrc = ''
-          audioBgSrc = ''
-          clearInterval(dataObj.setIntervalRef)
+          audioBreatheSrc = "";
+          audioClockSrc = "";
+          audioBgSrc = "";
+          clearInterval(dataObj.setIntervalRef);
           dataObj.closeClicked = false;
           modal.value.$el.dismiss();
-          router.go(-1)
-
+          router.go(-1);
         },
       },
       {
-        text: 'No',
+        text: "No",
         handler: () => {
           dataObj.audioBg.pause();
           dataObj.audioBreathe.pause();
-          audioBreatheSrc = ''
-          audioClockSrc = ''
-          audioBgSrc = ''
-          clearInterval(dataObj.setIntervalRef)
+          audioBreatheSrc = "";
+          audioClockSrc = "";
+          audioBgSrc = "";
+          clearInterval(dataObj.setIntervalRef);
           dataObj.closeClicked = false;
           modal.value.$el.dismiss();
-          router.go(-1)
-
+          router.go(-1);
         },
       },
       {
-        text: 'Cancel',
-        role: 'cancel',
+        text: "Cancel",
+        role: "cancel",
         handler: () => {
           dataObj.closeClicked = false;
         },
@@ -201,7 +225,6 @@ const presentActionSheet = async () => {
   await actionSheet.present();
   const res = await actionSheet.onDidDismiss();
 };
-
 </script>
 
 /********************************** CSS ***********************************/
@@ -245,7 +268,6 @@ ion-grid {
 }
 
 img {
-
   object-fit: cover;
   object-position: 50% 50%;
   border-radius: 5px;
@@ -258,7 +280,6 @@ ion-label {
 
 @media only screen and (max-width: 600px) {
   img {
-
     object-fit: cover;
     object-position: 50% 50%;
     border-radius: 5px;
@@ -266,7 +287,6 @@ ion-label {
     filter: brightness(70%);
   }
 }
-
 
 .container {
   display: flex;
@@ -292,12 +312,14 @@ ion-label {
 }
 
 .gradient-circle {
-  background: conic-gradient(var(--ion-color-secondary) 0%,
-      var(--ion-color-secondary-shade) 40%,
-      var(--ion-color-medium) 40%,
-      var(--ion-color-medium)60%,
-      var(--ion-color-secondary) 60%,
-      var(--ion-color-secondary-shade) 100%);
+  background: conic-gradient(
+    var(--ion-color-secondary) 0%,
+    var(--ion-color-secondary-shade) 40%,
+    var(--ion-color-medium) 40%,
+    var(--ion-color-medium) 60%,
+    var(--ion-color-secondary) 60%,
+    var(--ion-color-secondary-shade) 100%
+  );
   height: 150px;
   width: 150px;
   z-index: -2;
@@ -328,7 +350,6 @@ ion-label {
 
 .text {
   color: #ffffff;
-
 }
 
 ion-grid {
@@ -343,7 +364,6 @@ ion-grid {
   /* animation: grow 3s linear forwards; */
   animation: grow linear forwards;
 }
-
 
 .container.shrink {
   /* animation: shrink 3s linear forwards; */
@@ -361,7 +381,6 @@ ion-item {
   --inner-padding-top: 0px;
   --background: none !important;
 }
-
 
 code {
   white-space: pre-wrap;

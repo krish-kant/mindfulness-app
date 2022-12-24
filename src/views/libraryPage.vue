@@ -1,29 +1,35 @@
 <template>
   <ion-page>
-    <div id="toolbar" class="tool-bar-custom">
-      <!-- <ion-title>Library</ion-title> -->
-      <ion-item lines="none" class="search-bar">
-        <ion-searchbar color="light" @click="() => router.push('/tabs/search')"></ion-searchbar>
-      </ion-item>
-    </div>
-
+    <ion-header>
+      <ion-toolbar>
+        <ion-item lines="none">
+          <ion-segment value="default" mode="ios">
+            <ion-segment-button
+              :value="!switchBookmarks ? 'default' : ''"
+              @click="switchBookmarks = false"
+            >
+              <ion-label>Playlist</ion-label>
+            </ion-segment-button>
+            <ion-segment-button
+              :value="switchBookmarks ? 'default' : ''"
+              @click="switchBookmarks = true"
+            >
+              <ion-label>Bookmarks</ion-label>
+            </ion-segment-button>
+          </ion-segment>
+        </ion-item>
+      </ion-toolbar>
+    </ion-header>
     <ion-content>
       <ion-grid>
         <ion-row class="ion-justify-content-center">
           <ion-col>
             <ion-item lines="none">
-              <div>
-                <ion-segment value="default" mode="ios">
-                  <ion-segment-button :value="!switchBookmarks ? 'default' : ''" @click="switchBookmarks = false">
-                    <ion-label>Playlist</ion-label>
-                  </ion-segment-button>
-                  <ion-segment-button :value="switchBookmarks ? 'default' : ''" @click="switchBookmarks = true">
-                    <ion-label>Bookmarks</ion-label>
-                  </ion-segment-button>
-                </ion-segment>
-              </div>
-
-              <ion-icon @click="() => (deletePlaylistItem = !deletePlaylistItem)" :icon="createOutline" slot="end">
+              <ion-icon
+                @click="() => (deletePlaylistItem = !deletePlaylistItem)"
+                :icon="createOutline"
+                slot="end"
+              >
               </ion-icon>
             </ion-item>
           </ion-col>
@@ -35,17 +41,31 @@
           <ion-col>
             <ion-list button v-if="playlistLength">
               <!-- The reorder gesture is disabled by default, enable it to drag and drop items -->
-              <ion-reorder-group :disabled="false" @ionItemReorder="handleReorder($event)">
-                <ion-item button detail="false" v-for="rec in playlist" :key="rec.title" @click="
-                  () => {
-                    if (deletePlaylistItem)
-                      router.push({
-                        path: `/tabs/audiolist-player/${rec.title}`,
-                      });
-                  }
-                ">
-                  <ion-button color="light" slot="start" v-if="!deletePlaylistItem" size="default"
-                    @click="deleteItemfromPlaylist(rec.title)">
+              <ion-reorder-group
+                :disabled="false"
+                @ionItemReorder="handleReorder($event)"
+              >
+                <ion-item
+                  button
+                  detail="false"
+                  v-for="rec in playlist"
+                  :key="rec.title"
+                  @click="
+                    () => {
+                      if (deletePlaylistItem)
+                        router.push({
+                          path: `/tabs/audiolist-player/${rec.title}`,
+                        });
+                    }
+                  "
+                >
+                  <ion-button
+                    color="light"
+                    slot="start"
+                    v-if="!deletePlaylistItem"
+                    size="default"
+                    @click="deleteItemfromPlaylist(rec.title)"
+                  >
                     <ion-icon :icon="removeCircleOutline"></ion-icon>
                   </ion-button>
 
@@ -70,15 +90,26 @@
             <ion-list button v-if="bookmarksLength">
               <!-- The reorder gesture is disabled by default, enable it to drag and drop items -->
 
-              <ion-item button detail="true" v-for="rec in bookmarks" :key="rec.title" @click="
-                () => {
-                  if (deletePlaylistItem) {
-                    router.push(`/tabs/item-details/${rec.title}`);
+              <ion-item
+                button
+                detail="true"
+                v-for="rec in bookmarks"
+                :key="rec.title"
+                @click="
+                  () => {
+                    if (deletePlaylistItem) {
+                      router.push(`/tabs/item-details/${rec.title}`);
+                    }
                   }
-                }
-              ">
-                <ion-button color="light" slot="start" v-if="!deletePlaylistItem" size="default"
-                  @click="deleteItemfromBookmarks(rec.title)">
+                "
+              >
+                <ion-button
+                  color="light"
+                  slot="start"
+                  v-if="!deletePlaylistItem"
+                  size="default"
+                  @click="deleteItemfromBookmarks(rec.title)"
+                >
                   <ion-icon :icon="removeCircleOutline"></ion-icon>
                 </ion-button>
 
@@ -118,7 +149,11 @@ import {
   IonReorder,
   IonSearchbar,
 } from "@ionic/vue";
-import { createOutline, removeCircleOutline, searchOutline } from "ionicons/icons";
+import {
+  createOutline,
+  removeCircleOutline,
+  searchOutline,
+} from "ionicons/icons";
 import { ref, onMounted, watch } from "vue";
 import { useRouter } from "vue-router";
 import { usePlaylistStore } from "@/stores/playlist";
@@ -206,23 +241,20 @@ ion-button {
   --box-shadow: none !important;
 }
 
-.tool-bar-custom {
-  background-color: var(--ion-color-whale);
-  height: 15%;
-  display: flex;
-  flex-direction: column-reverse;
+ion-toolbar {
+  --background: var(--ion-color-whale);
 }
 
 @media (prefers-color-scheme: dark) {
-  #toolbar {
+  ion-toolbar {
     --ion-color-whale: #0a1629;
   }
 }
 
-@media only screen and (min-width: 600px) {
-.tool-bar-custom {
+/* @media only screen and (min-width: 600px) {
+  .tool-bar-custom {
     justify-content: center;
   }
 
-}
+} */
 </style>
