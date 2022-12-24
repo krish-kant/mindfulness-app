@@ -1,6 +1,5 @@
 <template>
   <ion-page>
-
     <div class="card">
       <div id="blue-ocean-bg" class="blue-ocean">
         <div class="blue-ray"></div>
@@ -217,9 +216,6 @@ ion-item {
 }
 
 @media only screen and (max-width: 600px) {
-  /* .ios .card {
-    height: 30vmin;
-  } */
 
   .ios .blue-whale {
     margin-top: 20px;

@@ -11,13 +11,17 @@
               :value="!dataObj.switchGuided ? 'default' : ''"
               @click="dataObj.switchGuided = false"
             >
-              <ion-label>Player</ion-label>
+              <ion-label style="font-weight: 500; margin: 0px 20px"
+                >Player</ion-label
+              >
             </ion-segment-button>
             <ion-segment-button
               :value="dataObj.switchGuided ? 'default' : ''"
               @click="dataObj.switchGuided = true"
             >
-              <ion-label>Guided</ion-label>
+              <ion-label style="font-weight: 500; margin: 0px 20px"
+                >Guided</ion-label
+              >
             </ion-segment-button>
           </ion-segment>
         </ion-item>
@@ -84,8 +88,9 @@ const dataObj = reactive({
 <style scoped>
 ion-buttons {
   position: absolute;
-  top: 5px;
-  left: 5px;
+  top: 2px;
+  left: 2px;
+  color: white;
 }
 
 ion-item {

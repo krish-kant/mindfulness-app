@@ -8,13 +8,17 @@
               :value="!switchBookmarks ? 'default' : ''"
               @click="switchBookmarks = false"
             >
-              <ion-label>Playlist</ion-label>
+              <ion-label style="font-weight: 500; margin: 0px 20px"
+                >Playlist</ion-label
+              >
             </ion-segment-button>
             <ion-segment-button
               :value="switchBookmarks ? 'default' : ''"
               @click="switchBookmarks = true"
             >
-              <ion-label>Bookmarks</ion-label>
+              <ion-label style="font-weight: 500; margin: 0px 20px"
+                >Bookmarks</ion-label
+              >
             </ion-segment-button>
           </ion-segment>
         </ion-item>
@@ -59,15 +63,13 @@
                     }
                   "
                 >
-                  <ion-button
-                    color="light"
-                    slot="start"
+                  <ion-icon
                     v-if="!deletePlaylistItem"
-                    size="default"
+                    slot="start"
+                    color="danger"
+                    :icon="removeCircleOutline"
                     @click="deleteItemfromPlaylist(rec.title)"
-                  >
-                    <ion-icon :icon="removeCircleOutline"></ion-icon>
-                  </ion-button>
+                  ></ion-icon>
 
                   <ion-thumbnail slot="start">
                     <img alt="Silhouette of mountains" :src="rec.imageUrl" />
@@ -103,15 +105,13 @@
                   }
                 "
               >
-                <ion-button
-                  color="light"
-                  slot="start"
+                <ion-icon
                   v-if="!deletePlaylistItem"
-                  size="default"
+                  slot="start"
+                  color="danger"
+                  :icon="removeCircleOutline"
                   @click="deleteItemfromBookmarks(rec.title)"
-                >
-                  <ion-icon :icon="removeCircleOutline"></ion-icon>
-                </ion-button>
+                ></ion-icon>
 
                 <ion-thumbnail slot="start">
                   <img alt="Silhouette of mountains" :src="rec.imageUrl" />

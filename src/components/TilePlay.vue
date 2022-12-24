@@ -1,17 +1,29 @@
 <template>
   <ion-grid class="ion-margin-start ion-margin-end">
     <ion-row>
-      <ion-col size="12" size-sm="6" size-lg="4" v-for="(items, index) in musicPlaylist" :key="items.title"
-        class="container">
-        <ion-img class="item-image" :src="musicPlaylist[index].imageUrl" :key="currentSong" @click="
-          () => {
-            if (!isPlaying) {
-              router.push({
-                path: `/tabs/item-details/${musicPlaylist[index].title}`,
-              });
+      <ion-col
+        size="12"
+        size-sm="6"
+        size-lg="4"
+        v-for="(items, index) in musicPlaylist"
+        :key="items.title"
+        class="container"
+      >
+        <ion-img
+          class="item-image"
+          :src="musicPlaylist[index].imageUrl"
+          :key="currentSong"
+          @click="
+            () => {
+              if (!isPlaying) {
+                router.push({
+                  path: `/tabs/item-details/${musicPlaylist[index].title}`,
+                });
+              }
             }
-          }
-        " @ionImgDidLoad="ionImgDidLoad" />
+          "
+          @ionImgDidLoad="ionImgDidLoad"
+        />
         <div v-if="index == currentIndex && isPlaying" class="bar">
           <div class="in"></div>
         </div>
@@ -21,9 +33,14 @@
             <h3>{{ musicPlaylist[index].title }}</h3>
           </ion-label>
           <!-- <ion-icon :icon="bookmarkOutline" /> -->
-          <svg style="width: 24px; height: 24px; cursor: pointer" viewBox="0 0 24 24">
-            <path fill="currentColor"
-              d="M17,18L12,15.82L7,18V5H17M17,3H7A2,2 0 0,0 5,5V21L12,18L19,21V5C19,3.89 18.1,3 17,3Z" />
+          <svg
+            style="width: 24px; height: 24px; cursor: pointer"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M17,18L12,15.82L7,18V5H17M17,3H7A2,2 0 0,0 5,5V21L12,18L19,21V5C19,3.89 18.1,3 17,3Z"
+            />
           </svg>
         </ion-item>
         <div class="spinner" v-if="!imgLoaded">
@@ -37,21 +54,29 @@
         </div>
         <div class="item-type">
           <ion-badge color="secondary">
-            {{ musicPlaylist[index].type }}</ion-badge>
+            {{ musicPlaylist[index].type }}</ion-badge
+          >
         </div>
         <div class="play-item-bg"></div>
 
         <div class="play-item">
-          <button class="play-icon" :style="[
-            index == currentIndex && isPlaying
-              ? {
-                color: 'grey',
-              }
-              : {},
-          ]" @click="playItem(index)" :disabled="isPlaying">
+          <button
+            class="play-icon"
+            :style="[
+              index == currentIndex && isPlaying
+                ? {
+                    color: 'grey',
+                  }
+                : {},
+            ]"
+            @click="playItem(index)"
+            :disabled="isPlaying"
+          >
             <svg style="width: 40px; height: 40px" viewBox="0 0 24 24">
-              <path fill="currentColor"
-                d="M19 3H5C3.89 3 3 3.89 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.89 20.1 3 19 3M10 16V8L15 12" />
+              <path
+                fill="currentColor"
+                d="M19 3H5C3.89 3 3 3.89 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.89 20.1 3 19 3M10 16V8L15 12"
+              />
             </svg>
           </button>
         </div>

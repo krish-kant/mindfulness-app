@@ -3,11 +3,7 @@
     <ion-header>
       <ion-toolbar>
         <ion-item lines="none">
-          <div
-            slot="end"
-            class="add-goals-icon"
-            @click="() => router.push('/tabs/add-goals')"
-          >
+          <div slot="end" class="add-goals-icon" @click="() => router.push('/tabs/add-goals')">
             <ion-tab-button>
               <ion-icon size="large" :icon="addCircle" />
             </ion-tab-button>
@@ -18,19 +14,12 @@
 
     <ion-content>
       <div class="scroll-items">
-        <ion-button size="small" color="light" mode="ios">
+        <ion-button color="dark" mode="ios">
           <ion-label>
             <h3 style="font-weight: 600; padding: 5px">Yoga and anxity</h3>
           </ion-label>
         </ion-button>
-        <ion-button
-          mode="ios"
-          size="small"
-          color="dark"
-          v-for="n in dataList"
-          :key="n.title"
-          fill="clear"
-        >
+        <ion-button mode="ios" color="dark" v-for="n in dataList" :key="n.title" fill="clear">
           <ion-label>
             <h3 style="fontweight: 600">{{ n.title }}</h3>
           </ion-label>
@@ -92,15 +81,10 @@ const { dataList } = useDataStore();
 }
 
 .scroll-items {
-  justify-content: flex-start;
-  flex-wrap: nowrap;
   overflow-x: scroll !important;
   overflow-y: hidden;
   -ms-overflow-style: none;
   scrollbar-width: none;
-}
-
-.scroll-items {
   display: flex;
   flex-wrap: nowrap;
   white-space: nowrap;
@@ -108,6 +92,8 @@ const { dataList } = useDataStore();
   margin-left: 10px;
   margin-top: 20px;
 }
+
+
 
 .scroll-items::-webkit-scrollbar {
   display: none;
@@ -119,7 +105,7 @@ const { dataList } = useDataStore();
 }
 
 ion-icon {
-  color: antiquewhite;
+  color: white;
 }
 
 ion-item {
@@ -134,6 +120,7 @@ ion-item {
   --inner-padding-top: 0px;
   --background: none !important;
 }
+
 ion-toolbar {
   --background: var(--ion-color-whale);
 }
@@ -146,6 +133,7 @@ ion-toolbar {
 
 ion-button {
   --border-radius: 5px;
+
 }
 
 @keyframes rotation {

@@ -2,7 +2,7 @@
   <ion-page>
     <ion-header class="ion-no-border">
       <ion-toolbar>
-        <ion-buttons slot="start">
+        <ion-buttons slot="start" style="color: white">
           <ion-back-button mode="md" defaultHref="/tabs/home"></ion-back-button>
         </ion-buttons>
       </ion-toolbar>
@@ -41,25 +41,18 @@
                 </ion-label>
               </ion-item>
 
-              <ion-item lines="none" class="ion-margin">
-                <ion-button
-                  size="default"
-                  color="secondary"
-                  @click="
-                    () =>
-                      router.push({
-                        path: `/tabs/audio-player/${dataList[index].title}`,
-                      })
-                  "
-                  style="width: 50%"
-                  router-direction="none"
-                >
-                  <ion-icon :icon="play" />
-                  <ion-text>
-                    <p>Play</p>
-                  </ion-text>
-                </ion-button>
-              </ion-item>
+              <button
+                @click="
+                  () =>
+                    router.push({
+                      path: `/tabs/audio-player/${dataList[index].title}`,
+                    })
+                "
+                router-direction="none"
+              >
+                <ion-icon :icon="play" />
+                Play
+              </button>
 
               <div class="item-text">
                 <ion-item lines="none">
@@ -258,6 +251,17 @@ ion-button {
   margin: 0 auto;
   margin-bottom: 5px;
   --box-shadow: none !important;
+}
+button {
+  display: flex;
+  justify-content: center;
+  width: 70%;
+  margin: 20px auto;
+  padding: 15px;
+  border-radius: 10px;
+  background-color: var(--ion-color-whale);
+  font-size: large;
+  color: white;
 }
 
 .item-text {
