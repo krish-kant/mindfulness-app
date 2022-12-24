@@ -1,12 +1,17 @@
 <template>
   <ion-page>
     <ion-header>
-      <ion-toolbar>
+      <ion-toolbar style="position: relative">
         <ion-item lines="none">
           <ion-segment value="default" mode="ios">
             <ion-segment-button
               :value="!switchBookmarks ? 'default' : ''"
-              @click="switchBookmarks = false"
+              @click="
+                () => {
+                  switchBookmarks = false;
+                  hapticsImpactLight();
+                }
+              "
             >
               <ion-label style="font-weight: 500; margin: 0px 20px"
                 >Playlist</ion-label
@@ -14,7 +19,12 @@
             </ion-segment-button>
             <ion-segment-button
               :value="switchBookmarks ? 'default' : ''"
-              @click="switchBookmarks = true"
+              @click="
+                () => {
+                  switchBookmarks = true;
+                  hapticsImpactLight();
+                }
+              "
             >
               <ion-label style="font-weight: 500; margin: 0px 20px"
                 >Bookmarks</ion-label
@@ -22,23 +32,25 @@
             </ion-segment-button>
           </ion-segment>
         </ion-item>
+        <ion-icon
+          @click="() => (deletePlaylistItem = !deletePlaylistItem)"
+          :icon="createOutline"
+          size="large"
+          class="edit-icon"
+        >
+        </ion-icon>
       </ion-toolbar>
     </ion-header>
     <ion-content>
-      <ion-grid>
-        <ion-row class="ion-justify-content-center">
-          <ion-col>
-            <ion-item lines="none">
-              <ion-icon
-                @click="() => (deletePlaylistItem = !deletePlaylistItem)"
-                :icon="createOutline"
-                slot="end"
-              >
-              </ion-icon>
-            </ion-item>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+      <!-- <ion-item lines="none">
+        <ion-icon
+          @click="() => (deletePlaylistItem = !deletePlaylistItem)"
+          :icon="createOutline"
+          slot="end"
+          style="margin-right: 10px"
+        >
+        </ion-icon>
+      </ion-item> -->
 
       <ion-grid v-if="!switchBookmarks">
         <ion-row class="ion-justify-content-center">
@@ -74,9 +86,12 @@
                   <ion-thumbnail slot="start">
                     <img alt="Silhouette of mountains" :src="rec.imageUrl" />
                   </ion-thumbnail>
-
                   <ion-label>
-                    <h3>{{ rec.title }}</h3>
+                    <ion-label>
+                      <p>{{ rec.duration }}</p>
+                      <p>{{ rec.type }}</p>
+                    </ion-label>
+                    <h3 style="font-weight: 500">{{ rec.title }}</h3>
                   </ion-label>
                   <ion-reorder slot="end"></ion-reorder>
                 </ion-item>
@@ -112,13 +127,15 @@
                   :icon="removeCircleOutline"
                   @click="deleteItemfromBookmarks(rec.title)"
                 ></ion-icon>
-
                 <ion-thumbnail slot="start">
                   <img alt="Silhouette of mountains" :src="rec.imageUrl" />
                 </ion-thumbnail>
-
                 <ion-label>
-                  <h3>{{ rec.title }}</h3>
+                  <ion-label>
+                    <p>{{ rec.duration }}</p>
+                    <p>{{ rec.type }}</p>
+                  </ion-label>
+                  <h3 style="font-weight: 500">{{ rec.title }}</h3>
                 </ion-label>
                 <ion-reorder slot="end"></ion-reorder>
               </ion-item>
@@ -159,8 +176,10 @@ import { useRouter } from "vue-router";
 import { usePlaylistStore } from "@/stores/playlist";
 import { useBookmarksStore } from "@/stores/bookmarks";
 
-let { playlist } = usePlaylistStore();
-let { bookmarks } = useBookmarksStore();
+import { Haptics, ImpactStyle } from "@capacitor/haptics";
+
+let playlist = usePlaylistStore().playList;
+let bookmarks = useBookmarksStore().bookmarksList;
 
 const router = useRouter();
 let deletePlaylistItem = ref(true);
@@ -179,6 +198,10 @@ const handleReorder = (event) => {
   event.detail.complete();
 };
 
+const hapticsImpactLight = async () => {
+  await Haptics.impact({ style: ImpactStyle.Light });
+};
+
 onMounted(() => {
   // deletePlaylistItem.value == true;
   playlistLength.value = playlist.length;
@@ -190,12 +213,14 @@ const deleteItemfromPlaylist = (item) => {
   playlist = playlist.filter((e) => e.title !== item);
   console.log(playlist.length);
   playlistLength.value = playlist.length;
+  hapticsImpactLight();
 };
 
 const deleteItemfromBookmarks = (item) => {
   bookmarks = bookmarks.filter((e) => e.title !== item);
   console.log(bookmarks.length);
   bookmarksLength.value = bookmarks.length;
+  hapticsImpactLight();
 };
 
 watch(playlistLength, async () => {
@@ -216,6 +241,11 @@ watch(bookmarksLength, async () => {
 </script>
 
 <style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap"); /* Poppins font */
+
+* {
+  font-family: "Poppins", sans-serif;
+}
 ion-item {
   --padding-bottom: 0px;
   --padding-top: 0px;
@@ -234,6 +264,22 @@ ion-img {
   object-fit: cover;
   object-position: 50% 50%;
   /* filter: brightness(70%); */
+}
+
+.edit-icon {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  z-index: 100;
+  color: white;
+  font-size: 20px;
+}
+
+img {
+  z-index: 10;
+  border-radius: 5px;
+  object-fit: cover;
+  object-position: 50% 50%;
 }
 
 ion-button {

@@ -9,7 +9,12 @@
           <ion-segment value="default" mode="ios">
             <ion-segment-button
               :value="!dataObj.switchGuided ? 'default' : ''"
-              @click="dataObj.switchGuided = false"
+              @click="
+                () => {
+                  dataObj.switchGuided = false;
+                  hapticsImpactLight();
+                }
+              "
             >
               <ion-label style="font-weight: 500; margin: 0px 20px"
                 >Player</ion-label
@@ -17,7 +22,12 @@
             </ion-segment-button>
             <ion-segment-button
               :value="dataObj.switchGuided ? 'default' : ''"
-              @click="dataObj.switchGuided = true"
+              @click="
+                () => {
+                  dataObj.switchGuided = true;
+                  hapticsImpactLight();
+                }
+              "
             >
               <ion-label style="font-weight: 500; margin: 0px 20px"
                 >Guided</ion-label
@@ -74,18 +84,27 @@ import { reactive, ref, onMounted } from "vue";
 import TilePlay from "@/components/TilePlay.vue";
 import { useDataStore } from "@/stores/data";
 import { useRouter } from "vue-router";
+import { Haptics, ImpactStyle } from "@capacitor/haptics";
 
 const router = useRouter();
-
 const dataObj = reactive({
   switchGuided: false,
   dataList: useDataStore().dataList,
 });
+
+const hapticsImpactLight = async () => {
+  await Haptics.impact({ style: ImpactStyle.Light });
+};
 </script>
 
 /********************************** CSS ***********************************/
 
 <style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap"); /* Poppins font */
+
+* {
+  font-family: "Poppins", sans-serif;
+}
 ion-buttons {
   position: absolute;
   top: 2px;

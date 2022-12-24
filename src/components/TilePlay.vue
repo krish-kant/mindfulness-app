@@ -27,10 +27,13 @@
         <div v-if="index == currentIndex && isPlaying" class="bar">
           <div class="in"></div>
         </div>
+
         <ion-item lines="none">
           <ion-label class="ion-text-wrap">
             <p>{{ musicPlaylist[index].duration }}</p>
-            <h3>{{ musicPlaylist[index].title }}</h3>
+            <ion-text style="font-size: medium">{{
+              musicPlaylist[index].title
+            }}</ion-text>
           </ion-label>
           <!-- <ion-icon :icon="bookmarkOutline" /> -->
           <svg
@@ -133,6 +136,11 @@ const playItem = function (index) {
 </script>
 
 <style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap"); /* Poppins font */
+
+* {
+  font-family: "Poppins", sans-serif;
+}
 .item-image {
   border-radius: 5px !important;
   overflow: hidden;

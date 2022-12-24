@@ -3,11 +3,13 @@
     <ion-header>
       <ion-toolbar>
         <ion-item lines="none">
-          <div slot="end" class="add-goals-icon" @click="() => router.push('/tabs/add-goals')">
-            <ion-tab-button>
-              <ion-icon size="large" :icon="addCircle" />
-            </ion-tab-button>
-          </div>
+          <ion-icon
+            size="large"
+            :icon="addCircle"
+            slot="end"
+            class="add-goals-icon"
+            @click="() => router.push('/tabs/add-goals')"
+          />
         </ion-item>
       </ion-toolbar>
     </ion-header>
@@ -16,16 +18,54 @@
       <div class="scroll-items">
         <ion-button color="dark" mode="ios">
           <ion-label>
-            <h3 style="font-weight: 600; padding: 5px">Yoga and anxity</h3>
+            <h3 style="font-weight: 600">Yoga and anxity</h3>
           </ion-label>
         </ion-button>
-        <ion-button mode="ios" color="dark" v-for="n in dataList" :key="n.title" fill="clear">
+        <ion-button
+          mode="ios"
+          color="dark"
+          v-for="n in dataList"
+          :key="n.title"
+          fill="clear"
+        >
           <ion-label>
-            <h3 style="fontweight: 600">{{ n.title }}</h3>
+            <h3 style="font-weight: 600">{{ n.title }}</h3>
           </ion-label>
         </ion-button>
       </div>
-      <TilePlay :musicPlaylist="dataList" />
+      <ion-grid>
+        <ion-row class="ion-justify-content-center">
+          <ion-col>
+            <ion-list button>
+              <!-- The reorder gesture is disabled by default, enable it to drag and drop items -->
+
+              <ion-item
+                button
+                detail="true"
+                v-for="rec in dataList"
+                :key="rec.title"
+                @click="
+                  () => {
+                    router.push(`/tabs/item-details/${rec.title}`);
+                  }
+                "
+              >
+                <ion-thumbnail slot="start">
+                  <img alt="Silhouette of mountains" :src="rec.imageUrl" />
+                </ion-thumbnail>
+                <ion-label>
+                  <ion-label>
+                    <p>{{ rec.duration }}</p>
+                    <p>{{ rec.type }}</p>
+                  </ion-label>
+                  <h3 style="font-weight: 500">{{ rec.title }}</h3>
+                </ion-label>
+                <ion-reorder slot="end"></ion-reorder>
+              </ion-item>
+            </ion-list>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-content>
   </ion-page>
 </template>
@@ -60,6 +100,11 @@ const { dataList } = useDataStore();
 </script>
 
 <style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap"); /* Poppins font */
+
+* {
+  font-family: "Poppins", sans-serif;
+}
 .tool-bar-custom {
   background-color: var(--ion-color-whale);
   height: 15%;
@@ -93,15 +138,13 @@ const { dataList } = useDataStore();
   margin-top: 20px;
 }
 
-
-
 .scroll-items::-webkit-scrollbar {
   display: none;
 }
 
 .add-goals-icon {
   animation: rotation 1s 2s linear;
-  margin-top: 5px;
+  margin-right: 10px;
 }
 
 ion-icon {
@@ -111,12 +154,11 @@ ion-icon {
 ion-item {
   --padding-bottom: 0px;
   --padding-top: 0px;
-  --padding-end: 0px;
-  --padding-start: 0px;
+  --padding-end: 5px;
+  --padding-start: 5px;
   --inner-padding-start: 0px;
   --inner-padding-end: 0px;
   --inner-padding-bottom: 0px;
-  /* --background: blue; */
   --inner-padding-top: 0px;
   --background: none !important;
 }
@@ -133,7 +175,14 @@ ion-toolbar {
 
 ion-button {
   --border-radius: 5px;
+}
 
+img {
+  z-index: 10;
+  border-radius: 5px;
+  object-fit: cover;
+  object-position: 50% 50%;
+  /* filter: brightness(70%); */
 }
 
 @keyframes rotation {

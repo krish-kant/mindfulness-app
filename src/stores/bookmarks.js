@@ -3,10 +3,10 @@ import { defineStore } from "pinia";
 export const useBookmarksStore = defineStore("bookmarks", {
   state: () => {
     return {
-      bookmarks: [
+      bookmarksList: [
         {
           id: 1,
-          title: "Service Bell",
+          title: "Yoga and Meditaion and its benefits",
           type: "Yoga",
           mediaUrl:
             "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
@@ -16,7 +16,7 @@ export const useBookmarksStore = defineStore("bookmarks", {
         },
         {
           id: 2,
-          title: "Meadowlark",
+          title: "Meadowlark is a AI generated song",
           type: "Sleep",
           mediaUrl:
             "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
@@ -26,7 +26,7 @@ export const useBookmarksStore = defineStore("bookmarks", {
         },
         {
           id: 3,
-          title: "Hyena Laughing",
+          title: "Dealing with chronic pain and stress after breakup",
           type: "Meditation",
           mediaUrl: "https://soundbible.com/mp3/hyena-laugh_daniel-simion.mp3",
           imageUrl:
@@ -35,7 +35,7 @@ export const useBookmarksStore = defineStore("bookmarks", {
         },
         {
           id: 4,
-          title: "Creepy Background",
+          title: "Sound helix is the source of this audio",
           type: "Breethe",
           mediaUrl:
             "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
@@ -45,7 +45,7 @@ export const useBookmarksStore = defineStore("bookmarks", {
         },
         {
           id: 5,
-          title: "Service Bell Service Bell ",
+          title: "Service Bell from sound helix",
           type: "Yoga",
           mediaUrl:
             "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",

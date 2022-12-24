@@ -17,7 +17,7 @@
         <ion-header>
           <ion-toolbar>
             <ion-title>
-              <ion-text style="color: white">Player</ion-text>
+              <h2 style="color: white">Player</h2>
             </ion-title>
             <ion-buttons slot="end">
               <ion-button @click="presentActionSheet"
@@ -228,6 +228,11 @@ const presentActionSheet = async () => {
 /********************************** CSS ***********************************/
 
 <style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap"); /* Poppins font */
+
+* {
+  font-family: "Poppins", sans-serif;
+}
 .button {
   color: var(--ion-color-dark);
   display: flex;

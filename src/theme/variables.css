@@ -1,6 +1,8 @@
 /* Ionic Variables and Theming. For more info, please see:
 http://ionicframework.com/docs/theming/ */
 
+
+/* @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap"); */
 /** Ionic CSS Variables **/
 :root {
   /** primary **/
@@ -78,12 +80,17 @@ http://ionicframework.com/docs/theming/ */
   /** Colors whale**/
 
   --ion-color-whale: #607aa0;
-    --ion-color-whale-light: #f7e6d3;
-    --ion-color-whale-gill: #687c9a;
-    --ion-color-whale-gill-1: #0b0d11;
-    --ion-color-whale-body: #758AA7;
-    --ion-color-whale-eye:#4f6381;
+  --ion-color-whale-light: #f7e6d3;
+  --ion-color-whale-gill: #687c9a;
+  --ion-color-whale-gill-1: #0b0d11;
+  --ion-color-whale-body: #758AA7;
+  --ion-color-whale-eye:#4f6381;
   
+
+    /* Poppins font */
+
+    /* font-family: "Poppins", sans-serif; */
+ 
 
 }
 

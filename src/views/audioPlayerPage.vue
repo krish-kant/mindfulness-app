@@ -18,7 +18,7 @@
         <ion-header>
           <ion-toolbar>
             <ion-title>
-              <ion-text style="color: white">Player</ion-text>
+              <h2 style="color: white">Player</h2>
             </ion-title>
             <ion-buttons slot="end">
               <ion-button @click="presentActionSheet"
@@ -47,10 +47,10 @@
               </div>
               <ion-item lines="none">
                 <ion-label class="ion-text-wrap">
-                  <ion-text class="heading">{{
-                    dataList[currentAudio].title
-                  }}</ion-text>
-                  <p>{{ dataList[currentAudio].type }}</p>
+                  <h2>{{ dataList[currentAudio].title }}</h2>
+                  <p style="font-weight: 600">
+                    {{ dataList[currentAudio].type }}
+                  </p>
                 </ion-label>
               </ion-item>
               <ion-badge color="medium">
@@ -62,10 +62,10 @@
             <ion-col size-sm="8">
               <ion-item lines="none">
                 <ion-label slot="start">
-                  <p>{{ currentTimeFormated }}</p>
+                  <p style="font-weight: 600">{{ currentTimeFormated }}</p>
                 </ion-label>
                 <ion-label slot="end">
-                  <p>{{ trackDurationFormated }}</p>
+                  <p style="font-weight: 600">{{ trackDurationFormated }}</p>
                 </ion-label>
               </ion-item>
               <input
@@ -163,7 +163,7 @@ export default defineComponent({
     IonCol,
     IonRow,
     IonLabel,
-    IonText,
+    // IonText,
     IonBadge,
     IonModal,
     IonButton,
@@ -402,6 +402,11 @@ export default defineComponent({
 </script>
 
 <style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap"); /* Poppins font */
+
+* {
+  font-family: "Poppins", sans-serif;
+}
 .button {
   color: var(--ion-color-dark);
   display: flex;

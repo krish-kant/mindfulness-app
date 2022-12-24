@@ -48,10 +48,10 @@
               </div>
               <ion-item lines="none">
                 <ion-label class="ion-text-wrap">
-                  <ion-text class="heading">{{
-                    dataList[currentSong].title
-                  }}</ion-text>
-                  <p>{{ dataList[currentSong].type }}</p>
+                  <h2>{{ dataList[currentSong].title }}</h2>
+                  <p style="font-weight: 600">
+                    {{ dataList[currentSong].type }}
+                  </p>
                 </ion-label>
               </ion-item>
               <ion-badge color="medium">
@@ -63,10 +63,10 @@
             <ion-col size-sm="8">
               <ion-item lines="none">
                 <ion-label slot="start">
-                  <p>{{ currentTimeFormated }}</p>
+                  <p style="font-weight: 600">{{ currentTimeFormated }}</p>
                 </ion-label>
                 <ion-label slot="end">
-                  <p>{{ trackDurationFormated }}</p>
+                  <p style="font-weight: 600">{{ trackDurationFormated }}</p>
                 </ion-label>
               </ion-item>
               <input

@@ -28,37 +28,87 @@
                   />
                 </svg>
               </ion-badge>
-              <ion-item lines="none">
+              <!-- <ion-item lines="none">
                 <ion-label class="ion-text-wrap item-heading">
-                  <ion-text class="heading">{{
-                    dataList[index].title
-                  }}</ion-text>
+                  <h2>{{ dataList[index].title }}</h2>
                   <p>
                     {{ dataList[index].duration }}
                     |
                     {{ dataList[index].type }}
                   </p>
                 </ion-label>
-              </ion-item>
+              </ion-item> -->
 
-              <button
-                @click="
-                  () =>
-                    router.push({
-                      path: `/tabs/audio-player/${dataList[index].title}`,
-                    })
+              <ion-card
+                no-padding
+                class="ion-no-margin"
+                style="
+                  margin-top: -50px;
+                  border-radius: 20px;
+                  border-bottom-right-radius: 0px;
+                  border-bottom-left-radius: 0px;
                 "
-                router-direction="none"
               >
-                <ion-icon :icon="play" />
-                Play
-              </button>
+                <ion-card-header>
+                  <ion-card-title style="font-size: large; z-index: 100">{{
+                    dataList[index].title
+                  }}</ion-card-title>
+                  <ion-card-subtitle>
+                    {{ dataList[index].duration }}
+                    |
+                    {{ dataList[index].type }}
+                  </ion-card-subtitle>
+                </ion-card-header>
+                <button
+                  @click="
+                    () =>
+                      router.push({
+                        path: `/tabs/audio-player/${dataList[index].title}`,
+                      })
+                  "
+                  router-direction="none"
+                >
+                  <ion-icon :icon="play" />
+                  Play
+                </button>
+                <ion-card-content>
+                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                  Molestiae sapiente porro nostrum soluta consectetur alias
+                  reiciendis ea, dolore debitis facilis quibusdam? Quibusdam
+                  assumenda iusto iste aperiam rerum ad, mollitia a. Lorem ipsum
+                  dolor, sit amet consectetur adipisicing elit. Impedit qui
+                  dolore iure tempora excepturi aliquam commodi, provident a
+                  quo. Eaque accusantium minima libero optio adipisci vel
+                  laudantium suscipit inventore saepe!
+                </ion-card-content>
+                <ion-item lines="none" class="ion-margin">
+                  <ion-button
+                    size="default"
+                    color="light"
+                    @click="
+                      () =>
+                        router.push({
+                          path: `/tabs/audio-player/${dataList[index].title}`,
+                        })
+                    "
+                  >
+                    <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
+                      <path
+                        fill="currentColor"
+                        d="M16 12C18.76 12 21 9.76 21 7S18.76 2 16 2 11 4.24 11 7 13.24 12 16 12M21.45 17.6C21.06 17.2 20.57 17 20 17H13L10.92 16.27L11.25 15.33L13 16H15.8C16.15 16 16.43 15.86 16.66 15.63S17 15.12 17 14.81C17 14.27 16.74 13.9 16.22 13.69L8.95 11H7V20L14 22L22.03 19C22.04 18.47 21.84 18 21.45 17.6M5 11H.984V22H5V11Z"
+                      />
+                    </svg>
+                    <ion-text color="medium">
+                      <p>Donate</p>
+                    </ion-text>
+                  </ion-button>
+                </ion-item>
+              </ion-card>
 
-              <div class="item-text">
+              <!-- <div class="item-text">
                 <ion-item lines="none">
                   <ion-label class="ion-text-wrap">
-                    <!-- <h1>{{ dataList[index].title }}</h1> -->
-                    <ion-text color="medium">
+                    <ion-text color="medium" style="font-size: medium">
                       Lorem, ipsum dolor sit amet consectetur adipisicing elit.
                       Molestiae sapiente porro nostrum soluta consectetur alias
                       reiciendis ea, dolore debitis facilis quibusdam? Quibusdam
@@ -70,29 +120,7 @@
                     </ion-text>
                   </ion-label>
                 </ion-item>
-              </div>
-              <ion-item lines="none" class="ion-margin">
-                <ion-button
-                  size="default"
-                  color="light"
-                  @click="
-                    () =>
-                      router.push({
-                        path: `/tabs/audio-player/${dataList[index].title}`,
-                      })
-                  "
-                >
-                  <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
-                    <path
-                      fill="currentColor"
-                      d="M16 12C18.76 12 21 9.76 21 7S18.76 2 16 2 11 4.24 11 7 13.24 12 16 12M21.45 17.6C21.06 17.2 20.57 17 20 17H13L10.92 16.27L11.25 15.33L13 16H15.8C16.15 16 16.43 15.86 16.66 15.63S17 15.12 17 14.81C17 14.27 16.74 13.9 16.22 13.69L8.95 11H7V20L14 22L22.03 19C22.04 18.47 21.84 18 21.45 17.6M5 11H.984V22H5V11Z"
-                    />
-                  </svg>
-                  <ion-text color="medium">
-                    <p>Donate</p>
-                  </ion-text>
-                </ion-button>
-              </ion-item>
+              </div> -->
             </div>
 
             <!-- <ion-item lines="none">
@@ -130,6 +158,11 @@ import {
   IonButtons,
   IonBackButton,
   IonText,
+  IonCard,
+  IonCardHeader,
+  IonCardSubtitle,
+  IonCardTitle,
+  IonCardContent,
 } from "@ionic/vue";
 import { play } from "ionicons/icons";
 import { ref, onMounted } from "vue";
@@ -180,11 +213,39 @@ const getUrlQueryParams = async () => {
 </script>
 
 <style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap"); /* Poppins font */
+
+* {
+  font-family: "Poppins", sans-serif;
+}
+
+/* iOS places the subtitle above the title */
+ion-card-header.ios {
+  display: flex;
+  flex-flow: column-reverse;
+}
+
+ion-card {
+  position: relative;
+  animation: animateDiv 0.5s 1;
+  animation-direction: alternate;
+}
+@keyframes animateDiv {
+  0% {
+    bottom: 0px;
+    top: 200px;
+  }
+  100% {
+    bottom: 200px;
+    top: 0px;
+  }
+}
+
 img {
   overflow: hidden;
   z-index: 10;
   width: 100%;
-  height: 350px;
+  height: 700px;
   object-fit: cover;
   object-position: 50% 50%;
   /* filter: brightness(70%); */
@@ -195,7 +256,7 @@ img {
     overflow: hidden;
     z-index: 10;
     width: 100%;
-    height: 300px;
+    height: 400px;
     object-fit: cover;
     object-position: 50% 50%;
     /* filter: brightness(70%); */
