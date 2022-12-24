@@ -1,10 +1,8 @@
 <template>
   <ion-page>
-    <ion-header>
-      <ion-toolbar mode="ios">
-        <!-- <ion-title>Profile</ion-title> -->
-      </ion-toolbar>
-    </ion-header>
+    <div id="toolbar" class="tool-bar-custom">
+
+    </div>
     <ion-content>
       <ion-header>
         <!-- <ion-toolbar>
@@ -46,7 +44,23 @@ import {
 </script>
 
 <style scoped>
-ion-toolbar {
-  --background: #607AA0
+.tool-bar-custom {
+  background-color: var(--ion-color-whale);
+  height: 15%;
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+@media (prefers-color-scheme: dark) {
+  #toolbar {
+    --ion-color-whale: #0a1629;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  .tool-bar-custom {
+    justify-content: center;
+  }
+
 }
 </style>
