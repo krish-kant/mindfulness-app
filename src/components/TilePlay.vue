@@ -37,14 +37,7 @@
           </ion-label>
           <!-- <ion-icon :icon="bookmarkOutline" /> -->
           <svg
-            style="
-              width: 28px;
-              height: 28px;
-              cursor: pointer;
-              margin-top: 25px;
-              margin-left: 2px;
-              color: gray;
-            "
+            style="width: 25px; height: 25px; cursor: pointer; color: gray"
             viewBox="0 0 24 24"
           >
             <path
@@ -63,9 +56,11 @@
           </ion-badge>
         </div>
         <div class="item-type">
-          <ion-badge color="secondary">
+          {{ musicPlaylist[index].type }}
+
+          <!-- <ion-badge color="secondary">
             {{ musicPlaylist[index].type }}</ion-badge
-          >
+          > -->
         </div>
         <div class="play-item-bg"></div>
 
@@ -197,9 +192,14 @@ ion-grid {
 
 .item-type {
   position: absolute;
-  left: 5px;
+  left: 3px;
   top: 20px;
   z-index: 10;
+  background-color: var(--ion-color-secondary);
+  border-radius: 2px;
+  padding: 0 5px;
+  font-size: small;
+  color: var(--ion-color-dark);
 }
 
 .play-item {

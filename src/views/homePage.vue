@@ -175,16 +175,6 @@ ion-item {
   --inner-padding-top: 0px;
 }
 
-.heading {
-  font-size: large;
-  font-weight: 500;
-}
-
-.heading-name {
-  font-size: x-large;
-  font-weight: 600;
-}
-
 .card {
   position: relative;
   height: 15%;

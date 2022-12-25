@@ -1,6 +1,6 @@
 <template>
   <ion-page>
-    <ion-header class="ion-no-border">
+    <ion-header>
       <ion-toolbar>
         <ion-buttons slot="start" style="color: white">
           <ion-back-button mode="md" defaultHref="/tabs/home"></ion-back-button>
@@ -8,137 +8,94 @@
       </ion-toolbar>
     </ion-header>
     <ion-content>
-      <ion-grid>
+      <!-- <ion-grid>
         <ion-row class="ion-justify-content-center">
-          <ion-col size-lg="8" class="ion-align-self-center">
-            <div v-if="dataLoaded">
-              <img
-                alt="Silhouette of mountains"
-                :src="dataList[index].imageUrl"
-              />
-              <ion-badge color="light" class="share-item">
-                <svg
-                  @click="shareLink"
-                  style="width: 24px; height: 24px"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    fill="currentColor"
-                    d="M12,1L8,5H11V14H13V5H16M18,23H6C4.89,23 4,22.1 4,21V9A2,2 0 0,1 6,7H9V9H6V21H18V9H15V7H18A2,2 0 0,1 20,9V21A2,2 0 0,1 18,23Z"
-                  />
-                </svg>
-              </ion-badge>
-              <!-- <ion-item lines="none">
-                <ion-label class="ion-text-wrap item-heading">
-                  <h2>{{ dataList[index].title }}</h2>
-                  <p>
-                    {{ dataList[index].duration }}
-                    |
-                    {{ dataList[index].type }}
-                  </p>
-                </ion-label>
-              </ion-item> -->
+          <ion-col class="ion-align-self-center"> -->
+      <div v-if="dataLoaded">
+        <img alt="Silhouette of mountains" :src="dataList[index].imageUrl" />
+        <ion-badge color="light" class="share-item">
+          <svg
+            @click="shareLink"
+            style="width: 24px; height: 24px"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="M12,1L8,5H11V14H13V5H16M18,23H6C4.89,23 4,22.1 4,21V9A2,2 0 0,1 6,7H9V9H6V21H18V9H15V7H18A2,2 0 0,1 20,9V21A2,2 0 0,1 18,23Z"
+            />
+          </svg>
+        </ion-badge>
 
-              <ion-card
-                no-padding
-                class="ion-no-margin"
-                style="
-                  margin-top: -50px;
-                  border-radius: 20px;
-                  border-bottom-right-radius: 0px;
-                  border-bottom-left-radius: 0px;
-                "
-              >
-                <ion-card-header>
-                  <ion-card-title style="font-size: large">{{
-                    dataList[index].title
-                  }}</ion-card-title>
-                  <ion-card-subtitle>
-                    {{ dataList[index].duration }}
-                    |
-                    {{ dataList[index].type }}
-                  </ion-card-subtitle>
-                </ion-card-header>
-                <button
-                  @click="
-                    () =>
-                      router.push({
-                        path: `/tabs/audio-player/${dataList[index].title}`,
-                      })
-                  "
-                  router-direction="none"
-                >
-                  <ion-icon :icon="play" />
-                  Play
-                </button>
-                <ion-card-content>
-                  Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                  Molestiae sapiente porro nostrum soluta consectetur alias
-                  reiciendis ea, dolore debitis facilis quibusdam? Quibusdam
-                  assumenda iusto iste aperiam rerum ad, mollitia a. Lorem ipsum
-                  dolor, sit amet consectetur adipisicing elit. Impedit qui
-                  dolore iure tempora excepturi aliquam commodi, provident a
-                  quo. Eaque accusantium minima libero optio adipisci vel
-                  laudantium suscipit inventore saepe!
-                </ion-card-content>
-                <ion-item lines="none" class="ion-margin">
-                  <ion-button
-                    size="default"
-                    color="light"
-                    @click="
-                      () =>
-                        router.push({
-                          path: `/tabs/audio-player/${dataList[index].title}`,
-                        })
-                    "
-                  >
-                    <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
-                      <path
-                        fill="currentColor"
-                        d="M16 12C18.76 12 21 9.76 21 7S18.76 2 16 2 11 4.24 11 7 13.24 12 16 12M21.45 17.6C21.06 17.2 20.57 17 20 17H13L10.92 16.27L11.25 15.33L13 16H15.8C16.15 16 16.43 15.86 16.66 15.63S17 15.12 17 14.81C17 14.27 16.74 13.9 16.22 13.69L8.95 11H7V20L14 22L22.03 19C22.04 18.47 21.84 18 21.45 17.6M5 11H.984V22H5V11Z"
-                      />
-                    </svg>
-                    <ion-text color="medium">
-                      <p>Donate</p>
-                    </ion-text>
-                  </ion-button>
-                </ion-item>
-              </ion-card>
+        <ion-card
+          class="ion-no-margin ion-no-padding"
+          style="
+            margin-top: -50px;
+            border-radius: 20px;
+            border-bottom-right-radius: 0px;
+            border-bottom-left-radius: 0px;
+          "
+        >
+          <ion-card-header>
+            <ion-card-title style="font-size: large">{{
+              dataList[index].title
+            }}</ion-card-title>
+            <ion-card-subtitle>
+              {{ dataList[index].duration }}
+              |
+              {{ dataList[index].type }}
+            </ion-card-subtitle>
+          </ion-card-header>
+          <button
+            @click="
+              () =>
+                router.push({
+                  path: `/tabs/audio-player/${dataList[index].title}`,
+                })
+            "
+            router-direction="none"
+          >
+            <ion-icon :icon="play" />
+            <ion-text style="margin-left: 5px">Play</ion-text>
+          </button>
+          <ion-card-content style="font-size: small; line-height: 1.7em">
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae
+            sapiente porro nostrum soluta consectetur alias reiciendis ea,
+            dolore debitis facilis quibusdam? Quibusdam assumenda iusto iste
+            aperiam rerum ad, mollitia a. Lorem ipsum dolor, sit amet
+            consectetur adipisicing elit. Impedit qui dolore iure tempora
+            excepturi aliquam commodi, provident a quo. Eaque accusantium minima
+            libero optio adipisci vel laudantium suscipit inventore saepe!
+          </ion-card-content>
+          <!-- <ion-item lines="none" class="ion-margin">
+            <ion-button
+              size="default"
+              color="light"
+              @click="
+                () =>
+                  router.push({
+                    path: `/tabs/audio-player/${dataList[index].title}`,
+                  })
+              "
+            >
+              <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
+                <path
+                  fill="currentColor"
+                  d="M16 12C18.76 12 21 9.76 21 7S18.76 2 16 2 11 4.24 11 7 13.24 12 16 12M21.45 17.6C21.06 17.2 20.57 17 20 17H13L10.92 16.27L11.25 15.33L13 16H15.8C16.15 16 16.43 15.86 16.66 15.63S17 15.12 17 14.81C17 14.27 16.74 13.9 16.22 13.69L8.95 11H7V20L14 22L22.03 19C22.04 18.47 21.84 18 21.45 17.6M5 11H.984V22H5V11Z"
+                />
+              </svg>
+              <ion-text color="medium">
+                <p>Donate</p>
+              </ion-text>
+            </ion-button>
+          </ion-item> -->
 
-              <!-- <div class="item-text">
-                <ion-item lines="none">
-                  <ion-label class="ion-text-wrap">
-                    <ion-text color="medium" style="font-size: medium">
-                      Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                      Molestiae sapiente porro nostrum soluta consectetur alias
-                      reiciendis ea, dolore debitis facilis quibusdam? Quibusdam
-                      assumenda iusto iste aperiam rerum ad, mollitia a. Lorem
-                      ipsum dolor, sit amet consectetur adipisicing elit.
-                      Impedit qui dolore iure tempora excepturi aliquam commodi,
-                      provident a quo. Eaque accusantium minima libero optio
-                      adipisci vel laudantium suscipit inventore saepe!
-                    </ion-text>
-                  </ion-label>
-                </ion-item>
-              </div> -->
-            </div>
+          <ion-item lines="none">
+            <h3 style="font-size: large; margin-left: 16px">Related Items</h3>
+          </ion-item>
 
-            <!-- <ion-item lines="none">
-              <ion-label class="ion-text-wrap">
-                <p>{{ dataList[index].duration }}</p>
-                <h3>{{ dataList[index].title }}</h3>
-              </ion-label>
-              <ion-icon :icon="bookmarkOutline" />
-            </ion-item> -->
-
-            <!-- <div class="item-type">
-              <ion-badge color="secondary">
-                {{ dataList[index].type }}</ion-badge
-              >
-            </div> -->
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+          <TilePlay :musicPlaylist="dataList" />
+        </ion-card>
+      </div>
     </ion-content>
   </ion-page>
 </template>
@@ -164,6 +121,9 @@ import {
   IonCardTitle,
   IonCardContent,
 } from "@ionic/vue";
+
+import TilePlay from "@/components/TilePlay.vue";
+
 import { play } from "ionicons/icons";
 import { ref, onMounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
@@ -227,10 +187,11 @@ ion-card-header.ios {
 
 ion-card {
   position: relative;
-  animation: animateDiv 0.5s 1;
+  animation: animateCard 0.5s 1;
   animation-direction: alternate;
+  box-shadow: none !important;
 }
-@keyframes animateDiv {
+@keyframes animateCard {
   0% {
     bottom: 0px;
     top: 200px;
@@ -245,38 +206,26 @@ img {
   overflow: hidden;
   z-index: 10;
   width: 100%;
-  height: 600px;
+  height: 350px;
   object-fit: cover;
   object-position: 50% 50%;
   /* filter: brightness(70%); */
 }
 
-@media only screen and (max-width: 600px) {
-  img {
-    overflow: hidden;
-    z-index: 10;
-    width: 100%;
-    height: 400px;
-    object-fit: cover;
-    object-position: 50% 50%;
-    /* filter: brightness(70%); */
-  }
-}
-
 ion-item {
   --padding-bottom: 0px;
   --padding-top: 0px;
-  --padding-end: 0px;
-  --padding-start: 0px;
+  --padding-end: 5px;
+  --padding-start: 5px;
   --inner-padding-start: 0px;
   --inner-padding-end: 0px;
   --inner-padding-bottom: 0px;
-  --background: none;
   --inner-padding-top: 0px;
+  --background: none !important;
 }
 
 ion-grid {
-  --ion-grid-column-padding: 0px;
+  /* --ion-grid-column-padding: 0px; */
   --ion-grid-padding: 0px;
 }
 
@@ -316,24 +265,12 @@ ion-button {
 button {
   display: flex;
   justify-content: center;
-  width: 70%;
+  width: 80%;
   margin: 20px auto;
   padding: 15px;
   border-radius: 10px;
   background-color: var(--ion-color-whale);
   font-size: large;
   color: white;
-}
-
-.item-text {
-  margin: 0px 20px;
-}
-
-.item-heading {
-  margin: 0px 10px;
-}
-
-.heading {
-  font-size: medium;
 }
 </style>
