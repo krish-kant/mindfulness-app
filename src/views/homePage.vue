@@ -94,35 +94,27 @@
 
     <ion-content>
       <ion-item lines="none" class="ion-margin-top">
-        <h2 style="font-weight: 600">Hi Krishna</h2>
+        <h2>Hi Krishna</h2>
       </ion-item>
       <NavItems />
 
       <ion-item lines="none">
-        <ion-text style="font-weight: 800; font-size: large"
-          >Recently Played</ion-text
-        >
+        <h3 style="font-size: large">Recently Played</h3>
       </ion-item>
       <TileRecent :musicPlaylist="dataList" />
 
       <ion-item lines="none">
-        <ion-text style="font-weight: 800; font-size: large"
-          >Recently Played</ion-text
-        >
+        <h3 style="font-size: large">Recently Played</h3>
       </ion-item>
       <TileRecent :musicPlaylist="dataList" />
 
       <ion-item lines="none">
-        <ion-text style="font-weight: 800; font-size: large"
-          >Top Rated</ion-text
-        >
+        <h3 style="font-size: large">Top Rated</h3>
       </ion-item>
       <TilePlay :musicPlaylist="dataList" />
 
       <ion-item lines="none">
-        <ion-text style="font-weight: 800; font-size: large"
-          >Top Rated</ion-text
-        >
+        <h3 style="font-size: large">Top Rated</h3>
       </ion-item>
       <TilePlay :musicPlaylist="dataList" />
     </ion-content>
@@ -155,7 +147,7 @@ const hapticsImpactLight = async () => {
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap"); /* Poppins font */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap"); /* Poppins font */
 
 * {
   font-family: "Poppins", sans-serif;

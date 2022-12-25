@@ -50,7 +50,7 @@
                 "
               >
                 <ion-card-header>
-                  <ion-card-title style="font-size: large; z-index: 100">{{
+                  <ion-card-title style="font-size: large">{{
                     dataList[index].title
                   }}</ion-card-title>
                   <ion-card-subtitle>
@@ -213,7 +213,7 @@ const getUrlQueryParams = async () => {
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap"); /* Poppins font */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap"); /* Poppins font */
 
 * {
   font-family: "Poppins", sans-serif;
@@ -245,7 +245,7 @@ img {
   overflow: hidden;
   z-index: 10;
   width: 100%;
-  height: 700px;
+  height: 600px;
   object-fit: cover;
   object-position: 50% 50%;
   /* filter: brightness(70%); */

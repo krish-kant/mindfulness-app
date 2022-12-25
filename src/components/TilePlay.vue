@@ -37,7 +37,13 @@
           </ion-label>
           <!-- <ion-icon :icon="bookmarkOutline" /> -->
           <svg
-            style="width: 24px; height: 24px; cursor: pointer"
+            style="
+              width: 24px;
+              height: 24px;
+              cursor: pointer;
+              margin-top: 25px;
+              margin-left: 2px;
+            "
             viewBox="0 0 24 24"
           >
             <path
@@ -136,7 +142,7 @@ const playItem = function (index) {
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap"); /* Poppins font */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap"); /* Poppins font */
 
 * {
   font-family: "Poppins", sans-serif;

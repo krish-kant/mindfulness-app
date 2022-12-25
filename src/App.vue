@@ -9,7 +9,7 @@ import { IonApp, IonRouterOutlet } from "@ionic/vue";
 </script>
 
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap"); /* Poppins font */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap"); /* Poppins font */
 
 ion-app {
   max-width: 1200px;

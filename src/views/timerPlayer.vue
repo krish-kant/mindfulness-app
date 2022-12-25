@@ -24,16 +24,6 @@
   </div>
 </template>
 
-<style>
-.loading {
-  display: inline-block;
-  border: none;
-  background-color: transparent;
-  color: #333;
-  font-size: 14px;
-}
-</style>
-
 <script setup>
 import { ref, onMounted } from "vue";
 
@@ -96,9 +86,17 @@ onMounted(() => {
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap"); /* Poppins font */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap"); /* Poppins font */
 
 * {
   font-family: "Poppins", sans-serif;
+}
+
+.loading {
+  display: inline-block;
+  border: none;
+  background-color: transparent;
+  color: #333;
+  font-size: 14px;
 }
 </style>

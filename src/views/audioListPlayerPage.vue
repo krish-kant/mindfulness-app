@@ -49,7 +49,7 @@
               <ion-item lines="none">
                 <ion-label class="ion-text-wrap">
                   <h2>{{ dataList[currentSong].title }}</h2>
-                  <p style="font-weight: 600">
+                  <p>
                     {{ dataList[currentSong].type }}
                   </p>
                 </ion-label>
@@ -63,10 +63,10 @@
             <ion-col size-sm="8">
               <ion-item lines="none">
                 <ion-label slot="start">
-                  <p style="font-weight: 600">{{ currentTimeFormated }}</p>
+                  <p>{{ currentTimeFormated }}</p>
                 </ion-label>
                 <ion-label slot="end">
-                  <p style="font-weight: 600">{{ trackDurationFormated }}</p>
+                  <p>{{ trackDurationFormated }}</p>
                 </ion-label>
               </ion-item>
               <input
@@ -483,6 +483,11 @@ export default defineComponent({
 </script>
 
 <style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap"); /* Poppins font */
+
+* {
+  font-family: "Poppins", sans-serif;
+}
 .button {
   color: var(--ion-color-dark);
   display: flex;
