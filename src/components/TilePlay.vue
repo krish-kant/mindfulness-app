@@ -38,11 +38,12 @@
           <!-- <ion-icon :icon="bookmarkOutline" /> -->
           <svg
             style="
-              width: 24px;
-              height: 24px;
+              width: 28px;
+              height: 28px;
               cursor: pointer;
               margin-top: 25px;
               margin-left: 2px;
+              color: gray;
             "
             viewBox="0 0 24 24"
           >
