@@ -18,7 +18,7 @@
         <ion-header>
           <ion-toolbar>
             <ion-title>
-              <h2 style="color: white">Player</h2>
+              <ion-text style="color: white"></ion-text>
             </ion-title>
             <ion-buttons slot="end">
               <ion-button @click="presentActionSheet"
@@ -219,7 +219,7 @@ export default defineComponent({
       presentingElement: null,
       overlay: "",
       overlayInterval: null,
-      overlayTimer: 15000,
+      overlayTimer: 10000,
     };
   },
 
@@ -229,8 +229,8 @@ export default defineComponent({
     this.getUrlQueryParams();
     this.changeSong();
     this.audio.loop = false;
-    this.audio.addEventListener("waiting", this.handleWaiting);
-    this.audio.addEventListener("playing", this.handlePlaying);
+    // this.audio.addEventListener("waiting", this.handleWaiting);
+    // this.audio.addEventListener("playing", this.handlePlaying);
     clearInterval(this.overlayInterval);
   },
 
@@ -239,13 +239,13 @@ export default defineComponent({
       await Haptics.impact({ style: ImpactStyle.Light });
     },
 
-    on: function () {
-      this.overlay = "block";
-    },
+    // on: function () {
+    //   this.overlay = "block";
+    // },
 
-    off: function () {
-      this.overlay = "none";
-    },
+    // off: function () {
+    //   this.overlay = "none";
+    // },
 
     presentActionSheet: async function () {
       const actionSheet = await actionSheetController.create({
@@ -386,6 +386,8 @@ export default defineComponent({
       if (wasPlaying && this.currentlyStopped) {
         this.playAudio();
       }
+      this.audio.addEventListener("waiting", this.handleWaiting);
+      this.audio.addEventListener("playing", this.handlePlaying);
     },
     iscurrentAudio: function (index) {
       if (this.currentAudio == index) {
@@ -465,6 +467,11 @@ export default defineComponent({
     currentTime: function () {
       this.currentTime = Math.round(this.currentTime);
       this.value = this.currentTime;
+      if (this.trackDuration - this.currentTime <= 1) {
+        setTimeout(() => {
+          this.overlay = "none";
+        }, 1100);
+      }
     },
     value: function () {
       this.currentTime = this.value;
@@ -474,6 +481,7 @@ export default defineComponent({
   beforeUnmount: function () {
     this.audio.removeEventListener("ended", this.handleEnded);
     this.audio.removeEventListener("loadedmetadata", this.handleEnded);
+    clearInterval(this.overlayInterval);
     clearTimeout(this.checkingCurrentPositionInTrack);
   },
 });
@@ -608,7 +616,7 @@ code {
   top: 20%;
   left: 50%;
   font-size: 50px;
-  color: #fffffff3;
+  color: white;
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
 }

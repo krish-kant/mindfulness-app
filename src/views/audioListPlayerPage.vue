@@ -19,7 +19,7 @@
         <ion-header>
           <ion-toolbar>
             <ion-title>
-              <ion-text style="color: white">Player</ion-text>
+              <ion-text style="color: white"></ion-text>
             </ion-title>
             <ion-buttons slot="end">
               <ion-button @click="presentActionSheet"
@@ -32,6 +32,16 @@
             </ion-buttons>
           </ion-toolbar>
         </ion-header>
+        <div
+          id="overlay"
+          v-on:click="overlay = 'none'"
+          :style="{ display: overlay }"
+        >
+          <div id="text">
+            {{ trackDurationRemaining }}
+          </div>
+        </div>
+
         <ion-grid class="audioPlayerUI ion-margin-start ion-margin-end">
           <ion-row
             class="ion-align-items-center ion-justify-content-center first-row-grid-1 ion-margin-bottom"
@@ -239,6 +249,9 @@ export default defineComponent({
       audioBuffering: false,
       params: "",
       presentingElement: null,
+      overlay: "",
+      overlayInterval: null,
+      overlayTimer: 10000,
     };
   },
 
@@ -248,8 +261,9 @@ export default defineComponent({
     this.getUrlQueryParams();
     this.changeSong();
     this.audio.loop = false;
-    this.audio.addEventListener("waiting", this.handleWaiting);
-    this.audio.addEventListener("playing", this.handlePlaying);
+    // this.audio.addEventListener("waiting", this.handleWaiting);
+    // this.audio.addEventListener("playing", this.handlePlaying);
+    clearInterval(this.overlayInterval);
   },
 
   methods: {
@@ -310,15 +324,30 @@ export default defineComponent({
 
     handleWaiting: function () {
       this.audioBuffering = true;
+      clearInterval(this.overlayInterval);
+      console.log("handleWaiting activated");
     },
 
     handlePlaying: function () {
+      this.currentlyPlaying = true;
+      clearInterval(this.overlayInterval);
       this.audioBuffering = false;
+      this.overlayInterval = setInterval(() => {
+        this.overlay = "block";
+      }, this.overlayTimer);
+      console.log("handlePlaying activated");
     },
 
     skipTrack: function () {
-      this.audio.currentTime = this.value;
+      clearInterval(this.overlayInterval);
       this.hapticsImpactLight();
+      this.audio.currentTime = this.value;
+      if (this.currentlyPlaying == true) {
+        this.overlayInterval = setInterval(() => {
+          this.overlay = "block";
+        }, this.overlayTimer);
+      }
+      console.log("skipTrack activated");
     },
 
     togglePlaylist: function () {
@@ -327,23 +356,33 @@ export default defineComponent({
 
     nextSong: function () {
       this.hapticsImpactLight();
+      this.stopAudio();
       if (this.currentSong < this.dataList.length - 1) {
         this.changeSong(this.currentSong + 1);
         this.value = 0;
         this.currentTime = 0;
       }
+      clearInterval(this.overlayInterval);
     },
 
     prevSong: function () {
       this.hapticsImpactLight();
+      this.stopAudio();
       if (this.currentSong > 0) {
         this.changeSong(this.currentSong - 1);
         this.value = 0;
         this.currentTime = 0;
       }
+      clearInterval(this.overlayInterval);
     },
 
     prevSkip: function () {
+      clearInterval(this.overlayInterval);
+      if (this.currentlyPlaying == true) {
+        this.overlayInterval = setInterval(() => {
+          this.overlay = "block";
+        }, this.overlayTimer);
+      }
       this.hapticsImpactLight();
       this.value -= 30;
       this.audio.currentTime = this.value;
@@ -354,6 +393,12 @@ export default defineComponent({
     },
 
     nextSkip: function () {
+      clearInterval(this.overlayInterval);
+      if (this.currentlyPlaying == true) {
+        this.overlayInterval = setInterval(() => {
+          this.overlay = "block";
+        }, this.overlayTimer);
+      }
       this.hapticsImpactLight();
       this.value += 30;
       this.audio.currentTime = this.value;
@@ -390,6 +435,8 @@ export default defineComponent({
       if (wasPlaying) {
         this.playAudio();
       }
+      this.audio.addEventListener("waiting", this.handleWaiting);
+      this.audio.addEventListener("playing", this.handlePlaying);
     },
 
     isCurrentSong: function (index) {
@@ -413,28 +460,42 @@ export default defineComponent({
       if (!this.currentlyPlaying) {
         this.getCurrentTimeEverySecond(true);
         this.currentlyPlaying = true;
+        // this.changeSong();
         this.audio.play();
       } else {
         this.stopAudio();
       }
       this.currentlyStopped = false;
     },
+
     stopAudio: function () {
       this.audio.pause();
       this.currentlyPlaying = false;
       this.pausedMusic();
+      clearInterval(this.overlayInterval);
     },
+
     handleEnded: function () {
       this.audioBuffering = false;
+      clearInterval(this.overlayInterval);
       if (this.currentSong + 1 == this.dataList.length) {
         this.stopAudio();
         this.currentlyPlaying = false;
         this.currentlyStopped = true;
+        this.value = 0;
+        this.audioBuffering = false;
+        this.currentTime = 0;
       } else {
         this.currentlyPlaying = false;
-        this.currentSong++;
-        this.changeSong();
-        this.playAudio();
+        // this.currentSong++;
+        // this.changeSong();
+        // this.playAudio();
+        this.stopAudio();
+        this.currentlyPlaying = false;
+        this.currentlyStopped = true;
+        this.value = 0;
+        this.audioBuffering = false;
+        this.currentTime = 0;
       }
     },
     onImageLoaded: function () {
@@ -468,17 +529,34 @@ export default defineComponent({
     trackDurationFormated() {
       return this.fancyTimeFormat(this.trackDuration);
     },
+    trackDurationRemaining() {
+      let timeRemaining = this.trackDuration - this.currentTime;
+      if (
+        timeRemaining < 0 ||
+        this.currentTime < 0 ||
+        timeRemaining == this.trackDuration
+      )
+        timeRemaining = 0;
+      return this.fancyTimeFormat(timeRemaining);
+    },
   },
   watch: {
     currentTime: function () {
       this.currentTime = Math.round(this.currentTime);
+      this.trackDuration = Math.round(this.trackDuration);
       this.value = this.currentTime;
       if (this.currentTime >= this.trackDuration) {
         this.stopAudio();
         this.value = 0;
         this.currentTimeFormated = 0;
       }
+      if (this.trackDuration - this.currentTime <= 1) {
+        setTimeout(() => {
+          this.overlay = "none";
+        }, 1100);
+      }
     },
+
     value: function () {
       this.currentTime = this.value;
     },
@@ -487,7 +565,7 @@ export default defineComponent({
   beforeUnmount: function () {
     this.audio.removeEventListener("ended", this.handleEnded);
     this.audio.removeEventListener("loadedmetadata", this.handleEnded);
-
+    clearInterval(this.overlayInterval);
     clearTimeout(this.checkingCurrentPositionInTrack);
   },
 });
@@ -600,6 +678,35 @@ code {
 @media only screen and (min-width: 600px) {
   ion-modal {
     --height: 80%;
+  }
+}
+#overlay {
+  position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
+  top: 55px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #000000d2;
+  z-index: 100;
+  cursor: pointer;
+}
+
+#text {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  font-size: 50px;
+  color: white;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+}
+
+@media only screen and (max-width: 600px) {
+  #text {
+    top: 18%;
   }
 }
 </style>
