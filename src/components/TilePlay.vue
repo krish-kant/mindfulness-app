@@ -199,7 +199,7 @@ ion-grid {
   border-radius: 2px;
   padding: 0 5px;
   font-size: small;
-  color: var(--ion-color-dark);
+  color: white;
 }
 
 .play-item {

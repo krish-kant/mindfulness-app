@@ -125,7 +125,7 @@ import {
 import TilePlay from "@/components/TilePlay.vue";
 
 import { play } from "ionicons/icons";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 import { useRouter, useRoute } from "vue-router";
 
 import { Share } from "@capacitor/share";
@@ -170,6 +170,16 @@ const getUrlQueryParams = async () => {
   index = dataList.findIndex((item) => item.title === title.value);
   console.log(dataList.findIndex((item) => item.title === title.value));
 };
+
+watch(
+  () => route.params.title,
+  () => {
+    if (route.params.title === title.value) {
+      window.location.reload();
+      window.scrollTo(0, 0);
+    }
+  }
+);
 </script>
 
 <style scoped>
@@ -272,5 +282,9 @@ button {
   background-color: var(--ion-color-whale);
   font-size: large;
   color: white;
+}
+
+button:active {
+  transform: scale(0.98);
 }
 </style>

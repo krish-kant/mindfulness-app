@@ -31,6 +31,17 @@
             </ion-buttons>
           </ion-toolbar>
         </ion-header>
+
+        <div
+          id="overlay"
+          v-on:click="overlay = 'none'"
+          :style="{ display: overlay }"
+        >
+          <div id="text">
+            {{ trackDurationRemaining }}
+          </div>
+        </div>
+
         <ion-grid class="audioPlayerUI ion-margin-start ion-margin-end">
           <ion-row
             class="ion-align-items-center ion-justify-content-center first-row-grid-1 ion-margin-bottom"
@@ -105,6 +116,15 @@
                 <a class="button" title="Next Song" slot="end">
                   <cards-heart-outline-icon :size="40" />
                 </a>
+                <!-- <div
+                  id="overlay"
+                  v-on:click="overlay = 'none'"
+                  :style="{ display: overlay }"
+                >
+                  <div id="text">
+                    {{ trackDurationRemaining }}
+                  </div>
+                </div> -->
               </div>
             </ion-col>
           </ion-row>
@@ -144,6 +164,7 @@ import FastForward30Icon from "vue-material-design-icons/FastForward30.vue";
 import Rewind30Icon from "vue-material-design-icons/Rewind30.vue";
 import { useDataStore } from "@/stores/data";
 import { useRouter } from "vue-router";
+import { Haptics, ImpactStyle } from "@capacitor/haptics";
 
 const data = useDataStore();
 const router = useRouter();
@@ -196,6 +217,9 @@ export default defineComponent({
       audioBuffering: false,
       params: "",
       presentingElement: null,
+      overlay: "",
+      overlayInterval: null,
+      overlayTimer: 15000,
     };
   },
 
@@ -207,9 +231,22 @@ export default defineComponent({
     this.audio.loop = false;
     this.audio.addEventListener("waiting", this.handleWaiting);
     this.audio.addEventListener("playing", this.handlePlaying);
+    clearInterval(this.overlayInterval);
   },
 
   methods: {
+    hapticsImpactLight: async () => {
+      await Haptics.impact({ style: ImpactStyle.Light });
+    },
+
+    on: function () {
+      this.overlay = "block";
+    },
+
+    off: function () {
+      this.overlay = "none";
+    },
+
     presentActionSheet: async function () {
       const actionSheet = await actionSheetController.create({
         header: "Mark as complete for progress?",
@@ -263,14 +300,27 @@ export default defineComponent({
 
     handleWaiting: function () {
       this.audioBuffering = true;
+      clearInterval(this.overlayInterval);
     },
 
     handlePlaying: function () {
+      this.currentlyPlaying = true;
+      clearInterval(this.overlayInterval);
       this.audioBuffering = false;
+      this.overlayInterval = setInterval(() => {
+        this.overlay = "block";
+      }, this.overlayTimer);
     },
 
     skipTrack: function () {
+      clearInterval(this.overlayInterval);
+      this.hapticsImpactLight();
       this.audio.currentTime = this.value;
+      if (this.currentlyPlaying == true) {
+        this.overlayInterval = setInterval(() => {
+          this.overlay = "block";
+        }, this.overlayTimer);
+      }
     },
 
     togglePlaylist: function () {
@@ -278,6 +328,13 @@ export default defineComponent({
     },
 
     prevSkip: function () {
+      clearInterval(this.overlayInterval);
+      if (this.currentlyPlaying == true) {
+        this.overlayInterval = setInterval(() => {
+          this.overlay = "block";
+        }, this.overlayTimer);
+      }
+      this.hapticsImpactLight();
       this.value -= 30;
       this.audio.currentTime = this.value;
       if (this.audio.currentTime < 0) {
@@ -287,6 +344,13 @@ export default defineComponent({
     },
 
     nextSkip: function () {
+      clearInterval(this.overlayInterval);
+      if (this.currentlyPlaying == true) {
+        this.overlayInterval = setInterval(() => {
+          this.overlay = "block";
+        }, this.overlayTimer);
+      }
+      this.hapticsImpactLight();
       this.value += 30;
       this.audio.currentTime = this.value;
       if (this.audio.currentTime >= this.audio.duration) {
@@ -300,6 +364,7 @@ export default defineComponent({
     },
 
     changeSong: function () {
+      clearInterval(this.overlayInterval);
       var wasPlaying = this.currentlyPlaying;
       this.imageLoaded = false;
       this.title = this.dataList.filter(
@@ -332,6 +397,7 @@ export default defineComponent({
       return this.dataList[currentAudio].mediaUrl;
     },
     playAudio: function () {
+      this.hapticsImpactLight();
       if (!this.currentlyPlaying) {
         this.getCurrentTimeEverySecond(true);
         this.currentlyPlaying = true;
@@ -345,11 +411,13 @@ export default defineComponent({
       this.audio.pause();
       this.currentlyPlaying = false;
       this.pausedMusic();
+      clearInterval(this.overlayInterval);
     },
     handleEnded: function () {
       this.stopAudio();
       this.value = 0;
       this.audioBuffering = false;
+      clearInterval(this.overlayInterval);
     },
     onImageLoaded: function () {
       this.imgLoaded = true;
@@ -381,6 +449,16 @@ export default defineComponent({
     },
     trackDurationFormated() {
       return this.fancyTimeFormat(this.trackDuration);
+    },
+    trackDurationRemaining() {
+      let timeRemaining = this.trackDuration - this.currentTime;
+      if (
+        timeRemaining < 0 ||
+        this.currentTime < 0 ||
+        timeRemaining == this.trackDuration
+      )
+        timeRemaining = 0;
+      return this.fancyTimeFormat(timeRemaining);
     },
   },
   watch: {
@@ -508,6 +586,36 @@ code {
 @media only screen and (min-width: 600px) {
   ion-modal {
     --height: 80%;
+  }
+}
+
+#overlay {
+  position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
+  top: 55px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #000000d2;
+  z-index: 100;
+  cursor: pointer;
+}
+
+#text {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  font-size: 50px;
+  color: #fffffff3;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+}
+
+@media only screen and (max-width: 600px) {
+  #text {
+    top: 18%;
   }
 }
 </style>

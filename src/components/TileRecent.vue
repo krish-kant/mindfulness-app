@@ -17,19 +17,13 @@
 
         <ion-item lines="none">
           <ion-label>
-            <p>{{ musicPlaylist[index].duration }}</p>
+            <p>
+              {{ musicPlaylist[index].duration }} |
+              {{ musicPlaylist[index].type }}
+            </p>
             <h3>{{ musicPlaylist[index].title }}</h3>
           </ion-label>
         </ion-item>
-
-        <div class="item-type">
-          <div>
-            {{ musicPlaylist[index].type }}
-          </div>
-          <!-- <ion-badge color="secondary">
-            {{ musicPlaylist[index].type }}</ion-badge
-          > -->
-        </div>
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -97,18 +91,6 @@ ion-grid {
 
 .container {
   position: relative;
-}
-
-.item-type {
-  position: absolute;
-  left: 3px;
-  top: 20px;
-  z-index: 10;
-  background-color: var(--ion-color-secondary);
-  border-radius: 2px;
-  padding: 0 5px;
-  font-size: small;
-  color: var(--ion-color-dark);
 }
 
 ion-badge {

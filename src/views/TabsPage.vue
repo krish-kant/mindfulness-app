@@ -54,7 +54,6 @@ import {
   IonRouterOutlet,
 } from "@ionic/vue";
 import { home, flag, play, search } from "ionicons/icons";
-
 import { Haptics, ImpactStyle } from "@capacitor/haptics";
 
 const hapticsImpactLight = async () => {

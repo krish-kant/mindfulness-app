@@ -184,6 +184,7 @@ import FastForward30Icon from "vue-material-design-icons/FastForward30.vue";
 import Rewind30Icon from "vue-material-design-icons/Rewind30.vue";
 import { useDataStore } from "@/stores/data";
 import { useRouter } from "vue-router";
+import { Haptics, ImpactStyle } from "@capacitor/haptics";
 
 const data = useDataStore();
 const router = useRouter();
@@ -252,6 +253,10 @@ export default defineComponent({
   },
 
   methods: {
+    hapticsImpactLight: async () => {
+      await Haptics.impact({ style: ImpactStyle.Light });
+    },
+
     presentActionSheet: async function () {
       const actionSheet = await actionSheetController.create({
         header: "Mark as complete for progress?",
@@ -313,6 +318,7 @@ export default defineComponent({
 
     skipTrack: function () {
       this.audio.currentTime = this.value;
+      this.hapticsImpactLight();
     },
 
     togglePlaylist: function () {
@@ -320,6 +326,7 @@ export default defineComponent({
     },
 
     nextSong: function () {
+      this.hapticsImpactLight();
       if (this.currentSong < this.dataList.length - 1) {
         this.changeSong(this.currentSong + 1);
         this.value = 0;
@@ -328,6 +335,7 @@ export default defineComponent({
     },
 
     prevSong: function () {
+      this.hapticsImpactLight();
       if (this.currentSong > 0) {
         this.changeSong(this.currentSong - 1);
         this.value = 0;
@@ -336,6 +344,7 @@ export default defineComponent({
     },
 
     prevSkip: function () {
+      this.hapticsImpactLight();
       this.value -= 30;
       this.audio.currentTime = this.value;
       if (this.audio.currentTime < 0) {
@@ -345,6 +354,7 @@ export default defineComponent({
     },
 
     nextSkip: function () {
+      this.hapticsImpactLight();
       this.value += 30;
       this.audio.currentTime = this.value;
       if (this.audio.currentTime >= this.audio.duration) {
@@ -392,6 +402,7 @@ export default defineComponent({
       return this.dataList[currentSong].url;
     },
     playAudio: function () {
+      this.hapticsImpactLight();
       if (
         this.currentlyStopped == true &&
         this.currentSong + 1 == this.dataList.length
