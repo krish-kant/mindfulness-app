@@ -14,11 +14,7 @@
       <div v-if="dataLoaded">
         <img alt="Silhouette of mountains" :src="dataList[index].imageUrl" />
         <ion-badge color="light" class="share-item">
-          <svg
-            @click="shareLink"
-            style="width: 24px; height: 24px"
-            viewBox="0 0 24 24"
-          >
+          <svg @click="shareLink" style="width: 24px; height: 24px" viewBox="0 0 24 24">
             <path
               fill="currentColor"
               d="M12,1L8,5H11V14H13V5H16M18,23H6C4.89,23 4,22.1 4,21V9A2,2 0 0,1 6,7H9V9H6V21H18V9H15V7H18A2,2 0 0,1 20,9V21A2,2 0 0,1 18,23Z"
@@ -39,7 +35,9 @@
             <ion-card-title style="font-size: large; font-weight: 500">{{
               dataList[index].title
             }}</ion-card-title>
-            <ion-card-subtitle style="font-weight: 500; font-size: x-small">
+            <ion-card-subtitle
+              style="font-weight: 500; font-size: small; text-transform: uppercase"
+            >
               {{ dataList[index].duration }}
               |
               {{ dataList[index].type }}
@@ -57,13 +55,12 @@
             <ion-icon :icon="play" />
             <ion-text style="margin-left: 5px">Play</ion-text>
           </button>
-          <ion-card-content style="font-size: small; line-height: 1.7em">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae
-            sapiente porro nostrum soluta consectetur alias reiciendis ea,
-            dolore debitis facilis quibusdam? Quibusdam assumenda iusto iste
-            aperiam rerum ad, mollitia a. Lorem ipsum dolor, sit amet
-            consectetur adipisicing elit. Impedit qui dolore iure tempora
-            excepturi aliquam commodi, provident a quo. Eaque accusantium minima
+          <ion-card-content style="line-height: 1.7em;size=small">
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae sapiente
+            porro nostrum soluta consectetur alias reiciendis ea, dolore debitis facilis
+            quibusdam? Quibusdam assumenda iusto iste aperiam rerum ad, mollitia a. Lorem
+            ipsum dolor, sit amet consectetur adipisicing elit. Impedit qui dolore iure
+            tempora excepturi aliquam commodi, provident a quo. Eaque accusantium minima
             libero optio adipisci vel laudantium suscipit inventore saepe!
           </ion-card-content>
           <!-- <ion-item lines="none" class="ion-margin">
@@ -89,8 +86,8 @@
             </ion-button>
           </ion-item> -->
 
-          <ion-item lines="none">
-            <h3 style="font-size: large; margin-left: 16px">Related Items</h3>
+          <ion-item style="font-size: large; margin-left: 16px" lines="none">
+            Related Items
           </ion-item>
 
           <TilePlay :musicPlaylist="dataList" />
@@ -162,9 +159,7 @@ const getUrlQueryParams = async () => {
   // index.value = route.query.index;
   dataLoaded.value = true;
   // title.value = route.params.title;
-  title.value = dataList.filter(
-    (item) => item.title === route.params.title
-  )[0].title;
+  title.value = dataList.filter((item) => item.title === route.params.title)[0].title;
   console.log(title.value);
   console.log(dataList.filter((item) => item.title === title.value)[0].id);
   index = dataList.findIndex((item) => item.title === title.value);

@@ -1,9 +1,5 @@
 <template>
-  <div
-    v-for="(rec, index) in bookmarks"
-    :key="rec.title"
-    @click="navigateTo(index)"
-  >
+  <div v-for="(rec, index) in bookmarks" :key="rec.title" @click="navigateTo(index)">
     <div class="bookmarks-list">
       <ion-icon
         class="bookmarks-items"
@@ -41,6 +37,7 @@
             </svg>
 
             <ion-spinner
+              style="transform: scale(0.8); color: #ffffff"
               v-if="isPlaying && index == itemIndex && audioBuffering"
             >
             </ion-spinner>
@@ -48,15 +45,15 @@
         </div>
       </ion-thumbnail>
       <ion-label style="margin-left: 10px; margin-top: 5px">
-        <ion-text style="font-size: small">{{ rec.title }}</ion-text>
-        <p style="font-size: small">{{ rec.type }}</p>
-        <p style="font-size: small">{{ rec.duration }}</p>
+        <ion-text>{{ rec.title }}</ion-text>
+        <p style="font-size: small; text-transform: uppercase">
+          {{ rec.type }}
+        </p>
+        <p style="font-size: small; text-transform: uppercase">
+          {{ rec.duration }}
+        </p>
       </ion-label>
-      <svg
-        style="width: 24px; height: 24px"
-        viewBox="0 0 24 24"
-        class="bookmarks-icon"
-      >
+      <svg style="width: 24px; height: 24px" viewBox="0 0 24 24" class="arrow-icon">
         <path
           fill="#ccc"
           d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"
@@ -90,11 +87,7 @@ import {
   IonText,
   IonThumbnail,
 } from "@ionic/vue";
-import {
-  createOutline,
-  removeCircleOutline,
-  searchOutline,
-} from "ionicons/icons";
+import { createOutline, removeCircleOutline, searchOutline } from "ionicons/icons";
 import { ref, onMounted, watch } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { useBookmarksStore } from "@/stores/bookmarks";
@@ -196,11 +189,11 @@ ion-thumbnail {
   justify-content: start;
 }
 
-.bookmarks-icon {
+.arrow-icon {
   flex-grow: 0;
   flex-shrink: 0;
   margin-left: auto;
-  opacity: 1;
+  opacity: 0.5;
 }
 
 .bookmarks-items {
@@ -217,7 +210,7 @@ ion-thumbnail {
 .hr {
   border-bottom: 1px solid #ccc;
   margin: 20px 0px;
-  opacity: 0.5;
+  opacity: 0.2;
   width: 100%;
   display: block;
 }
@@ -227,13 +220,13 @@ ion-thumbnail {
   flex-shrink: 0;
   color: #ffffffd9;
   align-self: center;
-  margin-top: 3px;
+  margin-top: 5px;
 }
 .play-item-preview {
   position: absolute;
   background-color: #000000a5;
   padding: 4px;
-  top: 65%;
+  top: 64%;
   left: 9%;
   text-transform: uppercase;
   border-radius: 2px 0px 0px 2px;

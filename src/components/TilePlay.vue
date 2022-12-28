@@ -30,7 +30,9 @@
 
         <ion-item lines="none">
           <ion-label class="ion-text-wrap">
-            <p style="font-size: small">{{ musicPlaylist[index].duration }}</p>
+            <p style="font-size: small; text-transform: uppercase">
+              {{ musicPlaylist[index].duration }}
+            </p>
             <ion-text style="font-size: medium">{{
               musicPlaylist[index].title
             }}</ion-text>
@@ -56,7 +58,7 @@
             <ion-icon :icon="lockClosedOutline"></ion-icon>
           </ion-badge>
         </div>
-        <div class="item-type">
+        <div class="item-type" style="text-transform: uppercase">
           {{ musicPlaylist[index].type }}
 
           <!-- <ion-badge color="secondary">
@@ -92,15 +94,7 @@
 </template>
 
 <script setup>
-import {
-  IonGrid,
-  IonItem,
-  IonRow,
-  IonCol,
-  IonLabel,
-  IonBadge,
-  IonImg,
-} from "@ionic/vue";
+import { IonGrid, IonItem, IonRow, IonCol, IonLabel, IonBadge, IonImg } from "@ionic/vue";
 import { lockClosedOutline } from "ionicons/icons";
 import { ref, defineProps } from "vue";
 import { useRouter } from "vue-router";

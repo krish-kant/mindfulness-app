@@ -94,27 +94,22 @@
 
     <ion-content>
       <ion-item lines="none" class="ion-margin-top">
-        <h2>Hi Krishna</h2>
+        <ion-text style="font-size: x-large">Hi Krishna</ion-text>
       </ion-item>
       <NavItems />
 
       <ion-item lines="none">
-        <h3 style="font-size: large">Recently Played</h3>
+        <ion-text style="font-size: large">Recently Played</ion-text>
       </ion-item>
       <TileRecent :musicPlaylist="dataList" />
 
       <ion-item lines="none">
-        <h3 style="font-size: large">Recently Played</h3>
-      </ion-item>
-      <TileRecent :musicPlaylist="dataList" />
-
-      <ion-item lines="none">
-        <h3 style="font-size: large">Top Rated</h3>
+        <ion-text style="font-size: large">Top Rated</ion-text>
       </ion-item>
       <TilePlay :musicPlaylist="dataList" />
 
       <ion-item lines="none">
-        <h3 style="font-size: large">Top Rated</h3>
+        <ion-text style="font-size: large">Top Rated</ion-text>
       </ion-item>
       <TilePlay :musicPlaylist="dataList" />
     </ion-content>

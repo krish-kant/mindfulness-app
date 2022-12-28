@@ -32,11 +32,7 @@
           </ion-toolbar>
         </ion-header>
 
-        <div
-          id="overlay"
-          v-on:click="overlay = 'none'"
-          :style="{ display: overlay }"
-        >
+        <div id="overlay" v-on:click="overlay = 'none'" :style="{ display: overlay }">
           <div id="text">
             {{ trackDurationRemaining }}
           </div>
@@ -58,8 +54,10 @@
               </div>
               <ion-item lines="none">
                 <ion-label class="ion-text-wrap">
-                  <h2>{{ dataList[currentAudio].title }}</h2>
-                  <p>
+                  <ion-text style="font-size: large">{{
+                    dataList[currentAudio].title
+                  }}</ion-text>
+                  <p style="text-transform: uppercase">
                     {{ dataList[currentAudio].type }}
                   </p>
                 </ion-label>
@@ -73,10 +71,10 @@
             <ion-col size-sm="8">
               <ion-item lines="none">
                 <ion-label slot="start">
-                  <p>{{ currentTimeFormated }}</p>
+                  <p style="text-transform: uppercase">{{ currentTimeFormated }}</p>
                 </ion-label>
                 <ion-label slot="end">
-                  <p>{{ trackDurationFormated }}</p>
+                  <p style="text-transform: uppercase">{{ trackDurationFormated }}</p>
                 </ion-label>
               </ion-item>
               <input
@@ -93,11 +91,7 @@
                 <a class="button" v-on:click="prevSkip()">
                   <rewind30-icon :size="40" />
                 </a>
-                <a
-                  class="button play"
-                  v-on:click="playAudio()"
-                  title="Play/Pause Song"
-                >
+                <a class="button play" v-on:click="playAudio()" title="Play/Pause Song">
                   <transition name="slide-fade" mode="out-in">
                     <div>
                       <play-circle-icon :size="90" v-show="!currentlyPlaying" />
@@ -290,9 +284,7 @@ export default defineComponent({
         (item) => item.title === this.$route.params.title
       )[0].title;
       console.log(this.title);
-      console.log(
-        this.dataList.filter((item) => item.title === this.title)[0].id
-      );
+      console.log(this.dataList.filter((item) => item.title === this.title)[0].id);
       this.index = this.dataList.findIndex((item) => item.title === this.title);
       this.currentAudio = this.index;
       console.log(this.dataList.findIndex((item) => item.title === this.title));

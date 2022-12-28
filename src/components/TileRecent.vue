@@ -17,13 +17,11 @@
 
         <ion-item lines="none">
           <ion-label>
-            <p style="font-size: small">
+            <p style="font-size: x-small; text-transform: uppercase">
               {{ musicPlaylist[index].duration }} |
               {{ musicPlaylist[index].type }}
             </p>
-            <ion-text style="font-size: small">{{
-              musicPlaylist[index].title
-            }}</ion-text>
+            <ion-text style="font-size: small">{{ musicPlaylist[index].title }}</ion-text>
           </ion-label>
         </ion-item>
       </ion-col>
@@ -32,15 +30,7 @@
 </template>
 
 <script setup>
-import {
-  IonGrid,
-  IonItem,
-  IonRow,
-  IonCol,
-  IonLabel,
-  IonBadge,
-  IonImg,
-} from "@ionic/vue";
+import { IonGrid, IonItem, IonRow, IonCol, IonLabel, IonBadge, IonImg } from "@ionic/vue";
 
 import { defineProps } from "vue";
 

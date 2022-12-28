@@ -9,8 +9,7 @@ import { IonApp, IonRouterOutlet } from "@ionic/vue";
 </script>
 
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap");
 * {
   font-family: "Poppins", sans-serif;
 }
