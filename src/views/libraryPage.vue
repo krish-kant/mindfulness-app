@@ -88,8 +88,8 @@
                   </ion-thumbnail>
                   <ion-label>
                     <ion-label>
-                      <p>{{ rec.duration }}</p>
-                      <p>{{ rec.type }}</p>
+                      <p style="font-size: small">{{ rec.type }}</p>
+                      <p style="font-size: small">{{ rec.duration }}</p>
                     </ion-label>
                     <h3 style="font-weight: 500">{{ rec.title }}</h3>
                   </ion-label>
@@ -104,12 +104,10 @@
       <ion-grid v-if="switchBookmarks">
         <ion-row class="ion-justify-content-center">
           <ion-col>
-            <ion-list button v-if="bookmarksLength">
+            <div button v-if="bookmarksLength">
               <!-- The reorder gesture is disabled by default, enable it to drag and drop items -->
 
-              <ion-item
-                button
-                detail="true"
+              <div
                 v-for="rec in bookmarks"
                 :key="rec.title"
                 @click="
@@ -120,26 +118,53 @@
                   }
                 "
               >
-                <ion-icon
-                  v-if="!deletePlaylistItem"
-                  slot="start"
-                  color="danger"
-                  :icon="removeCircleOutline"
-                  @click="deleteItemfromBookmarks(rec.title)"
-                ></ion-icon>
-                <ion-thumbnail slot="start">
-                  <img alt="Silhouette of mountains" :src="rec.imageUrl" />
-                </ion-thumbnail>
-                <ion-label>
-                  <ion-label>
-                    <p>{{ rec.duration }}</p>
-                    <p>{{ rec.type }}</p>
+                <div class="bookmarks-list">
+                  <ion-icon
+                    class="bookmarks-items"
+                    v-if="!deletePlaylistItem"
+                    slot="start"
+                    color="danger"
+                    style="margin-right: 10px; width: 28px; height: 28px"
+                    :icon="removeCircleOutline"
+                    @click="deleteItemfromBookmarks(rec.title)"
+                  ></ion-icon>
+                  <ion-thumbnail class="bookmarks-items" slot="start">
+                    <img alt="Silhouette of mountains" :src="rec.imageUrl" />
+
+                    <div class="play-item">
+                      <svg
+                        style="width: 50px; height: 50px"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          fill="currentColor"
+                          d="M19 3H5C3.89 3 3 3.89 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.89 20.1 3 19 3M10 16V8L15 12"
+                        />
+                      </svg>
+                    </div>
+                    <div class="play-item-bg"></div>
+                  </ion-thumbnail>
+                  <ion-label style="margin-left: 10px; margin-top: 5px">
+                    <ion-text style="font-size: medium">{{
+                      rec.title
+                    }}</ion-text>
+                    <p style="font-size: small">{{ rec.type }}</p>
+                    <p style="font-size: small">{{ rec.duration }}</p>
                   </ion-label>
-                  <h3 style="font-weight: 500">{{ rec.title }}</h3>
-                </ion-label>
-                <ion-reorder slot="end"></ion-reorder>
-              </ion-item>
-            </ion-list>
+                  <svg
+                    style="width: 24px; height: 24px"
+                    viewBox="0 0 24 24"
+                    class="bookmarks-icon"
+                  >
+                    <path
+                      fill="#ccc"
+                      d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"
+                    />
+                  </svg>
+                </div>
+                <div class="hr" />
+              </div>
+            </div>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -241,11 +266,6 @@ watch(bookmarksLength, async () => {
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap"); /* Poppins font */
-
-* {
-  font-family: "Poppins", sans-serif;
-}
 ion-item {
   --padding-bottom: 0px;
   --padding-top: 0px;
@@ -263,6 +283,7 @@ ion-img {
   border-radius: 5px;
   object-fit: cover;
   object-position: 50% 50%;
+
   /* filter: brightness(70%); */
 }
 
@@ -291,11 +312,70 @@ ion-toolbar {
   --background: var(--ion-color-whale);
 }
 
+ion-thumbnail {
+  --size: 100px;
+  --border-radius: 14px;
+  position: relative;
+}
+.bookmarks-list {
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+  align-items: center;
+  justify-content: start;
+}
+
+.bookmarks-icon {
+  flex-grow: 0;
+  flex-shrink: 0;
+  margin-left: auto;
+  opacity: 0.5;
+}
+
+.bookmarks-items {
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
 @media (prefers-color-scheme: dark) {
   ion-toolbar {
     --ion-color-whale: #0a1629;
   }
 }
+
+.hr {
+  border-bottom: 1px solid #ccc;
+  margin: 15px 0px;
+  margin-right: 10px;
+  opacity: 0.2;
+  width: 100%;
+  display: block;
+}
+
+.play-item {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  flex-grow: 0;
+  flex-shrink: 0;
+  /* transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%); */
+  z-index: 100;
+  color: #ccc;
+  /* mix-blend-mode: difference; */
+  mix-blend-mode: exclusion;
+}
+
+/* .play-item-bg {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  background-color: whitesmoke;
+  width: 24px;
+  height: 24px;
+  padding: 0px;
+  margin: 0px;
+} */
 
 /* @media only screen and (min-width: 600px) {
   .tool-bar-custom {

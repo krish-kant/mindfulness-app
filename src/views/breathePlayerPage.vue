@@ -228,11 +228,6 @@ const presentActionSheet = async () => {
 /********************************** CSS ***********************************/
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap"); /* Poppins font */
-
-* {
-  font-family: "Poppins", sans-serif;
-}
 .button {
   color: var(--ion-color-dark);
   display: flex;

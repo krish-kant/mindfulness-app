@@ -9,13 +9,17 @@ import { IonApp, IonRouterOutlet } from "@ionic/vue";
 </script>
 
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap"); /* Poppins font */
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
+* {
+  font-family: "Poppins", sans-serif;
+}
 
 ion-app {
   max-width: 1200px;
   margin: 0 auto;
   background-color: #414141;
-  font-family: "Poppins", sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 ion-toolbar {
@@ -33,7 +37,7 @@ ion-toolbar {
     max-width: 1200px;
     margin: 0 auto;
     background-color: #414141;
-    font-family: "Poppins", sans-serif;
+    font-family: "Roboto", sans-serif;
   }
 }
 

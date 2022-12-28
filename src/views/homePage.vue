@@ -147,11 +147,6 @@ const hapticsImpactLight = async () => {
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap"); /* Poppins font */
-
-* {
-  font-family: "Poppins", sans-serif;
-}
 @media (prefers-color-scheme: dark) {
   #blue-ocean-bg {
     --ion-color-whale: #081327;

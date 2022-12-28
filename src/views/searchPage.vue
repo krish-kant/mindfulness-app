@@ -105,11 +105,6 @@ const recentlyPlayed = ref([
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap"); /* Poppins font */
-
-* {
-  font-family: "Poppins", sans-serif;
-}
 ion-item {
   --padding-bottom: 0px;
   --padding-top: 0px;

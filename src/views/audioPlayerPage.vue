@@ -488,11 +488,6 @@ export default defineComponent({
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap"); /* Poppins font */
-
-* {
-  font-family: "Poppins", sans-serif;
-}
 .button {
   color: var(--ion-color-dark);
   display: flex;
@@ -575,16 +570,13 @@ ion-item {
 ion-badge {
   position: absolute;
   top: 42%;
-  left: 45%;
+  left: 44%;
   z-index: 10;
+  border-radius: 5px;
 }
 
 input {
   z-index: 10;
-}
-
-.heading {
-  font-size: medium;
 }
 
 code {

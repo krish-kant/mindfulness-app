@@ -1,7 +1,7 @@
 /* Ionic Variables and Theming. For more info, please see:
 http://ionicframework.com/docs/theming/ */
 
-/* @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap"); */
+/* @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap"); */
 /** Ionic CSS Variables **/
 :root {
   /** primary **/
@@ -85,9 +85,9 @@ http://ionicframework.com/docs/theming/ */
   --ion-color-whale-body: #758aa7;
   --ion-color-whale-eye: #4f6381;
 
-  /* Poppins font */
+  /* Roboto font */
 
-  /* font-family: "Poppins", sans-serif; */
+  /* font-family: "Roboto", sans-serif; */
 }
 
 @media (prefers-color-scheme: dark) {

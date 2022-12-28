@@ -30,12 +30,13 @@
 
         <ion-item lines="none">
           <ion-label class="ion-text-wrap">
-            <p>{{ musicPlaylist[index].duration }}</p>
+            <p style="font-size: small">{{ musicPlaylist[index].duration }}</p>
             <ion-text style="font-size: medium">{{
               musicPlaylist[index].title
             }}</ion-text>
           </ion-label>
           <!-- <ion-icon :icon="bookmarkOutline" /> -->
+
           <svg
             style="width: 25px; height: 25px; cursor: pointer; color: gray"
             viewBox="0 0 24 24"
@@ -138,11 +139,6 @@ const playItem = function (index) {
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap"); /* Poppins font */
-
-* {
-  font-family: "Poppins", sans-serif;
-}
 .item-image {
   border-radius: 5px !important;
   overflow: hidden;
@@ -206,6 +202,7 @@ ion-grid {
   position: absolute;
   left: 15px;
   top: 145px;
+  mix-blend-mode: exclusion;
 }
 
 .play-item-bg {
@@ -253,7 +250,7 @@ button:disabled {
 
 .bar {
   /* border: 1px solid #666; */
-  height: 2px;
+  height: 4px;
   width: 93%;
   position: absolute;
   left: 10px;

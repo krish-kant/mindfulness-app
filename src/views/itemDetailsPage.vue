@@ -36,10 +36,10 @@
           "
         >
           <ion-card-header>
-            <ion-card-title style="font-size: large">{{
+            <ion-card-title style="font-size: large; font-weight: 500">{{
               dataList[index].title
             }}</ion-card-title>
-            <ion-card-subtitle>
+            <ion-card-subtitle style="font-weight: 500; font-size: x-small">
               {{ dataList[index].duration }}
               |
               {{ dataList[index].type }}
@@ -183,12 +183,6 @@ watch(
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap"); /* Poppins font */
-
-* {
-  font-family: "Poppins", sans-serif;
-}
-
 /* iOS places the subtitle above the title */
 ion-card-header.ios {
   display: flex;
@@ -197,8 +191,9 @@ ion-card-header.ios {
 
 ion-card {
   position: relative;
-  animation: animateCard 0.5s 1;
+  animation: animateCard 0.2s 1;
   animation-direction: alternate;
+  animation-timing-function: linear;
   box-shadow: none !important;
 }
 @keyframes animateCard {
@@ -253,8 +248,8 @@ ion-col {
 
 .share-item {
   position: absolute;
-  right: 20px;
-  top: 20px;
+  right: 30px;
+  top: 15px;
   z-index: 10;
 }
 
@@ -285,6 +280,6 @@ button {
 }
 
 button:active {
-  transform: scale(0.98);
+  transform: scale(0.99);
 }
 </style>
