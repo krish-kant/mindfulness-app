@@ -59,7 +59,7 @@
               </div>
               <ion-item lines="none">
                 <ion-label class="ion-text-wrap">
-                  <ion-text style="font-size: large">{{
+                  <ion-text style="font-size: medium">{{
                     dataList[currentAudio].title
                   }}</ion-text>
                   <p style="text-transform: uppercase">
@@ -509,7 +509,7 @@ export default defineComponent({
   justify-content: space-around;
   align-items: center;
 
-  margin-top: 10px;
+  margin-top: 2px;
 }
 
 ion-grid {
@@ -517,7 +517,7 @@ ion-grid {
 }
 
 .first-row-grid-1 {
-  min-height: 42%;
+  min-height: 40%;
 }
 
 img {
@@ -549,7 +549,7 @@ ion-item {
 @media only screen and (max-width: 600px) {
   img {
     width: 100%;
-    height: 220px;
+    height: 200px;
     object-fit: cover;
     object-position: 50% 50%;
     border-radius: 5px;
