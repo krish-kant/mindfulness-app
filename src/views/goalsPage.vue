@@ -87,6 +87,9 @@ import {
   IonCheckbox,
   IonText,
   IonFabButton,
+  IonList,
+  IonThumbnail,
+  IonReorder,
 } from "@ionic/vue";
 import { lockClosed, bookmarkOutline, addCircle } from "ionicons/icons";
 import { ref } from "vue";

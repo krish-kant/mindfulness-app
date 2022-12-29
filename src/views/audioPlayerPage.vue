@@ -44,13 +44,18 @@
           >
             <ion-col>
               <div class="albumImage">
-                <img
-                  @load="onImageLoaded()"
-                  :src="dataList[currentAudio].imageUrl"
-                  :key="currentAudio"
-                  ondragstart="return false;"
-                  id="playerAlbumArt"
-                />
+                <div style="position: relative">
+                  <img
+                    @load="onImageLoaded()"
+                    :src="dataList[currentAudio].imageUrl"
+                    :key="currentAudio"
+                    ondragstart="return false;"
+                    id="playerAlbumArt"
+                  />
+                  <ion-badge color="medium">
+                    <ion-spinner v-if="audioBuffering"></ion-spinner>
+                  </ion-badge>
+                </div>
               </div>
               <ion-item lines="none">
                 <ion-label class="ion-text-wrap">
@@ -62,9 +67,6 @@
                   </p>
                 </ion-label>
               </ion-item>
-              <ion-badge color="medium">
-                <ion-spinner v-if="audioBuffering"></ion-spinner>
-              </ion-badge>
             </ion-col>
           </ion-row>
           <ion-row class="ion-align-items-center ion-justify-content-center">
@@ -183,6 +185,7 @@ export default defineComponent({
     IonModal,
     IonButton,
     IonTitle,
+    IonText,
     PlayCircleIcon,
     PauseCircleIcon,
     FastForward30Icon,
@@ -514,7 +517,7 @@ ion-grid {
 }
 
 .first-row-grid-1 {
-  min-height: 40%;
+  min-height: 45%;
 }
 
 img {
@@ -561,10 +564,12 @@ ion-item {
 
 ion-badge {
   position: absolute;
-  top: 42%;
-  left: 44%;
+  top: 55%;
+  left: 50%;
   z-index: 10;
   border-radius: 5px;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
 }
 
 input {

@@ -9,23 +9,45 @@
         :key="items.title"
         class="container"
       >
-        <ion-img
-          class="item-image"
-          :src="musicPlaylist[index].imageUrl"
-          :key="currentSong"
-          @click="
-            () => {
-              if (!isPlaying) {
-                router.push({
-                  path: `/tabs/item-details/${musicPlaylist[index].title}`,
-                });
-              }
-            }
-          "
-          @ionImgDidLoad="ionImgDidLoad"
-        />
-        <div v-if="index == currentIndex && isPlaying" class="bar">
-          <div class="in"></div>
+        <div style="position: relative">
+          <ion-img
+            class="item-image"
+            :src="musicPlaylist[index].imageUrl"
+            :key="currentSong"
+            @click="navigateTo(index)"
+            @ionImgDidLoad="ionImgDidLoad"
+          />
+          <div @click.stop="playAudioPreview(index)" class="play-item-bg">
+            <div class="play-item">
+              <svg
+                style="width: 28px; height: 28px"
+                viewBox="0 0 24 24"
+                v-if="!isPlaying || index !== itemIndex"
+              >
+                <path fill="currentColor" d="M8,5.14V19.14L19,12.14L8,5.14Z" />
+              </svg>
+              <svg
+                style="width: 24px; height: 24px"
+                viewBox="0 0 24 24"
+                v-if="isPlaying && index == itemIndex && !audioBuffering"
+              >
+                <path fill="currentColor" d="M14,19H18V5H14M6,19H10V5H6V19Z" />
+              </svg>
+
+              <ion-spinner
+                style="transform: scale(0.8); color: #ffffff"
+                v-if="isPlaying && index == itemIndex && audioBuffering"
+              >
+              </ion-spinner>
+            </div>
+            <div
+              style="font-size: x-small"
+              class="play-item-preview"
+              v-if="isPlaying && index == itemIndex"
+            >
+              preview
+            </div>
+          </div>
         </div>
 
         <ion-item lines="none">
@@ -37,8 +59,6 @@
               musicPlaylist[index].title
             }}</ion-text>
           </ion-label>
-          <!-- <ion-icon :icon="bookmarkOutline" /> -->
-
           <svg
             style="width: 25px; height: 25px; cursor: pointer; color: gray"
             viewBox="0 0 24 24"
@@ -58,35 +78,8 @@
             <ion-icon :icon="lockClosedOutline"></ion-icon>
           </ion-badge>
         </div>
-        <div class="item-type" style="text-transform: uppercase">
+        <div class="item-type">
           {{ musicPlaylist[index].type }}
-
-          <!-- <ion-badge color="secondary">
-            {{ musicPlaylist[index].type }}</ion-badge
-          > -->
-        </div>
-        <div class="play-item-bg"></div>
-
-        <div class="play-item">
-          <button
-            class="play-icon"
-            :style="[
-              index == currentIndex && isPlaying
-                ? {
-                    color: 'grey',
-                  }
-                : {},
-            ]"
-            @click="playItem(index)"
-            :disabled="isPlaying"
-          >
-            <svg style="width: 40px; height: 40px" viewBox="0 0 24 24">
-              <path
-                fill="currentColor"
-                d="M19 3H5C3.89 3 3 3.89 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.89 20.1 3 19 3M10 16V8L15 12"
-              />
-            </svg>
-          </button>
         </div>
       </ion-col>
     </ion-row>
@@ -94,10 +87,23 @@
 </template>
 
 <script setup>
-import { IonGrid, IonItem, IonRow, IonCol, IonLabel, IonBadge, IonImg } from "@ionic/vue";
+import {
+  IonGrid,
+  IonItem,
+  IonRow,
+  IonCol,
+  IonLabel,
+  IonBadge,
+  IonImg,
+  IonSpinner,
+  IonText,
+  IonIcon,
+} from "@ionic/vue";
 import { lockClosedOutline } from "ionicons/icons";
 import { ref, defineProps } from "vue";
 import { useRouter } from "vue-router";
+
+import { Haptics, ImpactStyle } from "@capacitor/haptics";
 
 const router = useRouter();
 
@@ -106,29 +112,65 @@ const props = defineProps({
 });
 
 let isPlaying = ref(false);
-let currentIndex = ref(0);
 let imgLoaded = ref(false);
+let audio = new Audio();
+let itemIndex = ref(-1);
+let audioBuffering = ref(false);
+let audioStopTimeout = null;
 
 const ionImgDidLoad = function () {
   console.log("image loaded");
   imgLoaded.value = true;
 };
 
-const playItem = function (index) {
-  isPlaying.value = true;
-  currentIndex.value = index;
+const navigateTo = (index) => {
+  isPlaying.value = false;
+  clearTimeout(audioStopTimeout);
+  audio.pause();
+  audio.src = "";
   router.push({
-    path: "",
+    path: `/tabs/item-details/${props.musicPlaylist[index].title}`,
   });
+};
 
-  const audio = new Audio(props.musicPlaylist[index].mediaUrl);
-  audio.play();
+const handleWaiting = function () {
+  audioBuffering.value = true;
+  console.log("waiting");
+};
 
+const handlePlaying = function () {
   setTimeout(() => {
-    audio.pause();
+    audioBuffering.value = false;
+  }, 500);
+};
+
+const playAudioPreview = async function (index) {
+  await Haptics.impact({ style: ImpactStyle.Light });
+  audio.pause();
+  audio.src = "";
+  clearTimeout(audioStopTimeout);
+  if (isPlaying.value == true && itemIndex.value == index) {
     isPlaying.value = false;
-    currentIndex.value = 0;
-  }, "10000");
+  } else {
+    itemIndex.value = -1;
+
+    itemIndex.value = index;
+    isPlaying.value = true;
+
+    audio.src = props.musicPlaylist[index].mediaUrl;
+    audio.addEventListener("waiting", handleWaiting());
+    audio.addEventListener("playing", handlePlaying());
+    audio.play();
+
+    console.log("audio playing");
+
+    audioStopTimeout = setTimeout(() => {
+      audio.pause();
+      audio.src = "";
+      isPlaying.value = false;
+      console.log("audio ended");
+    }, 30000);
+  }
 };
 </script>
 
@@ -144,6 +186,43 @@ const playItem = function (index) {
   margin-bottom: 2px;
   /* filter: brightness(70%); */
   cursor: pointer;
+}
+
+.play-item {
+  flex-grow: 0;
+  flex-shrink: 0;
+  color: #ffffffd9;
+  align-self: center;
+  margin-top: 6px;
+  margin-right: 1px;
+}
+.play-item-preview {
+  position: absolute;
+  top: 5px;
+  left: 35px;
+  background-color: #000000a5;
+  padding: 4px;
+
+  text-transform: uppercase;
+  border-radius: 0px 2px 2px 0px;
+  color: #ffffff;
+}
+
+.play-item-bg {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  top: 75%;
+  left: 3%;
+  padding: 0px;
+  width: 35px;
+  height: 35px;
+  background-color: #000000a5;
+  border-radius: 5px;
+  flex-grow: 0;
+  flex-shrink: 0;
 }
 
 ion-item {
@@ -190,27 +269,7 @@ ion-grid {
   padding: 0 5px;
   font-size: small;
   color: white;
-}
-
-.play-item {
-  position: absolute;
-  left: 15px;
-  top: 145px;
-  mix-blend-mode: exclusion;
-}
-
-.play-item-bg {
-  position: absolute;
-  left: 23px;
-  top: 153px;
-
-  /* background-color: var(--ion-color-light); */
-  background-color: whitesmoke;
-
-  width: 24px;
-  height: 24px;
-  padding: 0px;
-  margin: 0px;
+  text-transform: uppercase;
 }
 
 ion-badge {
@@ -220,52 +279,5 @@ ion-badge {
 
 ion-label {
   margin: 0.5px;
-}
-
-button {
-  background-color: transparent;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  pointer-events: auto;
-  /* opacity: 0.5; */
-
-  color: var(--ion-color-medium);
-  margin: 0px;
-  padding: 0px;
-  z-index: 10;
-}
-
-button:disabled {
-  cursor: not-allowed;
-  pointer-events: none;
-  color: "grey";
-}
-
-.bar {
-  /* border: 1px solid #666; */
-  height: 4px;
-  width: 93%;
-  position: absolute;
-  left: 10px;
-  top: 190px;
-  margin: 1px 2px;
-}
-
-.in {
-  animation: fill 10s linear 1;
-  height: 100%;
-  background-color: var(--ion-color-dark);
-  border-radius: 2px;
-}
-
-@keyframes fill {
-  0% {
-    width: 0%;
-  }
-
-  100% {
-    width: 100%;
-  }
 }
 </style>

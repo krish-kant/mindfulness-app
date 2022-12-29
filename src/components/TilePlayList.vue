@@ -1,15 +1,11 @@
 <template>
-  <div v-for="(rec, index) in bookmarks" :key="rec.title" @click="navigateTo(index)">
+  <div
+    v-for="(rec, index) in bookmarks"
+    :key="rec.title"
+    @click="navigateTo(index)"
+    style="cursor: pointer; margin: 0px 10px"
+  >
     <div class="bookmarks-list">
-      <ion-icon
-        class="bookmarks-items"
-        v-if="!deletePlaylistItem"
-        slot="start"
-        color="danger"
-        style="margin-right: 10px; width: 28px; height: 28px"
-        :icon="removeCircleOutline"
-        @click="deleteItemfromBookmarks(rec.title)"
-      ></ion-icon>
       <ion-thumbnail class="bookmarks-items">
         <img alt="Silhouette of mountains" :src="rec.imageUrl" />
         <div
@@ -45,7 +41,7 @@
         </div>
       </ion-thumbnail>
       <ion-label style="margin-left: 10px; margin-top: 5px">
-        <ion-text>{{ rec.title }}</ion-text>
+        <h3 style="font-weight: 500">{{ rec.title }}</h3>
         <p style="font-size: small; text-transform: uppercase">
           {{ rec.type }}
         </p>
@@ -220,7 +216,8 @@ ion-thumbnail {
   flex-shrink: 0;
   color: #ffffffd9;
   align-self: center;
-  margin-top: 5px;
+  margin-top: 6px;
+  margin-right: 1px;
 }
 .play-item-preview {
   position: absolute;

@@ -124,6 +124,7 @@ import {
   IonLabel,
   IonIcon,
   IonTabButton,
+  IonItem,
 } from "@ionic/vue";
 import { settings, person } from "ionicons/icons";
 import { useDataStore } from "@/stores/data";

@@ -158,7 +158,7 @@
                     </div>
                   </ion-thumbnail>
                   <ion-label style="margin-left: 10px; margin-top: 5px">
-                    <ion-text>{{ rec.title }}</ion-text>
+                    <h3 style="font-weight: 500">{{ rec.title }}</h3>
                     <p style="font-size: small; text-transform: uppercase">
                       {{ rec.type }}
                     </p>
@@ -205,6 +205,9 @@ import {
   IonSegmentButton,
   IonReorder,
   IonSearchbar,
+  IonIcon,
+  IonThumbnail,
+  IonSpinner,
 } from "@ionic/vue";
 import { createOutline, removeCircleOutline, searchOutline } from "ionicons/icons";
 import { ref, onMounted, watch } from "vue";
@@ -437,7 +440,8 @@ ion-thumbnail {
   flex-shrink: 0;
   color: #ffffffd9;
   align-self: center;
-  margin-top: 5px;
+  margin-top: 6px;
+  margin-right: 1px;
 }
 .play-item-preview {
   position: absolute;

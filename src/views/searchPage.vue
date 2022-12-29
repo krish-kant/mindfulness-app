@@ -48,10 +48,7 @@
                   />
                 </ion-thumbnail>
                 <ion-label> {{ n.message }} </ion-label>
-                <ion-icon
-                  class="bookmark-icon"
-                  :icon="bookmarkOutline"
-                ></ion-icon>
+                <ion-icon class="bookmark-icon" :icon="bookmarkOutline"></ion-icon>
               </ion-item>
             </ion-list>
           </ion-col>
@@ -79,6 +76,8 @@ import {
   IonText,
   IonList,
   IonReorderGroup,
+  IonSearchbar,
+  IonThumbnail,
 } from "@ionic/vue";
 import { ref } from "vue";
 import { bookmarkOutline } from "ionicons/icons";

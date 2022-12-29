@@ -7,7 +7,7 @@
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
-    <ion-content>
+    <ion-content :scroll-events="true">
       <!-- <ion-grid>
         <ion-row class="ion-justify-content-center">
           <ion-col class="ion-align-self-center"> -->
@@ -45,24 +45,31 @@
           </ion-card-header>
           <button
             @click="
-              () =>
+              () => {
+                hapticTouch();
                 router.push({
                   path: `/tabs/audio-player/${dataList[index].title}`,
-                })
+                });
+              }
             "
             router-direction="none"
           >
             <ion-icon :icon="play" />
             <ion-text style="margin-left: 5px">Play</ion-text>
           </button>
-          <ion-card-content style="line-height: 1.7em;size=small">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae sapiente
-            porro nostrum soluta consectetur alias reiciendis ea, dolore debitis facilis
-            quibusdam? Quibusdam assumenda iusto iste aperiam rerum ad, mollitia a. Lorem
-            ipsum dolor, sit amet consectetur adipisicing elit. Impedit qui dolore iure
-            tempora excepturi aliquam commodi, provident a quo. Eaque accusantium minima
-            libero optio adipisci vel laudantium suscipit inventore saepe!
-          </ion-card-content>
+          <div style="margin: 30px">
+            <ion-text style="line-height: 1.7em; font-size: small; font-weight: 300">
+              <p>
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae
+                sapiente porro nostrum soluta consectetur alias reiciendis ea, dolore
+                debitis facilis quibusdam? Quibusdam assumenda iusto iste aperiam rerum
+                ad, mollitia a. Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                Impedit qui dolore iure tempora excepturi aliquam commodi, provident a
+                quo. Eaque accusantium minima libero optio adipisci vel laudantium
+                suscipit inventore saepe!
+              </p>
+            </ion-text>
+          </div>
           <!-- <ion-item lines="none" class="ion-margin">
             <ion-button
               size="default"
@@ -90,7 +97,7 @@
             Related Items
           </ion-item>
 
-          <TilePlay :musicPlaylist="dataList" />
+          <TilePlay :musicPlaylist="dataListFilteredComp" />
         </ion-card>
       </div>
     </ion-content>
@@ -116,19 +123,19 @@ import {
   IonCardHeader,
   IonCardSubtitle,
   IonCardTitle,
-  IonCardContent,
+  IonIcon,
 } from "@ionic/vue";
 
 import TilePlay from "@/components/TilePlay.vue";
 
 import { play } from "ionicons/icons";
-import { ref, onMounted, watch } from "vue";
+import { ref, onMounted, watch, computed } from "vue";
 import { useRouter, useRoute } from "vue-router";
-
+import { Haptics, ImpactStyle } from "@capacitor/haptics";
 import { Share } from "@capacitor/share";
 import { useDataStore } from "@/stores/data";
 
-const { dataList } = useDataStore();
+let { dataList } = useDataStore();
 
 const router = useRouter();
 const route = useRoute();
@@ -140,6 +147,10 @@ let title = ref("");
 onMounted(() => {
   getUrlQueryParams();
 });
+
+const hapticTouch = async function () {
+  await Haptics.impact({ style: ImpactStyle.Light });
+};
 
 const shareLink = async function () {
   await Share.share({
@@ -168,13 +179,18 @@ const getUrlQueryParams = async () => {
 
 watch(
   () => route.params.title,
-  () => {
-    if (route.params.title === title.value) {
-      window.location.reload();
-      window.scrollTo(0, 0);
-    }
-  }
+  () => {}
 );
+
+const dataListFiltered = dataList.filter((obj) => {
+  return obj.title != route.params.title;
+});
+
+const dataListFilteredComp = computed({
+  get() {
+    return dataListFiltered;
+  },
+});
 </script>
 
 <style scoped>

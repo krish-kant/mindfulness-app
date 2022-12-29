@@ -16,9 +16,7 @@
                 }
               "
             >
-              <ion-label style="font-weight: 500; margin: 0px 20px"
-                >Player</ion-label
-              >
+              <ion-label style="font-weight: 500; margin: 0px 20px">Player</ion-label>
             </ion-segment-button>
             <ion-segment-button
               :value="dataObj.switchGuided ? 'default' : ''"
@@ -29,9 +27,7 @@
                 }
               "
             >
-              <ion-label style="font-weight: 500; margin: 0px 20px"
-                >Guided</ion-label
-              >
+              <ion-label style="font-weight: 500; margin: 0px 20px">Guided</ion-label>
             </ion-segment-button>
           </ion-segment>
         </ion-item>
@@ -55,10 +51,7 @@
         </ion-button>
       </ion-item>
       <div style="margin-top: 20px">
-        <TilePlay
-          :musicPlaylist="dataObj.dataList"
-          v-if="dataObj.switchGuided"
-        />
+        <TilePlay :musicPlaylist="dataObj.dataList" v-if="dataObj.switchGuided" />
       </div>
     </ion-content>
   </ion-page>
@@ -79,6 +72,7 @@ import {
   IonSegment,
   IonSegmentButton,
   IonButton,
+  IonText,
 } from "@ionic/vue";
 import { reactive, ref, onMounted } from "vue";
 import TilePlay from "@/components/TilePlay.vue";
