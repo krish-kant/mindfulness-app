@@ -13,7 +13,7 @@
           <ion-img
             class="item-image"
             :src="musicPlaylist[index].imageUrl"
-            :key="currentSong"
+            :key="currentAudio"
             @click="navigateTo(index)"
             @ionImgDidLoad="ionImgDidLoad"
           />

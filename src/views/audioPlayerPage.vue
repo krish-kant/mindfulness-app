@@ -602,7 +602,7 @@ code {
 
 #text {
   position: absolute;
-  top: 20%;
+  top: 25%;
   left: 50%;
   font-size: 50px;
   color: white;
