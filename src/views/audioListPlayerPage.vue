@@ -60,10 +60,10 @@
               <ion-item lines="none">
                 <ion-label class="ion-text-wrap">
                   <ion-text style="font-size: large">{{
-                    dataList[currentSong].title
+                    dataList[currentAudio].title
                   }}</ion-text>
                   <p style="text-transform: uppercase">
-                    {{ dataList[currentSong].type }}
+                    {{ dataList[currentAudio].type }}
                   </p>
                 </ion-label>
               </ion-item>
@@ -92,7 +92,7 @@
               <div class="buttons-container">
                 <a
                   class="button"
-                  :class="{ isDisabled: currentSong == 0 }"
+                  :class="{ isDisabled: currentAudio == 0 }"
                   v-on:click="prevSong()"
                   title="Previous Song"
                 >
@@ -110,7 +110,7 @@
                 </a>
                 <a
                   class="button"
-                  :class="{ isDisabled: currentSong == dataList.length - 1 }"
+                  :class="{ isDisabled: currentAudio == dataList.length - 1 }"
                   v-on:click="nextSong()"
                   title="Next Song"
                 >
@@ -229,7 +229,7 @@ export default defineComponent({
       trackDuration: 0,
       currentProgressBar: 0,
       isPlaylistActive: false,
-      currentSong: 0,
+      currentAudio: 0,
       debug: false,
       value: 0,
       audioFile: "",
@@ -345,8 +345,8 @@ export default defineComponent({
     nextSong: function () {
       this.hapticsImpactLight();
       this.stopAudio();
-      if (this.currentSong < this.dataList.length - 1) {
-        this.changeSong(this.currentSong + 1);
+      if (this.currentAudio < this.dataList.length - 1) {
+        this.changeSong(this.currentAudio + 1);
         this.value = 0;
         this.currentTime = 0;
       }
@@ -356,8 +356,8 @@ export default defineComponent({
     prevSong: function () {
       this.hapticsImpactLight();
       this.stopAudio();
-      if (this.currentSong > 0) {
-        this.changeSong(this.currentSong - 1);
+      if (this.currentAudio > 0) {
+        this.changeSong(this.currentAudio - 1);
         this.value = 0;
         this.currentTime = 0;
       }
@@ -406,14 +406,14 @@ export default defineComponent({
       )[0].title;
 
       this.index = this.dataList.findIndex((item) => item.title === this.title);
-      this.currentSong = this.index;
+      this.currentAudio = this.index;
 
       if (index !== undefined) {
         this.stopAudio();
-        this.currentSong = index;
+        this.currentAudio = index;
       }
 
-      this.audioFile = this.dataList[this.currentSong].mediaUrl;
+      this.audioFile = this.dataList[this.currentAudio].mediaUrl;
       this.audio = new Audio(this.audioFile);
       var localThis = this;
       this.audio.addEventListener("loadedmetadata", function () {
@@ -427,19 +427,22 @@ export default defineComponent({
       this.audio.addEventListener("playing", this.handlePlaying);
     },
 
-    isCurrentSong: function (index) {
-      if (this.currentSong == index) {
+    iscurrentAudio: function (index) {
+      if (this.currentAudio == index) {
         return true;
       }
       return false;
     },
-    getCurrentSong: function (currentSong) {
-      return this.dataList[currentSong].url;
+    getcurrentAudio: function (currentAudio) {
+      return this.dataList[currentAudio].url;
     },
     playAudio: function () {
       this.hapticsImpactLight();
-      if (this.currentlyStopped == true && this.currentSong + 1 == this.dataList.length) {
-        this.currentSong = 0;
+      if (
+        this.currentlyStopped == true &&
+        this.currentAudio + 1 == this.dataList.length
+      ) {
+        this.currentAudio = 0;
         this.changeSong();
       }
       if (!this.currentlyPlaying) {
@@ -463,7 +466,7 @@ export default defineComponent({
     handleEnded: function () {
       this.audioBuffering = false;
       clearInterval(this.overlayInterval);
-      if (this.currentSong + 1 == this.dataList.length) {
+      if (this.currentAudio + 1 == this.dataList.length) {
         this.stopAudio();
         this.currentlyPlaying = false;
         this.currentlyStopped = true;
@@ -472,7 +475,7 @@ export default defineComponent({
         this.currentTime = 0;
       } else {
         this.currentlyPlaying = false;
-        // this.currentSong++;
+        // this.currentAudio++;
         // this.changeSong();
         // this.playAudio();
         this.stopAudio();
@@ -591,7 +594,7 @@ ion-grid {
 }
 
 .first-row-grid-1 {
-  min-height: 45%;
+  min-height: 42%;
 }
 
 img {

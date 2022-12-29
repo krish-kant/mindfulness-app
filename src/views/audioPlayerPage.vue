@@ -517,7 +517,7 @@ ion-grid {
 }
 
 .first-row-grid-1 {
-  min-height: 45%;
+  min-height: 42%;
 }
 
 img {
