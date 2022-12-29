@@ -517,7 +517,7 @@ ion-grid {
 }
 
 .first-row-grid-1 {
-  min-height: 45%;
+  min-height: 42%;
 }
 
 img {
@@ -602,7 +602,7 @@ code {
 
 #text {
   position: absolute;
-  top: 25%;
+  top: 20%;
   left: 50%;
   font-size: 50px;
   color: white;
