@@ -1,8 +1,8 @@
 
 {
 
-  "appId": "mindfulness-app",
-  "appName": "mindfulness-app",
+  "appId": "Moby-app",
+  "appName": "Moby",
   "webDir": "dist",
   "bundledWebRuntime": false
 

@@ -48,10 +48,7 @@
                   />
                 </ion-thumbnail>
                 <ion-label> {{ n.message }} </ion-label>
-                <ion-icon
-                  class="bookmark-icon"
-                  :icon="bookmarkOutline"
-                ></ion-icon>
+                <ion-icon class="bookmark-icon" :icon="bookmarkOutline"></ion-icon>
               </ion-item>
             </ion-list>
           </ion-col>
@@ -79,6 +76,8 @@ import {
   IonText,
   IonList,
   IonReorderGroup,
+  IonSearchbar,
+  IonThumbnail,
 } from "@ionic/vue";
 import { ref } from "vue";
 import { bookmarkOutline } from "ionicons/icons";
@@ -105,11 +104,6 @@ const recentlyPlayed = ref([
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap"); /* Poppins font */
-
-* {
-  font-family: "Poppins", sans-serif;
-}
 ion-item {
   --padding-bottom: 0px;
   --padding-top: 0px;

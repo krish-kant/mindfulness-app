@@ -11,7 +11,7 @@
       </ion-toolbar>
     </ion-header>
     <ion-content>
-      <ion-grid class="ion-margin">
+      <ion-grid>
         <ion-row class="ion-justify-content-center">
           <ion-col>
             <ion-datetime
@@ -20,6 +20,8 @@
               :value="['2022-06-03', '2022-06-13', '2022-06-29']"
             >
             </ion-datetime>
+
+            <TilePlayList />
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -48,14 +50,10 @@ import {
   IonDatetime,
   IonSearchbar,
 } from "@ionic/vue";
+import TilePlayList from "@/components/TilePlayList.vue";
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap"); /* Poppins font */
-
-* {
-  font-family: "Poppins", sans-serif;
-}
 ion-toolbar {
   --background: var(--ion-color-whale);
 }

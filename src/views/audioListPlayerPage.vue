@@ -32,11 +32,7 @@
             </ion-buttons>
           </ion-toolbar>
         </ion-header>
-        <div
-          id="overlay"
-          v-on:click="overlay = 'none'"
-          :style="{ display: overlay }"
-        >
+        <div id="overlay" v-on:click="overlay = 'none'" :style="{ display: overlay }">
           <div id="text">
             {{ trackDurationRemaining }}
           </div>
@@ -48,35 +44,39 @@
           >
             <ion-col>
               <div class="albumImage">
-                <img
-                  @load="onImageLoaded()"
-                  :src="dataList[currentSong].imageUrl"
-                  :key="currentSong"
-                  ondragstart="return false;"
-                  id="playerAlbumArt"
-                />
+                <div style="position: relative">
+                  <img
+                    @load="onImageLoaded()"
+                    :src="dataList[currentAudio].imageUrl"
+                    :key="currentAudio"
+                    ondragstart="return false;"
+                    id="playerAlbumArt"
+                  />
+                  <ion-badge color="medium">
+                    <ion-spinner v-if="audioBuffering"></ion-spinner>
+                  </ion-badge>
+                </div>
               </div>
               <ion-item lines="none">
                 <ion-label class="ion-text-wrap">
-                  <h2>{{ dataList[currentSong].title }}</h2>
-                  <p>
+                  <ion-text style="font-size: large">{{
+                    dataList[currentSong].title
+                  }}</ion-text>
+                  <p style="text-transform: uppercase">
                     {{ dataList[currentSong].type }}
                   </p>
                 </ion-label>
               </ion-item>
-              <ion-badge color="medium">
-                <ion-spinner v-if="audioBuffering"></ion-spinner>
-              </ion-badge>
             </ion-col>
           </ion-row>
           <ion-row class="ion-align-items-center ion-justify-content-center">
             <ion-col size-sm="8">
               <ion-item lines="none">
                 <ion-label slot="start">
-                  <p>{{ currentTimeFormated }}</p>
+                  <p style="text-transform: uppercase">{{ currentTimeFormated }}</p>
                 </ion-label>
                 <ion-label slot="end">
-                  <p>{{ trackDurationFormated }}</p>
+                  <p style="text-transform: uppercase">{{ trackDurationFormated }}</p>
                 </ion-label>
               </ion-item>
               <input
@@ -97,17 +97,10 @@
                   title="Previous Song"
                 >
                   <svg style="width: 60px; height: 60px" viewBox="0 0 24 24">
-                    <path
-                      fill="currentColor"
-                      d="M6,18V6H8V18H6M9.5,12L18,6V18L9.5,12Z"
-                    />
+                    <path fill="currentColor" d="M6,18V6H8V18H6M9.5,12L18,6V18L9.5,12Z" />
                   </svg>
                 </a>
-                <a
-                  class="button play"
-                  v-on:click="playAudio()"
-                  title="Play/Pause Song"
-                >
+                <a class="button play" v-on:click="playAudio()" title="Play/Pause Song">
                   <transition name="slide-fade" mode="out-in">
                     <div>
                       <play-circle-icon :size="90" v-show="!currentlyPlaying" />
@@ -122,10 +115,7 @@
                   title="Next Song"
                 >
                   <svg style="width: 60px; height: 60px" viewBox="0 0 24 24">
-                    <path
-                      fill="currentColor"
-                      d="M16,18H18V6H16M6,18L14.5,12L6,6V18Z"
-                    />
+                    <path fill="currentColor" d="M16,18H18V6H16M6,18L14.5,12L6,6V18Z" />
                   </svg>
                 </a>
               </div>
@@ -314,9 +304,7 @@ export default defineComponent({
         (item) => item.title === this.$route.params.title
       )[0].title;
       console.log(this.title);
-      console.log(
-        this.dataList.filter((item) => item.title === this.title)[0].id
-      );
+      console.log(this.dataList.filter((item) => item.title === this.title)[0].id);
       this.index = this.dataList.findIndex((item) => item.title === this.title);
       this.currentAudio = this.index;
       console.log(this.dataList.findIndex((item) => item.title === this.title));
@@ -450,10 +438,7 @@ export default defineComponent({
     },
     playAudio: function () {
       this.hapticsImpactLight();
-      if (
-        this.currentlyStopped == true &&
-        this.currentSong + 1 == this.dataList.length
-      ) {
+      if (this.currentlyStopped == true && this.currentSong + 1 == this.dataList.length) {
         this.currentSong = 0;
         this.changeSong();
       }
@@ -572,11 +557,6 @@ export default defineComponent({
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap"); /* Poppins font */
-
-* {
-  font-family: "Poppins", sans-serif;
-}
 .button {
   color: var(--ion-color-dark);
   display: flex;
@@ -611,7 +591,7 @@ ion-grid {
 }
 
 .first-row-grid-1 {
-  min-height: 40%;
+  min-height: 45%;
 }
 
 img {
@@ -658,17 +638,16 @@ ion-item {
 
 ion-badge {
   position: absolute;
-  top: 42%;
-  left: 45%;
+  top: 55%;
+  left: 50%;
   z-index: 10;
+  border-radius: 5px;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
 }
 
 input {
   z-index: 10;
-}
-
-.heading {
-  font-size: medium;
 }
 
 code {

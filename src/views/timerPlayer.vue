@@ -13,23 +13,16 @@
     <button v-if="showLoading" class="loading">Loading...</button>
     <button @click="skipPrevious">Skip Previous</button>
     <button @click="skipNext">Skip Next</button>
-    <input
-      type="range"
-      min="0"
-      max="100"
-      v-model="progress"
-      @input="changeProgress"
-    />
+    <input type="range" min="0" max="100" v-model="progress" @input="changeProgress" />
     <span>{{ currentTime }} / {{ duration }}</span>
   </div>
 </template>
 
 <script setup>
+import { IonTabBar, IonTabButton, IonTabs, IonLabel, IonIcon, IonPage } from "@ionic/vue";
 import { ref, onMounted } from "vue";
 
-const audioSrc = ref(
-  "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
-);
+const audioSrc = ref("https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3");
 const currentTime = ref("0:00");
 const duration = ref("0:00");
 const progress = ref(0);
@@ -48,8 +41,7 @@ function playPause() {
 function updateTime() {
   currentTime.value = formatTime(audioElement.value.currentTime);
   duration.value = formatTime(audioElement.value.duration);
-  progress.value =
-    (audioElement.value.currentTime / audioElement.value.duration) * 100;
+  progress.value = (audioElement.value.currentTime / audioElement.value.duration) * 100;
 }
 
 function ended() {
@@ -59,8 +51,7 @@ function ended() {
 }
 
 function changeProgress() {
-  audioElement.value.currentTime =
-    (progress.value / 100) * audioElement.value.duration;
+  audioElement.value.currentTime = (progress.value / 100) * audioElement.value.duration;
 }
 
 function toggleLoading() {
@@ -86,12 +77,6 @@ onMounted(() => {
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap"); /* Poppins font */
-
-* {
-  font-family: "Poppins", sans-serif;
-}
-
 .loading {
   display: inline-block;
   border: none;

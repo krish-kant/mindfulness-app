@@ -17,11 +17,11 @@
 
         <ion-item lines="none">
           <ion-label>
-            <p>
+            <p style="font-size: x-small; text-transform: uppercase">
               {{ musicPlaylist[index].duration }} |
               {{ musicPlaylist[index].type }}
             </p>
-            <h3>{{ musicPlaylist[index].title }}</h3>
+            <ion-text style="font-size: small">{{ musicPlaylist[index].title }}</ion-text>
           </ion-label>
         </ion-item>
       </ion-col>
@@ -30,15 +30,7 @@
 </template>
 
 <script setup>
-import {
-  IonGrid,
-  IonItem,
-  IonRow,
-  IonCol,
-  IonLabel,
-  IonBadge,
-  IonImg,
-} from "@ionic/vue";
+import { IonGrid, IonItem, IonRow, IonCol, IonLabel, IonBadge, IonImg } from "@ionic/vue";
 
 import { defineProps } from "vue";
 
@@ -52,11 +44,6 @@ const onImageLoaded = function () {
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap"); /* Poppins font */
-
-* {
-  font-family: "Poppins", sans-serif;
-}
 .item-image {
   border-radius: 5px !important;
   overflow: hidden;

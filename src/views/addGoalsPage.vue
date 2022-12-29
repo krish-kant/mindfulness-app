@@ -4,10 +4,7 @@
       <ion-toolbar>
         <!-- <ion-title>Library</ion-title> -->
 
-        <ion-text> </ion-text>
-        <ion-button class="ion-margin-end" color="medium" slot="end"
-          >Save</ion-button
-        >
+        <ion-button class="ion-margin-end" color="medium" slot="end">Save</ion-button>
 
         <ion-buttons slot="start">
           <ion-back-button defaultHref="/tabs/goals"></ion-back-button>
@@ -90,8 +87,7 @@ import { ref } from "vue";
 
 const musicPlaylist = ref([
   {
-    title:
-      "Service Bell Service Bell Service Bell Service Bell Bell Service Bell",
+    title: "Service Bell Service Bell Service Bell Service Bell Bell Service Bell",
     type: "Yoga",
     mediaUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
     imageUrl: "https://picsum.photos/500/600",
@@ -119,8 +115,7 @@ const musicPlaylist = ref([
     duration: "5 min",
   },
   {
-    title:
-      "Service Bell Service Bell Service Bell Service Bell Bell Service Bell",
+    title: "Service Bell Service Bell Service Bell Service Bell Bell Service Bell",
     type: "Yoga",
     mediaUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
     imageUrl: "https://picsum.photos/500/600",
@@ -151,11 +146,6 @@ const musicPlaylist = ref([
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap"); /* Poppins font */
-
-* {
-  font-family: "Poppins", sans-serif;
-}
 ion-item {
   --padding-bottom: 5px;
   --padding-top: 5px;

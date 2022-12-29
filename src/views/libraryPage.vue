@@ -13,9 +13,7 @@
                 }
               "
             >
-              <ion-label style="font-weight: 500; margin: 0px 20px"
-                >Playlist</ion-label
-              >
+              <ion-label style="font-weight: 500; margin: 0px 20px">Playlist</ion-label>
             </ion-segment-button>
             <ion-segment-button
               :value="switchBookmarks ? 'default' : ''"
@@ -26,9 +24,7 @@
                 }
               "
             >
-              <ion-label style="font-weight: 500; margin: 0px 20px"
-                >Bookmarks</ion-label
-              >
+              <ion-label style="font-weight: 500; margin: 0px 20px">Bookmarks</ion-label>
             </ion-segment-button>
           </ion-segment>
         </ion-item>
@@ -52,7 +48,7 @@
         </ion-icon>
       </ion-item> -->
 
-      <ion-grid v-if="!switchBookmarks">
+      <ion-grid v-if="!switchBookmarks" style="margin: 0px 5px">
         <ion-row class="ion-justify-content-center">
           <ion-col>
             <ion-list button v-if="playlistLength">
@@ -87,11 +83,15 @@
                     <img alt="Silhouette of mountains" :src="rec.imageUrl" />
                   </ion-thumbnail>
                   <ion-label>
-                    <ion-label>
-                      <p>{{ rec.duration }}</p>
-                      <p>{{ rec.type }}</p>
-                    </ion-label>
                     <h3 style="font-weight: 500">{{ rec.title }}</h3>
+                    <ion-label>
+                      <p style="font-size: small; text-transform: uppercase">
+                        {{ rec.type }}
+                      </p>
+                      <p style="font-size: small; text-transform: uppercase">
+                        {{ rec.duration }}
+                      </p>
+                    </ion-label>
                   </ion-label>
                   <ion-reorder slot="end"></ion-reorder>
                 </ion-item>
@@ -104,42 +104,82 @@
       <ion-grid v-if="switchBookmarks">
         <ion-row class="ion-justify-content-center">
           <ion-col>
-            <ion-list button v-if="bookmarksLength">
+            <div button v-if="bookmarksLength">
               <!-- The reorder gesture is disabled by default, enable it to drag and drop items -->
 
-              <ion-item
-                button
-                detail="true"
-                v-for="rec in bookmarks"
+              <div
+                v-for="(rec, index) in bookmarks"
                 :key="rec.title"
-                @click="
-                  () => {
-                    if (deletePlaylistItem) {
-                      router.push(`/tabs/item-details/${rec.title}`);
-                    }
-                  }
-                "
+                @click="navigateTo(index)"
+                style="cursor: pointer; margin: 0px 10px"
               >
-                <ion-icon
-                  v-if="!deletePlaylistItem"
-                  slot="start"
-                  color="danger"
-                  :icon="removeCircleOutline"
-                  @click="deleteItemfromBookmarks(rec.title)"
-                ></ion-icon>
-                <ion-thumbnail slot="start">
-                  <img alt="Silhouette of mountains" :src="rec.imageUrl" />
-                </ion-thumbnail>
-                <ion-label>
-                  <ion-label>
-                    <p>{{ rec.duration }}</p>
-                    <p>{{ rec.type }}</p>
+                <div class="bookmarks-list">
+                  <ion-icon
+                    class="bookmarks-items"
+                    v-if="!deletePlaylistItem"
+                    slot="start"
+                    color="danger"
+                    style="margin-right: 10px; width: 28px; height: 28px"
+                    :icon="removeCircleOutline"
+                    @click.stop="deleteItemfromBookmarks(rec.title)"
+                  ></ion-icon>
+                  <ion-thumbnail class="bookmarks-items">
+                    <img alt="Silhouette of mountains" :src="rec.imageUrl" />
+                    <div
+                      style="font-size: x-small"
+                      class="play-item-preview"
+                      v-if="isPlaying && index == itemIndex"
+                    >
+                      preview
+                    </div>
+                    <div @click.stop="playAudioPreview(index)" class="play-item-bg">
+                      <div class="play-item">
+                        <svg
+                          style="width: 28px; height: 28px"
+                          viewBox="0 0 24 24"
+                          v-if="!isPlaying || index !== itemIndex"
+                        >
+                          <path fill="currentColor" d="M8,5.14V19.14L19,12.14L8,5.14Z" />
+                        </svg>
+                        <svg
+                          style="width: 24px; height: 24px"
+                          viewBox="0 0 24 24"
+                          v-if="isPlaying && index == itemIndex && !audioBuffering"
+                        >
+                          <path fill="currentColor" d="M14,19H18V5H14M6,19H10V5H6V19Z" />
+                        </svg>
+
+                        <ion-spinner
+                          style="transform: scale(0.8); color: #ffffff"
+                          v-if="isPlaying && index == itemIndex && audioBuffering"
+                        >
+                        </ion-spinner>
+                      </div>
+                    </div>
+                  </ion-thumbnail>
+                  <ion-label style="margin-left: 10px; margin-top: 5px">
+                    <h3 style="font-weight: 500">{{ rec.title }}</h3>
+                    <p style="font-size: small; text-transform: uppercase">
+                      {{ rec.type }}
+                    </p>
+                    <p style="font-size: small; text-transform: uppercase">
+                      {{ rec.duration }}
+                    </p>
                   </ion-label>
-                  <h3 style="font-weight: 500">{{ rec.title }}</h3>
-                </ion-label>
-                <ion-reorder slot="end"></ion-reorder>
-              </ion-item>
-            </ion-list>
+                  <svg
+                    style="width: 24px; height: 24px"
+                    viewBox="0 0 24 24"
+                    class="arrow-icon"
+                  >
+                    <path
+                      fill="#ccc"
+                      d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"
+                    />
+                  </svg>
+                </div>
+                <div class="hr" />
+              </div>
+            </div>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -165,12 +205,11 @@ import {
   IonSegmentButton,
   IonReorder,
   IonSearchbar,
+  IonIcon,
+  IonThumbnail,
+  IonSpinner,
 } from "@ionic/vue";
-import {
-  createOutline,
-  removeCircleOutline,
-  searchOutline,
-} from "ionicons/icons";
+import { createOutline, removeCircleOutline, searchOutline } from "ionicons/icons";
 import { ref, onMounted, watch } from "vue";
 import { useRouter } from "vue-router";
 import { usePlaylistStore } from "@/stores/playlist";
@@ -186,6 +225,77 @@ let deletePlaylistItem = ref(true);
 let playlistLength = ref(0);
 let bookmarksLength = ref(0);
 let switchBookmarks = ref(false);
+
+let isPlaying = ref(false);
+let audio = new Audio();
+
+let itemIndex = ref(-1);
+let audioBuffering = ref(false);
+
+let audioStopTimeout = null;
+
+onMounted(() => {
+  //   getUrlQueryParams();
+});
+
+// const getUrlQueryParams = async function () {
+//   await router.isReady();
+
+//   title.value = bookmarks.filter(
+//     (item) => item.title === route.params.title
+//   )[0].title;
+//   console.log(title.value);
+// };
+
+const navigateTo = (index) => {
+  isPlaying.value = false;
+  clearTimeout(audioStopTimeout);
+  audio.pause();
+  audio.src = "";
+  router.push({
+    path: `/tabs/item-details/${bookmarks[index].title}`,
+  });
+};
+
+const handleWaiting = function () {
+  audioBuffering.value = true;
+  console.log("waiting");
+};
+
+const handlePlaying = function () {
+  setTimeout(() => {
+    audioBuffering.value = false;
+  }, 500);
+};
+
+const playAudioPreview = async function (index) {
+  await Haptics.impact({ style: ImpactStyle.Light });
+  audio.pause();
+  audio.src = "";
+  clearTimeout(audioStopTimeout);
+  if (isPlaying.value == true && itemIndex.value == index) {
+    isPlaying.value = false;
+  } else {
+    itemIndex.value = -1;
+
+    itemIndex.value = index;
+    isPlaying.value = true;
+
+    audio.src = bookmarks[index].mediaUrl;
+    audio.addEventListener("waiting", handleWaiting());
+    audio.addEventListener("playing", handlePlaying());
+    audio.play();
+
+    console.log("audio playing");
+
+    audioStopTimeout = setTimeout(() => {
+      audio.pause();
+      audio.src = "";
+      isPlaying.value = false;
+      console.log("audio ended");
+    }, 30000);
+  }
+};
 
 const handleReorder = (event) => {
   // The `from` and `to` properties contain the index of the item
@@ -241,11 +351,6 @@ watch(bookmarksLength, async () => {
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap"); /* Poppins font */
-
-* {
-  font-family: "Poppins", sans-serif;
-}
 ion-item {
   --padding-bottom: 0px;
   --padding-top: 0px;
@@ -263,6 +368,7 @@ ion-img {
   border-radius: 5px;
   object-fit: cover;
   object-position: 50% 50%;
+
   /* filter: brightness(70%); */
 }
 
@@ -277,7 +383,6 @@ ion-img {
 
 img {
   z-index: 10;
-  border-radius: 5px;
   object-fit: cover;
   object-position: 50% 50%;
 }
@@ -291,16 +396,78 @@ ion-toolbar {
   --background: var(--ion-color-whale);
 }
 
+ion-thumbnail {
+  --size: 100px;
+  --border-radius: 10px;
+  position: relative;
+}
+.bookmarks-list {
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+  align-items: center;
+  justify-content: start;
+}
+
+.arrow-icon {
+  flex-grow: 0;
+  flex-shrink: 0;
+  margin-left: auto;
+  opacity: 0.5;
+}
+
+.bookmarks-items {
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
 @media (prefers-color-scheme: dark) {
   ion-toolbar {
     --ion-color-whale: #0a1629;
   }
 }
 
-/* @media only screen and (min-width: 600px) {
-  .tool-bar-custom {
-    justify-content: center;
-  }
+.hr {
+  border-bottom: 1px solid #ccc;
+  margin: 20px 0px;
+  opacity: 0.2;
+  width: 100%;
+  display: block;
+}
 
-} */
+.play-item {
+  flex-grow: 0;
+  flex-shrink: 0;
+  color: #ffffffd9;
+  align-self: center;
+  margin-top: 6px;
+  margin-right: 1px;
+}
+.play-item-preview {
+  position: absolute;
+  background-color: #000000a5;
+  padding: 4px;
+  top: 64%;
+  left: 8%;
+  text-transform: uppercase;
+  border-radius: 2px 0px 0px 2px;
+  color: #ffffff;
+}
+
+.play-item-bg {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  top: 58%;
+  left: 58%;
+  padding: 0px;
+  width: 35px;
+  height: 35px;
+  background-color: #000000a5;
+  border-radius: 5px;
+  flex-grow: 0;
+  flex-shrink: 0;
+}
 </style>

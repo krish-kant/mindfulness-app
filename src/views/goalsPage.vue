@@ -87,6 +87,9 @@ import {
   IonCheckbox,
   IonText,
   IonFabButton,
+  IonList,
+  IonThumbnail,
+  IonReorder,
 } from "@ionic/vue";
 import { lockClosed, bookmarkOutline, addCircle } from "ionicons/icons";
 import { ref } from "vue";
@@ -100,11 +103,6 @@ const { dataList } = useDataStore();
 </script>
 
 <style scoped>
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap"); /* Poppins font */
-
-* {
-  font-family: "Poppins", sans-serif;
-}
 .tool-bar-custom {
   background-color: var(--ion-color-whale);
   height: 15%;
