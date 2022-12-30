@@ -194,7 +194,6 @@ const playAudioPreview = async function (index) {
   color: #ffffffd9;
   align-self: center;
   margin-top: 6px;
-  margin-right: 1px;
 }
 .play-item-preview {
   position: absolute;

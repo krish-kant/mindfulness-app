@@ -38,38 +38,37 @@
           </div>
         </div>
 
-        <ion-grid class="audioPlayerUI ion-margin-start ion-margin-end">
-          <ion-row
-            class="ion-align-items-center ion-justify-content-center first-row-grid-1 ion-margin-bottom"
-          >
+        <ion-grid>
+          <ion-row class="ion-align-items-center ion-justify-content-center">
             <ion-col>
-              <div class="albumImage">
-                <div style="position: relative">
-                  <img
-                    @load="onImageLoaded()"
-                    :src="dataList[currentAudio].imageUrl"
-                    :key="currentAudio"
-                    ondragstart="return false;"
-                    id="playerAlbumArt"
-                  />
-                  <ion-badge color="medium">
-                    <ion-spinner v-if="audioBuffering"></ion-spinner>
-                  </ion-badge>
-                </div>
+              <div style="position: relative">
+                <img
+                  @load="onImageLoaded()"
+                  :src="dataList[currentAudio].imageUrl"
+                  :key="currentAudio"
+                  ondragstart="return false;"
+                  id="playerAlbumArt"
+                />
+                <ion-badge color="medium">
+                  <ion-spinner v-if="audioBuffering"></ion-spinner>
+                </ion-badge>
+                <ion-item lines="none" class="header">
+                  <ion-label class="ion-text-wrap">
+                    <ion-text style="font-size: large; color: white">{{
+                      dataList[currentAudio].title
+                    }}</ion-text>
+                    <p style="text-transform: uppercase; color: white; margin-top: 20px">
+                      {{ dataList[currentAudio].type }}
+                    </p>
+                  </ion-label>
+                </ion-item>
               </div>
-              <ion-item lines="none">
-                <ion-label class="ion-text-wrap">
-                  <ion-text style="font-size: medium">{{
-                    dataList[currentAudio].title
-                  }}</ion-text>
-                  <p style="text-transform: uppercase">
-                    {{ dataList[currentAudio].type }}
-                  </p>
-                </ion-label>
-              </ion-item>
             </ion-col>
           </ion-row>
-          <ion-row class="ion-align-items-center ion-justify-content-center">
+          <ion-row
+            class="ion-align-items-center ion-justify-content-center ion-margin"
+            style="margin-top: 0px"
+          >
             <ion-col size-sm="8">
               <ion-item lines="none">
                 <ion-label slot="start">
@@ -558,7 +557,6 @@ export default defineComponent({
   },
 });
 </script>
-
 <style scoped>
 .button {
   color: var(--ion-color-dark);
@@ -585,30 +583,34 @@ export default defineComponent({
 
   justify-content: space-around;
   align-items: center;
-
-  margin-top: 2px;
+  margin-bottom: 20px;
 }
 
 ion-grid {
-  height: 100%;
+  height: 80%;
 }
 
-.first-row-grid-1 {
+/* .first-row-grid-1 {
   min-height: 40%;
-}
+} */
 
 img {
   width: 100%;
-  height: 320px;
+  height: 450px;
   object-fit: cover;
   object-position: 50% 50%;
   border-radius: 5px;
   /* filter: brightness(70%); */
-  margin-top: 20px;
 }
 
 ion-label {
   margin: 0;
+}
+
+ion-grid {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 ion-item {
@@ -626,7 +628,7 @@ ion-item {
 @media only screen and (max-width: 600px) {
   img {
     width: 100%;
-    height: 200px;
+    height: 300px;
     object-fit: cover;
     object-position: 50% 50%;
     border-radius: 5px;
@@ -635,13 +637,9 @@ ion-item {
   }
 }
 
-.albumImage {
-  position: relative;
-}
-
 ion-badge {
   position: absolute;
-  top: 55%;
+  top: 50%;
   left: 50%;
   z-index: 10;
   border-radius: 5px;
@@ -662,6 +660,7 @@ code {
     --height: 80%;
   }
 }
+
 #overlay {
   position: fixed;
   display: none;
@@ -678,7 +677,7 @@ code {
 
 #text {
   position: absolute;
-  top: 20%;
+  top: 25%;
   left: 50%;
   font-size: 50px;
   color: white;
@@ -688,7 +687,22 @@ code {
 
 @media only screen and (max-width: 600px) {
   #text {
-    top: 18%;
+    top: 20%;
   }
+}
+
+.header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #000000bc;
+  padding: 20px;
+  border-radius: 5px;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  width: 100%;
+}
+input {
+  margin-bottom: 30px;
 }
 </style>
