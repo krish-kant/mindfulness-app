@@ -161,4 +161,8 @@ ion-grid {
 ion-badge {
   border-radius: 2px;
 }
+
+* {
+  /* font-family: Brandon-regular; */
+}
 </style>

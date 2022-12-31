@@ -54,10 +54,17 @@
                 </ion-badge>
                 <ion-item lines="none" class="header">
                   <ion-label class="ion-text-wrap">
-                    <ion-text style="font-size: large; color: white">{{
+                    <ion-text style="font-size: x-large; color: white">{{
                       dataList[currentAudio].title
                     }}</ion-text>
-                    <p style="text-transform: uppercase; color: white; margin-top: 20px">
+                    <p
+                      style="
+                        text-transform: uppercase;
+                        color: white;
+                        margin-top: 20px;
+                        font-family: Brandon-regular;
+                      "
+                    >
                       {{ dataList[currentAudio].type }}
                     </p>
                   </ion-label>
@@ -72,10 +79,14 @@
             <ion-col size-sm="8">
               <ion-item lines="none">
                 <ion-label slot="start">
-                  <p style="text-transform: uppercase">{{ currentTimeFormated }}</p>
+                  <p style="text-transform: uppercase; font-family: Brandon-regular">
+                    {{ currentTimeFormated }}
+                  </p>
                 </ion-label>
                 <ion-label slot="end">
-                  <p style="text-transform: uppercase">{{ trackDurationFormated }}</p>
+                  <p style="text-transform: uppercase; font-family: Brandon-regular">
+                    {{ trackDurationFormated }}
+                  </p>
                 </ion-label>
               </ion-item>
               <input
@@ -118,7 +129,7 @@
                   </svg>
                 </a>
               </div>
-              <div class="buttons-container">
+              <div class="buttons-container-2">
                 <a class="button" v-on:click="prevSkip()">
                   <svg style="width: 40px; height: 40px" viewBox="0 0 24 24">
                     <path
@@ -128,12 +139,13 @@
                   </svg>
                 </a>
                 <a class="button" v-on:click="prevSkip()">
-                  <svg style="width: 40px; height: 40px" viewBox="0 0 24 24">
-                    <path
-                      fill="currentColor"
-                      d="M9,5A4,4 0 0,1 13,9A4,4 0 0,1 9,13A4,4 0 0,1 5,9A4,4 0 0,1 9,5M9,15C11.67,15 17,16.34 17,19V21H1V19C1,16.34 6.33,15 9,15M16.76,5.36C18.78,7.56 18.78,10.61 16.76,12.63L15.08,10.94C15.92,9.76 15.92,8.23 15.08,7.05L16.76,5.36M20.07,2C24,6.05 23.97,12.11 20.07,16L18.44,14.37C21.21,11.19 21.21,6.65 18.44,3.63L20.07,2Z"
+                  <ion-avatar>
+                    <img
+                      alt="Silhouette of a person's head"
+                      src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=20"
+                      style="width: 50px; height: 50px; border-radius: 50%"
                     />
-                  </svg>
+                  </ion-avatar>
                 </a>
 
                 <a class="button" v-on:click="nextSkip()">
@@ -172,6 +184,7 @@ import {
   IonModal,
   IonButton,
   IonTitle,
+  IonAvatar,
   actionSheetController,
 } from "@ionic/vue";
 import { defineComponent } from "vue";
@@ -210,6 +223,7 @@ export default defineComponent({
     IonModal,
     IonButton,
     IonTitle,
+    IonAvatar,
     // PlayCircleIcon,
     // PauseCircleIcon,
     // FastForward30Icon,
@@ -243,6 +257,10 @@ export default defineComponent({
       overlayTimer: 10000,
     };
   },
+
+  /**
+   * Lifecycle hook
+   */
 
   mounted: function () {
     this.presentingElement = this.$refs.page.$el;
@@ -580,8 +598,14 @@ export default defineComponent({
 
 .buttons-container {
   display: flex;
-
   justify-content: space-around;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.buttons-container-2 {
+  display: flex;
+  justify-content: space-evenly;
   align-items: center;
   margin-bottom: 20px;
 }
@@ -596,7 +620,7 @@ ion-grid {
 
 img {
   width: 100%;
-  height: 450px;
+  height: 400px;
   object-fit: cover;
   object-position: 50% 50%;
   border-radius: 5px;
@@ -605,6 +629,7 @@ img {
 
 ion-label {
   margin: 0;
+  z-index: 100;
 }
 
 ion-grid {

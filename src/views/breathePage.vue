@@ -16,7 +16,7 @@
                 }
               "
             >
-              <ion-label style="font-weight: 500; margin: 0px 20px">Player</ion-label>
+              <ion-label style="font-size: small; margin: 0px 10px">Player</ion-label>
             </ion-segment-button>
             <ion-segment-button
               :value="dataObj.switchGuided ? 'default' : ''"
@@ -27,7 +27,7 @@
                 }
               "
             >
-              <ion-label style="font-weight: 500; margin: 0px 20px">Guided</ion-label>
+              <ion-label style="font-size: small; margin: 0px 10px">Guided</ion-label>
             </ion-segment-button>
           </ion-segment>
         </ion-item>
@@ -94,6 +94,10 @@ const hapticsImpactLight = async () => {
 /********************************** CSS ***********************************/
 
 <style scoped>
+ion-segment {
+  --background: var(--ion-color-light-shade);
+}
+
 ion-buttons {
   position: absolute;
   top: 2px;

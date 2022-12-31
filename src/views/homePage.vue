@@ -92,9 +92,9 @@
       </div>
     </div>
 
-    <ion-content>
+    <ion-content ref="itemContainer">
       <ion-item lines="none" class="ion-margin-top">
-        <ion-text style="font-size: x-large">Hi Krishna</ion-text>
+        <h1>Hi Krishna</h1>
       </ion-item>
       <NavItems />
 
@@ -131,18 +131,51 @@ import { useDataStore } from "@/stores/data";
 import TilePlay from "@/components/TilePlay.vue";
 import TileRecent from "@/components/TileRecent.vue";
 import NavItems from "@/components/NavItems.vue";
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 import { Haptics, ImpactStyle } from "@capacitor/haptics";
+import { ref, watch } from "vue";
 
 const router = useRouter();
+const route = useRoute();
+
 const { dataList } = useDataStore();
+
+const itemContainer = ref(null);
 
 const hapticsImpactLight = async () => {
   await Haptics.impact({ style: ImpactStyle.Light });
 };
+
+/* scroll to top on route change */
+
+watch(
+  () => route.path,
+  () => {
+    itemContainer.value.$el.scrollToTop();
+  }
+);
 </script>
 
 <style scoped>
+ion-text,
+h1 {
+  color: var(--ion-color-whale);
+}
+
+.profile-icon {
+  position: absolute;
+  left: 3%;
+  top: 50%;
+  color: white;
+}
+
+.settings-icon {
+  position: absolute;
+  right: 3%;
+  top: 50%;
+  color: white;
+}
+
 @media (prefers-color-scheme: dark) {
   #blue-ocean-bg {
     --ion-color-whale: #081327;
@@ -179,20 +212,6 @@ ion-item {
   z-index: 1000;
   width: 100%;
   background-color: #f3f3f3;
-}
-
-.profile-icon {
-  position: absolute;
-  left: 3%;
-  top: 50%;
-  color: antiquewhite;
-}
-
-.settings-icon {
-  position: absolute;
-  right: 3%;
-  top: 50%;
-  color: antiquewhite;
 }
 
 @media only screen and (max-width: 600px) {

@@ -3,7 +3,7 @@
     <ion-header>
       <ion-toolbar style="position: relative">
         <ion-item lines="none">
-          <ion-segment value="default" mode="ios">
+          <ion-segment mode="ios" value="default">
             <ion-segment-button
               :value="!switchBookmarks ? 'default' : ''"
               @click="
@@ -13,7 +13,7 @@
                 }
               "
             >
-              <ion-label style="font-weight: 500; margin: 0px 20px">Playlist</ion-label>
+              <ion-label style="font-size: small; margin: 0px 10px">Playlist</ion-label>
             </ion-segment-button>
             <ion-segment-button
               :value="switchBookmarks ? 'default' : ''"
@@ -24,7 +24,7 @@
                 }
               "
             >
-              <ion-label style="font-weight: 500; margin: 0px 20px">Bookmarks</ion-label>
+              <ion-label style="font-size: small; margin: 0px 10px">Bookmarks</ion-label>
             </ion-segment-button>
           </ion-segment>
         </ion-item>
@@ -48,7 +48,7 @@
         </ion-icon>
       </ion-item> -->
 
-      <ion-grid v-if="!switchBookmarks" style="margin: 0px 5px">
+      <ion-grid v-if="!switchBookmarks" style="margin: 0px 0px">
         <ion-row class="ion-justify-content-center">
           <ion-col>
             <ion-list button v-if="playlistLength">
@@ -83,12 +83,12 @@
                     <img alt="Silhouette of mountains" :src="rec.imageUrl" />
                   </ion-thumbnail>
                   <ion-label>
-                    <h3 style="font-weight: 500">{{ rec.title }}</h3>
+                    <p style="font-size: medium; font-family: Brandon-regular">
+                      {{ rec.type }}
+                    </p>
+                    <ion-text style="">{{ rec.title }}</ion-text>
                     <ion-label>
-                      <p style="font-size: small; text-transform: uppercase">
-                        {{ rec.type }}
-                      </p>
-                      <p style="font-size: small; text-transform: uppercase">
+                      <p style="font-size: medium; font-family: Brandon-regular">
                         {{ rec.duration }}
                       </p>
                     </ion-label>
@@ -111,7 +111,7 @@
                 v-for="(rec, index) in bookmarks"
                 :key="rec.title"
                 @click="navigateTo(index)"
-                style="cursor: pointer; margin: 0px 10px"
+                style="cursor: pointer"
               >
                 <div class="bookmarks-list">
                   <ion-icon
@@ -158,11 +158,12 @@
                     </div>
                   </ion-thumbnail>
                   <ion-label style="margin-left: 10px; margin-top: 5px">
-                    <h3 style="font-weight: 500">{{ rec.title }}</h3>
-                    <p style="font-size: small; text-transform: uppercase">
+                    <p style="font-size: medium; font-family: Brandon-regular">
                       {{ rec.type }}
                     </p>
-                    <p style="font-size: small; text-transform: uppercase">
+                    <ion-text style="font-size: large">{{ rec.title }}</ion-text>
+
+                    <p style="font-size: medium; font-family: Brandon-regular">
                       {{ rec.duration }}
                     </p>
                   </ion-label>
@@ -351,11 +352,15 @@ watch(bookmarksLength, async () => {
 </script>
 
 <style scoped>
+ion-segment {
+  --background: var(--ion-color-light-shade);
+}
+
 ion-item {
   --padding-bottom: 0px;
   --padding-top: 0px;
-  --padding-end: 5px;
-  --padding-start: 5px;
+  --padding-end: 0px;
+  --padding-start: 0px;
   --inner-padding-start: 0px;
   --inner-padding-end: 0px;
   --inner-padding-bottom: 0px;
@@ -413,7 +418,6 @@ ion-thumbnail {
   flex-grow: 0;
   flex-shrink: 0;
   margin-left: auto;
-  opacity: 0.5;
 }
 
 .bookmarks-items {

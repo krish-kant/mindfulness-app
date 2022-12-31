@@ -41,7 +41,7 @@
               </ion-spinner>
             </div>
             <div
-              style="font-size: x-small"
+              style="font-size: x-small; font-family: Brandon-regular"
               class="play-item-preview"
               v-if="isPlaying && index == itemIndex"
             >
@@ -52,12 +52,16 @@
 
         <ion-item lines="none">
           <ion-label class="ion-text-wrap">
-            <p style="font-size: small; text-transform: uppercase">
+            <p
+              style="
+                font-size: medium;
+
+                font-family: Brandon-regular;
+              "
+            >
               {{ musicPlaylist[index].duration }}
             </p>
-            <ion-text style="font-size: medium">{{
-              musicPlaylist[index].title
-            }}</ion-text>
+            <ion-text style="font-size: large">{{ musicPlaylist[index].title }}</ion-text>
           </ion-label>
           <svg
             style="width: 25px; height: 25px; cursor: pointer; color: gray"
@@ -269,6 +273,7 @@ ion-grid {
   font-size: small;
   color: white;
   text-transform: uppercase;
+  font-family: Brandon-regular;
 }
 
 ion-badge {

@@ -1,6 +1,6 @@
 <template>
   <div
-    v-for="(rec, index) in bookmarks"
+    v-for="(rec, index) in goalsList"
     :key="rec.title"
     @click="navigateTo(index)"
     style="cursor: pointer; margin: 0px 10px"
@@ -8,6 +8,11 @@
     <div class="bookmarks-list">
       <ion-thumbnail class="bookmarks-items">
         <img alt="Silhouette of mountains" :src="rec.imageUrl" />
+        <div class="lock-icon">
+          <ion-badge color="warning">
+            <ion-icon :icon="lockClosedOutline"></ion-icon>
+          </ion-badge>
+        </div>
         <div
           style="font-size: x-small"
           class="play-item-preview"
@@ -41,18 +46,23 @@
         </div>
       </ion-thumbnail>
       <ion-label style="margin-left: 10px; margin-top: 5px">
-        <h3 style="font-weight: 500">{{ rec.title }}</h3>
-        <p style="font-size: small; text-transform: uppercase">
+        <p style="font-size: medium; font-family: Brandon-regular">
           {{ rec.type }}
         </p>
-        <p style="font-size: small; text-transform: uppercase">
+        <ion-text style="font-size: large">{{ rec.title }}</ion-text>
+
+        <p style="font-size: medium; font-family: Brandon-regular">
           {{ rec.duration }}
         </p>
       </ion-label>
-      <svg style="width: 24px; height: 24px" viewBox="0 0 24 24" class="arrow-icon">
+      <svg
+        style="width: 25px; height: 25px; cursor: pointer; color: gray"
+        viewBox="0 0 24 24"
+        class="bookmark-icon"
+      >
         <path
-          fill="#ccc"
-          d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"
+          fill="currentColor"
+          d="M17,18L12,15.82L7,18V5H17M17,3H7A2,2 0 0,0 5,5V21L12,18L19,21V5C19,3.89 18.1,3 17,3Z"
         />
       </svg>
     </div>
@@ -83,14 +93,17 @@ import {
   IonText,
   IonThumbnail,
 } from "@ionic/vue";
-import { createOutline, removeCircleOutline, searchOutline } from "ionicons/icons";
-import { ref, onMounted, watch } from "vue";
+import {
+  createOutline,
+  removeCircleOutline,
+  searchOutline,
+  lockClosedOutline,
+} from "ionicons/icons";
+import { ref, onMounted, watch, defineProps } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { useBookmarksStore } from "@/stores/bookmarks";
 
 import { Haptics, ImpactStyle } from "@capacitor/haptics";
-
-let bookmarks = useBookmarksStore().bookmarksList;
 
 let title = ref("");
 
@@ -105,6 +118,10 @@ let audio = new Audio();
 
 let itemIndex = ref(-1);
 let audioBuffering = ref(false);
+
+const props = defineProps({
+  goalsList: Array,
+});
 
 let audioStopTimeout = null;
 onMounted(() => {
@@ -126,7 +143,7 @@ const navigateTo = (index) => {
   audio.pause();
   audio.src = "";
   router.push({
-    path: `/tabs/item-details/${bookmarks[index].title}`,
+    path: `/tabs/item-details/${props.goalsList[index].title}`,
   });
 };
 
@@ -154,7 +171,7 @@ const playAudioPreview = async function (index) {
     itemIndex.value = index;
     isPlaying.value = true;
 
-    audio.src = bookmarks[index].mediaUrl;
+    audio.src = props.goalsList[index].mediaUrl;
     audio.addEventListener("waiting", handleWaiting());
     audio.addEventListener("playing", handlePlaying());
     audio.play();
@@ -185,11 +202,10 @@ ion-thumbnail {
   justify-content: start;
 }
 
-.arrow-icon {
+.bookmark-icon {
   flex-grow: 0;
   flex-shrink: 0;
   margin-left: auto;
-  opacity: 0.5;
 }
 
 .bookmarks-items {
@@ -245,5 +261,17 @@ ion-thumbnail {
   border-radius: 5px;
   flex-grow: 0;
   flex-shrink: 0;
+}
+
+.lock-icon {
+  position: absolute;
+  left: 8px;
+  top: 8px;
+  z-index: 10;
+}
+
+ion-badge {
+  border-radius: 2px;
+  padding: 2px 3px;
 }
 </style>

@@ -54,10 +54,17 @@
                 </ion-badge>
                 <ion-item lines="none" class="header">
                   <ion-label class="ion-text-wrap">
-                    <ion-text style="font-size: large; color: white">{{
+                    <ion-text style="font-size: x-large; color: white">{{
                       dataList[currentAudio].title
                     }}</ion-text>
-                    <p style="text-transform: uppercase; color: white; margin-top: 20px">
+                    <p
+                      style="
+                        text-transform: uppercase;
+                        color: white;
+                        margin-top: 20px;
+                        font-family: Brandon-regular;
+                      "
+                    >
                       {{ dataList[currentAudio].type }}
                     </p>
                   </ion-label>
@@ -72,10 +79,14 @@
             <ion-col size-sm="8">
               <ion-item lines="none">
                 <ion-label slot="start">
-                  <p style="text-transform: uppercase">{{ currentTimeFormated }}</p>
+                  <p style="text-transform: uppercase; font-family: Brandon-regular">
+                    {{ currentTimeFormated }}
+                  </p>
                 </ion-label>
                 <ion-label slot="end">
-                  <p style="text-transform: uppercase">{{ trackDurationFormated }}</p>
+                  <p style="text-transform: uppercase; font-family: Brandon-regular">
+                    {{ trackDurationFormated }}
+                  </p>
                 </ion-label>
               </ion-item>
               <input
@@ -90,7 +101,7 @@
               />
               <div class="buttons-container">
                 <a class="button" v-on:click="prevSkip()">
-                  <rewind30-icon :size="40" />
+                  <rewind30-icon :size="50" />
                 </a>
                 <a class="button play" v-on:click="playAudio()" title="Play/Pause Song">
                   <transition name="slide-fade" mode="out-in">
@@ -101,14 +112,21 @@
                   </transition>
                 </a>
                 <a class="button" v-on:click="nextSkip()">
-                  <fast-forward30-icon :size="40" />
+                  <fast-forward30-icon :size="50" />
                 </a>
               </div>
               <div class="buttons-container">
                 <a class="button">
-                  <account-voice-icon :size="40" />
+                  <!-- <account-voice-icon :size="40" /> -->
+                  <ion-avatar>
+                    <img
+                      alt="Silhouette of a person's head"
+                      src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=20"
+                      style="width: 50px; height: 50px; border-radius: 50%"
+                    />
+                  </ion-avatar>
                 </a>
-                <a class="button" title="Next Song" slot="end">
+                <a class="button" title="Next Song" slot="end" style="margin-top: 10px">
                   <cards-heart-outline-icon :size="40" />
                 </a>
                 <!-- <div
@@ -148,6 +166,7 @@ import {
   IonModal,
   IonButton,
   IonTitle,
+  IonAvatar,
   actionSheetController,
 } from "@ionic/vue";
 import { defineComponent } from "vue";
@@ -185,12 +204,13 @@ export default defineComponent({
     IonButton,
     IonTitle,
     IonText,
+    IonAvatar,
     PlayCircleIcon,
     PauseCircleIcon,
     FastForward30Icon,
     Rewind30Icon,
     CardsHeartOutlineIcon,
-    AccountVoiceIcon,
+    // AccountVoiceIcon,
   },
   data: function () {
     return {
@@ -529,6 +549,7 @@ img {
 
 ion-label {
   margin: 0;
+  z-index: 100;
 }
 
 ion-grid {

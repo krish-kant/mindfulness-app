@@ -7,10 +7,7 @@
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
-    <ion-content :scroll-events="true">
-      <!-- <ion-grid>
-        <ion-row class="ion-justify-content-center">
-          <ion-col class="ion-align-self-center"> -->
+    <ion-content ref="itemContainer">
       <div v-if="dataLoaded">
         <img alt="Silhouette of mountains" :src="dataList[index].imageUrl" />
         <ion-badge color="light" class="share-item">
@@ -32,11 +29,14 @@
           "
         >
           <ion-card-header>
-            <ion-card-title style="font-size: large; font-weight: 500">{{
-              dataList[index].title
-            }}</ion-card-title>
+            <ion-text class="card-header">{{ dataList[index].title }}</ion-text>
             <ion-card-subtitle
-              style="font-weight: 500; font-size: small; text-transform: uppercase"
+              style="
+                font-weight: 500;
+                font-size: small;
+                text-transform: uppercase;
+                font-family: Brandon-regular;
+              "
             >
               {{ dataList[index].duration }}
               |
@@ -52,22 +52,18 @@
                 });
               }
             "
-            router-direction="none"
           >
             <ion-icon :icon="play" />
             <ion-text style="margin-left: 5px">Play</ion-text>
           </button>
           <div style="margin: 30px">
-            <ion-text style="line-height: 1.7em; font-size: small; font-weight: 300">
-              <p>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae
-                sapiente porro nostrum soluta consectetur alias reiciendis ea, dolore
-                debitis facilis quibusdam? Quibusdam assumenda iusto iste aperiam rerum
-                ad, mollitia a. Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                Impedit qui dolore iure tempora excepturi aliquam commodi, provident a
-                quo. Eaque accusantium minima libero optio adipisci vel laudantium
-                suscipit inventore saepe!
-              </p>
+            <ion-text style="font-size: large; font-family: Brandon-regular">
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae sapiente
+              porro nostrum soluta consectetur alias reiciendis ea, dolore debitis facilis
+              quibusdam? Quibusdam assumenda iusto iste aperiam rerum ad, mollitia a.
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Impedit qui dolore
+              iure tempora excepturi aliquam commodi, provident a quo. Eaque accusantium
+              minima libero optio adipisci vel laudantium suscipit inventore saepe!
             </ion-text>
           </div>
           <!-- <ion-item lines="none" class="ion-margin">
@@ -93,8 +89,12 @@
             </ion-button>
           </ion-item> -->
 
-          <ion-item style="font-size: large; margin-left: 16px" lines="none">
-            Related Items
+          <ion-item lines="none">
+            <ion-text
+              class="heading-related-items"
+              style="font-size: large; margin-left: 16px"
+              >Related Items</ion-text
+            >
           </ion-item>
 
           <TilePlay :musicPlaylist="dataListFilteredComp" />
@@ -144,15 +144,31 @@ let dataLoaded = ref(false);
 let index = ref(0);
 let title = ref("");
 
+const itemContainer = ref(null);
+
+/* 
+  watch for changes in the route params
+  and update the index and title
+*/
+
 onMounted(() => {
   getUrlQueryParams();
 });
+
+/* 
+  haptic feedback
+*/
 
 const hapticTouch = async function () {
   await Haptics.impact({ style: ImpactStyle.Light });
 };
 
+/* 
+  share the link to the current page
+*/
+
 const shareLink = async function () {
+  hapticTouch();
   await Share.share({
     title: "Hey! Check this out on Moby.",
     text: dataList[index].title,
@@ -161,30 +177,47 @@ const shareLink = async function () {
   });
 };
 
+/* 
+  get the query params from the url
+  this is needed because when we navigate to the same page with different params
+  the onMounted hook is not called again
+*/
+
 const getUrlQueryParams = async () => {
-  //router is async so we wait for it to be readyHi
+  //router is async so we wait for it to be ready
   await router.isReady();
   //once its ready we can access the query params
-  console.log(route.query);
-
-  // index.value = route.query.index;
   dataLoaded.value = true;
-  // title.value = route.params.title;
   title.value = dataList.filter((item) => item.title === route.params.title)[0].title;
-  console.log(title.value);
-  console.log(dataList.filter((item) => item.title === title.value)[0].id);
   index = dataList.findIndex((item) => item.title === title.value);
-  console.log(dataList.findIndex((item) => item.title === title.value));
 };
+
+/* 
+  watch for changes in the route params and scroll to top of the page
+  this is needed because when we navigate to the same page with different params
+  the page does not scroll to top
+*/
 
 watch(
   () => route.params.title,
-  () => {}
+  () => {
+    itemContainer.value.$el.scrollToTop();
+  }
 );
+
+/* 
+  filter the dataList to remove the current item
+  this is needed because we are using the same component to display the current item
+  and the related items
+*/
 
 const dataListFiltered = dataList.filter((obj) => {
   return obj.title != route.params.title;
 });
+
+/* 
+  create a computed property to be used in the TilePlay component
+*/
 
 const dataListFilteredComp = computed({
   get() {
@@ -245,14 +278,6 @@ ion-grid {
   --ion-grid-padding: 0px;
 }
 
-/* ion-card {
-  padding: 0;
-  margin: 0;
-  box-shadow: none !important;
-  border-radius: 0px;
-  background-color: var(--ion-color-dark-contrast);
-} */
-
 ion-col {
   position: relative;
 }
@@ -292,5 +317,17 @@ button {
 
 button:active {
   transform: scale(0.99);
+}
+ion-content::part(scroll) {
+  overscroll-behavior: contain;
+}
+
+.card-header {
+  font-size: x-large;
+  color: var(--ion-color-dark);
+}
+
+.heading-related-items {
+  color: var(--ion-color-whale);
 }
 </style>

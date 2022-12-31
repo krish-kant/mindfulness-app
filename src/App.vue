@@ -9,16 +9,35 @@ import { IonApp, IonRouterOutlet } from "@ionic/vue";
 </script>
 
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap");
 * {
   font-family: "Poppins", sans-serif;
+} */
+
+@font-face {
+  font-family: Brandon-bold;
+  src: url("@/assets/fonts/Brandon_bold.otf");
+}
+
+@font-face {
+  font-family: Brandon-regular;
+  src: url("@/assets/fonts/Brandon_regular.otf");
+}
+@font-face {
+  font-family: Brandon-italic;
+  src: url("@/assets/fonts/Brandon_bold_italic.otf");
+}
+
+* {
+  font-family: "Brandon-bold", sans-serif;
+  /* font-family: "Brandon-regular", sans-serif; */
+  /* font-family: "Brandon-italic", sans-serif; */
 }
 
 ion-app {
   max-width: 1200px;
   margin: 0 auto;
   background-color: #414141;
-  font-family: "Roboto", sans-serif;
 }
 
 ion-toolbar {
@@ -36,7 +55,6 @@ ion-toolbar {
     max-width: 1200px;
     margin: 0 auto;
     background-color: #414141;
-    font-family: "Roboto", sans-serif;
   }
 }
 

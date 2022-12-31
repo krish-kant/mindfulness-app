@@ -18,54 +18,22 @@
       <div class="scroll-items">
         <ion-button color="dark" mode="ios">
           <ion-label>
-            <h3 style="font-weight: 600">Yoga and anxity</h3>
+            <ion-text style="font-family: Brandon-regular">Yoga And Anxity</ion-text>
           </ion-label>
         </ion-button>
         <ion-button
           mode="ios"
           color="dark"
-          v-for="n in dataList"
-          :key="n.title"
+          v-for="rec in dataList"
+          :key="rec.title"
           fill="clear"
         >
           <ion-label>
-            <h3 style="font-weight: 600">{{ n.title }}</h3>
+            <ion-text style="font-family: Brandon-regular">{{ rec.title }}</ion-text>
           </ion-label>
         </ion-button>
       </div>
-      <ion-grid>
-        <ion-row class="ion-justify-content-center">
-          <ion-col>
-            <ion-list button>
-              <!-- The reorder gesture is disabled by default, enable it to drag and drop items -->
-
-              <ion-item
-                button
-                detail="true"
-                v-for="rec in dataList"
-                :key="rec.title"
-                @click="
-                  () => {
-                    router.push(`/tabs/item-details/${rec.title}`);
-                  }
-                "
-              >
-                <ion-thumbnail slot="start">
-                  <img alt="Silhouette of mountains" :src="rec.imageUrl" />
-                </ion-thumbnail>
-                <ion-label>
-                  <ion-label>
-                    <p>{{ rec.duration }}</p>
-                    <p>{{ rec.type }}</p>
-                  </ion-label>
-                  <h3 style="font-weight: 500">{{ rec.title }}</h3>
-                </ion-label>
-                <ion-reorder slot="end"></ion-reorder>
-              </ion-item>
-            </ion-list>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+      <TilePlayList :goalsList="dataList" />
     </ion-content>
   </ion-page>
 </template>
@@ -91,12 +59,11 @@ import {
   IonThumbnail,
   IonReorder,
 } from "@ionic/vue";
+import TilePlayList from "@/components/TilePlayList.vue";
 import { lockClosed, bookmarkOutline, addCircle } from "ionicons/icons";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { useDataStore } from "@/stores/data";
-
-import TilePlay from "@/components/TilePlay.vue";
 
 const router = useRouter();
 const { dataList } = useDataStore();
@@ -131,9 +98,9 @@ const { dataList } = useDataStore();
   display: flex;
   flex-wrap: nowrap;
   white-space: nowrap;
-  margin-bottom: 2px;
+  margin-bottom: 30px;
   margin-left: 10px;
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
 .scroll-items::-webkit-scrollbar {

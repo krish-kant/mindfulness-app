@@ -16,12 +16,12 @@
         />
 
         <ion-item lines="none">
-          <ion-label>
-            <p style="font-size: x-small; text-transform: uppercase">
+          <ion-label class="ion-text-wrap">
+            <p style="font-family: Brandon-regular">
               {{ musicPlaylist[index].duration }} |
               {{ musicPlaylist[index].type }}
             </p>
-            <ion-text style="font-size: small">{{ musicPlaylist[index].title }}</ion-text>
+            <ion-text style="font-size: large">{{ musicPlaylist[index].title }}</ion-text>
           </ion-label>
         </ion-item>
       </ion-col>

@@ -6,7 +6,7 @@ export const useRecentlyPlayedStore = defineStore("recentlyPlayed", {
       recentlyPlayedList: [
         {
           id: 1,
-          title: "Service Bell",
+          title: "Yoga And Meditaion And Its Benefits",
           type: "Yoga",
           mediaUrl:
             "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
@@ -16,7 +16,7 @@ export const useRecentlyPlayedStore = defineStore("recentlyPlayed", {
         },
         {
           id: 2,
-          title: "Meadowlark",
+          title: "Meadowlark Is a AI Generated Song",
           type: "Sleep",
           mediaUrl:
             "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
@@ -26,7 +26,7 @@ export const useRecentlyPlayedStore = defineStore("recentlyPlayed", {
         },
         {
           id: 3,
-          title: "Hyena Laughing",
+          title: "Dealing With Chronic Pain and Stress After Breakup",
           type: "Meditation",
           mediaUrl: "https://soundbible.com/mp3/hyena-laugh_daniel-simion.mp3",
           imageUrl:
@@ -35,7 +35,7 @@ export const useRecentlyPlayedStore = defineStore("recentlyPlayed", {
         },
         {
           id: 4,
-          title: "Creepy Background",
+          title: "Sound Helix Is The Source of This Audio",
           type: "Breethe",
           mediaUrl:
             "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
@@ -45,7 +45,7 @@ export const useRecentlyPlayedStore = defineStore("recentlyPlayed", {
         },
         {
           id: 5,
-          title: "Service Bell Service Bell ",
+          title: "Service Bell From Sound Helix",
           type: "Yoga",
           mediaUrl:
             "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
@@ -55,7 +55,7 @@ export const useRecentlyPlayedStore = defineStore("recentlyPlayed", {
         },
         {
           id: 6,
-          title: "Meadowlark2",
+          title: "Meadowlark2 From Sound Helix",
           type: "Sleep",
           mediaUrl:
             "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
@@ -65,7 +65,7 @@ export const useRecentlyPlayedStore = defineStore("recentlyPlayed", {
         },
         {
           id: 7,
-          title: "Hyena Laughing2",
+          title: "Hyena Laughing2 From Sound Helix",
           type: "Meditation",
           mediaUrl: "https://soundbible.com/mp3/hyena-laugh_daniel-simion.mp3",
           imageUrl:
@@ -74,7 +74,7 @@ export const useRecentlyPlayedStore = defineStore("recentlyPlayed", {
         },
         {
           id: 8,
-          title: "Creepy Background2",
+          title: "Creepy Background2 From Sound Helix",
           type: "Breethe",
           mediaUrl:
             "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",

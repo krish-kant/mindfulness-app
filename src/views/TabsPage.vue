@@ -3,40 +3,24 @@
     <ion-tabs>
       <ion-router-outlet></ion-router-outlet>
       <ion-tab-bar slot="bottom">
-        <ion-tab-button
-          tab="home"
-          href="/tabs/home"
-          @click="hapticsImpactLight"
-        >
+        <ion-tab-button tab="home" href="/tabs/home" @click="hapticsImpactLight">
           <ion-icon :icon="home" />
-          <ion-label>home</ion-label>
+          <ion-label style="font-size: ">home</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button
-          tab="library"
-          href="/tabs/library"
-          @click="hapticsImpactLight"
-        >
+        <ion-tab-button tab="library" href="/tabs/library" @click="hapticsImpactLight">
           <ion-icon :icon="play" />
-          <ion-label>library</ion-label>
+          <ion-label style="font-size: ">library</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button
-          tab="goals"
-          href="/tabs/goals"
-          @click="hapticsImpactLight"
-        >
+        <ion-tab-button tab="goals" href="/tabs/goals" @click="hapticsImpactLight">
           <ion-icon :icon="flag" />
-          <ion-label>goals</ion-label>
+          <ion-label style="font-size: ">goals</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button
-          tab="profile"
-          href="/tabs/profile"
-          @click="hapticsImpactLight"
-        >
+        <ion-tab-button tab="profile" href="/tabs/profile" @click="hapticsImpactLight">
           <ion-icon :icon="search" />
-          <ion-label>search</ion-label>
+          <ion-label style="font-size: ">search</ion-label>
         </ion-tab-button>
       </ion-tab-bar>
     </ion-tabs>
@@ -61,4 +45,8 @@ const hapticsImpactLight = async () => {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+* {
+  font-family: Brandon-regular;
+}
+</style>
