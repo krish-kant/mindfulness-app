@@ -98,7 +98,7 @@ const { dataList } = useDataStore();
   display: flex;
   flex-wrap: nowrap;
   white-space: nowrap;
-  margin-bottom: 30px;
+  margin-bottom: 25px;
   margin-left: 10px;
   margin-top: 30px;
 }
@@ -109,7 +109,7 @@ const { dataList } = useDataStore();
 
 .add-goals-icon {
   animation: rotation 1s 2s linear;
-  margin-right: 10px;
+  margin-right: 5px;
 }
 
 ion-icon {

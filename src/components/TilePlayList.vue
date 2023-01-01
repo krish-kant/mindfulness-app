@@ -5,9 +5,26 @@
     @click="navigateTo(index)"
     style="cursor: pointer; margin: 0px 10px"
   >
-    <div class="bookmarks-list">
+    <div
+      class="bookmarks-list ion-activatable ripple-parent"
+      style="position: relative; overflow: hidden"
+    >
+      <IonRippleEffect
+        style="overflow: hidden"
+        :style="
+          iOSplatform
+            ? {
+                margin: '4px 0px',
+                'border-radius': '12px',
+                'border-top-right-radius': '0px',
+                'border-bottom-right-radius': '0px',
+              }
+            : ''
+        "
+      />
       <ion-thumbnail class="bookmarks-items">
         <img alt="Silhouette of mountains" :src="rec.imageUrl" />
+
         <div class="lock-icon">
           <ion-badge color="warning">
             <ion-icon :icon="lockClosedOutline"></ion-icon>
@@ -92,6 +109,8 @@ import {
   IonSpinner,
   IonText,
   IonThumbnail,
+  IonRippleEffect,
+  isPlatform,
 } from "@ionic/vue";
 import {
   createOutline,
@@ -104,6 +123,8 @@ import { useRouter, useRoute } from "vue-router";
 import { useBookmarksStore } from "@/stores/bookmarks";
 
 import { Haptics, ImpactStyle } from "@capacitor/haptics";
+
+let iOSplatform = isPlatform("ios"); // returns true when running on a iOS device
 
 let title = ref("");
 
@@ -206,6 +227,7 @@ ion-thumbnail {
   flex-grow: 0;
   flex-shrink: 0;
   margin-left: auto;
+  margin-right: 0px;
 }
 
 .bookmarks-items {
@@ -240,7 +262,7 @@ ion-thumbnail {
   background-color: #000000a5;
   padding: 4px;
   top: 64%;
-  left: 9%;
+  left: 7%;
   text-transform: uppercase;
   border-radius: 2px 0px 0px 2px;
   color: #ffffff;

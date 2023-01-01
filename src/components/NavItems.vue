@@ -4,7 +4,8 @@
       <ion-col size="4" size-lg="2" class="ion-align-self-center">
         <ion-item
           lines="none"
-          class="nav-items"
+          class="nav-items ion-activatable ripple-parent rounded-rectangle"
+          style="overflow: hidden"
           @click="() => router.push('/tabs/library')"
         >
           <ion-label>
@@ -16,13 +17,14 @@
             </svg>
             <p>Yoga</p>
           </ion-label>
+          <ion-ripple-effect />
         </ion-item>
       </ion-col>
 
       <ion-col size="4" size-lg="2" class="ion-align-self-center">
         <ion-item
           lines="none"
-          class="nav-items"
+          class="nav-items ion-activatable ripple-parent rounded-rectangle"
           @click="() => router.push('/tabs/library')"
         >
           <ion-label class="flex-container">
@@ -34,13 +36,14 @@
             </svg>
             <p>Meditation</p>
           </ion-label>
+          <ion-ripple-effect />
         </ion-item>
       </ion-col>
 
       <ion-col size="4" size-lg="2" class="ion-align-self-center">
         <ion-item
           lines="none"
-          class="nav-items"
+          class="nav-items ion-activatable ripple-parent rounded-rectangle"
           @click="() => router.push('/tabs/breathe')"
         >
           <ion-label>
@@ -52,13 +55,14 @@
             </svg>
             <p>Breethe</p>
           </ion-label>
+          <ion-ripple-effect />
         </ion-item>
       </ion-col>
 
       <ion-col size="4" size-lg="2" class="ion-align-self-center">
         <ion-item
           lines="none"
-          class="nav-items"
+          class="nav-items ion-activatable ripple-parent rounded-rectangle"
           @click="() => router.push('/tabs/library')"
         >
           <ion-label>
@@ -70,13 +74,14 @@
             </svg>
             <p>Sleep</p>
           </ion-label>
+          <ion-ripple-effect />
         </ion-item>
       </ion-col>
 
       <ion-col size="4" size-lg="2" class="ion-align-self-center">
         <ion-item
           lines="none"
-          class="nav-items"
+          class="nav-items ion-activatable ripple-parent rounded-rectangle"
           @click="() => router.push('/tabs/search')"
         >
           <ion-label>
@@ -88,13 +93,14 @@
             </svg>
             <p>Timer</p>
           </ion-label>
+          <ion-ripple-effect />
         </ion-item>
       </ion-col>
 
       <ion-col size="4" size-lg="2" class="ion-align-self-center">
         <ion-item
           lines="none"
-          class="nav-items"
+          class="nav-items ion-activatable ripple-parent rounded-rectangle"
           @click="() => router.push('/tabs/search')"
         >
           <ion-label>
@@ -106,6 +112,7 @@
             </svg>
             <p>Fasting</p>
           </ion-label>
+          <ion-ripple-effect />
         </ion-item>
       </ion-col>
     </ion-row>
@@ -113,7 +120,7 @@
 </template>
 
 <script setup>
-import { IonGrid, IonItem, IonRow, IonCol, IonLabel } from "@ionic/vue";
+import { IonGrid, IonItem, IonRow, IonCol, IonLabel, IonRippleEffect } from "@ionic/vue";
 
 import { ref } from "vue";
 import { useRouter } from "vue-router";

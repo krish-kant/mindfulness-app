@@ -14,9 +14,10 @@
             class="item-image"
             :src="musicPlaylist[index].imageUrl"
             :key="currentAudio"
-            @click="navigateTo(index)"
             @ionImgDidLoad="ionImgDidLoad"
+            @click="navigateTo(index)"
           />
+
           <div @click.stop="playAudioPreview(index)" class="play-item-bg">
             <div class="play-item">
               <svg
@@ -52,13 +53,7 @@
 
         <ion-item lines="none">
           <ion-label class="ion-text-wrap">
-            <p
-              style="
-                font-size: medium;
-
-                font-family: Brandon-regular;
-              "
-            >
+            <p style="font-size: medium; font-family: Brandon-regular">
               {{ musicPlaylist[index].duration }}
             </p>
             <ion-text style="font-size: large">{{ musicPlaylist[index].title }}</ion-text>
@@ -201,7 +196,7 @@ const playAudioPreview = async function (index) {
 }
 .play-item-preview {
   position: absolute;
-  top: 5px;
+  top: 6px;
   left: 35px;
   background-color: #000000a5;
   padding: 4px;

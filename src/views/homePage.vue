@@ -99,19 +99,19 @@
       <NavItems />
 
       <ion-item lines="none">
+        <ion-text style="font-size: large">Top Rated</ion-text>
+      </ion-item>
+      <TilePlay :musicPlaylist="dataList" />
+
+      <ion-item lines="none">
+        <ion-text style="font-size: large">Top Rated</ion-text>
+      </ion-item>
+      <TilePlay :musicPlaylist="dataList" />
+
+      <ion-item lines="none">
         <ion-text style="font-size: large">Recently Played</ion-text>
       </ion-item>
       <TileRecent :musicPlaylist="dataList" />
-
-      <ion-item lines="none">
-        <ion-text style="font-size: large">Top Rated</ion-text>
-      </ion-item>
-      <TilePlay :musicPlaylist="dataList" />
-
-      <ion-item lines="none">
-        <ion-text style="font-size: large">Top Rated</ion-text>
-      </ion-item>
-      <TilePlay :musicPlaylist="dataList" />
     </ion-content>
   </ion-page>
 </template>
@@ -151,7 +151,9 @@ const hapticsImpactLight = async () => {
 watch(
   () => route.path,
   () => {
-    itemContainer.value.$el.scrollToTop();
+    setTimeout(() => {
+      itemContainer.value.$el.scrollToTop();
+    }, 200);
   }
 );
 </script>

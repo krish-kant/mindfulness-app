@@ -48,7 +48,7 @@
         </ion-icon>
       </ion-item> -->
 
-      <ion-grid v-if="!switchBookmarks" style="margin: 0px 0px">
+      <ion-grid v-if="!switchBookmarks">
         <ion-row class="ion-justify-content-center">
           <ion-col>
             <ion-list button v-if="playlistLength">
@@ -101,89 +101,95 @@
         </ion-row>
       </ion-grid>
 
-      <ion-grid v-if="switchBookmarks">
-        <ion-row class="ion-justify-content-center">
-          <ion-col>
-            <div button v-if="bookmarksLength">
-              <!-- The reorder gesture is disabled by default, enable it to drag and drop items -->
+      <div button v-if="bookmarksLength && switchBookmarks" style="margin: 30px 10px">
+        <!-- The reorder gesture is disabled by default, enable it to drag and drop items -->
 
+        <div
+          v-for="(rec, index) in bookmarks"
+          :key="rec.title"
+          @click="navigateTo(index)"
+          style="cursor: pointer"
+        >
+          <div
+            class="bookmarks-list ion-activatable ripple-parent rounded-rectangle"
+            style="position: relative; overflow: hidden"
+          >
+            <ion-icon
+              class="bookmarks-items"
+              v-if="!deletePlaylistItem"
+              slot="start"
+              color="danger"
+              style="margin-right: 10px; width: 28px; height: 28px"
+              :icon="removeCircleOutline"
+              @click.stop="deleteItemfromBookmarks(rec.title)"
+            ></ion-icon>
+            <IonRippleEffect
+              style="overflow: hidden"
+              :style="
+                iOSplatform
+                  ? {
+                      margin: '4px 0px',
+                      'border-radius': '12px',
+                      'border-top-right-radius': '0px',
+                      'border-bottom-right-radius': '0px',
+                    }
+                  : ''
+              "
+            />
+            <ion-thumbnail class="bookmarks-items thumbnail-bookmarks">
+              <img alt="Silhouette of mountains" :src="rec.imageUrl" />
               <div
-                v-for="(rec, index) in bookmarks"
-                :key="rec.title"
-                @click="navigateTo(index)"
-                style="cursor: pointer"
+                style="font-size: x-small"
+                class="play-item-preview"
+                v-if="isPlaying && index == itemIndex"
               >
-                <div class="bookmarks-list">
-                  <ion-icon
-                    class="bookmarks-items"
-                    v-if="!deletePlaylistItem"
-                    slot="start"
-                    color="danger"
-                    style="margin-right: 10px; width: 28px; height: 28px"
-                    :icon="removeCircleOutline"
-                    @click.stop="deleteItemfromBookmarks(rec.title)"
-                  ></ion-icon>
-                  <ion-thumbnail class="bookmarks-items">
-                    <img alt="Silhouette of mountains" :src="rec.imageUrl" />
-                    <div
-                      style="font-size: x-small"
-                      class="play-item-preview"
-                      v-if="isPlaying && index == itemIndex"
-                    >
-                      preview
-                    </div>
-                    <div @click.stop="playAudioPreview(index)" class="play-item-bg">
-                      <div class="play-item">
-                        <svg
-                          style="width: 28px; height: 28px"
-                          viewBox="0 0 24 24"
-                          v-if="!isPlaying || index !== itemIndex"
-                        >
-                          <path fill="currentColor" d="M8,5.14V19.14L19,12.14L8,5.14Z" />
-                        </svg>
-                        <svg
-                          style="width: 24px; height: 24px"
-                          viewBox="0 0 24 24"
-                          v-if="isPlaying && index == itemIndex && !audioBuffering"
-                        >
-                          <path fill="currentColor" d="M14,19H18V5H14M6,19H10V5H6V19Z" />
-                        </svg>
-
-                        <ion-spinner
-                          style="transform: scale(0.8); color: #ffffff"
-                          v-if="isPlaying && index == itemIndex && audioBuffering"
-                        >
-                        </ion-spinner>
-                      </div>
-                    </div>
-                  </ion-thumbnail>
-                  <ion-label style="margin-left: 10px; margin-top: 5px">
-                    <p style="font-size: medium; font-family: Brandon-regular">
-                      {{ rec.type }}
-                    </p>
-                    <ion-text style="font-size: large">{{ rec.title }}</ion-text>
-
-                    <p style="font-size: medium; font-family: Brandon-regular">
-                      {{ rec.duration }}
-                    </p>
-                  </ion-label>
+                preview
+              </div>
+              <div @click.stop="playAudioPreview(index)" class="play-item-bg">
+                <div class="play-item">
+                  <svg
+                    style="width: 28px; height: 28px"
+                    viewBox="0 0 24 24"
+                    v-if="!isPlaying || index !== itemIndex"
+                  >
+                    <path fill="currentColor" d="M8,5.14V19.14L19,12.14L8,5.14Z" />
+                  </svg>
                   <svg
                     style="width: 24px; height: 24px"
                     viewBox="0 0 24 24"
-                    class="arrow-icon"
+                    v-if="isPlaying && index == itemIndex && !audioBuffering"
                   >
-                    <path
-                      fill="#ccc"
-                      d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"
-                    />
+                    <path fill="currentColor" d="M14,19H18V5H14M6,19H10V5H6V19Z" />
                   </svg>
+
+                  <ion-spinner
+                    style="transform: scale(0.8); color: #ffffff"
+                    v-if="isPlaying && index == itemIndex && audioBuffering"
+                  >
+                  </ion-spinner>
                 </div>
-                <div class="hr" />
               </div>
-            </div>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+            </ion-thumbnail>
+            <ion-label style="margin-left: 10px; margin-top: 5px">
+              <p style="font-size: medium; font-family: Brandon-regular">
+                {{ rec.type }}
+              </p>
+              <ion-text style="font-size: large">{{ rec.title }}</ion-text>
+
+              <p style="font-size: medium; font-family: Brandon-regular">
+                {{ rec.duration }}
+              </p>
+            </ion-label>
+            <svg style="width: 24px; height: 24px" viewBox="0 0 24 24" class="arrow-icon">
+              <path
+                fill="#ccc"
+                d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"
+              />
+            </svg>
+          </div>
+          <div class="hr" />
+        </div>
+      </div>
     </ion-content>
   </ion-page>
 </template>
@@ -209,6 +215,8 @@ import {
   IonIcon,
   IonThumbnail,
   IonSpinner,
+  IonRippleEffect,
+  isPlatform,
 } from "@ionic/vue";
 import { createOutline, removeCircleOutline, searchOutline } from "ionicons/icons";
 import { ref, onMounted, watch } from "vue";
@@ -217,6 +225,8 @@ import { usePlaylistStore } from "@/stores/playlist";
 import { useBookmarksStore } from "@/stores/bookmarks";
 
 import { Haptics, ImpactStyle } from "@capacitor/haptics";
+
+let iOSplatform = isPlatform("ios"); // returns true when running on a iOS device
 
 let playlist = usePlaylistStore().playList;
 let bookmarks = useBookmarksStore().bookmarksList;
@@ -368,15 +378,6 @@ ion-item {
   --background: none !important;
 }
 
-ion-img {
-  z-index: 10;
-  border-radius: 5px;
-  object-fit: cover;
-  object-position: 50% 50%;
-
-  /* filter: brightness(70%); */
-}
-
 .edit-icon {
   position: absolute;
   top: 8px;
@@ -401,7 +402,7 @@ ion-toolbar {
   --background: var(--ion-color-whale);
 }
 
-ion-thumbnail {
+.thumbnail-bookmarks {
   --size: 100px;
   --border-radius: 10px;
   position: relative;
@@ -452,7 +453,7 @@ ion-thumbnail {
   background-color: #000000a5;
   padding: 4px;
   top: 64%;
-  left: 8%;
+  left: 7%;
   text-transform: uppercase;
   border-radius: 2px 0px 0px 2px;
   color: #ffffff;

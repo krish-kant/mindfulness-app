@@ -9,11 +9,13 @@
         :key="items.title"
         class="container"
       >
-        <ion-img
-          class="item-image"
-          :src="musicPlaylist[index].imageUrl"
-          :key="currentAudio"
-        />
+        <div style="position: relative; overflow: hidden">
+          <ion-img
+            class="item-image"
+            :src="musicPlaylist[index].imageUrl"
+            :key="currentAudio"
+          />
+        </div>
 
         <ion-item lines="none">
           <ion-label class="ion-text-wrap">
