@@ -36,18 +36,14 @@
         <ion-grid>
           <ion-row class="ion-justify-content-start">
             <ion-col>
-              <ion-item
+              <!-- <ion-item
                 v-for="(rec, index) in musicPlaylist"
                 :key="rec.title"
                 @click="() => {}"
               >
                 <ion-thumbnail slot="start">
-                  <!-- <img alt="Silhouette of mountains" :src="rec.imageUrl" /> -->
                 </ion-thumbnail>
                 <ion-label class="ion-text-wrap">
-                  <!-- <p style="font-size: medium; font-family: Brandon-regular">
-                    {{ rec.type }}
-                  </p> -->
                   <ion-text style="font-size: large">{{ rec.title }}</ion-text>
                 </ion-label>
                 <ion-toggle
@@ -56,7 +52,40 @@
                   v-model="toggleEnabled"
                   @ionChange="onToggleChange($event, index)"
                 ></ion-toggle>
-              </ion-item>
+              </ion-item> -->
+
+              <ion-slides pager="true" :options="slideOpts" style="height: 70vh">
+                <ion-slide
+                  v-for="(rec, index) in musicPlaylist"
+                  :key="rec.title"
+                  style="display: flex; flex-direction: column; margin-top: -50px"
+                >
+                  <img
+                    class="item-image"
+                    :src="musicPlaylist[index].imageUrl"
+                    :key="currentAudio"
+                    @ionImgDidLoad="ionImgDidLoad"
+                    @click="navigateTo(index)"
+                    style="
+                      height: 300px;
+                      width: 100%;
+                      object-fit: cover;
+                      border-radius: 10px;
+                    "
+                  />
+                  <ion-item lines="none" style="width: 100%">
+                    <ion-label class="ion-text-wrap" slot="" style="margin-left: 10px">
+                      <ion-text style="font-size: large">{{ rec.title }}</ion-text>
+                    </ion-label>
+                    <ion-toggle
+                      slot="end"
+                      :checked="true"
+                      v-model="toggleEnabled"
+                      @ionChange="onToggleChange($event, index)"
+                    ></ion-toggle>
+                  </ion-item>
+                </ion-slide>
+              </ion-slides>
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -85,6 +114,8 @@ import {
   IonList,
   IonModal,
   actionSheetController,
+  IonSlides,
+  IonSlide,
 } from "@ionic/vue";
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
@@ -100,12 +131,17 @@ const modal = ref(null);
 let toggleEnabled = ref(false);
 
 function onToggleChange(event, index) {
+  hapticTouch();
   console.log(event, index);
   if (event.checked) toggleEnabled.value = true;
   else toggleEnabled.value = false;
 
   // You can use this event to enable or disable a feature based on the toggle value
 }
+
+const hapticTouch = async function () {
+  await Haptics.impact({ style: ImpactStyle.Light });
+};
 
 const musicPlaylist = ref([
   {
@@ -164,6 +200,48 @@ const musicPlaylist = ref([
     imageUrl: "https://picsum.photos/800/500",
     duration: "5 min",
   },
+  {
+    title: "Creepy Background",
+    type: "Breethe",
+    mediaUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+    imageUrl: "https://picsum.photos/800/500",
+    duration: "5 min",
+  },
+  {
+    title: "Creepy Background",
+    type: "Breethe",
+    mediaUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+    imageUrl: "https://picsum.photos/800/500",
+    duration: "5 min",
+  },
+  {
+    title: "Creepy Background",
+    type: "Breethe",
+    mediaUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+    imageUrl: "https://picsum.photos/800/500",
+    duration: "5 min",
+  },
+  {
+    title: "Creepy Background",
+    type: "Breethe",
+    mediaUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+    imageUrl: "https://picsum.photos/800/500",
+    duration: "5 min",
+  },
+  {
+    title: "Creepy Background",
+    type: "Breethe",
+    mediaUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+    imageUrl: "https://picsum.photos/800/500",
+    duration: "5 min",
+  },
+  {
+    title: "Creepy Background",
+    type: "Breethe",
+    mediaUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+    imageUrl: "https://picsum.photos/800/500",
+    duration: "5 min",
+  },
 ]);
 
 onMounted(() => {
@@ -172,6 +250,7 @@ onMounted(() => {
 });
 
 const dismiss = function () {
+  hapticTouch();
   modal.value.$el.dismiss();
   router.go(-1);
 };

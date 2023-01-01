@@ -8,7 +8,12 @@
             :icon="addCircle"
             slot="end"
             class="add-goals-icon"
-            @click="() => router.push('/tabs/add-goals')"
+            @click="
+              () => {
+                hapticTouch();
+                router.push('/tabs/add-goals');
+              }
+            "
           />
         </ion-item>
       </ion-toolbar>
@@ -18,16 +23,12 @@
       <div class="scroll-items">
         <ion-button color="dark" mode="ios">
           <ion-label>
-            <ion-text style="font-family: Brandon-regular">Yoga And Anxity</ion-text>
+            <ion-text style="font-family: Brandon-regular"
+              >Dealing With Anxity and Depression
+            </ion-text>
           </ion-label>
         </ion-button>
-        <ion-button
-          mode="ios"
-          color="dark"
-          v-for="rec in dataList"
-          :key="rec.title"
-          fill="clear"
-        >
+        <ion-button mode="ios" color="light" v-for="rec in dataList" :key="rec.title">
           <ion-label>
             <ion-text style="font-family: Brandon-regular">{{ rec.title }}</ion-text>
           </ion-label>
@@ -64,9 +65,14 @@ import { lockClosed, bookmarkOutline, addCircle } from "ionicons/icons";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { useDataStore } from "@/stores/data";
+import { Haptics, ImpactStyle } from "@capacitor/haptics";
 
 const router = useRouter();
 const { dataList } = useDataStore();
+
+const hapticTouch = async function () {
+  await Haptics.impact({ style: ImpactStyle.Light });
+};
 </script>
 
 <style scoped>
@@ -100,7 +106,7 @@ const { dataList } = useDataStore();
   white-space: nowrap;
   margin-bottom: 25px;
   margin-left: 10px;
-  margin-top: 30px;
+  margin-top: 10px;
 }
 
 .scroll-items::-webkit-scrollbar {
@@ -109,7 +115,7 @@ const { dataList } = useDataStore();
 
 .add-goals-icon {
   animation: rotation 1s 2s linear;
-  margin-right: 5px;
+  margin-right: 0px;
 }
 
 ion-icon {
