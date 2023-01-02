@@ -101,6 +101,8 @@ import {
 
 import { reactive, ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
+import { Haptics, ImpactStyle } from "@capacitor/haptics";
+
 let presentingElement = ref(null);
 
 const router = useRouter();
@@ -134,6 +136,10 @@ onMounted(() => {
   document.getElementById("open-modal").click();
   openBreathPlayer();
 });
+
+const hapticsImpactLight = async () => {
+  await Haptics.impact({ style: ImpactStyle.Light });
+};
 
 const openBreathPlayer = function () {
   audioBreatheSrc = require("@/assets/audio/bowl.mp3");
@@ -177,6 +183,7 @@ const breathCycles = function (limit) {
 };
 
 const presentActionSheet = async () => {
+  hapticsImpactLight();
   const actionSheet = await actionSheetController.create({
     header: "Mark as complete for progress?",
     // subHeader: 'Example subheader',

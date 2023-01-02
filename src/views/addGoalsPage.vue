@@ -54,36 +54,34 @@
                 ></ion-toggle>
               </ion-item> -->
 
-              <ion-slides pager="true" :options="slideOpts" style="height: 70vh">
+              <ion-slides pager="true" :options="slideOpts" style="height: 75vh">
                 <ion-slide
-                  v-for="(rec, index) in musicPlaylist"
+                  v-for="(rec, index) in dataList"
                   :key="rec.title"
-                  style="display: flex; flex-direction: column; margin-top: -50px"
+                  style="display: flex; flex-direction: column; margin-top: -40px"
                 >
                   <img
-                    class="item-image"
-                    :src="musicPlaylist[index].imageUrl"
-                    :key="currentAudio"
+                    :src="rec.imageUrl"
                     @ionImgDidLoad="ionImgDidLoad"
                     @click="navigateTo(index)"
                     style="
-                      height: 300px;
-                      width: 100%;
+                      height: 250px;
+                      width: 80%;
                       object-fit: cover;
                       border-radius: 10px;
                     "
                   />
-                  <ion-item lines="none" style="width: 100%">
-                    <ion-label class="ion-text-wrap" slot="" style="margin-left: 10px">
-                      <ion-text style="font-size: large">{{ rec.title }}</ion-text>
+                  <ion-item lines="none" color="none" style="width: 80%">
+                    <ion-label class="ion-text-wrap" color="medium">
+                      <ion-text style="font-size: x-large">{{ rec.title }}</ion-text>
                     </ion-label>
-                    <ion-toggle
-                      slot="end"
-                      :checked="true"
-                      v-model="toggleEnabled"
-                      @ionChange="onToggleChange($event, index)"
-                    ></ion-toggle>
                   </ion-item>
+                  <ion-toggle
+                    style="margin-top: 50px"
+                    :checked="true"
+                    v-model="toggleEnabled"
+                    @ionChange="onToggleChange($event, index)"
+                  ></ion-toggle>
                 </ion-slide>
               </ion-slides>
             </ion-col>
@@ -122,13 +120,14 @@ import { useRouter } from "vue-router";
 import { useDataStore } from "@/stores/data";
 import { Haptics, ImpactStyle } from "@capacitor/haptics";
 
-const data = useDataStore();
 const router = useRouter();
 
 const presentingElement = ref(null);
 const page = ref(null);
 const modal = ref(null);
 let toggleEnabled = ref(false);
+
+const { dataList } = useDataStore();
 
 function onToggleChange(event, index) {
   hapticTouch();
@@ -143,106 +142,15 @@ const hapticTouch = async function () {
   await Haptics.impact({ style: ImpactStyle.Light });
 };
 
-const musicPlaylist = ref([
-  {
-    title: "Service Bell Service Bell Service Bell ",
-    type: "Yoga",
-    mediaUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-    imageUrl: "https://picsum.photos/500/600",
-    duration: "1 hour",
-  },
-  {
-    title: "Meadowlark",
-    type: "Sleep",
-    mediaUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
-    imageUrl: "https://picsum.photos/500/500",
-    duration: "30 min",
-  },
-  {
-    title: "Hyena Laughing",
-    type: "Meditation",
-    mediaUrl: "https://soundbible.com/mp3/hyena-laugh_daniel-simion.mp3",
-    imageUrl: "https://picsum.photos/700/500",
-    duration: "4 min",
-  },
-  {
-    title: "Creepy Background",
-    type: "Breethe",
-    mediaUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
-    imageUrl: "https://picsum.photos/800/500",
-    duration: "5 min",
-  },
-  {
-    title: "Service Bell Service Bell Bell Service Bell",
-    type: "Yoga",
-    mediaUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
-    imageUrl: "https://picsum.photos/500/600",
-    duration: "1 hour",
-  },
-  {
-    title: "Meadowlark",
-    type: "Sleep",
-    mediaUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
-    imageUrl: "https://picsum.photos/500/500",
-    duration: "30 min",
-  },
-  {
-    title: "Hyena Laughing",
-    type: "Meditation",
-    mediaUrl: "https://soundbible.com/mp3/hyena-laugh_daniel-simion.mp3",
-    imageUrl: "https://picsum.photos/700/500",
-    duration: "4 min",
-  },
-  {
-    title: "Creepy Background",
-    type: "Breethe",
-    mediaUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
-    imageUrl: "https://picsum.photos/800/500",
-    duration: "5 min",
-  },
-  {
-    title: "Creepy Background",
-    type: "Breethe",
-    mediaUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
-    imageUrl: "https://picsum.photos/800/500",
-    duration: "5 min",
-  },
-  {
-    title: "Creepy Background",
-    type: "Breethe",
-    mediaUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
-    imageUrl: "https://picsum.photos/800/500",
-    duration: "5 min",
-  },
-  {
-    title: "Creepy Background",
-    type: "Breethe",
-    mediaUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
-    imageUrl: "https://picsum.photos/800/500",
-    duration: "5 min",
-  },
-  {
-    title: "Creepy Background",
-    type: "Breethe",
-    mediaUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
-    imageUrl: "https://picsum.photos/800/500",
-    duration: "5 min",
-  },
-  {
-    title: "Creepy Background",
-    type: "Breethe",
-    mediaUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
-    imageUrl: "https://picsum.photos/800/500",
-    duration: "5 min",
-  },
-  {
-    title: "Creepy Background",
-    type: "Breethe",
-    mediaUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
-    imageUrl: "https://picsum.photos/800/500",
-    duration: "5 min",
-  },
-]);
+const slideOpts = {
+  initialSlide: 0,
+  // speed: 400,
+  slidesPerView: 1,
+  centeredSlides: true,
+  // spaceBetween: 10,
+  // freeMode: true,
+  loop: true,
+};
 
 onMounted(() => {
   presentingElement.value = page.value.$el;
@@ -278,12 +186,12 @@ ion-col {
   --background: none !important;
 }
 
-ion-img {
+img {
   z-index: 10;
   border-radius: 5px;
   object-fit: cover;
   object-position: 50% 50%;
-  filter: brightness(80%);
+  /* filter: brightness(80%); */
 }
 
 ion-button {

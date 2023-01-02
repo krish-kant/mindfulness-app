@@ -18,23 +18,34 @@
         </ion-item>
       </ion-toolbar>
     </ion-header>
-
-    <ion-content>
+    <div class="scroll-items-container">
       <div class="scroll-items">
-        <ion-button color="dark" mode="ios">
+        <ion-button color="secondary" mode="ios" @click="hapticTouch()">
           <ion-label>
             <ion-text style="font-family: Brandon-regular"
               >Dealing With Anxity and Depression
             </ion-text>
           </ion-label>
         </ion-button>
-        <ion-button mode="ios" color="light" v-for="rec in dataList" :key="rec.title">
+        <ion-button
+          @click="hapticTouch()"
+          mode="ios"
+          fill="outline"
+          color="dark"
+          v-for="rec in dataList"
+          :key="rec.title"
+          style="margin-left: 2px"
+        >
           <ion-label>
             <ion-text style="font-family: Brandon-regular">{{ rec.title }}</ion-text>
           </ion-label>
         </ion-button>
       </div>
-      <TilePlayList :goalsList="dataList" />
+    </div>
+    <ion-content>
+      <div style="margin-top: 30px">
+        <TilePlayList :goalsList="dataList" />
+      </div>
     </ion-content>
   </ion-page>
 </template>
@@ -96,17 +107,22 @@ const hapticTouch = async function () {
   }
 }
 
+.scroll-items-container {
+  background-color: var(--ion-color-light);
+}
+
 .scroll-items {
   overflow-x: scroll !important;
   overflow-y: hidden;
   -ms-overflow-style: none;
   scrollbar-width: none;
   display: flex;
-  flex-wrap: nowrap;
-  white-space: nowrap;
-  margin-bottom: 25px;
+  /* flex-wrap: nowrap; */
+  /* white-space: nowrap; */
+  margin-bottom: 10px;
   margin-left: 10px;
   margin-top: 10px;
+  background-color: transparent;
 }
 
 .scroll-items::-webkit-scrollbar {

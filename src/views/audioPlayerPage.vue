@@ -264,6 +264,7 @@ export default defineComponent({
     // },
 
     presentActionSheet: async function () {
+      this.hapticsImpactLight();
       const actionSheet = await actionSheetController.create({
         header: "Mark as complete for progress?",
         // subHeader: 'Example subheader',
@@ -509,8 +510,8 @@ export default defineComponent({
 }
 
 .button:active {
-  opacity: 0.95;
-  transform: scale(0.95);
+  /* opacity: 0.95; */
+  transform: scale(0.99);
 }
 
 .button.isDisabled {

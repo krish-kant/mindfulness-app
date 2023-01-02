@@ -51,7 +51,12 @@
       <ion-grid v-if="!switchBookmarks">
         <ion-row class="ion-justify-content-center">
           <ion-col>
-            <ion-list button v-if="playlistLength">
+            <ion-list
+              button
+              v-if="playlistLength"
+              color="none"
+              style="background: transparent"
+            >
               <!-- The reorder gesture is disabled by default, enable it to drag and drop items -->
               <ion-reorder-group
                 :disabled="false"
@@ -220,7 +225,7 @@ import {
 } from "@ionic/vue";
 import { createOutline, removeCircleOutline, searchOutline } from "ionicons/icons";
 import { ref, onMounted, watch } from "vue";
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 import { usePlaylistStore } from "@/stores/playlist";
 import { useBookmarksStore } from "@/stores/bookmarks";
 
@@ -232,6 +237,7 @@ let playlist = usePlaylistStore().playList;
 let bookmarks = useBookmarksStore().bookmarksList;
 
 const router = useRouter();
+const route = useRoute();
 let deletePlaylistItem = ref(true);
 let playlistLength = ref(0);
 let bookmarksLength = ref(0);
@@ -351,6 +357,16 @@ watch(playlistLength, async () => {
     console.log(error);
   }
 });
+
+watch(
+  () => route.path,
+  () => {
+    setTimeout(() => {
+      console.log("route changed");
+      deletePlaylistItem.value = true;
+    }, 500);
+  }
+);
 
 watch(bookmarksLength, async () => {
   try {

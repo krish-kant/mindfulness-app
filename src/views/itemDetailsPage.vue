@@ -46,7 +46,6 @@
           <button
             @click="
               () => {
-                hapticTouch();
                 router.push({
                   path: `/tabs/audio-player/${dataList[index].title}`,
                 });
