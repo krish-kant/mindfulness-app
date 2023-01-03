@@ -54,22 +54,16 @@
                 ></ion-toggle>
               </ion-item> -->
 
-              <ion-slides pager="true" :options="slideOpts" style="height: 75vh">
+              <ion-slides pager="true" :options="slideOpts" style="height: 100%">
                 <ion-slide
                   v-for="(rec, index) in dataList"
                   :key="rec.title"
-                  style="display: flex; flex-direction: column; margin-top: -40px"
+                  style="display: flex; flex-direction: column; margin-top: 0px"
                 >
                   <img
                     :src="rec.imageUrl"
                     @ionImgDidLoad="ionImgDidLoad"
                     @click="navigateTo(index)"
-                    style="
-                      height: 250px;
-                      width: 80%;
-                      object-fit: cover;
-                      border-radius: 10px;
-                    "
                   />
                   <ion-item lines="none" color="none" style="width: 80%">
                     <ion-label class="ion-text-wrap" color="medium">
@@ -77,7 +71,6 @@
                     </ion-label>
                   </ion-item>
                   <ion-toggle
-                    style="margin-top: 50px"
                     :checked="true"
                     v-model="toggleEnabled"
                     @ionChange="onToggleChange($event, index)"
@@ -191,7 +184,6 @@ img {
   border-radius: 5px;
   object-fit: cover;
   object-position: 50% 50%;
-  /* filter: brightness(80%); */
 }
 
 ion-button {
@@ -210,6 +202,46 @@ ion-toggle {
   /* Required for iOS handle to overflow the height of the track */
   overflow: visible;
   contain: none;
+  margin: 50px;
+}
+
+@media only screen and (max-width: 600px) {
+  ion-toggle {
+    margin-bottom: 110px;
+  }
+  img {
+    height: 220px;
+    width: 80%;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-top: 30px;
+  }
+}
+
+@media only screen and (min-width: 600px) and (max-width: 1199px) {
+  ion-toggle {
+    margin-bottom: 150px;
+  }
+  img {
+    height: 350px;
+    width: 80%;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-top: 30px;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  ion-toggle {
+    margin-bottom: 50px;
+  }
+  img {
+    height: 220px;
+    width: 80%;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-top: 30px;
+  }
 }
 
 ion-thumbnail {

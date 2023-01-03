@@ -65,6 +65,20 @@
           <div class="blue-whale-flipper"></div>
         </div>
       </div>
+      <div class="title-heading">
+        <!-- <ion-icon size="large" :icon="person" /> -->
+        <ion-text
+          style="
+            font-family: 'Tangerine', cursive;
+            font-size: 36px;
+            font-weight: bold;
+            color: white;
+          "
+          >Moby</ion-text
+        >
+        <!-- <ion-label>profile</ion-label> -->
+      </div>
+
       <div
         class="profile-icon"
         @click="
@@ -74,11 +88,12 @@
           }
         "
       >
-        <ion-icon size="large" :icon="person" />
+        <ion-icon size="small" :icon="person" />
+
         <!-- <ion-label>profile</ion-label> -->
       </div>
 
-      <div
+      <!-- <div
         class="settings-icon"
         @click="
           () => {
@@ -87,9 +102,8 @@
           }
         "
       >
-        <ion-icon size="large" :icon="settings" />
-        <!-- <ion-label>profile</ion-label> -->
-      </div>
+        <ion-icon size="small" :icon="settings" />
+      </div> -->
     </div>
 
     <ion-content ref="itemContainer">
@@ -159,24 +173,31 @@ watch(
 </script>
 
 <style scoped>
-ion-text,
+/* ion-text,
 h1 {
   color: var(--ion-color-whale);
+} */
+
+.title-heading {
+  position: absolute;
+  left: 5%;
+  top: 50%;
+  color: white;
 }
 
 .profile-icon {
   position: absolute;
-  left: 3%;
-  top: 50%;
+  right: 5%;
+  top: 55%;
   color: white;
 }
 
-.settings-icon {
+/* .settings-icon {
   position: absolute;
-  right: 3%;
+  right: 5%;
   top: 50%;
   color: white;
-}
+} */
 
 @media (prefers-color-scheme: dark) {
   #blue-ocean-bg {

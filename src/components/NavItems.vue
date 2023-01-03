@@ -170,6 +170,6 @@ ion-badge {
 }
 
 * {
-  /* font-family: Brandon-regular; */
+  font-family: Brandon-regular;
 }
 </style>

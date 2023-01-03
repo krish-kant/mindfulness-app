@@ -326,7 +326,7 @@ ion-content::part(scroll) {
   color: var(--ion-color-dark);
 }
 
-.heading-related-items {
+/* .heading-related-items {
   color: var(--ion-color-whale);
-}
+} */
 </style>

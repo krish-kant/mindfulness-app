@@ -14,6 +14,8 @@ import { IonApp, IonRouterOutlet } from "@ionic/vue";
   font-family: "Poppins", sans-serif;
 } */
 
+@import url("https://fonts.googleapis.com/css2?family=Tangerine:wght@700&display=swap");
+
 @font-face {
   font-family: Brandon-bold;
   src: url("@/assets/fonts/Brandon_bold.otf");

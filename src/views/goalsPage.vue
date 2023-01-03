@@ -20,7 +20,7 @@
     </ion-header>
     <div class="scroll-items-container">
       <div class="scroll-items">
-        <ion-button color="secondary" mode="ios" @click="hapticTouch()">
+        <ion-button color="medium" mode="ios" @click="hapticTouch()">
           <ion-label>
             <ion-text style="font-family: Brandon-regular"
               >Dealing With Anxity and Depression
@@ -31,7 +31,7 @@
           @click="hapticTouch()"
           mode="ios"
           fill="outline"
-          color="dark"
+          color="medium"
           v-for="rec in dataList"
           :key="rec.title"
           style="margin-left: 2px"
@@ -43,7 +43,7 @@
       </div>
     </div>
     <ion-content>
-      <div style="margin-top: 30px">
+      <div style="margin-top: 10px">
         <TilePlayList :goalsList="dataList" />
       </div>
     </ion-content>
@@ -94,9 +94,16 @@ const hapticTouch = async function () {
   flex-direction: column-reverse;
 }
 
+.scroll-items-container {
+  background-color: white;
+}
+
 @media (prefers-color-scheme: dark) {
   #toolbar {
     --ion-color-whale: #0a1629;
+  }
+  .scroll-items-container {
+    background-color: black;
   }
 }
 
@@ -105,10 +112,6 @@ const hapticTouch = async function () {
     flex-direction: column-reverse;
     justify-content: center;
   }
-}
-
-.scroll-items-container {
-  background-color: var(--ion-color-light);
 }
 
 .scroll-items {

@@ -221,6 +221,7 @@ const playAudioPreview = async function (index) {
   border-radius: 5px;
   flex-grow: 0;
   flex-shrink: 0;
+  cursor: pointer;
 }
 
 ion-item {

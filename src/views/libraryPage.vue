@@ -128,7 +128,7 @@
               :icon="removeCircleOutline"
               @click.stop="deleteItemfromBookmarks(rec.title)"
             ></ion-icon>
-            <IonRippleEffect
+            <!-- <IonRippleEffect
               style="overflow: hidden"
               :style="
                 iOSplatform
@@ -140,7 +140,7 @@
                     }
                   : ''
               "
-            />
+            /> -->
             <ion-thumbnail class="bookmarks-items thumbnail-bookmarks">
               <img alt="Silhouette of mountains" :src="rec.imageUrl" />
               <div
