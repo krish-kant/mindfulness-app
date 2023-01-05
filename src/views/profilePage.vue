@@ -70,11 +70,14 @@
                 });
               }
             "
+            style="--ion-grid-column-padding: 5px"
           >
             <div class="interests-bg" style="cursor: pointer; border-radius: 5px">
               <ion-item lines="none">
-                <ion-label class="ion-text-wrap" color="dark" style="padding: 10px">
-                  <ion-text style="font-size: large">{{ dataList[index].type }}</ion-text>
+                <ion-label class="ion-text-wrap" color="dark" style="padding: 4px 10px">
+                  <ion-text style="font-size: large; font-family: Brandon-regular">{{
+                    dataList[index].type
+                  }}</ion-text>
                 </ion-label>
               </ion-item>
             </div>

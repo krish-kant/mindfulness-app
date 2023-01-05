@@ -2,7 +2,7 @@
   <ion-page>
     <ion-tabs>
       <ion-router-outlet></ion-router-outlet>
-      <ion-tab-bar slot="bottom">
+      <ion-tab-bar slot="bottom" v-if="isLoggedIn()">
         <ion-tab-button tab="home" href="/tabs/home" @click="hapticsImpactLight">
           <ion-icon :icon="home" />
           <ion-label style="font-size: ">home</ion-label>
@@ -39,6 +39,9 @@ import {
 } from "@ionic/vue";
 import { home, flag, play, search } from "ionicons/icons";
 import { Haptics, ImpactStyle } from "@capacitor/haptics";
+import useAuthUser from "@/composables/useAuthUser";
+
+const { isLoggedIn } = useAuthUser();
 
 const hapticsImpactLight = async () => {
   await Haptics.impact({ style: ImpactStyle.Light });

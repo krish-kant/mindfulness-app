@@ -2,7 +2,7 @@
   <ion-page>
     <ion-header>
       <ion-toolbar>
-        <ion-buttons slot="start" style="color: white">
+        <ion-buttons slot="start" style="color: white" v-if="isLoggedIn()">
           <ion-back-button mode="md" defaultHref="/tabs/home"></ion-back-button>
         </ion-buttons>
       </ion-toolbar>
@@ -133,6 +133,9 @@ import { useRouter, useRoute } from "vue-router";
 import { Haptics, ImpactStyle } from "@capacitor/haptics";
 import { Share } from "@capacitor/share";
 import { useDataStore } from "@/stores/data";
+import useAuthUser from "@/composables/useAuthUser";
+
+const { isLoggedIn } = useAuthUser();
 
 let { dataList } = useDataStore();
 

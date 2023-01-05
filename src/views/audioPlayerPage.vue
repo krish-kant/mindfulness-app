@@ -32,6 +32,8 @@
           </ion-toolbar>
         </ion-header>
 
+        <WhaleAnimation style="position: absolute; top: 0px; left: 0px; height: 100%" />
+
         <div id="overlay" v-on:click="overlay = 'none'" :style="{ display: overlay }">
           <div id="text">
             {{ trackDurationRemaining }}
@@ -79,12 +81,24 @@
             <ion-col size-sm="8">
               <ion-item lines="none">
                 <ion-label slot="start">
-                  <p style="text-transform: uppercase; font-family: Brandon-regular">
+                  <p
+                    style="
+                      text-transform: uppercase;
+                      font-family: Brandon-regular;
+                      color: white;
+                    "
+                  >
                     {{ currentTimeFormated }}
                   </p>
                 </ion-label>
                 <ion-label slot="end">
-                  <p style="text-transform: uppercase; font-family: Brandon-regular">
+                  <p
+                    style="
+                      text-transform: uppercase;
+                      font-family: Brandon-regular;
+                      color: white;
+                    "
+                  >
                     {{ trackDurationFormated }}
                   </p>
                 </ion-label>
@@ -180,6 +194,8 @@ import { useDataStore } from "@/stores/data";
 import { useRouter } from "vue-router";
 import { Haptics, ImpactStyle } from "@capacitor/haptics";
 
+import WhaleAnimation from "@/components/WhaleAnimation.vue";
+
 const data = useDataStore();
 const router = useRouter();
 
@@ -210,7 +226,7 @@ export default defineComponent({
     FastForward30Icon,
     Rewind30Icon,
     CardsHeartOutlineIcon,
-    // AccountVoiceIcon,
+    WhaleAnimation,
   },
   data: function () {
     return {
@@ -235,7 +251,7 @@ export default defineComponent({
       presentingElement: null,
       overlay: "",
       overlayInterval: null,
-      overlayTimer: 10000,
+      overlayTimer: 30000,
     };
   },
 
@@ -504,7 +520,8 @@ export default defineComponent({
 
 <style scoped>
 .button {
-  color: var(--ion-color-dark);
+  /* color: var(--ion-color-dark); */
+  color: white;
   display: flex;
   z-index: 10;
 }
@@ -515,7 +532,8 @@ export default defineComponent({
 }
 
 .button.isDisabled {
-  color: var(--ion-color-light-shade);
+  /* color: var(--ion-color-light-shade); */
+  color: #ffffff8a;
   cursor: initial;
 }
 
@@ -531,9 +549,9 @@ export default defineComponent({
   margin-bottom: 20px;
 }
 
-ion-grid {
+/* ion-grid {
   height: 80%;
-}
+} */
 
 /* .first-row-grid-1 {
   min-height: 40%;
