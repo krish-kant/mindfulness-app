@@ -1,7 +1,7 @@
 <template>
   <ion-page>
     <div class="card">
-      <WhaleAnimation />
+      <WhaleAnimation :whale_1="true" :whale_2="true" />
       <div class="title-heading">
         <!-- <ion-icon size="large" :icon="person" /> -->
         <ion-text

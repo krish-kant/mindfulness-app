@@ -32,9 +32,10 @@
           </ion-toolbar>
         </ion-header>
 
-        <WhaleAnimation style="position: absolute; top: 0px; left: 0px; height: 100%" />
+        <WhaleBackground style="position: absolute; top: 0px; left: 0px; height: 100%" />
 
         <div id="overlay" v-on:click="overlay = 'none'" :style="{ display: overlay }">
+          <WhaleAnimation />
           <div id="text">
             {{ trackDurationRemaining }}
           </div>
@@ -195,6 +196,7 @@ import { useRouter } from "vue-router";
 import { Haptics, ImpactStyle } from "@capacitor/haptics";
 
 import WhaleAnimation from "@/components/WhaleAnimation.vue";
+import WhaleBackground from "@/components/WhaleBackground.vue";
 
 const data = useDataStore();
 const router = useRouter();
@@ -227,6 +229,7 @@ export default defineComponent({
     Rewind30Icon,
     CardsHeartOutlineIcon,
     WhaleAnimation,
+    WhaleBackground,
   },
   data: function () {
     return {
@@ -641,18 +644,12 @@ code {
 
 #text {
   position: absolute;
-  top: 25%;
+  top: 40%;
   left: 50%;
   font-size: 50px;
   color: white;
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
-}
-
-@media only screen and (max-width: 600px) {
-  #text {
-    top: 20%;
-  }
 }
 
 .header {
@@ -669,5 +666,6 @@ code {
 
 input {
   margin-bottom: 20px;
+  cursor: pointer;
 }
 </style>

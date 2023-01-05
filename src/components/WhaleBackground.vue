@@ -20,7 +20,7 @@
     <div class="blue-ray18"></div>
     <div class="blue-ray19"></div>
     <div class="blue-ray20"></div>
-    <div id="blue-whale-bg" class="blue-whale">
+    <!-- <div id="blue-whale-bg" class="blue-whale" style="margin-bottom: 20px">
       <div class="blue-whale-main">
         <div class="blue-whale-eye"></div>
         <div class="gill-container">
@@ -47,7 +47,7 @@
         <div></div>
       </div>
       <div class="blue-whale-flipper"></div>
-    </div>
+    </div> -->
     <!-- <div id="blue-whale-bg" class="blue-whale-small-2" style="scale: 0.6">
       <div class="blue-whale-main">
         <div class="blue-whale-eye"></div>
@@ -80,9 +80,11 @@
 }
 
 .blue-whale {
+  margin-top: 40px;
   scale: 0.8;
 }
 .blue-whale-small {
+  margin-top: 10px;
   scale: 0.6;
 }
 
@@ -1465,10 +1467,10 @@ ion-item {
   width: 13vmin;
   background-color: transparent;
   position: absolute;
-  left: -5%;
+  left: 0%;
   transform: translateX(-50%) rotate(0deg);
   border-radius: 0% 30% 5% 0%;
-  bottom: 38%;
+  top: 20%;
 }
 
 .blue-whale-small {
@@ -1479,7 +1481,7 @@ ion-item {
   left: -40%;
   transform: translateX(-50%) rotate(0deg);
   border-radius: 0% 30% 5% 0%;
-  top: 18%;
+  top: 15%;
 }
 
 /* .blue-whale-small-2 {
@@ -1560,7 +1562,7 @@ ion-item {
   }
 
   100% {
-    transform: translateX(2800%);
+    transform: translateX(2000%);
   }
 }
 
@@ -1570,7 +1572,7 @@ ion-item {
   }
 
   100% {
-    transform: translateX(2800%);
+    transform: translateX(2000%);
   }
 }
 
