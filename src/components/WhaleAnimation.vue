@@ -1468,7 +1468,7 @@ ion-item {
   left: -5%;
   transform: translateX(-50%) rotate(0deg);
   border-radius: 0% 30% 5% 0%;
-  bottom: 38%;
+  bottom: 36%;
 }
 
 .blue-whale-small {

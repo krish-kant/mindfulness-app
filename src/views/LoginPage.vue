@@ -48,6 +48,7 @@
               name="email"
               autocomplete
               type="email"
+              style="color: white"
             ></ion-input>
           </ion-item>
 
@@ -58,6 +59,7 @@
               name="password"
               autocomplete
               type="password"
+              style="color: white"
             ></ion-input>
           </ion-item>
 
