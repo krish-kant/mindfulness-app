@@ -76,7 +76,7 @@ import TileRecent from "@/components/TileRecent.vue";
 import NavItems from "@/components/NavItems.vue";
 import { useRouter, useRoute } from "vue-router";
 import { Haptics, ImpactStyle } from "@capacitor/haptics";
-import { ref, watch } from "vue";
+import { ref, watch, onMounted } from "vue";
 
 import useAuthUser from "@/composables/useAuthUser";
 import WhaleAnimation from "@/components/WhaleAnimation.vue";
@@ -92,6 +92,10 @@ const itemContainer = ref(null);
 const hapticsImpactLight = async () => {
   await Haptics.impact({ style: ImpactStyle.Light });
 };
+
+onMounted(async () => {
+  await useDataStore().getDataFromSupabase();
+});
 
 const logoutMethod = async () => {
   await hapticsImpactLight();

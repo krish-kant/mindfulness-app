@@ -80,7 +80,9 @@
             style="margin-top: 0px"
           >
             <ion-col size-sm="8">
-              <ion-item lines="none">
+              <div
+                style="display: flex; justify-content: space-between; margin-top: 10px"
+              >
                 <ion-label slot="start">
                   <p
                     style="
@@ -103,7 +105,7 @@
                     {{ trackDurationFormated }}
                   </p>
                 </ion-label>
-              </ion-item>
+              </div>
               <input
                 v-model="value"
                 type="range"
@@ -639,7 +641,7 @@ code {
   right: 0;
   bottom: 0;
   background-color: #000000d2;
-  z-index: 100;
+  z-index: 1000;
   cursor: pointer;
 }
 
@@ -667,7 +669,8 @@ code {
 
 input[type="range"] {
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
+
   background-color: transparent;
   -webkit-appearance: none;
 }
